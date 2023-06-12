@@ -2,6 +2,7 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';//import para boostrap react de sus componenetes
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../App.css';
 
 
 import Logo from '../../components/NavBar/assets/img/logo.png'
@@ -18,11 +19,11 @@ function NavBar() {
           ClothingStore
         </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
+          <Navbar.Collapse id="navbarScroll" className="mx-1">
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: '100px' }}
-              navbarScroll
+              
             >
               <Nav.Link href="#action1">Home</Nav.Link>
               <Nav.Link href="#action2">Novedades</Nav.Link>
@@ -41,12 +42,12 @@ function NavBar() {
               </Nav.Link>
             </Nav>
 
-            <CartWidget/>
-
+            <div className="Custom-cart-widget">
+            <CartWidget />
+            </div>
+        
             <Form className="d-flex">
-
             
-              
               <Form.Control
                 type="search"
                 placeholder="Search"
@@ -55,6 +56,8 @@ function NavBar() {
               />
               <Button variant="outline-success">Search</Button>
             </Form>
+            
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

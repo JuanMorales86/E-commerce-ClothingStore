@@ -8,7 +8,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 const CartWidget = () => {
     return (
         <div>
-            <Button variant='danger' size='sm' className=' me-2'>
+            <Button variant='danger' size='sm' className='carrito'>
             <FontAwesomeIcon icon={faTrash} size='sm' />(0)
             </Button>
         </div>
