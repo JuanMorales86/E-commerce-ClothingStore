@@ -1,10 +1,10 @@
-// import {Typography} from '@mui/material'
-import { Container } from 'react-bootstrap'
+import {Typography} from '@mui/material'
+import { Container } from '@mui/material'
 
 const ItemListContainer = ({ greeting }) => {
     return (
-      <Container className='text-center mt-5'>
-            <h2 style={{ fontSize: '60px', textAlign: 'center', marginTop: '3rem' }}>{greeting}</h2>
+      <Container maxWidth="xl">
+            <Typography style={{ fontSize: '60px', textAlign: 'center', marginTop: '3rem' }}>{greeting}</Typography>
        </Container>
     )
 }
