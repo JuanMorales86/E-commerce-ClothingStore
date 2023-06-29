@@ -5,11 +5,13 @@ src/components/content/prueba.jsx
 src/components/header
 src/components/NavBar/NavbarBootstrap.jsx
 src/components/NavBar/NavBarWDrawer.jsx
-src/components/modals
+src/components/modals/modalHandler.js
+src/components/modals/prueba.jsx
 src/components/CartWidget/CartWidgetMaterial.js
 src/components/CartWidget/CartWidgetBootstrap.js
 src/components/content
 Codigo.txt
+terminologia.txt
 package-lock.json
 
 

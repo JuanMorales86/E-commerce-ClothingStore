@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "title": "Vestidos Cortos y Mini",
+        "image": "https://static.zara.net/photos///2022/S/0/1/p/3198/242/712/2/w/560/3198242712_1_1_1.jpg?ts=1668512637559",
+        "stock": 4,
+        "price": 36500,
+        "description": "Vestidos a la moda completos",
+        "type": "Minivestido" ,
+        "shipping": "CABA",
+        "brand": "Original"
+    },
+    {
+        "id": 2,
+        "title": "Vestidos Morados",
+        "image": "https://static.zara.net/photos///2022/I/0/1/p/2298/203/611/2/w/826/2298203611_2_3_1.jpg?ts=1665072315426",
+        "stock": 2,
+        "price": 78000,
+        "description": "Vestidos a la moda completos",
+        "type": "Minivestido",
+        "shipping": "CABA",
+        "brand": "Original"
+    },
+    {
+        "id": 3,
+        "title": "Vestidos Cortos y Mini Verdes",
+        "image": "https://static.zara.net/photos///2022/S/0/1/p/3051/922/500/503/w/406/3051922500_2_1_1.jpg?ts=1668172046260",
+        "stock": 1,
+        "price": 54000,
+        "description": "Vestidos a la moda completos",
+        "type": "Minivestido" ,
+        "shipping": "CABA",
+        "brand": "Original"
+    },
+    {
+        "id": 4,
+        "title": "Vestidos Cortos y Mini Colores Exoticos",
+        "image": "https://static.zara.net/photos///2023/V/0/1/p/5039/380/093/2/w/406/5039380093_1_1_1.jpg?ts=1682666651470",
+        "stock": 6,
+        "price": 62000,
+        "description": "Vestidos a la moda completos",
+        "type": "Minivestido",
+        "shipping": "CABA",
+        "brand": "Original" 
+    },
+    {
+        "id": 5,
+        "title": "Vestidos Rojos Mini",
+        "image": "https://static.zara.net/photos///2022/S/0/1/p/5584/427/600/2/w/366/5584427600_2_1_1.jpg?ts=1657787641058",
+        "stock": 6,
+        "price": 47000,
+        "description": "Vestidos a la moda completos ",
+        "type": "Minivestido",
+        "shipping": "CABA",
+        "brand": "Original"
+    }
+    
+]

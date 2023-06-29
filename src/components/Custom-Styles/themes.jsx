@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 import {
   red,
   purple,
