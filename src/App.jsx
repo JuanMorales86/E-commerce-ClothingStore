@@ -15,7 +15,7 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 import TabsComponents from './components/Tabs';
 import CustomTheme from './components/Custom-Styles/themes';
 import Nosotros from './components/containers/nosotros';
-import ListElementsDetail from './components/listElementsDetail';
+import ListVestidosDetail from './components/listElementsDetail';
 
 
 
@@ -34,7 +34,7 @@ function App() {
         {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
         <Route path={'/'} element={<TabsComponents/>}/>
         <Route path={'/products/:category'} element={<TabsComponents/>}/>
-        <Route path={'/product'} element={<ListElementsDetail item={2}/>} />
+        <Route path={'/product'} element={<ListVestidosDetail item={2}/>} />
         <Route path={'/nosotros'} element={<Nosotros/>}/>
         <Route path={'/cart'} element={<p>cart</p>} />
       </Routes>

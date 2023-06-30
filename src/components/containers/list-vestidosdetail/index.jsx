@@ -7,19 +7,20 @@ import { ListVestidos } from '../../Sdk/Vestidos'//SDK
 import { Box} from '@mui/material'
 
 function ListVestidosDetail() {
-    const [item, setItem] = useState(null)
+    const [item, setItem] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setLoading(true)
 
-        async function fetchData() {
+        async function fetchDataD() {
             try{
                 const res = await ListVestidos()
                 setItem(res.data)
+                console.log(res.data)
             } catch(error) {
                 console.error(error)
-                alert('error en base de datos desde sectionVestidos')
+                alert('error en base de datos desde vestidosdetail')
                 setLoading(false)
                 
             }finally {
@@ -27,7 +28,7 @@ function ListVestidosDetail() {
             }
         }
     
-        fetchData()}, [])
+        fetchDataD()}, [])
     
 
   return (
