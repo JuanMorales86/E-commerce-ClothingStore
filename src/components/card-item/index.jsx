@@ -17,10 +17,26 @@ function CardItems({id, imageURL, type, name, price, stock, description, shippin
 
   return (
     <Card sx={{ maxWidth: 345, boxShadow: '2px 2px 4px rgba(0,0,0,0.2)', overflow:"visible"}}>
+        <Box sx={{
+          // borderRadius: "10%", 
+          overflow:"hidden",
+             //animacion
+        transition: 'transform 0.5s ease-out',//cover, contain, fill,scale-down
+        '&:hover':{
+          zIndex:1,
+          borderRadius: 2,
+          transform:'scale(1.6)',
+          border:'solid 2px black',
+          // height: "140px"
+        }
+          }}>
+            {/* para el estilo de la imagen */}
+
         <CardMedia 
         component="img"
         alt={name}
         height="300"
+        
         image={imageURL}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -28,15 +44,12 @@ function CardItems({id, imageURL, type, name, price, stock, description, shippin
         sx={{ 
         
         objectFit:'contain',
-        transition: 'transform 0.5s ease-out',
-        '&:hover':{
-          zIndex:1,
-          borderRadius: 5,
-          transform:'scale(1.8)',
+        borderRadius: "10px"
+
           
-        }
-        }}//cover, contain, fill,scale-down
+        }}//* para el estilo de la imagen entro de la card
       />
+      </Box>
       <CardContent  >
         <Box sx={{ flexGrow: 1 }}>
       <Typography gutterBottom variant="h7" component="div" fontWeight={"bold"} textAlign={"center"}    flexWrap={"wrap"}    sx={{

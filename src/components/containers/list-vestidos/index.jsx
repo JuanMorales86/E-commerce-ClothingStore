@@ -1,6 +1,8 @@
 import React from 'react'
-import { ListVestidos } from '../../Sdk/Vestidos'
-import ElementsList from '../../listElements'
+//Mis Componenetes
+import ListElements from '../../listElements'
+import { ListVestidos } from '../../Sdk/Vestidos'//SDK
+
 
 function SectionVestidos() {
   const [items, setItems] = React.useState([])
@@ -26,7 +28,7 @@ function SectionVestidos() {
         fetchData()}, [])
   
     return (
-        <ElementsList items={items} loading={loading}/>
+        <ListElements items={items} loading={loading}/>
   )
 }
 

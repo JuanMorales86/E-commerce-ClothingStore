@@ -14,6 +14,8 @@ import Footer from './components/footer';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import TabsComponents from './components/Tabs';
 import CustomTheme from './components/Custom-Styles/themes';
+import Nosotros from './components/containers/nosotros';
+import ListElementsDetail from './components/listElementsDetail';
 
 
 
@@ -29,8 +31,12 @@ function App() {
       </Box>
 
       <Routes>
-        <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} />
+        {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
+        <Route path={'/'} element={<TabsComponents/>}/>
         <Route path={'/products/:category'} element={<TabsComponents/>}/>
+        <Route path={'/product'} element={<ListElementsDetail item={2}/>} />
+        <Route path={'/nosotros'} element={<Nosotros/>}/>
+        <Route path={'/cart'} element={<p>cart</p>} />
       </Routes>
 
       <Box>

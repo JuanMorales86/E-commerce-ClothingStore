@@ -3,7 +3,7 @@ import { Box, CircularProgress } from '@mui/material'//Libreria Material
 // import {v4 as uuidv4} from 'uuid'
 import CardItems from '../card-item'//Mis Componenetes
 
-const  ElementsList = ({ loading, items }) => {
+const  ListElements = ({ loading, items }) => {
   return (
     <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >
         {
@@ -23,7 +23,7 @@ const  ElementsList = ({ loading, items }) => {
   )
 }
 
-export default ElementsList
+export default ListElements
 
 // items?.map((item, index) => { })
 // key={index + item.title}

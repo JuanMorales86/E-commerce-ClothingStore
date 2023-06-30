@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";//Le coloque un alias para que no choque con la libreria material Link y me acepte los estilos de material sobre el Link
 
 //Libreria Material
 import {
@@ -13,7 +14,7 @@ import {
   Container,
   Tooltip,
   MenuItem,
-  Link,
+  Link
 } from "@mui/material"; //Componentes Material
 import { styled } from "@mui/material/styles"; //Material Styled Libreria
 import { amber, blue, lightBlue } from "@mui/material/colors"; //Material Colors customizables
@@ -36,8 +37,8 @@ const CustomButtonsNavBar = styled(Button)(({ theme }) => ({
 
 const MenuPages = [
   { label: "Home", path: "/" },
-  { label: "Prendas", path: "/" },
-  { label: "Contacto", path: "/" },
+  { label: "Prendas", path: "/products/:category" },
+  { label: "Nosotros", path: "/nosotros" },
 ];
 
 
@@ -134,11 +135,11 @@ const NavBar = () => {
               >
                 {MenuPages.map((page) => (
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Link
+                    <Link component={RouterLink}
                       color={"inherit"}
                       underline="none"
                       textAlign="center"
-                      href={page.path}
+                      to={page.path}
                     >
                       {page.label}
                     </Link>
@@ -186,7 +187,7 @@ const NavBar = () => {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  <Link href={page.path} color={"inherit"} underline="none">
+                  <Link component={RouterLink} to={page.path} color={"inherit"} underline="none">
                     {page.label}
                   </Link>
                 </Button>

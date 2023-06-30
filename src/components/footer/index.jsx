@@ -6,7 +6,7 @@ import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 
 function Footer() {
     return (
-      <Box sx={{ backgroundColor: '#f9f9f9', padding: '2rem' }}>
+      <Box sx={{ backgroundColor: '#f9f9f9', padding: '2rem', marginTop: "2rem" }}>
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
