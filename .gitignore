@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # my stuff
+src/components/containers/Home
 src/components/content/prueba.jsx
 src/components/header
 src/components/NavBar/NavbarBootstrap.jsx
@@ -10,6 +11,8 @@ src/components/modals/prueba.jsx
 src/components/CartWidget/CartWidgetMaterial.js
 src/components/CartWidget/CartWidgetBootstrap.js
 src/components/content
+src/components/itemListContainer2
+src/components/Tabs/index.jsx
 Codigo.txt
 terminologia.txt
 package-lock.json

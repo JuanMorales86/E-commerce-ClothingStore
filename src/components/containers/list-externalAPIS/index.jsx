@@ -1,6 +1,6 @@
 import React from 'react'
 import { ListApiFaked } from '../../Sdk/externalAPIS'
-import ListElements from '../../listElements'
+import ListElements from '../../itemList'
 
 function SectionApiFaked() {
         const [items, setItems] = React.useState([])//me va a devolver un array

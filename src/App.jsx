@@ -3,7 +3,7 @@ import './App.css';
 // import HomePage from './components/containers/Home/Home';
 
 //Routing
-import { BrowserRouter, Router, Route, Switch, Routes  } from 'react-router-dom';//Routing
+import { BrowserRouter as RouterLink, Router, Route, Switch, Routes  } from 'react-router-dom';//Routing
 
 //Librerias
 import { Box, ThemeProvider } from '@mui/material';
@@ -11,11 +11,13 @@ import { Box, ThemeProvider } from '@mui/material';
 //Mis componentes
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/footer';
-import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import TabsComponents from './components/Tabs';
 import CustomTheme from './components/Custom-Styles/themes';
 import Nosotros from './components/containers/nosotros';
-import ListVestidosDetail from './components/listElementsDetail';
+import ListContainerDetail from './components/containers/itemDetailContainer';
+import ListContainerItem from './components/containers/itemListContainer';
+
+
 
 
 
@@ -24,7 +26,7 @@ import ListVestidosDetail from './components/listElementsDetail';
 
 function App() {
   return (
-    <BrowserRouter>
+    <RouterLink>
     <ThemeProvider theme={CustomTheme}>
       <Box>
       <NavBar />
@@ -32,9 +34,9 @@ function App() {
 
       <Routes>
         {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
-        <Route path={'/'} element={<TabsComponents/>}/>
-        <Route path={'/products/:category'} element={<TabsComponents/>}/>
-        <Route path={'/product'} element={<ListVestidosDetail item={2}/>} />
+        <Route path={'/'} element={<ListContainerItem/>}/>
+        <Route exact path={'/products/:levels'} element={<ListContainerItem/>}/>
+        <Route path={'/product/:id'} element={<p>product 1</p>} />
         <Route path={'/nosotros'} element={<Nosotros/>}/>
         <Route path={'/cart'} element={<p>cart</p>} />
       </Routes>
@@ -44,7 +46,7 @@ function App() {
       </Box>
 
     </ThemeProvider>
-    </BrowserRouter>
+    </RouterLink>
   );
 }
 

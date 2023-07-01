@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react'
 //Mis Componentes
-import CardDetail from '../card-detail'
+import CardDetail from '../itemCount'
 
 //Libreria Material
 import { CircularProgress, Box } from '@mui/material'
 
+//My lista itemDetail card
 function ListElementsDetail( item, loading) {
 
   return (

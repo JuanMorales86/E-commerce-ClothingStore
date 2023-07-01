@@ -78,6 +78,7 @@ const NavBar = () => {
             ></CheckroomIcon>
 
             {/* Brand */}
+            <Link component={RouterLink} to={'/'} underline="none" color={'inherit'} mr={'1rem'}>
             <Typography
               variant="h6"
               href="/"
@@ -99,6 +100,7 @@ const NavBar = () => {
             >
               ClothingStore
             </Typography>
+            </Link>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               {/* Burguer */}

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Tabs, Tab, Box } from '@mui/material'
-import SectionVestidos from '../containers/list-vestidos';
 import SectionApiFaked from '../containers/list-externalAPIS';
+import ListContainerItem from '../containers/itemListContainer';
 
 //Perzonalizacion de Tabs styles
 const stylesTabs = {
@@ -17,14 +17,14 @@ const stylesTabs = {
 //!CONTROL DE TABS
 function TabsComponents() {
     //cambio de color de las tabs
-    const [value, setValue] = React.useState('Todas');
+    const [value, setValue] = React.useState('Vestir');
     const handleChange = (event, newValue) => {
     setValue(newValue);
     };
     //fin cambio de color de las tabs
 
     //Selector de pestanas
-    const [tabPush, setTabPush] = React.useState('Todas')
+    const [tabPush, setTabPush] = React.useState('Vestir')
     //console.log(tabPush)
     const handlePush = ( _, value) => {
         setTabPush(value)
@@ -54,7 +54,7 @@ function TabsComponents() {
     </Box>
     <Box>
             {/* desiciones de las tabs */}
-        { tabPush === 'Vestir' ? <SectionVestidos/> : null }
+        { tabPush === 'Vestir' ? <ListContainerItem/> : null }
         { tabPush === 'Casual' ? <SectionApiFaked/> : null }
         { tabPush === 'Deportiva' ? <Box>RopaDeportiva</Box> : null }
         { tabPush === 'Todas' ? <Box>Todalamercancia</Box> : null }

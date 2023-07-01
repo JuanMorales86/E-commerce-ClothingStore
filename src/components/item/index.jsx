@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Card, Button, CardActions, CardContent, CardMedia, Typography, Box } from '@mui/material'//Libreria Material
 
 
-
-function CardItems({id, imageURL, type, name, price, stock, description, shipping, brand}) {
+//My item card
+function CardItems({data}) {
 
   const [isHovered, setIsHovered] = useState(false)
 
@@ -34,10 +34,10 @@ function CardItems({id, imageURL, type, name, price, stock, description, shippin
 
         <CardMedia 
         component="img"
-        alt={name}
+        alt={data.name}
         height="300"
         
-        image={imageURL}
+        image={data.image}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       
@@ -58,26 +58,26 @@ function CardItems({id, imageURL, type, name, price, stock, description, shippin
           overflow: 'hidden',
           textOverflow: 'ellipsis'
         }}>
-          { name }
+          { data.name }
       </Typography>
       <Typography gutterBottom component="div" variant="h7" sx={{display:"block"}}>
-          Codigo: { id }
+          Codigo: { data.id }
         </Typography>
       <Typography gutterBottom component="div" variant="h7" sx={{display:"block"}}>
-          Tipo: { type }
+          Tipo: { data.type }
         </Typography>
      
         <Typography variant="body2" color="text.secondary">
-          Price: {price}
+          Precio: {data.price}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Stock: {stock}
+          Stock: {data.stock}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Envios: {shipping}
+          Envios: {data.shipping}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Marca: {brand}
+          Marca: {data.brand}
         </Typography>
         </Box>
         {/* <Typography variant="body2" color="text.secondary" fontWeight={'bold'} marginTop={'1rem'} fontSize={'0.9rem'}>

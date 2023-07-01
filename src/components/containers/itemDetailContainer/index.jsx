@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 //Mis Componentes
-import ListElementsDetail from '../../listElementsDetail'
+import ListElementsDetail from '../../itemDetail'
 import { ListVestidos } from '../../Sdk/Vestidos'//SDK
 
 //Libreria Material
 import { Box} from '@mui/material'
 
-function ListVestidosDetail() {
+//My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem
+function ListContainerDetail() {
     const [item, setItem] = useState([])
     const [loading, setLoading] = useState(false)
+
 
     useEffect(() => {
         setLoading(true)
@@ -38,4 +41,4 @@ function ListVestidosDetail() {
   )
 }
 
-export default ListVestidosDetail
+export default ListContainerDetail

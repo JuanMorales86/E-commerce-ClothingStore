@@ -4,7 +4,7 @@ import React from 'react'
 
 import { Box, Button, CardActions, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 
-
+//Mi card DETAIL
 function CardDetail({item}) {
   return (
  
