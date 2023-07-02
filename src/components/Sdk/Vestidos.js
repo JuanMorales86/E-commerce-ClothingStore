@@ -7,6 +7,8 @@ export const ListVestidos = () => {
    .catch((error) => {
       throw new Error('Error al obtener la data: ' + error.message)
    })
+
+   // return fetch(`../assets/json/apis.json`)
 }
 
 

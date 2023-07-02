@@ -3,22 +3,26 @@ import { useNavigate, useParams } from 'react-router-dom'
 //Mis Componenetes
 import ListElements from '../../itemList'
 import { ListVestidos } from '../../Sdk/Vestidos'//SDK
-import TabsComponents from '../../Tabs'
+import { getProducts } from '../../Sdk/mercalibre'//SDK Mercadolibre
 import TabsMenu from '../../Tabs/tabs'
+import ListContainerDetail from '../itemDetailContainer'
 
 
-const niveles = [{id:"todo", title:"Todas las categorias"}, {id:"vest", title:"Vestidos"}, {id:"casu", title:"Casual"}, {id:"depo", title:"Deportiva"}]
+
+const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vest", title:"Vestidos"}, {id:"depo", title:"Deportiva"}, {id:"swet", title:"swetters"},{id:'bath', title:'trajes de baño'}]
 
 const searchLevels = (id) => {
     switch (id) {
         case 'vest':
         return 'vestidos'
-        case 'casu':
-        return 'casual'
         case 'depo':
-        return 'deportiva'
+        return 'ropa deportiva mujer'
+        case 'swet':
+        return 'sueter mujer'
+        case 'bath':
+        return 'trajes de baño mujer'
         default:
-            return 'todo'
+            return 'all'
     }
 }
 
@@ -26,19 +30,25 @@ const searchLevels = (id) => {
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
+  const [selectedProductId, setSelectedProductId] = React.useState([])
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//escucha para la URL (Hook)
   const navigate = useNavigate()
 
-  const current = niveles.some(niv => niv.id === levels) ? levels : "todo"//si coloca cualquier otro string dentro de la url products/ va a volver a all
+  const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
 
+  const handleItemClick = (productId) => {
+    setSelectedProductId(productId)
+  }
+  console.log(selectedProductId)
+  
   //   console.log(levels)
 
     //Restriccion en url
     React.useEffect(() => {
-        if(!niveles.some(niv => niv.id === levels)){
-            navigate('/products/todo')//navigate es como un href
+        if(!niveles.some(niv => niv.id === levels)){//si no devuelve nada
+            navigate('/products/all')//navigate es como un href
         }
     }, [levels, navigate])
 
@@ -47,26 +57,55 @@ function ListContainerItem() {
     React.useEffect(() => {
         setLoading(true)
 
-        async function fetchData() {//traigo al API ListVestidos
-            console.log('Levels', levels)
-            try{
-                const res = await ListVestidos(searchLevels(levels))//promesa
-                setItems(res.data)//resuelvo la promesa
-            } catch(error) {
-                console.error(error)
-                alert('error en base de datos desde sectionVestidos')
-                setLoading(false)
+        getProducts(searchLevels(levels))
+        .then(res => {
+            // console.log(res.data)
+            const data = res.data.results?.map((e) => ({
+                //Busco en la BD
+                id: e.id,
+                title: e.title,
+                price: e.price,
+                shipping: e.address.state_name,
+                place: e.address.city_name,
+                type: e.condition,
+                stock: e.available_quantity,
+                imagee: e.thumbnail,
+                brand: e.attributes.find(attr => attr.id === "BRAND")?.value_name,
                 
-            }finally {
-                setLoading(false)
-            }
-        } 
-        fetchData()}, [levels])
+            }))
+            setItems(data)
+            // console.log(data)
+        })
+        
+
+        .finally(() => {
+            setLoading(false)
+        })
+
+    }, [levels])
+
+        // async function fetchData() {//traigo al API ListVestidos
+        //     console.log('Levels', levels)
+        //     try{
+        //         const res = await ListVestidos(searchLevels(levels))//promesa
+        //         setItems(res.data)//resuelvo la promesa
+        //     } catch(error) {
+        //         console.error(error)
+        //         alert('error en base de datos desde sectionVestidos')
+        //         setLoading(false)
+                
+        //     }finally {
+        //         setLoading(false)
+        //     }
+        // } 
+        // fetchData()}, [levels])
   
     return (
         <>
         <TabsMenu current={current} items={niveles}/>
-        <ListElements items={items} loading={loading}/>
+        <ListElements items={items} loading={loading} onItemClick={handleItemClick}/>
+        {/* {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>} */}
+        
         </>
   )
 }

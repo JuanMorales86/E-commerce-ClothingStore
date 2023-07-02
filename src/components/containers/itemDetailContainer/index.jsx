@@ -6,19 +6,22 @@ import { ListVestidos } from '../../Sdk/Vestidos'//SDK
 
 //Libreria Material
 import { Box} from '@mui/material'
+import { getProductsDetail } from '../../Sdk/mercalibre'
 
 //My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem
 function ListContainerDetail() {
-    const [item, setItem] = useState([])
+    const [item, setItem] = useState(null)
     const [loading, setLoading] = useState(false)
 
+    const [selectedProductId] = useParams()//Hook tengo acceso a selectedproductid
+    console.log(selectedProductId)
 
     useEffect(() => {
         setLoading(true)
 
         async function fetchDataD() {
             try{
-                const res = await ListVestidos()
+                const res = await getProductsDetail(selectedProductId)
                 setItem(res.data)
                 console.log(res.data)
             } catch(error) {
@@ -31,13 +34,13 @@ function ListContainerDetail() {
             }
         }
     
-        fetchDataD()}, [])
+        fetchDataD()}, [selectedProductId])
     
 
   return (
-    <Box>
-    { item && <ListElementsDetail item={item} loading={loading} />}
-    </Box>
+    
+    <ListElementsDetail item={item} loading={loading} />
+    
   )
 }
 

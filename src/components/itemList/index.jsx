@@ -4,7 +4,13 @@ import { Box, CircularProgress } from '@mui/material'//Libreria Material
 import CardItems from '../item'//Mis Componenetes
 
 //My lista de item 
-const  ListElements = ({ loading, items }) => {
+const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las props
+
+  const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja va a recibir otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
+    console.log("Product ID:", productId)
+    onItemClick(productId)
+  
+  }
   return (
     <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >
         {
@@ -12,12 +18,12 @@ const  ListElements = ({ loading, items }) => {
             <CircularProgress variant='indeterminate'/>
             :
             items?.map((item, index) => {
-              console.log(item)
+              // console.log(item)
               //  const key = index + item.title
-              const key = index
-              console.log(key)
+              const key = index + item.title
+              // console.log(key)
                 return (
-                        <CardItems data={item}/>
+                        <CardItems key={key} data={item} onItemClick={handleItemClick}/>//se pasa la funcion para que llame a handleclick desde el boton
                 )
             })
         }

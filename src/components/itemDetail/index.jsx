@@ -19,7 +19,7 @@ function ListElementsDetail( item, loading) {
           const key = index
           console.log(key)
             return (
-                <CardDetail item={items}/>
+                <CardDetail data={items}/>
 
             )
         })

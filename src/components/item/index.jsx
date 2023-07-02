@@ -3,7 +3,7 @@ import { Card, Button, CardActions, CardContent, CardMedia, Typography, Box } fr
 
 
 //My item card
-function CardItems({data}) {
+function CardItems({ data, onItemClick }) {//se agrega las props
 
   const [isHovered, setIsHovered] = useState(false)
 
@@ -34,10 +34,10 @@ function CardItems({data}) {
 
         <CardMedia 
         component="img"
-        alt={data.name}
-        height="300"
+        alt={data.title}
+        height="140"
         
-        image={data.image}
+        image={data.imagee}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       
@@ -58,7 +58,7 @@ function CardItems({data}) {
           overflow: 'hidden',
           textOverflow: 'ellipsis'
         }}>
-          { data.name }
+          { data.title.toUpperCase() }
       </Typography>
       <Typography gutterBottom component="div" variant="h7" sx={{display:"block"}}>
           Codigo: { data.id }
@@ -77,17 +77,17 @@ function CardItems({data}) {
           Envios: {data.shipping}
         </Typography>
         <Typography variant="body2" color="text.secondary">
+          Zona Vendedor: {data.place}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
           Marca: {data.brand}
         </Typography>
         </Box>
-        {/* <Typography variant="body2" color="text.secondary" fontWeight={'bold'} marginTop={'1rem'} fontSize={'0.9rem'}>
-          {description || ''}
-        </Typography> */}
       </CardContent>
       <Box sx={{ display:'grid', height:'auto', placeItems:"center", marginBottom:"1rem" }}>
         {/* los pongo al fondo del card con margin top */}
       <CardActions > 
-        <Button variant='contained' size="small">Comprar</Button>
+        <Button variant='contained' onClick={() => onItemClick(data.id)} size="small">Ver mas...</Button>   {/* en el evento click se llama a la funcion obItemCLick que recibe una prop */}
         <Button variant='contained' size="small">Favoritos</Button>
       </CardActions>
       </Box>
