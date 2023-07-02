@@ -10,10 +10,10 @@ import { getProductsDetail } from '../../Sdk/mercalibre'
 
 //My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem
 function ListContainerDetail() {
-    const [item, setItem] = useState(null)
+    const [item, setItem] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const [selectedProductId] = useParams()//Hook tengo acceso a selectedproductid
+    const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
     console.log(selectedProductId)
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function ListContainerDetail() {
                 console.log(res.data)
             } catch(error) {
                 console.error(error)
-                alert('error en base de datos desde vestidosdetail')
+                alert('error en base de datos desde itemDetailContainer')
                 setLoading(false)
                 
             }finally {
@@ -35,11 +35,12 @@ function ListContainerDetail() {
         }
     
         fetchDataD()}, [selectedProductId])
+        console.log(item)
     
 
   return (
     
-    <ListElementsDetail item={item} loading={loading} />
+    <ListElementsDetail items={item} loading={loading} />
     
   )
 }

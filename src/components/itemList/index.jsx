@@ -5,6 +5,7 @@ import CardItems from '../item'//Mis Componenetes
 
 //My lista de item 
 const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las props
+  console.log(items)
 
   const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja va a recibir otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
     console.log("Product ID:", productId)

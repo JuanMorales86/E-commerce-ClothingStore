@@ -30,7 +30,7 @@ const searchLevels = (id) => {
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  const [selectedProductId, setSelectedProductId] = React.useState([])
+  const [selectedProductId, setSelectedProductId] = React.useState('MLA898739509')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//escucha para la URL (Hook)
@@ -104,7 +104,7 @@ function ListContainerItem() {
         <>
         <TabsMenu current={current} items={niveles}/>
         <ListElements items={items} loading={loading} onItemClick={handleItemClick}/>
-        {/* {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>} */}
+        {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>}
         
         </>
   )

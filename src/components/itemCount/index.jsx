@@ -6,6 +6,7 @@ import { Box, Button, CardActions, Card, CardContent, CardMedia, IconButton, Typ
 
 //Mi card DETAIL
 function CardDetail({data}) {
+  console.log(data)
   return (
  
     <Card sx={{ display: 'flex' }}>

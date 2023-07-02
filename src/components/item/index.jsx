@@ -4,6 +4,7 @@ import { Card, Button, CardActions, CardContent, CardMedia, Typography, Box } fr
 
 //My item card
 function CardItems({ data, onItemClick }) {//se agrega las props
+  console.log(data)
 
   const [isHovered, setIsHovered] = useState(false)
 
