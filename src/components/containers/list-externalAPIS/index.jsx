@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListApiFaked } from '../../Sdk/externalAPIS'
+import { ListApiFaked } from '../../sdk/externalAPIS'
 import ListElements from '../../itemList'
 
 function SectionApiFaked() {

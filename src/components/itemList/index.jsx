@@ -3,9 +3,10 @@ import { Box, CircularProgress } from '@mui/material'//Libreria Material
 // import {v4 as uuidv4} from 'uuid'
 import CardItems from '../item'//Mis Componenetes
 
+
 //My lista de item 
 const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las props
-  console.log(items)
+  // console.log(items)
 
   const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja va a recibir otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
     console.log("Product ID:", productId)
@@ -33,6 +34,3 @@ const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las pro
 }
 
 export default ListElements
-
-// items?.map((item, index) => { })
-// key={index + item.title}

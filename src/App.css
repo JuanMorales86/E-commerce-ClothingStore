@@ -10,8 +10,16 @@
 }
 }
 
+.swiperslide{
+  
+}
 
-
+.slidercss{
+  width: 100%;
+  border: sold 2px black;
+  height: 400px;
+  object-fit: cover;
+}
 
 .App {
   text-align: center;
@@ -24,46 +32,6 @@
   
 }
 
-.imgLogo{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imgLogo > img{
-  height: 90px;
-  justify-self: center;
-} 
-.custom-navbar-collapse{
-  overflow-y: auto;
-  max-height: 100px;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Container, Typography, Grid, Link, Box, IconButton} from '@mui/material'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Link as Lirouter } from 'react-router-dom';
 
 
 
@@ -15,10 +16,10 @@ function Footer() {
               </Typography>
               <ul sx={{ listStyleType: 'none', padding: 0 }}>
                 <li>
-                  <Link href="/">Inicio</Link>
+                  <Link component={Lirouter} to="/">Inicio</Link>
                 </li>
                 <li>
-                  <Link href="/productos">Productos</Link>
+                  <Link component={Lirouter} to="/products/vest">Productos</Link>
                 </li>
                 <li>
                   <Link href="/categorias">Categorías</Link>

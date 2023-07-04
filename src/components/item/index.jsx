@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Card, Button, CardActions, CardContent, CardMedia, Typography, Box } from '@mui/material'//Libreria Material
 
 
-//My item card
+//My item card Principal
 function CardItems({ data, onItemClick }) {//se agrega las props
-  console.log(data)
+  // console.log(data)
 
   const [isHovered, setIsHovered] = useState(false)
 

@@ -6,8 +6,8 @@ import CardDetail from '../itemCount'
 import { CircularProgress, Box } from '@mui/material'
 
 //My lista itemDetail card
-function ListElementsDetail( items, loading) {
-  console.log(items)
+function ListElementsDetail( {item, loading , selectedProductId}) {
+  // console.log(item)
 
   return (
     <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >
@@ -15,15 +15,10 @@ function ListElementsDetail( items, loading) {
         (loading) ? 
         <CircularProgress variant='indeterminate'/>
         :
-        items?.map((item, index) => {
-          //  const key = index + item.title
-          
-            return (
-                <CardDetail key={index} data={item}/>
+        <CardDetail data={item} selectedProductId={selectedProductId}/>
 
-            )
-        })
-    }
+            
+        }
 </Box>
   )
 }

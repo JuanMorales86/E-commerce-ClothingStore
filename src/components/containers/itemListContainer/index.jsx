@@ -2,14 +2,14 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 //Mis Componenetes
 import ListElements from '../../itemList'
-import { ListVestidos } from '../../Sdk/Vestidos'//SDK
-import { getProducts } from '../../Sdk/mercalibre'//SDK Mercadolibre
+import { ListVestidos } from '../../sdk/Vestidos'//SDK
+import { getProducts } from '../../sdk/mercalibre'//SDK Mercadolibre
 import TabsMenu from '../../Tabs/tabs'
-import ListContainerDetail from '../itemDetailContainer'
 
 
 
-const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vest", title:"Vestidos"}, {id:"depo", title:"Deportiva"}, {id:"swet", title:"swetters"},{id:'bath', title:'trajes de baño'}]
+//Array de titulos para los tabs
+const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vest", title:"Vestidos"}, {id:"depo", title:"Deportiva"}, {id:"swet", title:"swetters"},{id:'bath', title:'trajes de baño'}, {id:'ropinte', title:'Ropa Interior'}]
 
 const searchLevels = (id) => {
     switch (id) {
@@ -21,8 +21,10 @@ const searchLevels = (id) => {
         return 'sueter mujer'
         case 'bath':
         return 'trajes de baño mujer'
+        case 'ropinte':
+          return 'ropa interior mujer y lenceria'
         default:
-            return 'all'
+            return 'vestidos y ropa deportiva mujer y sueter mujer y trajes de bano mujer y ropa interior'
     }
 }
 
@@ -33,16 +35,20 @@ function ListContainerItem() {
   const [selectedProductId, setSelectedProductId] = React.useState('MLA898739509')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
-  const { levels } = useParams()//escucha para la URL (Hook)
+  const { levels } = useParams()//permite ver la prop pasada traida desde en este caso app.jsx (Hook)
   const navigate = useNavigate()
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
 
-  const handleItemClick = (productId) => {
-    setSelectedProductId(productId)
-  }
-  console.log(selectedProductId)
+ 
   
+  const handleGoItemDetail = (selectedProductId) => {//uso dos funciones dentro de una
+    setSelectedProductId(selectedProductId)
+    navigate(`/product/${selectedProductId}`, {state: { selectedProductId }})//puedo recuperar entonces selectProductId gracias al state
+  }
+
+  // console.log(selectedProductId)
+
   //   console.log(levels)
 
     //Restriccion en url
@@ -84,45 +90,16 @@ function ListContainerItem() {
 
     }, [levels])
 
-        // async function fetchData() {//traigo al API ListVestidos
-        //     console.log('Levels', levels)
-        //     try{
-        //         const res = await ListVestidos(searchLevels(levels))//promesa
-        //         setItems(res.data)//resuelvo la promesa
-        //     } catch(error) {
-        //         console.error(error)
-        //         alert('error en base de datos desde sectionVestidos')
-        //         setLoading(false)
-                
-        //     }finally {
-        //         setLoading(false)
-        //     }
-        // } 
-        // fetchData()}, [levels])
+
   
     return (
         <>
         <TabsMenu current={current} items={niveles}/>
-        <ListElements items={items} loading={loading} onItemClick={handleItemClick}/>
-        {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>}
+        <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
+        {/* {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>} */}
         
         </>
   )
 }
 
 export default ListContainerItem
-
-
-// ListVestidos()
-// .then((res) => {
-//      setItems(res.data) //Axios ya proporciona directamente los datos en response.data.
-// })
-// .catch((err) => {
-//     console.error(err)
-//     alert('Ocurrio un error')
-//     setLoading(false)
-// })
-// .finally(() => {
-//     setLoading(false)
-// })
-// }, [])

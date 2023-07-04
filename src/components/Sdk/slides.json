@@ -1,0 +1,20 @@
+[
+    {
+        "image": "../assets/img/imagenslidersolo.png",
+        "titled": "For carrousels Swiper",
+        "subtitled": "for a long time ago in a far a far away galaxy",
+        "interval": 1500
+    },
+    {
+        "image": "https://media.istockphoto.com/id/1338894509/es/foto/mujer-eligiendo-un-nuevo-estilo-para-sí-misma.jpg?s=612x612&w=0&k=20&c=OfG0uvv9ad9kuQ26XhrrJaYbUxlml3kloMhDZRITJCA=",
+        "titled": "For carrousels Swiper",
+        "subtitled": "for a long time ago in a far a far away galaxy",
+        "interval": 500
+    },
+    {
+        "image": "https://st.depositphotos.com/1177973/3041/i/450/depositphotos_30413835-stock-photo-beautiful-girl-with-lots-clothes.jpg",
+        "titled": "For carrousels Swiper",
+        "subtitled": "for a long time ago in a far a far away galaxy",
+        "interval": 2500
+    }
+]

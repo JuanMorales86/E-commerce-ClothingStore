@@ -2,6 +2,7 @@
 
 # my stuff
 src/components/containers/Home
+src/components/assets/img/
 src/components/content/prueba.jsx
 src/components/header
 src/components/NavBar/NavbarBootstrap.jsx
@@ -12,7 +13,7 @@ src/components/CartWidget/CartWidgetMaterial.js
 src/components/CartWidget/CartWidgetBootstrap.js
 src/components/content
 src/components/itemListContainer2
-src/components/Tabs/index.jsx
+src/components/Tabs/indexPrueba.jsx
 Codigo.txt
 terminologia.txt
 package-lock.json
