@@ -39,7 +39,7 @@ function App() {
         <Route path={'/product/:selectedProductId'} element={<ListContainerDetail/>} />
         <Route path={'/nosotros'} element={<Nosotros/>}/>
         <Route path={'/cart'} element={<p>cart</p>} />
-        <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si colocan cualquier cosa */}
+        <Route path='/*' element={<Navigate to="/" replace={true}/>}/> vuelve al principal si colocar cualquier cosa
        
       </Routes>
 

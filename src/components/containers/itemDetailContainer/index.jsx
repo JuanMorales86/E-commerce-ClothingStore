@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useLocation, Link, useNavigate, Navigate } from 'react-router-dom'
+import { useParams,Link, useHistory } from 'react-router-dom'
 //Mis Componentes
 import ListElementsDetail from '../../itemDetail'
 import { ListVestidos } from '../../sdk/Vestidos'//SDK
@@ -14,25 +14,21 @@ function ListContainerDetail() {
     const [loading, setLoading] = useState(false)
 
     const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
-    // console.log(selectedProductId)
+    console.log(selectedProductId)
 
-    const location = useLocation()//Hook para obtener la ubicacion actual y cualquier estado pasado atraves de la ruta
-    const selectedProductFromLocation  = location.state?.selectedProductId //accedo al estado selectedProductId que paso atraves de la ubicacion
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)
 
         async function fetchDataD() {
             try{
-            if(selectedProductFromLocation){
-                const res = await getProductsDetail(selectedProductFromLocation)
+            if(selectedProductId){
+                const res = await getProductsDetail(selectedProductId)
                 setItem(res.data)
                 console.log(res.data)
             }else{
-                navigate("/products/all")//si no me devuelve nada selectedProductFromLocation me devuelva al componente itemListContainer
-                console.log(Navigate)
+                
+                console.log('error')
             }
             } catch(error) {
                 console.error(error)
@@ -44,7 +40,7 @@ function ListContainerDetail() {
             }
         }
     
-        fetchDataD()}, [selectedProductFromLocation])
+        fetchDataD()}, [selectedProductId])
         // console.log(item)
     
 
