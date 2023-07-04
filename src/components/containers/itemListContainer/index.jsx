@@ -31,7 +31,7 @@ const searchLevels = (id) => {
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  const [selectedProductId, setSelectedProductId] = React.useState('MLA898739509')
+  const [selectedProductId, setSelectedProductId] = React.useState('')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//permite ver la prop pasada traida desde en este caso app.jsx (Hook)
@@ -39,8 +39,6 @@ function ListContainerItem() {
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
 
- 
-  
   const handleGoItemDetail = (selectedProductId) => {//uso dos funciones dentro de una
     setSelectedProductId(selectedProductId)
     navigate(`/product/${selectedProductId}`, {state: { selectedProductId }})//puedo recuperar entonces selectProductId gracias al state
