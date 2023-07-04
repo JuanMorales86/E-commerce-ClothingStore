@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 //Mis Componenetes
 import ListElements from '../../itemList'
-import { ListVestidos } from '../../sdk/Vestidos'//SDK
 import { getProducts } from '../../sdk/mercalibre'//SDK Mercadolibre
 import TabsMenu from '../../Tabs/tabs'
 

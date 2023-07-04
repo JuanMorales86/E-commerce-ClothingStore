@@ -11,7 +11,6 @@ import { Box, ThemeProvider } from '@mui/material'
 //Mis componentes
 import NavBar from './components/navBar/NavBar'
 import Footer from './components/footer'
-import TabsComponents from './components/Tabs/indexPrueba'
 import CustomTheme from './components/Custom-Styles/themes'
 import Nosotros from './components/containers/nosotros'
 import ListContainerDetail from './components/containers/itemDetailContainer'

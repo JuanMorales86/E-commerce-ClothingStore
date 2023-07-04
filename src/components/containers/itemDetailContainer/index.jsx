@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useParams,Link, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 //Mis Componentes
 import ListElementsDetail from '../../itemDetail'
-import { ListVestidos } from '../../sdk/Vestidos'//SDK
-import { getProductsDetail } from '../../sdk/mercalibre'
+import { getProductsDetail } from '../../sdk/mercalibre'//SDK
 //Libreria Material
 import { Box} from '@mui/material'
 
