@@ -11,14 +11,22 @@
 }
 
 .swiperslide{
-  
+  text-align: center;
+  font-size: 18px;
+  background: #201616;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+
 .slidercss{
+  display: block;
   width: 100%;
-  border: sold 2px black;
-  height: 400px;
-  object-fit: cover;
+  height: 380px;
+  object-fit: contain;
 }
 
 .App {

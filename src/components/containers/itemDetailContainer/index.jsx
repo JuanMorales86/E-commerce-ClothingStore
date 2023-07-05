@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 
 //Mis Componentes
 import ListElementsDetail from '../../itemDetail'
@@ -18,6 +18,7 @@ function ListContainerDetail() {
     const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
     console.log(selectedProductId)
 
+    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)
@@ -29,12 +30,12 @@ function ListContainerDetail() {
                 setItem(res.data)
                 console.log(res.data)
             }else{
-               alert('cuidado')
-                console.log('error')
+                throw new Error("No se ha seleccionado un producto")//este tipo de instruccion termina la excepcion si no encuentra un catch cercano osea pasa el bloque de control al catch mas cercano si no termina la funcion actual
             }
             } catch(error) {
                 console.error(error)
                 setError(error)
+                navigate('/products/vest')
                 // alert('error en base de datos desde itemDetailContainer')
                 setLoading(false)
                 
@@ -49,13 +50,20 @@ function ListContainerDetail() {
 
   return (
     <>
-  
+        <Box>
+        {
+        (!item) ?
+        
+          <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+          {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
+          </Box>
+          :
           <ListElementsDetail item={item} loading={loading} selectedProductId={selectedProductId}/>
-        <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-        {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
-        </Box>
-  
-    {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me d error de que la base de datos no busque nada */}
+        
+        }
+    {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me de error de que la base de datos no busque nada */}
+    </Box>
+        
     </>
     
   )
