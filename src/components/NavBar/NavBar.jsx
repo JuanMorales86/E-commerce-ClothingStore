@@ -4,7 +4,6 @@ import { Link as RouterLink } from "react-router-dom";//Le coloque un alias para
 //Libreria Material
 import {
   AppBar,
-  Stack,
   Toolbar,
   Typography,
   Button,
@@ -12,18 +11,19 @@ import {
   IconButton,
   Menu,
   Container,
-  Tooltip,
   MenuItem,
   Link
 } from "@mui/material"; //Componentes Material
 import { styled } from "@mui/material/styles"; //Material Styled Libreria
 import { amber, blue, lightBlue } from "@mui/material/colors"; //Material Colors customizables
 import CheckroomIcon from "@mui/icons-material/Checkroom"; //Material Icon
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 
-//Components
-import CartWidget from "../cartWidget/CartWidget";
+//Mis Components
 import ModalSlide from "../modals";
+import CartWidget from "../cartWidget/CartWidget";
+import { AppContex } from "../contex-provider";
+
 
 //Botones Custom
 const CustomButtonsNavBar = styled(Button)(({ theme }) => ({
@@ -42,10 +42,12 @@ const MenuPages = [
 ];
 
 
-const NavBar = () => {
+const NavBar = ({ trolley }) => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
+  const [anchorElUser, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
+  const [openModal, setOpenModal] = React.useState(false)
+  const {cartQuantity} = React.useContext(AppContex)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -62,7 +64,16 @@ const NavBar = () => {
     setAnchorElUser(null);
   };
 
+  const handleClickOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  }
+
 	const cart = 1//contador temporal de los badge's
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{  backgroundColor: "primary.dark", }}>
@@ -197,8 +208,15 @@ const NavBar = () => {
 
             </Box>
             {/* Fin otra resolucion */}
-            <ModalSlide/>
-            <CartWidget cartQuantity={cart}/>
+              <Button>
+            
+              <CartWidget cartQuantity={cart}>
+              <ModalSlide handleOpen={handleClickOpenModal} handleClose={handleCloseModal}/>
+              </CartWidget>
+            
+              </Button>
+           
+           
           </Toolbar>
         </Container>
       </AppBar>

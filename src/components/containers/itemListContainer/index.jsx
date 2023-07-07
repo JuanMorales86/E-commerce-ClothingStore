@@ -71,7 +71,7 @@ function ListContainerItem() {
                 shipping: e.address.state_name,
                 place: e.address.city_name,
                 type: e.condition,
-                stock: e.available_quantity,
+                vendidos: e.sold_quantity,
                 imagee: e.thumbnail,
                 brand: e.attributes.find(attr => attr.id === "BRAND")?.value_name,
                 

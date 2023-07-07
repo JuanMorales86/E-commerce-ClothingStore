@@ -1,9 +1,7 @@
 //Material
-import { Box, IconButton, Button, MenuIcon } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Box, IconButton} from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Badge from "@mui/material/Badge";
-import { pink, red } from "@mui/material/colors";
 
 const CartWidget = ({ cartQuantity }) => {
   return (
@@ -23,7 +21,7 @@ const CartWidget = ({ cartQuantity }) => {
 
       <IconButton color="warning" aria-label="add to shopping cart">
         <Badge
-          badgeContent={cartQuantity}
+          badgeContent={cartQuantity || 0}
           color="error"
           anchorOrigin={{
             vertical: "top",

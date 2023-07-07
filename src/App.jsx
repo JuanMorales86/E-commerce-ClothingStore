@@ -17,36 +17,40 @@ import ListContainerDetail from './components/containers/itemDetailContainer'
 import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/sdk/slides.json'
+import AppContexProvider from './components/contex-provider/index'
+
 
 
 function App() {
   return (
     <RouterLink>
-    <ThemeProvider theme={CustomTheme}>
-      <Box>
-      <NavBar />
-      </Box>
+      <AppContexProvider>
+        <ThemeProvider theme={CustomTheme}>
+          <Box>
+            <NavBar />
+          </Box>
 
-      <Box>
-        <SliderSwiper slides={slides}/>
-      </Box>
+          <Box>
+            <SliderSwiper slides={slides}/>
+          </Box>
 
-      <Routes>
-        {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
-        <Route path={'/'} element={<ListContainerItem/>}/>
-        <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
-        <Route path={'/product/:selectedProductId'} element={<ListContainerDetail/>} />
-        <Route path={'/nosotros'} element={<Nosotros/>}/>
-        <Route path={'/cart'} element={<p>cart</p>} />
-        <Route path='/*' element={<Navigate to="/" replace={true}/>}/> vuelve al principal si colocar cualquier cosa
-       
-      </Routes>
+          <Routes>
+            {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
+            <Route path={'/'} element={<ListContainerItem/>}/>
+            <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
+            <Route path={'/product/:selectedProductId'} element={<ListContainerDetail/>} />
+            <Route path={'/nosotros'} element={<Nosotros/>}/>
+            <Route path={'/cart'} element={<p>cart</p>} />
+            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> vuelve al principal si colocar cualquier cosa
+          
+          </Routes>
 
-      <Box>
-      <Footer />
-      </Box>
+          <Box>
+            <Footer />
+          </Box>
 
-    </ThemeProvider>
+        </ThemeProvider>
+      </AppContexProvider>
     </RouterLink>
   );
 }

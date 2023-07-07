@@ -14,7 +14,7 @@ function CardItems({ data, onItemClick }) {
   //se agrega las props
   // console.log(data)
 
-  const [isHovered, setIsHovered] = useState(false);
+  const [_, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -43,7 +43,7 @@ function CardItems({ data, onItemClick }) {
           //animacion
           transition: "transform 0.5s ease-out", //cover, contain, fill,scale-down
           borderBottom: "2px solid black",
-          "&:hover": {
+          "&:hover":{
             zIndex: 1,
             borderBottom: "none",
             transform: "scale(1.6)",
@@ -98,14 +98,14 @@ function CardItems({ data, onItemClick }) {
             variant="h7"
             sx={{ display: "block" }}
           >
-            Tipo: {data.type}
+            Condición: {data.type}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
             Precio: {data.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Stock: {data.stock}
+            Vendidos: {data.vendidos} Und.
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Envios: {data.shipping}
