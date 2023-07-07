@@ -38,18 +38,12 @@ function CardDetail({data, selectedProductId}) {
           </Box>
         </CardContent>
 
-        <Box sx={{ marginLeft:'1rem', marginTop:'1rem' }}>
-        <ItemCount stock={data.available_quantity}/>
-        </Box>
       
       
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+        <Box sx={{ marginTop:'1rem' }}>
       
                 <CardActions>
-                
-                <Button variant='contained' size="small">Agregar</Button>
-                <Button variant='contained' size="small">Eliminar</Button>
-                <Button sx={{ marginLeft:1 }} variant='contained' size="small" component={Link} to="/products/all" state={{ selectedProductId }}>Volver</Button>
+                <ItemCount stock={data.available_quantity}/>
                 </CardActions>
         </Box>
       </Box>
@@ -64,3 +58,5 @@ function CardDetail({data, selectedProductId}) {
 }
 
 export default CardDetail
+
+//     <Button sx={{ marginLeft:1 }} variant='contained' size="small" component={Link} to="/products/all" state={{ selectedProductId }}>Volver</Button>

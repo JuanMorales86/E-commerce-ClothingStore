@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 //Libreria Material
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';//Minus icon
@@ -25,6 +26,7 @@ function ItemCount({ stock }) {
 
   return (
     <>
+    <Box sx={{}}>
     <Box sx={{display:'flex', flexDirection:'row', justifyContent:'start', alignItems:'center'}}>
     <Button variant='text' size='small' onClick={minusHandleCount}>
         <IndeterminateCheckBoxIcon fontSize='small'/>
@@ -36,6 +38,14 @@ function ItemCount({ stock }) {
      <AddBoxIcon fontSize='small'/>
     </Button>
     </Box>
+    
+    <Box sx={{ display: 'flex', pl: 1, pb: 1, marginTop:'1rem' }}>
+    <Button variant='contained' size="small" sx={{marginRight:'1rem'}}>Agregar</Button>
+    <Button variant='contained' size="small" sx={{marginRight:'1rem'}}>Eliminar</Button>
+    <Button variant='contained' size="small" component={Link} to="/products/all">Volver</Button>
+    </Box>
+    </Box>
+    
     </>
   )
 }

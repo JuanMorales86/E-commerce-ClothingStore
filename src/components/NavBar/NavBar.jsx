@@ -46,8 +46,7 @@ const NavBar = ({ trolley }) => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
   const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
   const [anchorElUser, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
-  const [openModal, setOpenModal] = React.useState(false)
-  const {cartQuantity} = React.useContext(AppContex)
+  
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -64,13 +63,7 @@ const NavBar = ({ trolley }) => {
     setAnchorElUser(null);
   };
 
-  const handleClickOpenModal = () => {
-    setOpenModal(true);
-  };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  }
 
 	const cart = 1//contador temporal de los badge's
 
@@ -208,15 +201,9 @@ const NavBar = ({ trolley }) => {
 
             </Box>
             {/* Fin otra resolucion */}
-              <Button>
-            
-              <CartWidget cartQuantity={cart}>
-              <ModalSlide handleOpen={handleClickOpenModal} handleClose={handleCloseModal}/>
-              </CartWidget>
-            
-              </Button>
-           
-           
+
+              <ModalSlide widget={<CartWidget cartQuantity={cart}/>}/>
+
           </Toolbar>
         </Container>
       </AppBar>

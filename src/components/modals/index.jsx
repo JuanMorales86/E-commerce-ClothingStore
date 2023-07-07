@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';//Libreria Material
 import CartWidget from '../cartWidget/CartWidget';
+import { AppContex } from '../contex-provider';
 
 
 //!Se definen dos componentes Transition y AlertDialogSlide
@@ -12,20 +13,29 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const cart = 5
 
-function ModalSlide({handleOpen, handleClose}) {
+function ModalSlide({widget}) {
 //El componente AlertDialogSlide o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones "Disagree" o "Agree".
+  const [open, setOpen] = React.useState(false);
+  const {quantityC} = React.useContext(AppContex)
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <div>
       {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
-      <Button variant="text" onClick={handleOpen}>
-      
+      <Button variant="text" onClick={handleClickOpen}>
+       {widget}
       </Button>
-
+      
       {/* El diálogo está representado por el componente Dialog de React. Se le pasa la prop open para indicar si el diálogo debe estar visible o no. La prop TransitionComponent se establece en el componente Transition que mencioné anteriormente para proporcionar la transición animada. */}
       <Dialog
-        open={handleOpen}
+        open={open}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}

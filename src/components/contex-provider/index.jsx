@@ -12,7 +12,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{trolley, handlePrToTrolley, cartQuantity: trolley.length}}>{children}</Provider>//props para acceder desde este padre reusavilidad
+   <Provider value={{trolley, handlePrToTrolley, quantityC: trolley.length}}>{children}</Provider>//props para acceder desde este padre reusavilidad
   )
 }
 
