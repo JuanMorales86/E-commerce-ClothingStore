@@ -14,8 +14,7 @@ import {
   MenuItem,
   Link
 } from "@mui/material"; //Componentes Material
-import { styled } from "@mui/material/styles"; //Material Styled Libreria
-import { amber, blue, lightBlue } from "@mui/material/colors"; //Material Colors customizables
+
 import CheckroomIcon from "@mui/icons-material/Checkroom"; //Material Icon
 import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 
@@ -25,15 +24,6 @@ import CartWidget from "../cartWidget/CartWidget";
 import { AppContex } from "../contex-provider";
 
 
-//Botones Custom
-const CustomButtonsNavBar = styled(Button)(({ theme }) => ({
-  //Estilos perzonalizados tipo jsx
-  color: theme.palette.getContrastText(lightBlue[50]),
-  backgroundColor: blue[200],
-  "&:hover": {
-    backgroundColor: amber[900],
-  },
-}));
 
 const MenuPages = [
   { label: "Home", path: "/" },
@@ -45,7 +35,9 @@ const MenuPages = [
 const NavBar = ({ trolley }) => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
   const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
-  const [anchorElUser, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
+  const [_, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
+  
+  const {quantityC} = React.useContext(AppContex)//Contex
   
 
   const handleOpenNavMenu = (event) => {
@@ -63,9 +55,6 @@ const NavBar = ({ trolley }) => {
     setAnchorElUser(null);
   };
 
-
-
-	const cart = 1//contador temporal de los badge's
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -201,8 +190,8 @@ const NavBar = ({ trolley }) => {
 
             </Box>
             {/* Fin otra resolucion */}
-
-              <ModalSlide widget={<CartWidget cartQuantity={cart}/>}/>
+              
+              <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
 
           </Toolbar>
         </Container>

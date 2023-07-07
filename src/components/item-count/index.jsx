@@ -8,8 +8,10 @@ import { Button, Typography, Box } from '@mui/material';
 
 
 
-function ItemCount({ stock }) {
+
+function ItemCount({ stock, addHandleToTrolley }) {
     const [score, setScore] = useState(1)
+   
 
     const addHandleCount = () => {
         if (score < stock){
@@ -23,6 +25,13 @@ function ItemCount({ stock }) {
         }
         setScore(score - 1)
     }
+
+    //Parte de cart
+    const handleTrollyCount = () => {
+        addHandleToTrolley(score)
+        setScore(1)
+        }
+    
 
   return (
     <>
@@ -40,7 +49,7 @@ function ItemCount({ stock }) {
     </Box>
     
     <Box sx={{ display: 'flex', pl: 1, pb: 1, marginTop:'1rem' }}>
-    <Button variant='contained' size="small" sx={{marginRight:'1rem'}}>Agregar</Button>
+    <Button variant='contained' size="small" sx={{marginRight:'1rem'}} onClick={handleTrollyCount}>Agregar</Button>
     <Button variant='contained' size="small" sx={{marginRight:'1rem'}}>Eliminar</Button>
     <Button variant='contained' size="small" component={Link} to="/products/all">Volver</Button>
     </Box>

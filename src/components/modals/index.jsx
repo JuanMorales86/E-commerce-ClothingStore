@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';//Libreria Material
-import CartWidget from '../cartWidget/CartWidget';
-import { AppContex } from '../contex-provider';
+
 
 
 //!Se definen dos componentes Transition y AlertDialogSlide
@@ -16,7 +15,7 @@ const cart = 5
 function ModalSlide({widget}) {
 //El componente AlertDialogSlide o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones "Disagree" o "Agree".
   const [open, setOpen] = React.useState(false);
-  const {quantityC} = React.useContext(AppContex)
+  
 
   const handleClickOpen = () => {
     setOpen(true);
