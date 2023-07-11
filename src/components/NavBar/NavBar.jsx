@@ -29,6 +29,7 @@ const MenuPages = [
   { label: "Home", path: "/" },
   { label: "Prendas", path: "/products/:category" },
   { label: "Nosotros", path: "/nosotros" },
+  {label: "Contacto", path:"/contacto"}
 ];
 
 

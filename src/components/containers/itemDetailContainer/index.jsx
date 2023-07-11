@@ -36,7 +36,6 @@ function ListContainerDetail() {
                 console.error(error)
                 setError(error)
                 navigate('/products/vest')
-                // alert('error en base de datos desde itemDetailContainer')
                 setLoading(false)
                 
             }finally {

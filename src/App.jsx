@@ -18,6 +18,7 @@ import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/sdk/slides.json'
 import AppContexProvider from './components/contex-provider/index'
+import ModalSlide from './components/modals';
 
 
 
@@ -40,8 +41,9 @@ function App() {
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
             <Route path={'/product/:selectedProductId'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
-            <Route path={'/cart'} element={<p>cart</p>} />
-            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> vuelve al principal si colocar cualquier cosa
+            <Route path={'/cart'} element={<ModalSlide/>} />
+            <Route path={'/contacto'} element={<p>contacto</p>} />
+            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si colocar cualquier cosa */}
           
           </Routes>
 

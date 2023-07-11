@@ -4,11 +4,19 @@ import React from 'react'
 export const AppContex = React.createContext()
 const {Provider} = AppContex
 // const {Provider: TrolleyProvider} = CustomContexProvider
+
+
+
+
 const AppContexProvider = ({children}) => {
     const [trolley, setTrolley] = React.useState([])//carrito va  manejar un array de objetos //Estados Globales
+    // console.log(trolley)
+    
+    // const user = 'juan'
+    // const age = 27
 
     const handlePrToTrolley = (product) => {
-        setTrolley([...trolley, product])//le voy a psar lo que tenia carrito mas el nuevo product
+        setTrolley((prevTrolley) => [...prevTrolley, product])//recibe un producto nuevo gracias a la prop product, setTrolley va  actualizar trolley con un nuevo producto y le voy a pasar lo que tenia carrito mas el nuevo product ademas agrege prevTrolley para verificar si hay o no un nuevo objeto para agregar correctamente indistintamente si habia algo o no
     }
     
   return (

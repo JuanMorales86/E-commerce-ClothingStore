@@ -9,8 +9,10 @@ import { Button, Typography, Box } from '@mui/material';
 
 
 
+
 function ItemCount({ stock, addHandleToTrolley }) {
     const [score, setScore] = useState(1)
+    
    
 
     const addHandleCount = () => {
@@ -29,9 +31,9 @@ function ItemCount({ stock, addHandleToTrolley }) {
     //Parte de cart
     const handleTrollyCount = () => {
         addHandleToTrolley(score)
-        setScore(1)
+        setScore(1)//resetaer el score despues de tomar los datos en 1
         }
-    
+
 
   return (
     <>
