@@ -8,6 +8,9 @@ import { BrowserRouter as RouterLink, Route, Routes, Navigate  } from 'react-rou
 //Librerias
 import { Box, ThemeProvider } from '@mui/material'
 
+//Libreria toastify
+import 'react-toastify/dist/ReactToastify.css'
+
 //Mis componentes
 import NavBar from './components/navBar/NavBar'
 import Footer from './components/footer'

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 //libreria Swiper
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';

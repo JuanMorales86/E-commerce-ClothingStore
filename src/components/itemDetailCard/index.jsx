@@ -6,20 +6,21 @@ import ItemCount from '../item-count';
 import { AppContex } from '../contex-provider';
 
 //Mi card DETAIL
-function CardDetail({data, selectedProductId}) {
-  const { id, title, thumbnail, description, sold_quantity, available_quantity, original_price, price } = data
+function CardDetail({data}) {
+  const { id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
 
-  // console.log(data)
+  console.log(data)
   // console.log(selectedProductId)
 
+  //probando el context con otros datos
   // const {age, user} = React.useContext(AppContex)
   // console.log(age + user)
 
   const {handlePrToTrolley, quantityC} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
 
   //Parte de cart
-  const addHandleToTrolley = (quantity) => {//cuando se dispare este evento va a devolver los datos de la bd relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
+  const addHandleToTrolley = (quantity) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
       console.log({
         id: id,
         producto: title,
@@ -57,7 +58,7 @@ function CardDetail({data, selectedProductId}) {
             !Ya vendidos: {sold_quantity} Unid.
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div">
-            Stock Almac.: {available_quantity} Unid.
+            Stock Almac.: {stock} Unid.
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div">
             Precio-Original: $ {original_price} Pesos
@@ -73,7 +74,7 @@ function CardDetail({data, selectedProductId}) {
         <Box sx={{ marginTop:'3rem' }}>
       
                 <CardActions>
-                <ItemCount stock={available_quantity} addHandleToTrolley={addHandleToTrolley}/>
+                <ItemCount stock={stock} addHandleToTrolley={addHandleToTrolley}/>
                 </CardActions>
         </Box>
       </Box>

@@ -56,7 +56,7 @@ function CardItems({ data, onItemClick }) {
           component="img"
           alt={data.title}
           height="140"
-          image={data.imagee}
+          image={data.thumbnail}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
@@ -90,7 +90,7 @@ function CardItems({ data, onItemClick }) {
             variant="h7"
             sx={{ display: "block" }}
           >
-            Codigo: {data.id}
+            Codigo: {data.customid}
           </Typography>
           <Typography
             gutterBottom
@@ -98,20 +98,20 @@ function CardItems({ data, onItemClick }) {
             variant="h7"
             sx={{ display: "block" }}
           >
-            Condición: {data.type}
+            Condición: {data.condition}
           </Typography>
 
           <Typography variant="body2" color="text.secondary">
             Precio: {data.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Vendidos: {data.vendidos} Und.
+            Vendidos: {data.sold_quantity} Und.
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Envios: {data.shipping}
+            Envios: {data.addressShipping}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Zona Vendedor: {data.place}
+            Zona Vendedor: {data.addressPlace}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Marca: {data.brand}
@@ -130,7 +130,7 @@ function CardItems({ data, onItemClick }) {
         <CardActions>
           <Button
             variant="contained"
-            onClick={() => onItemClick(data.id)}
+            onClick={() => onItemClick(data.customid)}
             size="small"
           >
             Ver mas...

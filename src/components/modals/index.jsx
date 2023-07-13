@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { Box, Button, Card, CardContent,CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography } from '@mui/material';//Libreria Material
-import { AppContex } from '../contex-provider';
+import { AppContex } from '../contex-provider';//Contex
+//Libreria Material
+import { Box, Button, Card, CardContent,CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography } from '@mui/material';
+//Libreria swal fire
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
+
 
 
 
@@ -14,9 +21,42 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 function ModalSlide({widget}) {
-//El componente AlertDialogSlide o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones "Disagree" o "Agree".
+  //El componente AlertDialogSlide o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones "Disagree" o "Agree".
   const [open, setOpen] = React.useState(false);
-  const {trolley, setTrolley, quantityC} = React.useContext(AppContex)//Contex de carrito
+  const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast} = React.useContext(AppContex)//Contex de carrito
+
+  React.useEffect(() => {
+    console.log(quantityC); // Verifica si quantityC se actualiza correctamente
+  }, [quantityC]);
+  
+  const notifyFinish = () => notifyToast('💨 Compra Terminada Correctamente')//notificaciones
+
+  const MySwal = withReactContent(Swal)//instancia sweetalert
+    const handleClickSwal = () => {//evento sweetalert
+      console.log(quantityC)
+      
+      if(quantityC >= 1) {
+        setOpen(false)//cierro el modal
+      MySwal.fire({//abro sweetalert
+        title: 'Venta Registada',
+        html: `Muchas gracias por preferirnos, su factura a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos.`,
+        icon: 'success',
+        confirmButtonText: 'OK',
+        timer:3500,
+      })
+      
+      handleEmptyTrolley()//Vaciar el carrito desde el boton terminar compra
+      }else {
+        setOpen(false)//cierro el modal
+      MySwal.fire({//abro sweetalert
+          title: 'Error',
+          title: "Debe anadir un producto al carrito",
+          icon: 'warning',
+          showConfirmButton: false,
+          timer:2000,
+        })
+        }
+    };
 
   const calcTotalPerItemsCart = () => {//Calcular la cantidad de items que lleva entre productos (no tiene nada que ver con calculo de precios)
     let totalQuantity = 0
@@ -27,28 +67,27 @@ function ModalSlide({widget}) {
     return item.pricePerUnit * item.quantity
   }
   
-  const calcTotalGlobalPay = () => {
+  const calcTotalGlobalPay = () => {//Calcular el total de todo el carrito sin iva
     let totalGlobal = 0
 
-    for (const item of trolley) { totalGlobal += calcTotalQuantityPerPrice(item) } return totalGlobal
+    for (const item of trolley) { totalGlobal += calcTotalQuantityPerPrice(item) } return totalGlobal.toFixed(2)
   }
 
-  const calcwithIva = () => {
+  const calcwithIva = () => {//Calcular el total de todo el carrito con iva
     let totalWithIva = 0
     for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return totalWithIva.toFixed(2)
   } 
 
-  const handleClickOpen = () => {
+  const handleClickOpen = () => {//abrir y cerrar el modal
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = () => {//abrir y cerrar el modal + setear a vacio el array cuando se cierre
     setOpen(false);
+    notifyFinish()
   };
 
-  const handleVaciar = () => {
-    setTrolley([])
-  }
+ 
 
   return (
     <div>
@@ -100,33 +139,33 @@ function ModalSlide({widget}) {
           </DialogContentText>
         </DialogContent>
 
-        <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'}>
+        <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
             <Box display={'flex'} flexDirection={'row'} justifyContent={"center"} gap={"1rem"} textTransform={"capitalize"}>
 
             <Typography fontFamily={"fantasy"} variant="body2" component="p">
-                Items en el Cart: {quantityC} 
+                Items en Carrito: {quantityC} 
             </Typography>
             <Typography fontFamily={"fantasy"} variant="body2" component="p">
-                Cantidad Total por Items: {calcTotalPerItemsCart()}
+                Cantidad Total Items: {calcTotalPerItemsCart()} 
             </Typography>
             </Box>
             
             <Box display={"flex"} justifyContent={"center"}>
               <Typography variant="h6" component="p">
-                Total a Pagar sin Iva: {calcTotalGlobalPay()}
+                Total Pago S/Iva: {calcTotalGlobalPay()} Pesos
             </Typography>
             </Box>
             <Box display={"flex"} justifyContent={"center"}>
               <Typography variant="body1" component="p">
-                Con Iva: {calcwithIva()}
+                C/Iva: {calcwithIva()} Pesos
             </Typography>
             </Box>
         </Box>
       
         <DialogActions>
-          <Button onClick={handleVaciar}>Vaciar</Button>
+          <Button onClick={handleEmptyTrolley}>Vaciar</Button>{notifyToastContainer()}
           <Button onClick={handleClose}>Eliminar</Button>
-          <Button onClick={handleClose}>Aceptar</Button>
+          <Button onClick={handleClickSwal}>Terminar Compra</Button>
         </DialogActions>
       </Dialog>
     </div>
@@ -139,6 +178,6 @@ export default ModalSlide
 
 //La propiedad component en Typography se utiliza para especificar el elemento HTML que se renderizará para ese componente Typography. Puedes elegir entre diferentes valores, como "h1", "h2", "h3", "h4", "h5", "h6", "subtitle1", "subtitle2", "body1", "body2", "caption", "button", "p", "span", etc. Por ejemplo, component="h2" indica que el componente Typography se renderizará como un elemento de encabezado de nivel 2 (<h2>).
 
-{/* El componente <Dialog> se utiliza para representar el diálogo emergente. Tiene varias propiedades, incluyendo open que recibe el estado open, TransitionComponent que recibe el componente Transition definido anteriormente, onClose que recibe la función handleClose para manejar el cierre del diálogo, y aria-describedby para proporcionar una descripción accesible del diálogo. //Dentro de <Dialog>, se encuentran otros componentes como <DialogTitle>, <DialogContent>, <DialogContentText> y <DialogActions>, que se utilizan para estructurar y mostrar el contenido del diálogo. En este caso, muestra un título, un texto de contenido y dos botones de acciones ("Disagree" y "Agree") que llaman a la función handleClose cuando se hace clic en ellos.*/}
+//* El componente <Dialog> se utiliza para representar el diálogo emergente. Tiene varias propiedades, incluyendo open que recibe el estado open, TransitionComponent que recibe el componente Transition definido anteriormente, onClose que recibe la función handleClose para manejar el cierre del diálogo, y aria-describedby para proporcionar una descripción accesible del diálogo. //Dentro de <Dialog>, se encuentran otros componentes como <DialogTitle>, <DialogContent>, <DialogContentText> y <DialogActions>, que se utilizan para estructurar y mostrar el contenido del diálogo. En este caso, muestra un título, un texto de contenido y dos botones de acciones ("Disagree" y "Agree") que llaman a la función handleClose cuando se hace clic en ellos.*/
 
-{/* La propiedad aria-describedby es una convención de accesibilidad que se utiliza para asociar un elemento en la página con una descripción que brinda más información sobre ese elemento. En este caso, el diálogo emergente tiene un elemento con id="alert-dialog-slide-description", y la propiedad aria-describedby se establece en ese ID para vincular la descripción al diálogo. */}
+//* La propiedad aria-describedby es una convención de accesibilidad que se utiliza para asociar un elemento en la página con una descripción que brinda más información sobre ese elemento. En este caso, el diálogo emergente tiene un elemento con id="alert-dialog-slide-description", y la propiedad aria-describedby se establece en ese ID para vincular la descripción al diálogo. */

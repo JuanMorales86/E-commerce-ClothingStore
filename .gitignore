@@ -13,9 +13,13 @@ src/components/CartWidget/CartWidgetBootstrap.js
 src/components/content
 src/components/itemListContainer2
 src/components/Tabs/indexPrueba.jsx
+src/components/database/firestore.json
 Codigo.txt
 terminologia.txt
 package-lock.json
+
+#misc
+.env.dev
 
 
 
