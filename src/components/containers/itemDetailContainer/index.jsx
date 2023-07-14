@@ -38,13 +38,11 @@ function ListContainerDetail() {
                 const getDataBaseProduct = doc(db, 'productos', customid)
                 const docSnapshot = await getDoc(getDataBaseProduct)
                
-                if(docSnapshot.exists()){
+               
                 const data = docSnapshot.data()
                 setItem(data)
                 console.log(data)
-               }else{
-                throw new Error('No existe el producto seleccionado.')
-               }
+             
             } catch(error) {
                 console.error(error)
                 setError(error)

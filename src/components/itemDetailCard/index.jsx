@@ -7,7 +7,7 @@ import { AppContex } from '../contex-provider';
 
 //Mi card DETAIL
 function CardDetail({data}) {
-  const { id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
+  const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
 
   console.log(data)
@@ -52,7 +52,7 @@ function CardDetail({data}) {
         </Typography>
         <Box sx={{marginTop:'1rem'}}>
         <Typography component="div" variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'.1rem'} textAlign={'start'} >
-            Codigo:{id}
+            Codigo:{customid}
           </Typography>
         <Typography variant="subtitle1" color="text.secondary" component="div">
             !Ya vendidos: {sold_quantity} Unid.
