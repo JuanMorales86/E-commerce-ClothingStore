@@ -18,8 +18,8 @@ function ListContainerDetail() {
     const [loading, setLoading] = useState(false)
     const [clothes,setClothes] = useState([])
 
-    const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
-    console.log(selectedProductId)
+    const {id} = useParams()//Hook tengo acceso a id
+    console.log(id)
 
     const navigate = useNavigate()
 
@@ -30,14 +30,14 @@ function ListContainerDetail() {
             setLoading(true)
             
             try{
-                selectedProductId
-                console.log(selectedProductId)
+                id
+                console.log(id)
 
-            if(!selectedProductId) {
+            if(!id) {
                 throw new Error('No existe el producto seleccionado.')
             }
                 const db = getFirestore()            
-                const getDataBaseProduct = doc(db, 'productos', selectedProductId)
+                const getDataBaseProduct = doc(db, 'productos', id)
                 const docSnapshot = await getDoc(getDataBaseProduct)
                 const clothes = {
                     id:docSnapshot.id,
@@ -60,7 +60,9 @@ function ListContainerDetail() {
         }
         
         useEffect(() => {
-            fetchDataD()}, [selectedProductId])
+            fetchDataD()}, [id])
+            console.log(item)
+            console.log(id)
   return (
     <>
         <Box>
@@ -71,7 +73,7 @@ function ListContainerDetail() {
           {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
           </Box>
           :
-          <ListElementsDetail item={item} loading={loading} selectedProductId={selectedProductId}/>
+          <ListElementsDetail item={item} loading={loading} selectedProductId={id}/>
         
         }
     {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me de error de que la base de datos no busque nada */}

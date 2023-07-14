@@ -130,7 +130,7 @@ function CardItems({ data, onItemClick }) {
         <CardActions>
           <Button
             variant="contained"
-            onClick={() => onItemClick(data.customid)}
+            onClick={() => onItemClick(data.id)}
             size="small"
           >
             Ver mas...

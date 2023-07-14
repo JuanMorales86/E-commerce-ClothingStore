@@ -15,7 +15,7 @@ function ListElementsDetail( {item, loading , selectedProductId}) {
         (loading) ? 
         <CircularProgress variant='indeterminate'/>
         :
-        <CardDetail data={item} selectedProductId={selectedProductId}/>
+        <CardDetail data={item}/>
 
             
         }

@@ -1,15 +1,12 @@
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 //Libreria database Firestore 
-import { getFirestore, collection, doc, getDoc, getDocs, where, query } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, where, query } from 'firebase/firestore';
 
 //Mis Componenetes
 import ListElements from '../../itemList'
 import { getProducts } from '../../sdk/mercalibre'//SDK Mercadolibre
 import TabsMenu from '../../Tabs/tabs'
-
-
-
 
 //Array de titulos para los tabs
 const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vestido", title:"Vestidos"}, {id:"deportiva", title:"Deportiva"}, {id:"sweater", title:"swetters"},{id:'bath', title:'trajes de baño'}, {id:'ropainterior', title:'Ropa Interior'}]
@@ -33,11 +30,12 @@ const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vestido", title:
 
 
 
+
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  const [selectedProductId, setSelectedProductId] = React.useState('')
+  const [id, setId] = React.useState('')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//permite ver la prop pasada traida desde en este caso app.jsx (Hook)
@@ -45,12 +43,13 @@ function ListContainerItem() {
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
 
-  const handleGoItemDetail = (selectedProductId) => {//uso dos funciones dentro de una
-    setSelectedProductId(selectedProductId)
-    navigate(`/product/${selectedProductId}`, {state: { selectedProductId }})//puedo recuperar entonces selectProductId gracias al state
+  //!hice cambios aqui selectedproductId por id por qu cambie el params en app.jsx principal a id
+  const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
+    setId(id)
+    navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state
   }
 
-  // console.log(selectedProductId)
+  // console.log(id)
 
   //   console.log(levels)
 
@@ -130,7 +129,7 @@ function ListContainerItem() {
         <>
         <TabsMenu current={current} items={niveles}/>
         <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
-        {/* {selectedProductId && <ListContainerDetail selectedProductId={selectedProductId}/>} */}
+        
         
         </>
   )

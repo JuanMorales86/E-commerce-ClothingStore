@@ -42,7 +42,7 @@ function App() {
             {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
             <Route path={'/'} element={<ListContainerItem/>}/>
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
-            <Route path={'/product/:selectedProductId'} element={<ListContainerDetail/>} />
+            <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
             <Route path={'/contacto'} element={<p>contacto</p>} />

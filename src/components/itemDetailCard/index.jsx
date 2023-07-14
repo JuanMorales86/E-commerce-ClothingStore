@@ -9,7 +9,7 @@ import { AppContex } from '../contex-provider';
 function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
-
+ 
   console.log(data)
   // console.log(selectedProductId)
 
