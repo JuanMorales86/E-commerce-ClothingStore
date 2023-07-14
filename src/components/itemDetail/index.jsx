@@ -7,7 +7,7 @@ import { CircularProgress, Box } from '@mui/material'
 
 //My lista itemDetail card
 function ListElementsDetail( {item, loading , selectedProductId}) {
-  // console.log(item)
+  console.log(item)
 
   return (
     <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >

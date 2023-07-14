@@ -16,6 +16,7 @@ function ListContainerDetail() {
     const [item, setItem] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [clothes,setClothes] = useState([])
 
     const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
     console.log(selectedProductId)
@@ -29,19 +30,23 @@ function ListContainerDetail() {
             setLoading(true)
             
             try{
-                const customid = selectedProductId
+                selectedProductId
+                console.log(selectedProductId)
 
-            if(!customid) {
+            if(!selectedProductId) {
                 throw new Error('No existe el producto seleccionado.')
             }
                 const db = getFirestore()            
-                const getDataBaseProduct = doc(db, 'productos', customid)
+                const getDataBaseProduct = doc(db, 'productos', selectedProductId)
                 const docSnapshot = await getDoc(getDataBaseProduct)
-               
-               
-                const data = docSnapshot.data()
-                setItem(data)
-                console.log(data)
+                const clothes = {
+                    id:docSnapshot.id,
+                    ...docSnapshot.data()
+                }
+                setItem(clothes)
+                // const data = docSnapshot.data()
+                // setItem(data)
+                console.log(clothes)
              
             } catch(error) {
                 console.error(error)
