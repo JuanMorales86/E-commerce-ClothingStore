@@ -67,16 +67,18 @@ function ListContainerDetail() {
     <>
         <Box>
         {
-        (item) ?
-        
-          <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-          {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
-          </Box>
-          :
-          <ListElementsDetail item={item} loading={loading} selectedProductId={id}/>
-        
+        (item) ? 
+            <ListElementsDetail item={item} loading={loading} selectedProductId={id}/>
+            // quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me de error de que la base de datos no busque nada
+         
+        :
+         
+
+            <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+            {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
+            </Box>
         }
-    {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me de error de que la base de datos no busque nada */}
+ 
     </Box>
         
     </>
