@@ -27,7 +27,8 @@ function CardDetail({data}) {
         pricePerUnit: price,
         imagen: thumbnail,
         quantity: quantity,
-        quantityC
+        quantityC,
+        stock
       });
       handlePrToTrolley({
           id:id,
@@ -35,6 +36,8 @@ function CardDetail({data}) {
           pricePerUnit: price,
           imagen: thumbnail,
           quantity: quantity,
+          quantityC,
+          stock
       })
   }
 

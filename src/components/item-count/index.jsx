@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+//Libreria SweetAlert
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 //Libreria Material
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';//Minus icon
 import AddBoxIcon from '@mui/icons-material/AddBox';//Add icon
@@ -27,11 +31,13 @@ function ItemCount({ stock, addHandleToTrolley }) {
         }
         setScore(score - 1)
     }
+      
 
     //Parte de cart
     const handleTrollyCount = () => {
-        addHandleToTrolley(score)
-        setScore(1)//resetaer el score despues de tomar los datos en 1
+       
+            addHandleToTrolley(score)
+            setScore(1)//resetaer el score despues de tomar los datos en 1  
         }
 
 

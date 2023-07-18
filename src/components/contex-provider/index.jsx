@@ -45,11 +45,34 @@ const AppContexProvider = ({children}) => {
       })
     }
 
-    
+  const MySwal = withReactContent(Swal)
 
 
     const handlePrToTrolley = (product) => {
-        setTrolley((prevTrolley) => [...prevTrolley, product])
+      
+      // Verificar si ya esta el producto en el carrito
+      const productIndex = trolley.findIndex(item => item.id === product.id)
+
+      if(productIndex != -1){
+        //El producto ya esta en el carrito, actuliza la cantidad
+        const updatedTrolley = [...trolley]
+        updatedTrolley[productIndex].quantity 
+        += product.quantity
+        setTrolley(updatedTrolley)
+      } else {
+        //El producto no esta en el carrito, agregarlo normalmente
+        if(product.quantity <= product.stock){
+          setTrolley((prevTrolley) => [...prevTrolley, product])
+        } else{
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+          
+        }
+      }
+      
     }
 
     const notifyClose = () => notifyToast('💨 Carrito Vaciado');

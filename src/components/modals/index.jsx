@@ -32,7 +32,7 @@ function ModalSlide({widget}) {
   const notifyFinish = () => notifyToast('💨 Compra Terminada Correctamente')//notificaciones
 
   const MySwal = withReactContent(Swal)//instancia sweetalert
-    const handleClickSwal = () => {//evento sweetalert
+    const handleClickSwal = () => {//evento sweetalert 
       console.log(quantityC)
       
       if(quantityC >= 1) {
@@ -164,7 +164,7 @@ function ModalSlide({widget}) {
       
         <DialogActions>
           <Button onClick={handleEmptyTrolley}>Vaciar</Button>{notifyToastContainer()}
-          <Button onClick={handleClose}>Eliminar</Button>
+          <Button onClick={handleEmptyTrolley}>Eliminar</Button>
           <Button onClick={handleClickSwal}>Terminar Compra</Button>
         </DialogActions>
       </Dialog>
