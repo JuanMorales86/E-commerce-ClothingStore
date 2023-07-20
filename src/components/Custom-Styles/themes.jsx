@@ -1,14 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import {
-  red,
-  purple,
-  aliceblue,
-  black,
-  green,
-  lightGreen,
   lightBlue,
-  pink,
-  grey,
   blueGrey,
   indigo,
 } from "@mui/material/colors";

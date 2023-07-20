@@ -29,11 +29,11 @@ const MenuPages = [
   { label: "Home", path: "/" },
   { label: "Prendas", path: "/products/:category" },
   { label: "Nosotros", path: "/nosotros" },
-  {label: "Contacto", path:"/contacto"}
+  { label: "Contacto", path:"/contacto"}
 ];
 
 
-const NavBar = ({ trolley }) => {
+const NavBar = () => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
   const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
   const [_, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
@@ -44,17 +44,17 @@ const NavBar = ({ trolley }) => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
 
 
   return (
@@ -129,8 +129,8 @@ const NavBar = ({ trolley }) => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {MenuPages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                {MenuPages.map((page, index) => (
+                  <MenuItem key={page.label + index } onClick={handleCloseNavMenu}>
                     <Link component={RouterLink}
                       color={"inherit"}
                       underline="none"
@@ -179,7 +179,7 @@ const NavBar = ({ trolley }) => {
               
               {MenuPages.map((page) => (
                 <Button
-                  key={page}
+                  key={page.label}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >

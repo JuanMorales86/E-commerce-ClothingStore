@@ -20,24 +20,27 @@ function CardDetail({data}) {
   const {handlePrToTrolley, quantityC} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
 
   //Parte de cart
-  const addHandleToTrolley = (quantity) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
-      console.log({
+  const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
+    console.log('addHandleToTrolley called:', quantity, stock);  
+    console.log('product.stock:', stock);
+    console.log({
         id: id,
         producto: title,
         pricePerUnit: price,
         imagen: thumbnail,
         quantity: quantity,
         quantityC,
-        stock
+        stock: stock
+       
       });
-      handlePrToTrolley({
+      handlePrToTrolley({//esta seleccion de items va tambie a task
           id:id,
-          producto:title,
+          producto: title,
           pricePerUnit: price,
           imagen: thumbnail,
-          quantity: quantity,
-          quantityC,
-          stock
+          quantity: quantity,//tiene la cantidad del producto seleccionado en el carrito
+          // quantityC,//tiene la cantidad de elementos en el carrito
+          stock: stock// tiene el stock original de el producto
       })
   }
 
@@ -83,7 +86,7 @@ function CardDetail({data}) {
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 250, objectFit:"cover" }}
+        sx={{ width: 200, height: "100%", objectFit:"cover" }}
         image={thumbnail}
         alt={title}
       />
