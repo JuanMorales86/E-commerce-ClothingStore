@@ -10,7 +10,7 @@ function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
  
-  console.log(data)
+  // console.log(data)
   // console.log(selectedProductId)
 
   //probando el context con otros datos
@@ -23,16 +23,16 @@ function CardDetail({data}) {
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
     console.log('addHandleToTrolley called:', quantity, stock);  
     console.log('product.stock:', stock);
-    console.log({
-        id: id,
-        producto: title,
-        pricePerUnit: price,
-        imagen: thumbnail,
-        quantity: quantity,
-        quantityC,
-        stock: stock
+    // console.log({
+    //     id: id,
+    //     producto: title,
+    //     pricePerUnit: price,
+    //     imagen: thumbnail,
+    //     quantity: quantity,
+    //     quantityC,
+    //     stock: stock
        
-      });
+    //   });
       handlePrToTrolley({//esta seleccion de items va tambie a task
           id:id,
           producto: title,

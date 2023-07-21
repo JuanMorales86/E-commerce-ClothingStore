@@ -9,7 +9,7 @@ const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las pro
   // console.log(items)
 
   const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja va a recibir otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
-    console.log("Product ID:", productId)
+    // console.log("Product ID:", productId)
     onItemClick(productId)
   
   }

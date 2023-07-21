@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AppContex } from '../contex-provider';//ContexProvider
 //Libreria Material
 import { Box, Button, Card, CardContent,CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography } from '@mui/material';
-//Libreria swal fire
+//Libreria sweetAlert2
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -15,7 +15,7 @@ import UserData from '../user-data';
 //!Se definen dos componentes Transition y AlertDialogSlide
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="top" ref={ref} {...props} />;//se setea una transicion de aparicion del modal.
-//El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. devuelve un tipo slide
+//El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. en este caso devuelve un tipo slide
 });
 
 function ModalSlide({widget}) {//Padre
@@ -25,10 +25,9 @@ function ModalSlide({widget}) {//Padre
   const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast, createNewDispach, lastDispach} = React.useContext(AppContex)//ContexProvider
 
   React.useEffect(() => {
-    console.log(quantityC); // Verifica si quantityC se actualiza correctamente
+    console.log('items en el carrito:' + quantityC); // Verifica si quantityC se actualiza correctamente
   }, [quantityC]);
-  
-  const notifyFinish = () => notifyToast('💨 Compra Terminada Correctamente')//notificaciones
+
 
   const MySwal = withReactContent(Swal)//instancia sweetalert
     const handleClickSwal = () => {//evento sweetalert 
@@ -50,20 +49,21 @@ function ModalSlide({widget}) {//Padre
             timer:4000,
           }).then((result) => {
             if (result.isConfirmed) {
-              setOpen(true); // Reopen the modal if OK is clicked
+              setOpen(true); // Reabrir el modal si se hace click en ok
               setShowUserData(true);
             } else {
-              // User clicked outside or pressed ESC to close the SweetAlert
+              // El usuario clickea fuera o presiona escape para cerrar el sweetalert
               // Here you can handle the cancel event and cancel any ongoing operation
               setOpen(true);
               setShowUserData(true);
               // You might want to show a message to inform the user that the operation was cancelled
+              notifyToast('💨 Compra en espera....')
             }
           });
         })
       }else {
         setOpen(false)//cierro el modal
-        setShowUserData(false)
+        setShowUserData(false)//cierro el estado componente userData
           MySwal.fire({//abro sweetalert
               title: 'Error',
               title: "Debe anadir un producto al carrito",
@@ -72,14 +72,11 @@ function ModalSlide({widget}) {//Padre
               timer:2000,
             }).then((result) => {
               if (result.isConfirmed) {
-                setOpen(false); // Reopen the modal if OK is clicked
+                setOpen(false); // Reabrir el modal si se hace click en ok
                 setShowUserData(false);
               } else {
-                // User clicked outside or pressed ESC to close the SweetAlert
-                // Here you can handle the cancel event and cancel any ongoing operation
                 setOpen(false);
                 setShowUserData(false);
-                // You might want to show a message to inform the user that the operation was cancelled
               }
             });
             }
@@ -109,14 +106,14 @@ function ModalSlide({widget}) {//Padre
     setOpen(true);
   };
 
-  const handleClose = () => {//abrir y cerrar el modal + setear a vacio el array cuando se cierre
+  const handleClose = () => {//abrir y cerrar el modal 
     setOpen(false);
     
   };
 
   const handleCloseWithMessages = () => {
     setOpen(false)
-    notifyFinish()
+    notifyToast('💨 Compra Terminada Correctamente')
   }
 
  
@@ -149,7 +146,7 @@ function ModalSlide({widget}) {//Padre
               <Card key={item.id} sx={{display:"flex", justifyContent:"space-around", alignItems:"strech",  marginBottom: '.3rem', boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
                   <CardMedia
                   component="img"
-                  sx={{ width: "100%",height:"50%", border:'solid 2px black', objectFit:"cover" }}
+                  sx={{ width: "100%",aspectRatio: 16/9, border:'solid 2px black', objectFit:"contain" }}
                   image={item.imagen}
                   alt={item.producto}
                   />

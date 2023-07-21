@@ -7,7 +7,7 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 //Mis Componentes
 import ListElementsDetail from '../../itemDetail'
-import { getProductsDetail } from '../../sdk/mercalibre'//SDK
+
 
 
 
@@ -16,10 +16,10 @@ function ListContainerDetail() {
     const [item, setItem] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
-    const [clothes,setClothes] = useState([])
+    
 
     const {id} = useParams()//Hook tengo acceso a id
-    console.log(id)
+    // console.log('el id del producto ue viene por params'+ id)
 
     const navigate = useNavigate()
 
@@ -30,9 +30,6 @@ function ListContainerDetail() {
             setLoading(true)
             
             try{
-                id
-                console.log(id)
-
             if(!id) {
                 throw new Error('No existe el producto seleccionado.')
             }
@@ -46,7 +43,7 @@ function ListContainerDetail() {
                 setItem(clothes)
                 // const data = docSnapshot.data()
                 // setItem(data)
-                console.log(clothes)
+                // console.log(clothes)
              
             } catch(error) {
                 console.error(error)
@@ -61,8 +58,6 @@ function ListContainerDetail() {
         
         useEffect(() => {
             fetchDataD()}, [id])
-            console.log(item)
-            console.log(id)
   return (
     <>
         <Box>

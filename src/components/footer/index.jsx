@@ -40,8 +40,8 @@ function Footer() {
                 Contacto
               </Typography>
               <Typography component="p">Dirección: Gallo 606, Almagro, CABA</Typography>
-              <Typography component="p">Teléfono: 9-(11) 2356-0969</Typography>
-              <Typography component="p">Email: clothingStore@gmail.com</Typography>
+              <Typography component="p">Teléfono: 9-(11) 2843-3076</Typography>
+              <Typography component="p">Email: salpimienta.shop23@gmail.com</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <Typography variant="h6" component="h3">
@@ -64,13 +64,13 @@ function Footer() {
                 Síguenos
               </Typography>
               <Box sx={{ display: 'flex' }}>
-                <IconButton component={Link} href="https://facebook.com/tiendaropa">
+                <IconButton component={Link} href="https://instagram.com/sal.pimienta_shop?igshid=OGQ5ZDc2ODk2ZA==">
                   <Facebook />
                 </IconButton>
                 <IconButton component={Link} href="https://instagram.com/sal.pimienta_shop?igshid=OGQ5ZDc2ODk2ZA==">
                   <Instagram />
                 </IconButton>
-                <IconButton component={Link} href="https://twitter.com/tiendaropa">
+                <IconButton component={Link} href="https://instagram.com/sal.pimienta_shop?igshid=OGQ5ZDc2ODk2ZA==">
                   <Twitter />
                 </IconButton>
               </Box>

@@ -75,7 +75,7 @@ const AppContexProvider = ({children}) => {
 
     const notifyToastAdd = (message) => {//un toast
       return toast.success( `'${message}'`, {
-      position: "top-right",
+      position: "bottom-right",
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -94,20 +94,30 @@ const AppContexProvider = ({children}) => {
 
       if(productIndex !== -1){
         //El producto ya esta en el carrito, actuliza la cantidad
-        const updatedTrolley = [...trolley]//Se crea una copia actualizada del carrito utilizando el operador spread ([...trolley]) para evitar modificar directamente el estado original del carrito.
+      
+        const updatedTrolley =[...trolley]
+        const newQuantity = updatedTrolley[productIndex].quantity + product.quantity
+
+        if(newQuantity <= parseInt(product.stock)) {
+          updatedTrolley[productIndex].quantity = newQuantity
+
+          setTrolley(updatedTrolley)
+          // setTrolley(updatedTrolley)//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
+        }else {
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+        }
         
-        updatedTrolley[productIndex] = {//Se accede a la entrada del producto en la copia actualizada del carrito utilizando el productIndex. Luego, se actualiza la propiedad quantity de ese producto sumándole la cantidad del nuevo producto que se desea agregar (product.quantity).
-          ...updatedTrolley[productIndex],
-          quantity: updatedTrolley[productIndex].quantity + product.quantity
-        };
-        
-        setTrolley(updatedTrolley)//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
       } else {
         //El producto no esta en el carrito, agregarlo si cumple las condiciones de stock
-        const existingTrolley = trolley.reduce((total, item) => {//Se utiliza la función reduce para calcular la cantidad total de productos con el mismo id en el carrito actual. Comienza con un valor inicial de 0 y, para cada elemento del carrito, se verifica si el id coincide con el del producto que se desea agregar. Si es así, se suma la cantidad del producto actual al total acumulado.
+        const existingTrolley = trolley.reduce((total, item) => {//Se utiliza la función reduce para calcular la cantidad total de productos con el mismo id en el carrito actual
           if(item.id === product.id) {
             return total + item.quantity
           }
+          return total//ojo con este return si no lo agrego no funciona la comparacion me comienza a dar error de que el poducto no tiene stock teniendo stock
         }, 0)
 
         const totalQuantity = existingTrolley + product.quantity //Luego de calcular la cantidad total de productos con el mismo id en el carrito
@@ -116,7 +126,7 @@ const AppContexProvider = ({children}) => {
         console.log('totalQuantity:', totalQuantity);
         console.log('product.stock:', product.stock);
 
-        if(totalQuantity <= product.stock){// se verifica si la cantidad total de un producto en el carrito, incluida la cantidad que se desea agregar, es menor o igual al stock disponible para ese producto (product.stock).
+        if(totalQuantity <= parseInt(product.stock)){// se verifica si la cantidad total de un producto en el carrito, incluida la cantidad que se desea agregar, es menor o igual al stock disponible para ese producto (product.stock).
         // Restar la cantidad agregada al carrito del stock original
         setTrolley((prevTrolley) => [...prevTrolley, product])
         

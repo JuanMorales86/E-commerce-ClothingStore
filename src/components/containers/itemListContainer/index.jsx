@@ -105,7 +105,7 @@ function ListContainerItem() {
         .then((snapshot) => {//resuelvo la promesa
             setLoading(false)
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
-            console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
+            // console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
         })
       } else if(niveles.some(nivel => nivel.id === levels) ) {
         const mark = query(getCollection, where("categoryType", '==', levels))
@@ -114,7 +114,7 @@ function ListContainerItem() {
         .then((snapshot) => {
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
             setLoading(false)
-            console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
+            // console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
         })
 
       }

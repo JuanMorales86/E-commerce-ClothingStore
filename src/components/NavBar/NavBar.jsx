@@ -95,7 +95,6 @@ const NavBar = () => {
               ClothingStore
             </Typography>
             </Link>
-
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               {/* Burguer */}
               <IconButton

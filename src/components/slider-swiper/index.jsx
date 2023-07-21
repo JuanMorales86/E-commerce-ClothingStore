@@ -30,15 +30,15 @@ import 'swiper/css/scrollbar';
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log('slide change')}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log('slide change')}
         className='mySwiper'
       >
         {slides.map((slide) => (
               <SwiperSlide className="swiperslide"  key={slide.image}>
                 <img className="slidercss" src={slide.image} alt={slide.titled}/>
               </SwiperSlide>
-              // no me carga las fotos locales no se por que la direccion esta dentro src components assets correctamente 
+              
         
         ))}
       </Swiper>
