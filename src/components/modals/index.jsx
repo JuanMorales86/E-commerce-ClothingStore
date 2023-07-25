@@ -14,7 +14,7 @@ import UserData from '../user-data';
 
 //!Se definen dos componentes Transition y AlertDialogSlide
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="top" ref={ref} {...props} />;//se setea una transicion de aparicion del modal.
+  return <Slide direction="down" ref={ref} {...props} />;//se setea una transicion de aparicion del modal.
 //El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. en este caso devuelve un tipo slide
 });
 
@@ -143,10 +143,11 @@ function ModalSlide({widget}) {//Padre
           <DialogContentText  id="alert-dialog-slide-description">
             {
               trolley.map((item) => (
-              <Card key={item.id} sx={{display:"flex", justifyContent:"space-around", alignItems:"strech",  marginBottom: '.3rem', boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
+              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"strech",  marginBottom: '.3rem', background:
+              "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
                   <CardMedia
                   component="img"
-                  sx={{ width: "100%",aspectRatio: 16/9, border:'solid 2px black', objectFit:"contain" }}
+                  sx={{ width: "150px", height:"150px", aspectRatio: 16/9, alignSelf:'center', border:'solid 2px black', objectFit:"fill", marginLeft:"1rem" }}
                   image={item.imagen}
                   alt={item.producto}
                   />
@@ -194,10 +195,12 @@ function ModalSlide({widget}) {//Padre
             </Box>
         </Box>
       
-        <DialogActions>
+        <DialogActions >
+          <Box sx={{width:"100%", display:"flex", flexFlow:'row wrap', justifyContent:"center", alignItems:"center"}}>
           <Button onClick={handleEmptyTrolley}>Vaciar</Button>{notifyToastContainer()}
           <Button onClick={handleEmptyTrolley}>Eliminar</Button>
-          <Button onClick={handleClickSwal} disabled={showUserData}>Terminar Compra</Button>
+          <Button onClick={handleClickSwal} disabled={showUserData} >Terminar Compra</Button>
+          </Box>
         </DialogActions>
         <Box>
         {showUserData && <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach}/>}

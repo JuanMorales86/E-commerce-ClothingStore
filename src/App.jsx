@@ -22,7 +22,7 @@ import SliderSwiper from './components/slider-swiper'
 import slides from './components/sdk/slides.json'
 import AppContexProvider from './components/contex-provider/index'
 import ModalSlide from './components/modals';
-
+import BackOffice from './components/containers/back-office/index';
 
 
 function App() {
@@ -46,13 +46,16 @@ function App() {
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
             <Route path={'/contacto'} element={<p>contacto</p>} />
-            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si colocar cualquier cosa */}
+            <Route path={'/admin'} element={<BackOffice/>} />
+            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si coloca cualquier cosa */}
           
           </Routes>
 
           <Box>
             <Footer />
           </Box>
+
+        
 
         </ThemeProvider>
       </AppContexProvider>

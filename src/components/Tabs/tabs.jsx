@@ -27,7 +27,7 @@ function TabsMenu({current, items}) {
   const navigate = useNavigate()//Custom hook
   const [value, setValue] = React.useState(current);
   const isXSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('xs'));
-  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.between('xs', 'md'));
+  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md'));
 
   const handleChangeResize = (event, newValue) => {
     setValue(newValue);

@@ -15,7 +15,7 @@
   font-size: 18px;
   background: #201616;
 
-  /* Center slide text vertically */
+  /* centrar el slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@
 .slidercss{
   display: block;
   width: 100%;
-  height: 380px;
+  height: 350px;
   object-fit: contain;
 }
 
@@ -38,6 +38,13 @@
   width: 200px;
   height: 50px;
   
+}
+
+.create-product-card{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
 }
 
 

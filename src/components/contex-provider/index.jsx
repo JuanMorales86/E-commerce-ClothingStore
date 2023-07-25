@@ -86,6 +86,19 @@ const AppContexProvider = ({children}) => {
       })
     }
 
+    const notifyToastBD = (message) => {//un toast
+      return toast.success( `'${message}'`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      })
+    }
+
     
     //Manejador del carrito
     const handlePrToTrolley = (product) => {
@@ -150,7 +163,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData}}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData}}>{children}</Provider>
 )}
 
 export default AppContexProvider

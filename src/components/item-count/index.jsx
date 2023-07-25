@@ -54,7 +54,6 @@ return (
     
     <Box sx={{ display: 'flex', pl: 1, pb: 1, marginTop:'1rem' }}>
     <Button variant='contained' size="small" sx={{marginRight:'1rem'}} onClick={handleTrollyCount}>Agregar</Button>{notifyToastContainer()}
-    <Button variant='contained' size="small" sx={{marginRight:'1rem'}}>Eliminar</Button>
     <Button variant='contained' size="small" component={Link} to="/products/all">Volver</Button>
     </Box>
     </Box>

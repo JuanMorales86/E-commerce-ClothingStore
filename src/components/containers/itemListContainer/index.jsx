@@ -1,11 +1,11 @@
 import React from 'react'
+//Libreria router dom
 import { useNavigate, useParams } from 'react-router-dom'
 //Libreria database Firestore 
 import { getFirestore, collection, getDocs, where, query } from 'firebase/firestore';
 
 //Mis Componenetes
 import ListElements from '../../itemList'
-import { getProducts } from '../../sdk/mercalibre'//SDK Mercadolibre
 import TabsMenu from '../../Tabs/tabs'
 
 //Array de titulos para los tabs
@@ -43,7 +43,7 @@ function ListContainerItem() {
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
 
-  //!hice cambios aqui selectedproductId por id por qu cambie el params en app.jsx principal a id
+  //!hice cambios aqui selectedproductId por id por que cambie el params en app.jsx principal a id
   const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
     setId(id)
     navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state

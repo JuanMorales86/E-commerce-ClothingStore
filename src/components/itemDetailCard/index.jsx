@@ -9,13 +9,6 @@ import { AppContex } from '../contex-provider';
 function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
- 
-  // console.log(data)
-  // console.log(selectedProductId)
-
-  //probando el context con otros datos
-  // const {age, user} = React.useContext(AppContex)
-  // console.log(age + user)
 
   const {handlePrToTrolley, quantityC} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
 
@@ -23,16 +16,6 @@ function CardDetail({data}) {
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
     console.log('addHandleToTrolley called:', quantity, stock);  
     console.log('product.stock:', stock);
-    // console.log({
-    //     id: id,
-    //     producto: title,
-    //     pricePerUnit: price,
-    //     imagen: thumbnail,
-    //     quantity: quantity,
-    //     quantityC,
-    //     stock: stock
-       
-    //   });
       handlePrToTrolley({//esta seleccion de items va tambie a task
           id:id,
           producto: title,
@@ -46,8 +29,8 @@ function CardDetail({data}) {
 
   return (
  
-    <Card sx={{ display: 'flex' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto" }}>
+    <Card sx={{ display: 'flex', backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", padding:"1rem" }}>
         <CardContent sx={{ flex: '1 0 auto', width:'300px', height:"200px" }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
           <Typography component="div" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.2rem'} textAlign={'center'} >
             {title}
@@ -86,7 +69,7 @@ function CardDetail({data}) {
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 200, height: "100%", objectFit:"cover" }}
+        sx={{ width: 200, height: "100%", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: '8px' }}
         image={thumbnail}
         alt={title}
       />

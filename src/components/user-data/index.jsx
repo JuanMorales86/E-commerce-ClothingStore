@@ -11,7 +11,7 @@ import { AppContex } from '../contex-provider'
 
 const UserData = ({trolley, createNewDispach}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
   const {register, handleSubmit, formState: { errors, isValid } } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
-  const {handleEmptyTrolley, notifyToast} = useContext(AppContex)
+  const { notifyToast } = useContext(AppContex)
   const onSubmit = (data) => {//react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
     
     if(!createNewDispach || !trolley.length){//si no se cumplen retornara nada
