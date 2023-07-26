@@ -7,8 +7,7 @@ import { Box, TextField, Button, Typography } from '@mui/material'
 import { AppContex } from '../contex-provider'
 
 
-// const emailValidator = (email) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
-
+//Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
 const UserData = ({trolley, createNewDispach}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
   const {register, handleSubmit, formState: { errors, isValid } } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const { notifyToast } = useContext(AppContex)

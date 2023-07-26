@@ -138,7 +138,7 @@ function ModalSlide({widget}) {//Padre
       >
         
         {/* formato UI del card en el modal */}
-        <DialogTitle fontFamily={"fantasy"} >{"Tus Productos"}</DialogTitle>
+        <DialogTitle fontFamily={"monospace"} >{"Tus Productos"}</DialogTitle>
         <DialogContent >
           <DialogContentText  id="alert-dialog-slide-description">
             {

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
-
-
+import { useForm } from "react-hook-form";//HookForm
+import { v4 as uuidv4 } from "uuid";//Generador de id aleatorio
 //BD Firestore
 import {
   getFirestore,
@@ -17,12 +16,14 @@ import { Box, Typography, CircularProgress } from "@mui/material";
 //Mis Componentes
 import CardBackStage from "../../item-backstage";
 import { AppContex } from "../../contex-provider";
-import { Block } from "@mui/icons-material";
+
+
 
 function BackOffice() {
   const [productBD, setProductBD] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [updateComponent, setUpdateComponent] = React.useState(false);
+  const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer } = useContext(AppContex);
 
   React.useEffect(() => {//Obtener la data y actualizar
@@ -50,7 +51,7 @@ function BackOffice() {
       });
   }, [updateComponent]);
 
-  const onClick = (item, id) => {//Modificar Productos
+  const handleItemModify = (item, id) => {//Modificar Productos
     const db = getFirestore();
     const paper = doc(db, "productos", id);
 
@@ -68,14 +69,14 @@ function BackOffice() {
     const db = getFirestore();
 
     const product = collection(db, "productos");
-    
-    
+  
     const idAleatorio = uuidv4();// Generar una clave única usando uuidv4()
 
     addDoc(product, {...item, idAleatorio })
       .then(() => {
         notifyToastBD("🎉 Nuevo Producto Creado");
         setUpdateComponent(true);
+        reset()
       })
       .catch((error) => {
         console.error("Error al crear el producto:", error);
@@ -132,7 +133,9 @@ function BackOffice() {
               <CardBackStage
                 key={items.id}
                 data={items}
-                onClick={onClick}
+                onClick={handleItemModify}
+                createButtonText="Modificar"
+                showDeleteButton={true}
                 onDelete={() => handleDeletion(items.id)}
               />
             );
@@ -145,10 +148,12 @@ function BackOffice() {
       )}
 
       <Box sx={{ maxWidth: "400", marginBottom: "1rem", marginTop:"2rem",display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center" }}>
-        <Typography>Crear Nuevos Productos</Typography>
-        <CardBackStage
-          
+        <Typography letterSpacing={2} variant="h1" component={'h2'} fontFamily={'monospace'} fontSize={'2rem'} color={'balck'} borderBottom={'solid 4px black'} borderTop={'solid 4px black'} width={"100%"} marginBottom={'2rem'}>Crear Nuevos Productos</Typography>
+        
+        <CardBackStage  
           onClick={handleItemCreate}
+          createButtonText= "Crear"
+          showDeleteButton={false}
           className="create-product-card"
           data={{
             thumbnail: "",

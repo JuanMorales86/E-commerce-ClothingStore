@@ -34,11 +34,16 @@ function CardItems({ data, onItemClick }) {
         border: "solid 2px black",
         background:
           "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */,
+        transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
+        "&:hover":{
+          borderColor: "magenta",
+          boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
+          transform: "scale(1.05)",
+        }
       }}
     >
       <Box
         sx={{
-          // borderRadius: "10%",
           overflow: "hidden",
           //animacion
           transition: "transform 0.5s ease-out", //cover, contain, fill,scale-down
@@ -55,14 +60,16 @@ function CardItems({ data, onItemClick }) {
         <CardMedia
           component="img"
           alt={data.title}
-          height="140"
+          height="200"
           image={data.thumbnail}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
             objectFit: "contain",
             borderRadius: "10px",
-          }} //* para el estilo de la imagen entro de la card
+            width:"100%",
+            height:"280px"
+          }} //* para el estilo de la imagen dentro de la card
         />
       </Box>
       <CardContent>
@@ -77,6 +84,7 @@ function CardItems({ data, onItemClick }) {
             sx={{
               maxHeight: "4rem",
               maxWidth: "100%",
+              height:"20px",//para que no se corrar el titulo y desfase las cards
               overflow: "hidden",
               textOverflow: "ellipsis",
               color: "secondary.dark",

@@ -22,6 +22,8 @@ import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 import ModalSlide from "../modals";
 import CartWidget from "../cartWidget/CartWidget";
 import { AppContex } from "../contex-provider";
+import ModalLogin from "../modals/modal-login";
+import LoginWidget from "../cartWidget/LoginWidget";
 
 
 
@@ -192,6 +194,7 @@ const NavBar = () => {
             {/* Fin otra resolucion */}
               
               <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
+              <ModalLogin widgetL={<LoginWidget/>}/>
 
           </Toolbar>
         </Container>

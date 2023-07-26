@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //Libreria react hook form
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 //Libreria Material
 import {
   Card,
@@ -79,8 +79,8 @@ const dataListPlacesOutside = ["P. Buenos Aires", "Caba"];
 const conditions = ["Nuevo", "Usado", "Detalles"];
 
 //My item card Principal
-function CardBackStage({ data, onClick, onDelete }) {
-  const { register,getValues, reset, formState: { errors, isValid }} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton }) {
+  const { register,getValues, reset, control, formState: { errors, isValid }} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
 
   const [_, setIsHovered] = useState(false);
 
@@ -144,6 +144,7 @@ function CardBackStage({ data, onClick, onDelete }) {
           }}
         />
       </Box>
+      
       <CardContent>
         <Box
           sx={{
@@ -304,6 +305,8 @@ function CardBackStage({ data, onClick, onDelete }) {
           </TextField>
         </Box>
       </CardContent>
+      
+      {/* Botones */}
       <Box
         sx={{
           display: "grid",
@@ -314,13 +317,17 @@ function CardBackStage({ data, onClick, onDelete }) {
       >
         {/* los pongo al fondo del card con margin top */}
         <CardActions>
+        
           <Button variant="contained" onClick={handleClickM} size="small">
-            Modificar
-          </Button>{" "}
+          {createButtonText ? createButtonText : "Modificar"}
+          {/*cambio el texto segun la funcion*/}
+          </Button>
           {/* en el evento click se llama a la funcion obItemCLick que recibe una prop */}
+          {showDeleteButton && (
           <Button variant="contained" onClick={onDelete} size="small">
             Eliminar
           </Button>
+          )}
         </CardActions>
       </Box>
     </Card>
