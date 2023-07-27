@@ -26,10 +26,11 @@ import ListContainerDetail from './components/containers/itemDetailContainer'
 import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/sdk/slides.json'
-import AppContexProvider from './components/contex-provider/index'
+import AppContexProvider, { AppContex } from './components/contex-provider/index'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
 import AuthProvider from './components/auth-control';
+import HomePage from './components/containers/home/Home';
 
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
@@ -47,6 +48,7 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 }
 
 function App() {
+  const {notifyToastContainer} = React.useState(AppContex)
   return (
     <RouterLink>
       <AppContexProvider>
@@ -62,6 +64,7 @@ function App() {
           <Routes>
             {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
             <Route path={'/'} element={<ListContainerItem/>}/>
+            <Route path={'/home'} element={<HomePage/>}/>
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
@@ -79,6 +82,7 @@ function App() {
         
 
         </ThemeProvider>
+        {notifyToastContainer}
       </AppContexProvider>
     </RouterLink>
   );

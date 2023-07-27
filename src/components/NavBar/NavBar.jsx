@@ -23,12 +23,13 @@ import ModalSlide from "../modals";
 import CartWidget from "../cartWidget/CartWidget";
 import { AppContex } from "../contex-provider";
 import ModalLogin from "../modals/modal-login";
-import LoginWidget from "../cartWidget/LoginWidget";
+import LoginWidget from "../cartWidget/loginWidget";
+import LogOutWidget from "../cartWidget/logOutWidget";
 
 
 
 const MenuPages = [
-  { label: "Home", path: "/" },
+  { label: "Home", path: "/home" },
   { label: "Prendas", path: "/products/:category" },
   { label: "Nosotros", path: "/nosotros" },
   { label: "Contacto", path:"/contacto"}
@@ -46,18 +47,10 @@ const NavBar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
-
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -195,6 +188,7 @@ const NavBar = () => {
               
               <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
               <ModalLogin widgetL={<LoginWidget/>}/>
+              <LogOutWidget/>
 
           </Toolbar>
         </Container>

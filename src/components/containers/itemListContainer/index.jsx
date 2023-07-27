@@ -11,26 +11,6 @@ import TabsMenu from '../../Tabs/tabs'
 //Array de titulos para los tabs
 const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vestido", title:"Vestidos"}, {id:"deportiva", title:"Deportiva"}, {id:"sweater", title:"swetters"},{id:'bath', title:'trajes de baño'}, {id:'ropainterior', title:'Ropa Interior'}]
 
-// const searchLevels = (id) => {
-//     switch (id) {
-//         case 'vestido':
-//         return 'vestidos'
-//         case 'deportiva':
-//         return 'ropa deportiva mujer'
-//         case 'sweater':
-//         return 'sueter mujer'
-//         case 'bath':
-//         return 'trajes de baño mujer'
-//         case 'ropainterior':
-//           return 'ropa interior mujer y lenceria'
-//         default:
-//             return 'vestidos y ropa deportiva mujer y sueter mujer y trajes de bano mujer y ropa interior'
-//     }
-// }
-
-
-
-
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
@@ -49,49 +29,12 @@ function ListContainerItem() {
     navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state
   }
 
-  // console.log(id)
-
-  //   console.log(levels)
-
     //Restriccion en url
     React.useEffect(() => {
         if(!niveles.some(niv => niv.id === levels)){//si no devuelve nada
             navigate('/products/all')//navigate es como un href
         }
     }, [levels, navigate])
-
-
-    //Api Local
-    // React.useEffect(() => {
-    //     setLoading(true)
-
-    //     getProducts(searchLevels(levels))
-    //     .then(res => {
-    //         // console.log(res.data)
-    //         const data = res.data.results?.map((e) => ({
-    //             //Busco en la BD
-    //             id: e.id,
-    //             title: e.title,
-    //             price: e.price,
-    //             shipping: e.address.state_name,
-    //             place: e.address.city_name,
-    //             type: e.condition,
-    //             vendidos: e.sold_quantity,
-    //             imagee: e.thumbnail,
-    //             brand: e.attributes.find(attr => attr.id === "BRAND")?.value_name,
-                
-    //         }))
-    //         setItems(data)
-    //         console.log(data)
-    //         // console.log(data)
-    //     })
-        
-
-    //     .finally(() => {
-    //         setLoading(false)
-    //     })
-
-    // }, [levels])
 
     //API FireStore
     React.useEffect(() => {
@@ -105,7 +48,6 @@ function ListContainerItem() {
         .then((snapshot) => {//resuelvo la promesa
             setLoading(false)
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
-            // console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
         })
       } else if(niveles.some(nivel => nivel.id === levels) ) {
         const mark = query(getCollection, where("categoryType", '==', levels))
@@ -114,7 +56,7 @@ function ListContainerItem() {
         .then((snapshot) => {
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
             setLoading(false)
-            // console.log(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
+           
         })
 
       }

@@ -1,0 +1,567 @@
+//En el navbar original que hice ahora lo cmabie a un navbar predeterminado de material
+<Toolbar sx={{ display:'flex', justifyContent: 'space-around', fontweight: 'bold'  , alignItems: 'center', gap:'2rem', color: 'black', backgroundColor:'primary.dark'}}>
+//-------------
+
+//Si quiero cambiar el estilo del elemento del componenete Tabs de materialui: ('& .MuiTab-root')
+
+En el contexto de estilos en Material-UI, & se refiere al elemento actual al que se le están aplicando los estilos y . se utiliza para seleccionar una clase.
+
+En el caso de & .MuiTab-root, se está seleccionando el elemento Tab que tiene la clase MuiTab-root dentro del componente Tabs. Esto permite aplicar estilos específicos a ese elemento en particular.
+
+En resumen, & .MuiTab-root se utiliza como un selector CSS para apuntar a los elementos Tab dentro de Tabs y aplicar los estilos definidos.
+
+ejemplo: 
+
+ <Tabs
+      value={value}
+      onChange={(event, newValue) => {//si quiero usar mas funciones dentro de un onchange que maneja una funcion padre los coloco en un function arrow
+        handleChange(event, newValue);
+        handlePush(event, newValue);
+      }}
+      textColor="secondary"
+      indicatorColor="secondary"
+      aria-label="secondary tabs example"
+      sx={{ '& .MuiTab-root' : {//llamo a elemento actual & despues la clase q controla el css de materialui en la tabs .MuiTab-root, hago los cambios
+      fontFamily: 'Arial, sans-serif',
+      fontWeight: 'bold',
+      fontSize: '1rem',
+      textTransform: 'upperCase'
+      }
+      }}
+      >
+      <Tab value="Vestir" label="Vestir" />
+      <Tab value="Casual" label="Casual" />
+      <Tab value="Deportiva" label="Deportiva" />
+      <Tab value="Todas" label="Todas" />
+    </Tabs>
+    </Box>
+    <Box>
+            {/* desiciones de las tabs */}
+        {
+            tabPush === 'Vestir' ?
+                <Box>RopaVestidos</Box>
+            :
+            null
+        }
+          {
+            tabPush === 'Casual' ?
+                <Box>RopaCasual</Box>
+            :
+            null
+        }
+           {
+            tabPush === 'Deportiva' ?
+                <Box>RopaDeportiva</Box>
+            :
+            null
+        }
+           {
+            tabPush === 'Todas' ?
+                <Box>Todalamercancia</Box>
+            :
+            null
+        }
+    </Box>
+      <Tabs/>
+
+En el código anterior, he utilizado el selector & .MuiTab-root dentro del prop sx de Tabs para aplicar estilos al elemento Tab dentro de las pestañas. Dentro de ese selector, puedes especificar los estilos que deseas, como la familia de fuentes (fontFamily), el peso de la fuente (fontWeight), el tamaño de la fuente (fontSize), y la transformación de texto (textTransform).
+//---------------
+
+//Haciendo get con axios
+
+El problema que estás experimentando se debe a un error en la forma en que estás manejando la respuesta de Axios. A diferencia de Fetch, Axios ya proporciona directamente los datos en response.data, por lo que no es necesario llamar a res.json() en Axios.
+
+
+
+function SectionVestidos() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    ListVestidos()
+      .then((res) => {
+        setItems(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Ocurrió un error');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  return <ElementsList items={items} loading={loading} />;
+}
+
+export default SectionVestidos;
+
+En este código corregido, hemos eliminado el segundo .then() donde intentabas llamar a res.json(). En su lugar, simplemente asignamos res.data a setItems(res.data), ya que Axios ya proporciona directamente los datos en response.data.
+
+De esta manera, deberías poder manejar correctamente la respuesta de Axios y establecer los datos en el estado items. Además, hemos corregido la función useState y useEffect importándolas directamente desde React.
+
+Recuerda verificar que ListVestidos() de tu archivo Vestidos.js esté devolviendo la respuesta de Axios correctamente para que res.data esté disponible en el componente SectionVestidos.
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+codigo del fetch en itemlistcontainer
+
+        
+//el primero que hice
+// ListVestidos()
+// .then((res) => {
+//      setItems(res.data) //Axios ya proporciona directamente los datos en response.data.
+// })
+// .catch((err) => {
+//     console.error(err)
+//     alert('Ocurrio un error')
+//     setLoading(false)
+// })
+// .finally(() => {
+//     setLoading(false)
+// })
+// }, [])
+
+
+
+        segundo que funciono con mi api
+        function fetchData() {//traigo al API ListVestidos
+        //     console.log('Levels', levels)
+        //     try{
+        //         const res = await ListVestidos(searchLevels(levels))//promesa
+        //         setItems(res.data)//resuelvo la promesa
+        //     } catch(error) {
+        //         console.error(error)
+        //         alert('error en base de datos desde sectionVestidos')
+        //         setLoading(false)
+                
+        //     }finally {
+        //         setLoading(false)
+        //     }
+        // } 
+        // fetchData()}, [levels])
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+este codigo va en itemDetailContainer uso nada mas el params por que me daba error con el location ya que lo vuelve a llamar de nuevo al params
+
+function ListContainerDetail() {
+    const [item, setItem] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const {selectedProductId} = useParams()//Hook tengo acceso a selectedproductid
+    console.log(selectedProductId)
+
+    // const location = useLocation()//Hook para obtener la ubicacion actual y cualquier estado pasado atraves de la ruta
+    // const selectedProductFromLocation  = location.state?.selectedProductId //accedo al estado selectedProductId que paso atraves de la ubicacion
+
+    // const navigate = useNavigate()
+
+    useEffect(() => {
+        setLoading(true)
+
+        async function fetchDataD() {
+            try{
+            if(selectedProductId){
+                const res = await getProductsDetail(selectedProductId)
+                setItem(res.data)
+                console.log(res.data)
+            }else{
+                // navigate(`/product/${'MLA898739509'}`)//si no me devuelve nada selectedProductFromLocation me devuelva al componente itemListContainer
+                console.log('error')
+            }
+            } catch(error) {
+                console.error(error)
+                alert('error en base de datos desde itemDetailContainer')
+                setLoading(false)
+                
+            }finally {
+                setLoading(false)
+            }
+        }
+    
+        fetchDataD()}, [selectedProductId])
+        // console.log(item)
+    
+
+  return (
+    <>
+    <ListElementsDetail item={item} loading={loading} selectedProductId={selectedProductId}/>
+    {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me d error de que la base de datos no busque nada */}
+    </>
+    
+  )
+}
+
+export default ListContainerDetail
+
+
+va en el return iba a probar un cambio este funciona asi como esta por lo menos si es true
+
+    <>
+        <Box>
+        {
+        (!item) ?
+        
+          <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+          {error && <Button component={Link} to={'/products/all'}>Error: {error.message}</Button>}
+          </Box>
+          :
+          <ListElementsDetail item={item} loading={loading} selectedProductId={selectedProductId}/>
+        
+        }
+    {/* quiero entonces leer item cargar un loading y que el selectProductId me mantenga el codigo del producto para poder volver atras sin que me d error de que la base de datos no busque nada */}
+    </Box>
+        
+    </>
+
+//-----------------------------------------------------------------------------------
+
+personalizacion de botones en navbar
+import { styled } from "@mui/material/styles"; //Material Styled Libreria
+import { amber, blue, lightBlue } from "@mui/material/colors"; //Material Colors customizables
+
+const CustomButtonsNavBar = styled(Button)(({ theme }) => ({
+  //Estilos perzonalizados tipo jsx
+  color: theme.palette.getContrastText(lightBlue[50]),
+  backgroundColor: blue[200],
+  "&:hover": {
+    backgroundColor: amber[900],
+  },
+}));
+//------------------------------------------------------------------------------------------------
+
+swal(mensajes de texto)
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
+
+MySwal.fire({
+  title: <p>Hello World</p>,
+  didOpen: () => {
+    // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+    MySwal.showLoading()
+  },
+}).then(() => {
+  return MySwal.fire(<p>Shorthand works too</p>)
+})
+//----------------------------------------------------------------------------------------------------
+HandleTrolley del conponente AppContexProvider
+ const handlePrToTrolley = (product) => {
+      
+      // Verificar si ya esta el producto en el carrito
+      const productIndex = trolley.findIndex(item => item.id === product.id)
+
+      if(productIndex != -1){
+        //El producto ya esta en el carrito, actuliza la cantidad
+        const updatedTrolley = [...trolley]
+        updatedTrolley[productIndex].quantity 
+        += product.quantity
+        setTrolley(updatedTrolley)
+      } else {
+        //El producto no esta en el carrito, agregarlo normalmente
+        if(product.quantity <= product.stock){
+          setTrolley((prevTrolley) => [...prevTrolley, product])
+        } else{
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+          
+        }
+      }
+      
+    }
+
+    otra forma
+
+    
+    const handlePrToTrolley = (product) => {
+      
+      // Verificar si ya esta el producto en el carrito
+      const productIndex = trolley.findIndex(item => item.id === product.id)
+
+      if(productIndex !== -1){
+        //El producto ya esta en el carrito, actuliza la cantidad
+        const updatedTrolley = [...trolley]
+        updatedTrolley[productIndex].quantity 
+        += product.quantity
+        setTrolley(updatedTrolley)
+      } else {
+        //El producto no esta en el carrito, agregarlo si cumple las condiciones de stock
+        const existingTrolley = trolley.reduce((total, item) => {
+          if(item.id === product.id) {
+            return total + item.quantity
+          }
+          return total
+        }, 0)
+
+        const totalQuantity = existingTrolley + product.quantity
+      
+
+        if(totalQuantity <= product.stock && totalQuantity <= MAX_STOCK_LIMIT){
+        // Restar la cantidad agregada al carrito del stock original
+        const updatedStock = product.stock - product.quantity
+        product = {...product, stock: updatedStock}
+        setTrolley((prevTrolley) => [...prevTrolley, product])
+        }else{
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+        }
+      }
+      
+    }
+
+//-------------------------------------------------------------------------------------------------------------------
+Componente Moda slide
+import * as React from 'react';
+import { AppContex } from '../contex-provider';//Contex
+//Libreria Material
+import { Box, Button, Card, CardContent,CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography } from '@mui/material';
+//Libreria swal fire
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+//mi componente
+import UserData from '../user-data';
+
+
+//!Se definen dos componentes Transition y AlertDialogSlide
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="top" ref={ref} {...props} />;//se setea una transicion de aparicion del modal.
+  
+//El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. En este caso, toma dos parámetros: props y ref. Dentro de la función, retorna un componente <Slide> con la dirección establecida como "up" y la referencia pasada mediante ref. Además, se utiliza el operador spread ({...props}) para pasar todas las demás propiedades recibidas a <Slide>. Esto permite que el componente que recibe la referencia también tenga acceso a las demás propiedades.
+});
+
+
+
+function ModalSlide({widget}) {//Padre
+  //El componente AlertDialogSlide o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones "Disagree" o "Agree".
+  const [open, setOpen] = React.useState(false);
+  const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast, createNewDispach, lastDispach} = React.useContext(AppContex)//Contex de carrito
+
+  React.useEffect(() => {
+    console.log(quantityC); // Verifica si quantityC se actualiza correctamente
+  }, [quantityC]);
+  
+  const notifyFinish = () => notifyToast('💨 Compra Terminada Correctamente')//notificaciones
+
+  const MySwal = withReactContent(Swal)//instancia sweetalert
+    const handleClickSwal = () => {//evento sweetalert 
+      console.log(quantityC)
+      
+      if(quantityC >= 1) {
+        setOpen(false)//cierro el modal
+      MySwal.fire({//abro sweetalert
+        title: 'Venta Registada',
+        html: `Muchas gracias por preferirnos, su factura a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos.`,
+        icon: 'success',
+        confirmButtonText: 'OK',
+        timer:3500,
+      })
+      
+      handleEmptyTrolley()//Vaciar el carrito desde el boton terminar compra
+      }else {
+        setOpen(false)//cierro el modal
+      MySwal.fire({//abro sweetalert
+          title: 'Error',
+          title: "Debe anadir un producto al carrito",
+          icon: 'warning',
+          showConfirmButton: false,
+          timer:2000,
+        })
+        }
+    };
+
+  const calcTotalPerItemsCart = () => {//Calcular la cantidad de items que lleva entre productos (no tiene nada que ver con calculo de precios)
+    let totalQuantity = 0
+
+    for(const item of trolley){ totalQuantity += item.quantity } return totalQuantity }
+
+  const calcTotalQuantityPerPrice = (item) => {//Calcular la cantidad que lleva con el precio y la unidad
+    return item.pricePerUnit * item.quantity
+  }
+  
+  const calcTotalGlobalPay = () => {//Calcular el total de todo el carrito sin iva
+    let totalGlobal = 0
+
+    for (const item of trolley) { totalGlobal += calcTotalQuantityPerPrice(item) } return totalGlobal.toFixed(2)
+  }
+
+  const calcwithIva = () => {//Calcular el total de todo el carrito con iva
+    let totalWithIva = 0
+    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return totalWithIva.toFixed(2)
+  } 
+
+  const handleClickOpen = () => {//abrir y cerrar el modal
+    setOpen(true);
+  };
+
+  const handleClose = () => {//abrir y cerrar el modal + setear a vacio el array cuando se cierre
+    setOpen(false);
+    notifyFinish()
+  };
+
+ 
+
+  return (
+    <div>
+      {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
+      <Button variant="text" onClick={handleClickOpen}>
+       {widget}
+      </Button>
+      {/* El diálogo está representado por el componente Dialog de React. Se le pasa la prop open para indicar si el diálogo debe estar visible o no. La prop TransitionComponent se establece en el componente Transition que mencioné anteriormente para proporcionar la transición animada. */}
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+        
+      >
+        
+        {/* formato UI del card en el modal */}
+        <DialogTitle fontFamily={"fantasy"} >{"Tus Productos"}</DialogTitle>
+        <DialogContent >
+          <DialogContentText  id="alert-dialog-slide-description">
+            {
+              trolley.map((item) => (
+              <Card key={item.id} sx={{display:"flex", justifyContent:"space-between", alignItems:"strech",  marginBottom: '.3rem', boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
+                  <CardMedia
+                  component="img"
+                  sx={{ width: 100, objectFit:"cover" }}
+                  image={item.imagen}
+                  alt={item.producto}
+                  />
+                <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:"self-start"}}>
+                  <Typography sx={{width:'200px', textAlign:'left', lineHeight:1, marginBottom:"5px"}} flexWrap="nowrap" variant="h6" component="p">
+                    {item.producto}
+                  </Typography>
+                  <Typography variant="body2" component='p' color="textSecondary">
+                    Valor Unid: {item.pricePerUnit}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Vas a llevar: {item.quantity}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Total: {calcTotalQuantityPerPrice(item)}
+                  </Typography>
+                 
+                </CardContent>
+              
+              </Card>
+             ))}
+          </DialogContentText>
+        </DialogContent>
+
+        <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
+            <Box display={'flex'} flexDirection={'row'} justifyContent={"center"} gap={"1rem"} textTransform={"capitalize"}>
+
+            <Typography fontFamily={"fantasy"} variant="body2" component="p">
+                Items en Carrito: {quantityC} 
+            </Typography>
+            <Typography fontFamily={"fantasy"} variant="body2" component="p">
+                Cantidad Total Items: {calcTotalPerItemsCart()} 
+            </Typography>
+            </Box>
+            
+            <Box display={"flex"} justifyContent={"center"}>
+              <Typography variant="h6" component="p">
+                Total Pago S/Iva: {calcTotalGlobalPay()} Pesos
+            </Typography>
+            </Box>
+            <Box display={"flex"} justifyContent={"center"}>
+              <Typography variant="body1" component="p">
+                C/Iva: {calcwithIva()} Pesos
+            </Typography>
+            </Box>
+        </Box>
+      
+        <DialogActions>
+          <Button onClick={handleEmptyTrolley}>Vaciar</Button>{notifyToastContainer()}
+          <Button onClick={handleEmptyTrolley}>Eliminar</Button>
+          <Button onClick={handleClickSwal}>Terminar Compra</Button>
+        </DialogActions>
+        <Box>
+        <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach}/>
+      </Box>
+      </Dialog>
+   
+    </div>
+  );
+}
+
+export default ModalSlide
+
+//La propiedad variant en Typography se utiliza para especificar el estilo o variante de tipografía que deseas utilizar. Puedes elegir entre diferentes valores predefinidos, como "h1", "h2", "h3", "h4", "h5", "h6", "subtitle1", "subtitle2", "body1", "body2", "caption" y "button". Cada valor tiene un estilo y tamaño de fuente asociado. Por ejemplo, variant="h6" aplicará un estilo de encabezado de nivel 6 a ese componente Typography.
+
+//La propiedad component en Typography se utiliza para especificar el elemento HTML que se renderizará para ese componente Typography. Puedes elegir entre diferentes valores, como "h1", "h2", "h3", "h4", "h5", "h6", "subtitle1", "subtitle2", "body1", "body2", "caption", "button", "p", "span", etc. Por ejemplo, component="h2" indica que el componente Typography se renderizará como un elemento de encabezado de nivel 2 (<h2>).
+
+//* El componente <Dialog> se utiliza para representar el diálogo emergente. Tiene varias propiedades, incluyendo open que recibe el estado open, TransitionComponent que recibe el componente Transition definido anteriormente, onClose que recibe la función handleClose para manejar el cierre del diálogo, y aria-describedby para proporcionar una descripción accesible del diálogo. //Dentro de <Dialog>, se encuentran otros componentes como <DialogTitle>, <DialogContent>, <DialogContentText> y <DialogActions>, que se utilizan para estructurar y mostrar el contenido del diálogo. En este caso, muestra un título, un texto de contenido y dos botones de acciones ("Disagree" y "Agree") que llaman a la función handleClose cuando se hace clic en ellos.*/
+
+//* La propiedad aria-describedby es una convención de accesibilidad que se utiliza para asociar un elemento en la página con una descripción que brinda más información sobre ese elemento. En este caso, el diálogo emergente tiene un elemento con id="alert-dialog-slide-description", y la propiedad aria-describedby se establece en ese ID para vincular la descripción al diálogo. */
+/------------------------------------------------------------------------------------------------------------------------------------------------
+//Codigo pra handletrolly el manejador del carrito cuando agrego productos precisamente al carrito
+ 
+ const handlePrToTrolley = (product) => {
+      // Verificar si ya esta el producto en el carrito
+      const productIndex = trolley.findIndex(item => item.id === product.id)
+
+      if(productIndex !== -1){
+        //El producto ya esta en el carrito, actuliza la cantidad
+      
+        const updatedTrolley =[...trolley]
+        const newQuantity = updatedTrolley[productIndex].quantity + product.quantity
+        
+        // updatedTrolley[productIndex].quantity += product.quantity //En esta versión, en lugar de usar un objeto separado para actualizar la cantidad del producto, estamos actualizando directamente la propiedad quantity del objeto existente en el carrito utilizando el índice productIndex y sumando la cantidad del nuevo producto (product.quantity). Esto tiene el mismo efecto que el código original pero de forma más concisa.
+
+        if(newQuantity <= parseInt(product.stock)) {
+          updatedTrolley[productIndex].quantity = newQuantity
+
+          setTrolley(updatedTrolley)
+        }else {
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+        }
+        // setTrolley(updatedTrolley)//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
+      } else {
+        //El producto no esta en el carrito, agregarlo si cumple las condiciones de stock
+        const existingTrolley = trolley.reduce((total, item) => {//Se utiliza la función reduce para calcular la cantidad total de productos con el mismo id en el carrito actual. Comienza con un valor inicial de 0 y, para cada elemento del carrito, se verifica si el id coincide con el del producto que se desea agregar. Si es así, se suma la cantidad del producto actual al total acumulado.
+          if(item.id === product.id) {
+            return total + item.quantity
+          }
+          return total
+        }, 0)
+
+        const totalQuantity = existingTrolley + product.quantity //Luego de calcular la cantidad total de productos con el mismo id en el carrito
+        // se verifica que no exceda el stock disponible y el límite máximo
+
+        console.log('totalQuantity:', totalQuantity);
+        console.log('product.stock:', product.stock);
+
+        if(totalQuantity <= parseInt(product.stock)){// se verifica si la cantidad total de un producto en el carrito, incluida la cantidad que se desea agregar, es menor o igual al stock disponible para ese producto (product.stock).
+        // Restar la cantidad agregada al carrito del stock original
+        setTrolley((prevTrolley) => [...prevTrolley, product])
+        
+        }else{
+          MySwal.fire({
+            title: 'No hay suficiente stock disponible',
+            icon: 'error',
+            text: 'Lo sentimos, no podemos agregar este producto al carrito debido a la falta de stock.',
+          });
+        }
+      }
+    }
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
