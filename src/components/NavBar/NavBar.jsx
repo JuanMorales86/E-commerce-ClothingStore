@@ -22,7 +22,7 @@ import ModalSlide from "../modals";
 import CartWidget from "../CartWidget/CartWidget";
 import { AppContex } from "../contex-provider";
 import ModalLogin from "../modals/modal-login";
-import LoginWidget from "../CartWidget/loginWidget";
+import LoginWidget from "../CartWidget/LoginWidget";
 import LogOutWidget from "../CartWidget/logOutWidget";
 
 
