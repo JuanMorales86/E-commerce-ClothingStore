@@ -20,7 +20,6 @@ Este proyecto es un e-commerce para un emprendimiento de tienda de ropa. Permite
 ## Instalación
 
 1. Clona el repositorio: `git clone https://github.com/JuanMorales86/E-commerce-ClothingStore.git`
-2. legar a la carpeta: `cd clothing-store`
 2. Instala las dependencias: `npm install`
 3. Iniciar Proyecto: `npm start`
 4. Visitar proyecto localmente: `localhost:3000/home`

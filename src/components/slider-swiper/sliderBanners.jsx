@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function SliderBanners({banners, onBannerClick}) {
-    const [seeImage, setSeeImge] = React.useState(null)
+    const [_, setSeeImge] = React.useState(null)
 
     const handleMouseOver = (index) => {
         setSeeImge(index)

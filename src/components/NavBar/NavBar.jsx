@@ -19,11 +19,11 @@ import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 
 //Mis Components
 import ModalSlide from "../modals";
-import CartWidget from "../cartWidget/CartWidget";
+import CartWidget from "../CartWidget/CartWidget";
 import { AppContex } from "../contex-provider";
 import ModalLogin from "../modals/modal-login";
-import LoginWidget from "../cartWidget/loginWidget";
-import LogOutWidget from "../cartWidget/logOutWidget";
+import LoginWidget from "../CartWidget/loginWidget";
+import LogOutWidget from "../CartWidget/logOutWidget";
 
 
 

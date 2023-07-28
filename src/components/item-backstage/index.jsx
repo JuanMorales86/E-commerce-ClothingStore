@@ -12,7 +12,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material";
-import { Category } from "@mui/icons-material";
+
 
 const originCategory = [
   "sweater",
@@ -81,7 +81,7 @@ const conditions = ["Nuevo", "Usado", "Detalles"];
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton }) {
-  const { register,getValues, reset, control, formState: { errors, isValid }} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
 
   const [_, setIsHovered] = useState(false);
 

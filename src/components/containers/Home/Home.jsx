@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 //Mis Componentes
 import SliderBanners from "../../slider-swiper/sliderBanners";
-import slidesBanners from '../../sdk/slidesBanners.json'
+import slidesBanners from '../../Sdk/slidesBanners.json'
 
 
 //LibreriaMaterial-UI

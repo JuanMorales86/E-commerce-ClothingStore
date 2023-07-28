@@ -17,7 +17,7 @@ function LogOutWidget() {
     const handleLogOut = () => {
         signOut(auth)
         .then(() => {
-            console.log('Usuario cerro sesion')
+            notifyToast('Usuario cerro sesion')
         }).catch((error) => {
             console.log("Error al cerrar sesion", error)
         })
