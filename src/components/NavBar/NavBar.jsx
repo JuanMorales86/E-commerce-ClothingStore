@@ -14,7 +14,6 @@ import {
   MenuItem,
   Link
 } from "@mui/material"; //Componentes Material
-
 import CheckroomIcon from "@mui/icons-material/Checkroom"; //Material Icon
 import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 
@@ -39,7 +38,7 @@ const MenuPages = [
 const NavBar = () => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
   const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
-  const [_, setAnchorElUser] = React.useState(null);//acciones de material para abrir y cerrar burguer
+  
   
   const {quantityC} = React.useContext(AppContex)//Contex
   
@@ -67,7 +66,7 @@ const NavBar = () => {
             ></CheckroomIcon>
 
             {/* Brand */}
-            <Link component={RouterLink} to={'/'} underline="none" color={'inherit'} mr={'1rem'}>
+            <Link component={RouterLink} to={'/home'} underline="none" color={'inherit'} mr={'1rem'}>
             <Typography
               variant="h6"
               href="/"

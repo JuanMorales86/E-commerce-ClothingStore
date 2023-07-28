@@ -30,8 +30,6 @@ import 'swiper/css/scrollbar';
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
         className='mySwiper'
       >
         {slides.map((slide) => (

@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-// import HomePage from './components/containers/Home/Home';
 
 //Firebase
 import firebaseConfig from './components/database/firestore.json'
@@ -35,8 +34,6 @@ import HomePage from './components/containers/home/Home';
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
-
-console.log(firebaseConfig)
 // Initialize Firebase
 
 function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro del route

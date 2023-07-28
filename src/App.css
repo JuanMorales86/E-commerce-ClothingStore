@@ -19,22 +19,45 @@
 }
 
 .swiperslide{
-  text-align: center;
-  font-size: 18px;
   background: #201616;
-
   /* centrar el slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
 .slidercss{
   display: block;
   width: 100%;
-  height: 350px;
-  object-fit: contain;
+  height: 450px;
+  object-fit: fill;
+}
+
+.swiperslidesBanners{
+  background: #201616;
+  /* centrar el slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform filter 0.5s ease-in-out;
+  
+}
+
+.slidercssBanners{
+  display: block;
+  width: 100%;
+  height: 1200px;
+  object-fit: cover;
+  filter: blur(0)
+}
+
+.slidercssBanners:not(:hover){
+  filter: blur(0)
+}
+
+.slidercssBanners:hover{
+  filter: blur(4px);
+  transform: scale(1.1);
 }
 
 .App {

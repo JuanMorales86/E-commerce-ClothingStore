@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //Libreria react hook form
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 //Libreria Material
 import {
   Card,
@@ -20,7 +20,8 @@ const originCategory = [
   "campera",
   "deportiva",
   "vestido",
-  "bath",
+  "remera",
+  "trajesdebaño",
 ];
 
 const dataListPlacesCABA = [

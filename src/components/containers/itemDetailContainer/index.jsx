@@ -19,7 +19,7 @@ function ListContainerDetail() {
     
 
     const {id} = useParams()//Hook tengo acceso a id
-    // console.log('el id del producto ue viene por params'+ id)
+   
 
     const navigate = useNavigate()
 
@@ -41,9 +41,6 @@ function ListContainerDetail() {
                     ...docSnapshot.data()
                 }
                 setItem(clothes)
-                // const data = docSnapshot.data()
-                // setItem(data)
-                // console.log(clothes)
              
             } catch(error) {
                 console.error(error)

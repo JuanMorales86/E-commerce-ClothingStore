@@ -1,20 +1,26 @@
 [
     {
-        "image": "/img/imagenslidersolo.png",
+        "image": "http://drive.google.com/uc?export=view&id=1EUIM7VNQejT2PlanQ3Lmybr1XCAqBomE",
         "titled": "For carrousels Swiper",
         "subtitled": "for a long time ago in a far a far away galaxy",
         "interval": 1500
     },
     {
-        "image": "/img/imagensliderblack.png",
-        "titled": "For carrousels Swiper",
+        "image": "http://drive.google.com/uc?export=view&id=1amIawCeyEqqvSaC_gYnCEjbaY9lQKL_9",
         "subtitled": "for a long time ago in a far a far away galaxy",
         "interval": 500
     },
     {
-        "image": "https://st.depositphotos.com/1177973/3041/i/450/depositphotos_30413835-stock-photo-beautiful-girl-with-lots-clothes.jpg",
+        "image": "http://drive.google.com/uc?export=view&id=1TlwNHhDd-ohoNZCZXpIMnPhOPmh8RNEe",
+        "titled": "For carrousels Swiper",
+        "subtitled": "for a long time ago in a far a far away galaxy",
+        "interval": 2500
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1tcqSMvzUZWAECa0Ui-GyE-TxqiAE5nWR",
         "titled": "For carrousels Swiper",
         "subtitled": "for a long time ago in a far a far away galaxy",
         "interval": 2500
     }
+    
 ]

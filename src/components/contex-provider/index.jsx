@@ -168,12 +168,3 @@ const AppContexProvider = ({children}) => {
 
 export default AppContexProvider
 
-// value={{trolley, handlePrToTrolley, cartQuantity: trolley.length}}: cuando se define de esta forma un objeto, cuando no se coloca la clave: valor  > la clave va a hacer igual al nombre de la variable, es igual que dejar carrito: carrito que dejarlo solo carrito
-
-
-    //const [trolley, setTrolley] = React.useState([])//!carrito va  manejar un array de objetos //Estados Globales
- 
-    // const user = 'juan'
-    // const age = 27
-
-    //setTrolley((prevTrolley) => [...prevTrolley, product]) //!recibe un producto nuevo gracias a la prop product, setTrolley va  actualizar trolley con un nuevo producto y le voy a pasar lo que tenia carrito mas el nuevo product ademas agrege prevTrolley para verificar si hay o no un nuevo objeto para agregar correctamente indistintamente si habia algo o no

@@ -1,0 +1,33 @@
+[
+    
+    {
+        "image": "http://drive.google.com/uc?export=view&id=16BOr15-2naeZOY9-yJUP7A1XPupCdEl5",
+        "titled": "deportiva",
+        "interval": 1500
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1xClcpSR_mZzzGT9y6p9kSTtUK3ByswoB",
+        "titled": "remera",
+        "interval": 500
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1sBNu0hFZnVoriEAJOXfxI-Lxgm6diQIn",
+        "titled": "vestido",
+        "interval": 2500
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1XfmOGyx9AjzFXKOXv6ICUounoreTe7-3",
+        "titled": "trajesdebaño",
+        "interval": 1500
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1ix0FqG6CiovyWHuuPtevWlDknKN8CR7d",
+        "titled": "ropainterior",
+        "interval": 2000
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1cH-GMU8aavd9t6TGLOkNMfwuuVGTpXfH",
+        "titled": "sweater",
+        "interval": 1800
+    }
+]

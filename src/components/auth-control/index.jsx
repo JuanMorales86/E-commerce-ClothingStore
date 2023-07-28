@@ -1,22 +1,29 @@
 import React from "react";
 
+//Libreria firebase
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../App";
 
+//Librerua material
 import { Box } from "@mui/material";
+
+//Mis Componentes
 import SignInContent from "../containers/sign-in-auth";
+import { AppContex } from "../contex-provider";
+
 
 function AuthProvider({ children, onClose }) {
   const [isControl, setIsControl] = React.useState(false);
+  const {notifyToast} = React.useContext(AppContex)
 
   onAuthStateChanged(auth, (user) => {
     if (!user) {
-      console.log("User is not signed in");
+      notifyToast("Usuario no esta logeado");
       setIsControl(false);
     } else {
       if (!isControl) {
         setIsControl(true);
-        console.log("User is signed in");
+        notifyToast("Usuario esta logeado");
       }
     }
   });

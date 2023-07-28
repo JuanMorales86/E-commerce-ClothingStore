@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";//HookForm
 import { v4 as uuidv4 } from "uuid";//Generador de id aleatorio
 //BD Firestore
@@ -24,7 +24,7 @@ function BackOffice() {
   const [loading, setLoading] = React.useState(true);
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
-  const { notifyToastBD, notifyToastContainer } = useContext(AppContex);
+  const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex);
 
   React.useEffect(() => {//Obtener la data y actualizar
     const db = getFirestore();

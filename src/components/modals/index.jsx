@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { AppContex } from '../contex-provider';//ContexProvider
+
 //Libreria Material
 import { Box, Button, Card, CardContent,CardMedia, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography } from '@mui/material';
 //Libreria sweetAlert2
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-//mi componente
+//Mis Componentes
 import UserData from '../user-data';
+import { AppContex } from '../contex-provider';//ContexProvider
 
 
 
@@ -23,6 +24,10 @@ function ModalSlide({widget}) {//Padre
   const [open, setOpen] = React.useState(false);//Habilitar el componente modal
   const {showUserData, setShowUserData} = React.useContext(AppContex)//Habilitar el componente UserData
   const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast, createNewDispach, lastDispach} = React.useContext(AppContex)//ContexProvider
+
+  const handleUserDataComplete = () => {
+    setOpen(false); // Cerrar el modal cuando UserData haya completado el proceso userdata
+  };
 
   React.useEffect(() => {
     console.log('items en el carrito:' + quantityC); // Verifica si quantityC se actualiza correctamente
@@ -203,7 +208,7 @@ function ModalSlide({widget}) {//Padre
           </Box>
         </DialogActions>
         <Box>
-        {showUserData && <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach}/>}
+        {showUserData && <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach} onClose={handleUserDataComplete}/>}
       </Box>
       </Dialog>
    

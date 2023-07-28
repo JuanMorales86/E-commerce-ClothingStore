@@ -8,9 +8,10 @@ import { AppContex } from '../contex-provider'
 
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
-const UserData = ({trolley, createNewDispach}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
+const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
   const {register, handleSubmit, formState: { errors, isValid } } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const { notifyToast } = useContext(AppContex)
+  
   const onSubmit = (data) => {//react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
     
     if(!createNewDispach || !trolley.length){//si no se cumplen retornara nada
@@ -30,6 +31,7 @@ const UserData = ({trolley, createNewDispach}) => {//para usar useform la variab
     }
     createNewDispach(task)
     notifyToast('💨 Compra Terminada Correctamente')
+    onClose()
   }
 
   return (
@@ -85,6 +87,3 @@ const UserData = ({trolley, createNewDispach}) => {//para usar useform la variab
 
 export default UserData
 
-//En este caso, register se utilizará para registrar los campos del formulario y establecer las reglas de validación. handleSubmit se encargará de manejar la acción de envío del formulario y llamará a la función onSubmit que definimos. El objeto formState proporciona información sobre el estado del formulario, como los errores de validación.
-
-//Aquí, en lugar de llamar a isFormValid(), accedemos a formState.isValid para determinar si el formulario es válido o no. El atributo isValid en formState es proporcionado automáticamente por react-hook-form. Con este cambio, ya no necesitarás la función isFormValid() y su llamada, y estarás utilizando directamente la validación del formulario a través de react-hook-form.
