@@ -18,6 +18,18 @@
 }
 }
 
+@media (min-width: 511px){/*Resoluciones mayores de 511px*/
+  .clothing-store-text{
+    display: flex;
+  }
+}
+
+@media (max-width: 511px){/*Resoluciones menores de 511px*/
+  .clothing-store-text{
+    display: none;
+  }
+}
+
 .swiperslide{
   background: #201616;
   /* centrar el slide text vertically */
@@ -29,8 +41,8 @@
 .slidercss{
   display: block;
   width: 100%;
-  height: 450px;
-  object-fit: fill;
+  height: 500px;
+  object-fit: contain;
 }
 
 .swiperslidesBanners{

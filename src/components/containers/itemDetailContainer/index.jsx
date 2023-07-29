@@ -8,9 +8,6 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 //Mis Componentes
 import ListElementsDetail from '../../itemDetail'
 
-
-
-
 //My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem
 function ListContainerDetail() {
     const [item, setItem] = useState([])

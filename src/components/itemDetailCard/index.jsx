@@ -10,19 +10,16 @@ function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
 
-  const {handlePrToTrolley, quantityC} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
+  const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
 
   //Parte de cart
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
-    console.log('addHandleToTrolley called:', quantity, stock);  
-    console.log('product.stock:', stock);
       handlePrToTrolley({//esta seleccion de items va tambie a task
           id:id,
           producto: title,
           pricePerUnit: price,
           imagen: thumbnail,
           quantity: quantity,//tiene la cantidad del producto seleccionado en el carrito
-          // quantityC,//tiene la cantidad de elementos en el carrito
           stock: stock// tiene el stock original de el producto
       })
   }

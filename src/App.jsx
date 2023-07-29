@@ -59,9 +59,8 @@ function App() {
           </Box>
 
           <Routes>
-            {/* <Route path={'/'} element={<ItemListContainer greeting={"Bienvenidos"}/>} /> */}
+            <Route path={'/home'} element={<HomePage/>}/> 
             <Route path={'/'} element={<ListContainerItem/>}/>
-            <Route path={'/home'} element={<HomePage/>}/>
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
@@ -76,11 +75,10 @@ function App() {
             <Footer />
           </Box>
 
-        
-
         </ThemeProvider>
         {notifyToastContainer}
       </AppContexProvider>
+      
     </RouterLink>
   );
 }

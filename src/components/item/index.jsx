@@ -12,8 +12,6 @@ import {
 //My item card Principal
 function CardItems({ data, onItemClick }) {
   //se agrega las props
-
-
   const [_, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {

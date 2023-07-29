@@ -29,14 +29,8 @@ function ModalSlide({widget}) {//Padre
     setOpen(false); // Cerrar el modal cuando UserData haya completado el proceso userdata
   };
 
-  React.useEffect(() => {
-    console.log('items en el carrito:' + quantityC); // Verifica si quantityC se actualiza correctamente
-  }, [quantityC]);
-
-
   const MySwal = withReactContent(Swal)//instancia sweetalert
     const handleClickSwal = () => {//evento sweetalert 
-      console.log(quantityC)
       
       if(quantityC >= 1) {
         // setOpen(false)//cierro el modal

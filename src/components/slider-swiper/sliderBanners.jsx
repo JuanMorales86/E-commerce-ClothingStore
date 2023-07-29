@@ -28,13 +28,13 @@ function SliderBanners({banners, onBannerClick}) {
       // install Swiper modules
       modules={[Navigation, A11y, Autoplay]}//Pagination, Scrollbar
       spaceBetween={10}
-      slidesPerView={3}
+      slidesPerView={4}
       centeredSlides={false}
       centeredSlidesBounds={true}
       parallax={true}
       autoplay={{
         delay: 8000,
-        disableOnInteraction: true,
+        disableOnInteraction: false,
       }}
       navigation
       pagination={{ clickable: true }}

@@ -33,13 +33,12 @@ function BackOffice() {
     getDocs(products) //tabla
       .then((snapshot) => {
         const items = snapshot.docs.map((doc) => {
-          // console.log('Doc data:', doc.data())
           return {
             id: doc.id,
             ...doc.data(),
           };
         });
-        console.log("documentos cargados", items);
+        notifyToastBD(`🎉 Documentos cargados: ${items}`);
         setProductBD(items);
         setUpdateComponent(false);
       })

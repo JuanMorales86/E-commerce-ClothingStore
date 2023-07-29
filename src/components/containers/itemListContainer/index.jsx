@@ -56,17 +56,12 @@ function ListContainerItem() {
         .then((snapshot) => {
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
             setLoading(false)
-           
         })
 
       }
 
-
-
     }, [levels])
 
-    
-  
     return (
         <>
         <TabsMenu current={current} items={niveles}/>

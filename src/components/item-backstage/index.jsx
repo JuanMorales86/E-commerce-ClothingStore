@@ -99,7 +99,6 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     //click que maneja el form y obtine los valores
     if (typeof onClick === "function") {
       const formData = getValues();
-      console.log(formData);
       onClick(formData, data.id);
       reset();
     }

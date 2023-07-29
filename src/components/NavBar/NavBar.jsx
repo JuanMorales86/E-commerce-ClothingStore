@@ -56,7 +56,7 @@ const NavBar = () => {
       <AppBar position="static" sx={{  backgroundColor: "primary.dark", }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ overflowX: "auto" }}>
-            {/*con space-between no se activa el gap */}
+            
 
             {/* Icono Tienda */}
             <CheckroomIcon
@@ -66,16 +66,18 @@ const NavBar = () => {
             ></CheckroomIcon>
 
             {/* Brand */}
+            <Box sx={{display:"flex", alignItems:"center"}}>
             <Link component={RouterLink} to={'/home'} underline="none" color={'inherit'} mr={'1rem'}>
             <Typography
               variant="h6"
-              href="/"
+              href="/home"
               component="a"
               noWrap
+              className="clothing-store-text"
               sx={{
                 flexGrow: 1,
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                display: {  md: "flex" },
                 placeItems: "left",
                 fontweight: "bold",
                 fontSize: "1.5rem",
@@ -83,12 +85,14 @@ const NavBar = () => {
                 color: "white",
                 letterSpacing: ".2rem",
                 textDecoration: "none",
-                
+                whiteSpace:"nowrap"
               }}
             >
               ClothingStore
             </Typography>
             </Link>
+            </Box>
+
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               {/* Burguer */}
               <IconButton
@@ -148,19 +152,20 @@ const NavBar = () => {
             {/* Brand */}
             <Typography
               variant="h5"
-              href="/"
+              href="/home"
               component="a"
               noWrap
+              className="clothing-store-text"
               sx={{
                 flexGrow: 1,
                 mr: 2,
-                display: { xs: "flex", md: "none" },
+                display: { xs: "none", md:"none" },
                 placeItems: "left",
                 fontweight: "bold",
                 fontSize: "1.5rem",
                 textTransform: "capitalize",
                 color: "white",
-                letterSpacing: ".2rem",
+                letterSpacing: ".1rem",
                 textDecoration: "none",
               }}
             >
