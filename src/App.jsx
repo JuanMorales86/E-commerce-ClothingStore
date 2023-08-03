@@ -31,7 +31,7 @@ import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
 
 import AuthProvider from './components/auth-control';
-import HomePage from './components/containers/Home/Home'
+import HomePage from './components/containers/home/Home'
 
 import AuthManager from './components/auth-manager';
 
