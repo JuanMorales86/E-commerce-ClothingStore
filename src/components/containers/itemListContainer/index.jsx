@@ -9,7 +9,16 @@ import ListElements from '../../itemList'
 import TabsMenu from '../../Tabs/tabs'
 
 //Array de titulos para los tabs
-const niveles = [{id:"all", title:"Todas las categorias"}, {id:"vestido", title:"Vestidos"},{id:"remera", title:"Remeras"}, {id:"deportiva", title:"Deportiva"}, {id:"sweater", title:"Sweaters"},{id:'trajesdebaño', title:'Trajes de baños'}, {id:'ropainterior', title:'Ropa Interior'}]
+const niveles = [
+  {id:'all', title:'Todas las categorias'}, 
+  {id:"vestido", title:"Vestidos"},
+  {id:'remera', title:'Remeras'}, 
+  {id:'deportiva', title:'Deportiva'}, 
+  {id:'sweater', title:'Sweaters'},
+  {id:'trajesdebaño', title:'Trajes de baños'}, 
+  {id:'ropainterior', title:'Ropa Interior'},
+  {id:'camisas', title:'Camisas'}
+]
 
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
 function ListContainerItem() {

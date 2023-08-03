@@ -25,11 +25,15 @@ import ListContainerDetail from './components/containers/itemDetailContainer'
 import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/Sdk/slides.json'
-import AppContexProvider, { AppContex } from './components/contex-provider/index'
+import AppContexProvider from './components/contex-provider/index'
+import { AppContex } from './components/contex-provider'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
+
 import AuthProvider from './components/auth-control';
-import HomePage from './components/containers/Home/Home';
+import HomePage from './components/containers/Home/Home'
+
+import AuthManager from './components/auth-manager';
 
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
@@ -45,11 +49,12 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 }
 
 function App() {
-  const {notifyToastContainer} = React.useState(AppContex)
+  // const {notifyToastContainer} = React.useState(AppContex)
   return (
     <RouterLink>
       <AppContexProvider>
         <ThemeProvider theme={CustomTheme}>
+          <AuthManager>
           <Box>
             <NavBar />
           </Box>
@@ -74,9 +79,10 @@ function App() {
           <Box>
             <Footer />
           </Box>
-
+          {/* {notifyToastContainer} */}
+          </AuthManager>
         </ThemeProvider>
-        {notifyToastContainer}
+       
       </AppContexProvider>
       
     </RouterLink>

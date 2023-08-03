@@ -21,8 +21,16 @@ const paperStyle = {
 
 function ModalLogin({widgetL}) {
         const [open, setOpen] = React.useState(false);
-        const handleOpen = () => setOpen(true);
-        const handleClose = () => setOpen(false);
+        const [isVisible, setIsVisible] = React.useState(false)
+
+        const handleOpen = () => {
+          setOpen(true)
+          setIsVisible(true)
+        };
+        const handleClose = () => {
+          setOpen(false)
+          setIsVisible(false)
+        };
       
         return (
           <Box>
@@ -41,7 +49,8 @@ function ModalLogin({widgetL}) {
                 <Typography fontFamily={"sans-serif"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
               </Box>
               
-              <AuthProvider id="modal-modal-description" onClose={handleClose}/>
+              {isVisible && <AuthProvider id="modal-modal-description" onClose={handleClose}/>}
+             
               </Box>
             </Modal>
           </Box>

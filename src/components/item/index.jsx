@@ -25,7 +25,7 @@ function CardItems({ data, onItemClick }) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 207,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
         overflow: "visible",
         borderRadius: "10px",
@@ -64,7 +64,7 @@ function CardItems({ data, onItemClick }) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
-            objectFit: "contain",
+            objectFit: "fill",
             borderTopLeftRadius:"10px",
             borderTopRightRadius:"10px",
             width:"100%",
@@ -72,7 +72,7 @@ function CardItems({ data, onItemClick }) {
           }} //* para el estilo de la imagen dentro de la card
         />
       </Box>
-      <CardContent>
+      <CardContent sx={{maxWidth:"100%"}}>
         <Box sx={{ flexGrow: 1 }}>
           <Typography
             gutterBottom
@@ -80,11 +80,10 @@ function CardItems({ data, onItemClick }) {
             component="div"
             fontWeight={"bold"}
             textAlign={"center"}
-            flexWrap={"wrap"}
             sx={{
-              maxHeight: "4rem",
+              maxHeight: "2.5rem",
               maxWidth: "100%",
-              height:"20px",//para que no se corrar el titulo y desfase las cards
+              height:"3rem",//para que no se corrar el titulo y desfase las cards
               overflow: "hidden",
               textOverflow: "ellipsis",
               color: "secondary.dark",
@@ -98,7 +97,7 @@ function CardItems({ data, onItemClick }) {
             variant="h7"
             sx={{ display: "block" }}
           >
-            Codigo: {data.customid}
+            Codigo: {data.customid.toUpperCase()}
           </Typography>
           <Typography
             gutterBottom

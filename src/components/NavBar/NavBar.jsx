@@ -24,6 +24,8 @@ import { AppContex } from "../contex-provider";
 import ModalLogin from "../modals/modal-login";
 import LoginWidget from "../CartWidget/LoginWidget";
 import LogOutWidget from "../CartWidget/logOutWidget";
+import AuthManager, { AuthContext } from "../auth-manager";
+
 
 
 
@@ -41,6 +43,7 @@ const NavBar = () => {
   
   
   const {quantityC} = React.useContext(AppContex)//Contex
+  const {user} = React.useContext(AuthContext)//Contex
   
 
   const handleOpenNavMenu = (event) => {
@@ -52,6 +55,7 @@ const NavBar = () => {
   };
 
   return (
+    <AuthManager>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{  backgroundColor: "primary.dark", }}>
         <Container maxWidth="xl">
@@ -198,6 +202,7 @@ const NavBar = () => {
         </Container>
       </AppBar>
     </Box>
+    </AuthManager>
   );
 };
 

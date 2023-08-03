@@ -57,8 +57,8 @@ function SignInContent({ onClose }) {
         </Box>
         
         <Box sx={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:2, gap:2}}>
-            <Button variant='contained' onClick={handleLogIn} disabled={!user || !pass}>LogIn</Button>{notifyToastContainer()}
-            <Button variant='contained' onClick={handleLogOut}>LogOut</Button>
+            <Button variant='contained' onClick={handleLogIn} disabled={!user || !pass}>LogIn</Button>
+            <Button variant='contained' onClick={handleLogOut}>LogOut</Button>{notifyToastContainer()}
         </Box>
         
     

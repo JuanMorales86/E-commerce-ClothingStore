@@ -11,6 +11,7 @@ import {
   Box,
   TextField,
   MenuItem,
+  Typography
 } from "@mui/material";
 
 
@@ -22,6 +23,7 @@ const originCategory = [
   "vestido",
   "remera",
   "trajesdebaño",
+  "camisas",
 ];
 
 const dataListPlacesCABA = [
@@ -81,10 +83,11 @@ const conditions = ["Nuevo", "Usado", "Detalles"];
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton }) {
-  const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
-
-  const [_, setIsHovered] = useState(false);
-
+  const { register,getValues} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const [modifiedFields, setModiefiedFields] = React.useState({})
+  const [isHovered, setIsHovered] = useState(false);
+  
+  
   const handleMouseEnter = () => {
     //Para la imagen
     setIsHovered(true);
@@ -97,17 +100,25 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
   const handleClickM = () => {
     //click que maneja el form y obtine los valores
+    const formData = getValues();
     if (typeof onClick === "function") {
-      const formData = getValues();
       onClick(formData, data.id);
-      reset();
+      setModiefiedFields({});
+      
     }
   };
+
+  const handleChangeText = (e) => {
+    //cambio que maneja los inputs que han sido modificados
+    setModiefiedFields((prevModifiedFiles) => ({
+      ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
+    }))
+  }
 
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 300,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
         overflow: "visible",
         borderRadius: "10px",
@@ -118,11 +129,12 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
       <Box
         sx={{
           overflow: "hidden",
+          position:"relative",
           //animacion
           transition: "transform 0.5s ease-out",
           borderBottom: "solid black",
           "&:hover": {
-            zIndex: 0,
+            // zIndex: 0,
             border: "solid black 2px",
             borderStyle: "double",
             objectFit: "cover",
@@ -134,15 +146,43 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
         <CardMedia
           component="img"
           alt={data.title}
-          height="140"
+          height="260"
           image={data.thumbnail}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
-            objectFit: "contain",
-            borderRadius: "10px",
+            objectFit: "fill",
+            "&:hover":{
+              transform:"scale(1)",
+              filter: "blur(1px)",
+            }
           }}
         />
+             {isHovered && (
+          <Typography
+            sx={{
+              position: "absolute",
+              // top: "50%",
+              // left: "50%",
+              // transform: "translate(-50%, -50%)",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              display:"flex",
+              justifyContent:"center",
+              alignItems:"center",
+              zIndex: 1,
+              background: "rgba(0, 0, 0, 0.7)",
+              color: "white",
+              padding: "8px",
+              borderRadius: "4px",
+              pointerEvents: "none",
+            }}
+          >
+            Modificacion de Productos
+          </Typography>
+        )}
       </Box>
       
       <CardContent>
@@ -163,7 +203,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("thumbnail", { required: false })}
             defaultValue={data.thumbnail}
+            onChange={handleChangeText}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.thumbnail ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Titulo"
@@ -172,8 +214,10 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("title", { required: false })}
             defaultValue={data.title}
+            onChange={handleChangeText}
             inputProps={{ maxLength:35 }}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.title ? "lightblue" : "transparent" }}
           />
              <TextField
             label="Descripcion"
@@ -182,8 +226,10 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("description", { required: false })}
             defaultValue={data.description}
+            onChange={handleChangeText}
             inputProps={{ maxLength:80 }}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.description ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Id Personalizable"
@@ -192,7 +238,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("customid", { required: false })}
             defaultValue={data.customid}
+            onChange={handleChangeText}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.customid ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Condicion"
@@ -201,9 +249,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("condition", { required: false })}
             defaultValue={data.condition || ''}
+            onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.condition ? "lightblue" : "transparent" }}
           >
             {conditions?.map((item, index) => {
               return (
@@ -225,8 +275,10 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             }
             })}
             defaultValue={data.price}
+            onChange={handleChangeText}
             inputProps={{ type: "number" }}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.price ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Categoria"
@@ -235,9 +287,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("categoryType", { required: false })}
             defaultValue={data.categoryType}
+            onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.categoryType ? "lightblue" : "transparent" }}
           >
             {originCategory.map((category) => {
               return (
@@ -254,7 +308,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("stock", { required: false })}
             defaultValue={data.stock}
+            onChange={handleChangeText}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.stock ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Marca"
@@ -263,7 +319,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("brand", { required: false })}
             defaultValue={data.brand}
+            onChange={handleChangeText}
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.brand ? "lightblue" : "transparent" }}
           />
           <TextField
             label="Direccion Delimitada"
@@ -272,9 +330,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("addressShipping", { required: false })}
             defaultValue={data.addressShipping}
+            onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.addressShipping ? "lightblue" : "transparent" }}
           >
             {dataListPlacesOutside?.map((zones) => {
               return (
@@ -291,9 +351,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("addressPlace", { required: false })}
             defaultValue={data.addressPlace}
+            onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.addressPlace ? "lightblue" : "transparent" }}
           >
             {dataListPlacesCABA?.map((zones) => {
               return (

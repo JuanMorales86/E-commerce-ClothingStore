@@ -5,6 +5,7 @@ import { addDoc, collection, doc, getFirestore, updateDoc } from 'firebase/fires
 //Libreria Toastify
 import { ToastContainer, toast } from 'react-toastify';
 
+
 //Libreria SweetAlert
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -13,6 +14,7 @@ import withReactContent from 'sweetalert2-react-content'
 export const AppContex = React.createContext()
 const {Provider} = AppContex
 // const {Provider: TrolleyProvider} = CustomContexProvider// ejemplo con alias
+
 
 
 
@@ -45,60 +47,61 @@ const AppContexProvider = ({children}) => {
         console.log(err)
       })
     }
-    
+
     //Para que funcione el sweetalert2 necesito un:
     const notifyToastContainer = () => {//un toastcontainer
-      return <ToastContainer position="top-right"
-      autoClose={1000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light" />
-    }
+  return <ToastContainer position="top-right"
+  autoClose={1000}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="light" />
+}
 
     const notifyToast = (message) => {//un toast
-      return toast.success( `'${message}'`, {
-      position: "top-right",
-      autoClose: 400,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      })
-    }
+  return toast.success( `'${message}'`, {
+  position: "top-right",
+  autoClose: 400,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  })
+}
 
     const notifyToastAdd = (message) => {//un toast
-      return toast.success( `'${message}'`, {
-      position: "bottom-right",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      })
-    }
+  return toast.success( `'${message}'`, {
+  position: "bottom-right",
+  autoClose: 1000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  })
+}
 
     const notifyToastBD = (message) => {//un toast
-      return toast.success( `'${message}'`, {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      })
-    }
-
+  return toast.success( `'${message}'`, {
+  position: "top-right",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "light",
+  })
+}
+    
+    
     
     //Manejador del carrito
     const handlePrToTrolley = (product) => {

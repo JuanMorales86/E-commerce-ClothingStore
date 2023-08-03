@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import {Box} from '@mui/material'
 
 //Libreria firebase
 import { signOut } from 'firebase/auth'
@@ -12,7 +13,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { AppContex } from '../contex-provider';
 
 function LogOutWidget() {
-    const {notifyToast} = useContext(AppContex)
+    const {notifyToast, notifyToastContainer} = useContext(AppContex)
     
     const handleLogOut = () => {
         signOut(auth)
@@ -23,9 +24,13 @@ function LogOutWidget() {
         })
     }
   return (
-    <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} aria-label="Deslogearse del el sistema administrativo">
-        <ExitToAppIcon/>
-    </IconButton>
+    <Box sx={{marginLeft:"0.8rem"}}>
+        {notifyToastContainer()}
+        <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} aria-label="Deslogearse del el sistema administrativo">
+        
+            <ExitToAppIcon/>
+        </IconButton>
+    </Box>
   )
 }
 

@@ -26,8 +26,13 @@
         "interval": 2000
     },
     {
-        "image": "http://drive.google.com/uc?export=view&id=1cH-GMU8aavd9t6TGLOkNMfwuuVGTpXfH",
+        "image": "http://drive.google.com/uc?export=view&id=1_pMAq0qlxuV48SolTQ6LGRtpk5lxsLiv",
         "titled": "sweater",
         "interval": 1800
+    },
+    {
+        "image": "http://drive.google.com/uc?export=view&id=1S0b8Z4bKHV6CkitzeawOhwuajYhd2oS3",
+        "titled": "camisas",
+        "interval": 2000
     }
 ]

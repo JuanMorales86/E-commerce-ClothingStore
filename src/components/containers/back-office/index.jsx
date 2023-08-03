@@ -26,9 +26,41 @@ function BackOffice() {
   const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex);
 
+  const [formData, setFormData] = React.useState({
+    thumbnail: "",
+    title: "",
+    price: 0,
+    stock: 0,
+    addressShipping: "",
+    addressPlace: "",
+    brand: "",
+    condition: "",
+    categoryType: "",
+    customId: "",
+    description: "",
+  });
+
+  const resetForm = () => {
+    setFormData({
+      thumbnail: "",
+      title: "",
+      price: 0,
+      stock: 0,
+      addressShipping: "",
+      addressPlace: "",
+      brand: "",
+      condition: "",
+      categoryType: "",
+      customId: "",
+      description: "",
+    });
+  };
+  
+
   React.useEffect(() => {//Obtener la data y actualizar
     const db = getFirestore();
     const products = collection(db, "productos"); //tabla
+  
 
     getDocs(products) //tabla
       .then((snapshot) => {
@@ -38,9 +70,10 @@ function BackOffice() {
             ...doc.data(),
           };
         });
-        notifyToastBD(`🎉 Documentos cargados: ${items}`);
+        notifyToastBD(`🎉 Documentos cargados`);
         setProductBD(items);
         setUpdateComponent(false);
+        reset()
       })
       .catch((error) => {
         console.error(error);
@@ -48,7 +81,9 @@ function BackOffice() {
       .finally(() => {
         setLoading(false);
       });
-  }, [updateComponent]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateComponent, notifyToastBD]);
+
 
   const handleItemModify = (item, id) => {//Modificar Productos
     const db = getFirestore();
@@ -56,7 +91,7 @@ function BackOffice() {
 
     updateDoc(paper, item)
       .then(() => {
-        notifyToastBD("💨 Producto Modificado Correctamente" + id);
+        notifyToastBD("💨 Producto Modificado Correctamente");
         setUpdateComponent(true);
       })
       .catch((error) => {
@@ -66,16 +101,14 @@ function BackOffice() {
 
   const handleItemCreate = (item) => {//Crear Productos
     const db = getFirestore();
-
-    const product = collection(db, "productos");
-  
+    const product = collection(db, "productos"); 
     const idAleatorio = uuidv4();// Generar una clave única usando uuidv4()
 
     addDoc(product, {...item, idAleatorio })
       .then(() => {
         notifyToastBD("🎉 Nuevo Producto Creado");
         setUpdateComponent(true);
-        reset()
+        resetForm()
       })
       .catch((error) => {
         console.error("Error al crear el producto:", error);
@@ -151,6 +184,7 @@ function BackOffice() {
         
         <CardBackStage  
           onClick={handleItemCreate}
+          onResetFields={resetForm}
           createButtonText= "Crear"
           showDeleteButton={false}
           className="create-product-card"
