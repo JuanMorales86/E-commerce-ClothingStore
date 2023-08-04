@@ -17,7 +17,7 @@ import { Box, ThemeProvider } from '@mui/material'
 import 'react-toastify/dist/ReactToastify.css'
 
 //Mis componentes
-import NavBar from './components/NavBar/NavBar'
+// import NavBar from './components/NavBar/NavBar'
 import Footer from './components/footer'
 import CustomTheme from './components/Custom-Styles/themes'
 import Nosotros from './components/containers/nosotros'

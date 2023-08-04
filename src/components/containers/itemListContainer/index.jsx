@@ -41,7 +41,7 @@ function ListContainerItem() {
     //Restriccion en url
     React.useEffect(() => {
         if(!niveles.some(niv => niv.id === levels)){//si no devuelve nada
-            navigate('/products/all')//navigate es como un href
+            navigate('/home')//navigate es como un href = '/products/all'
         }
     }, [levels, navigate])
 
