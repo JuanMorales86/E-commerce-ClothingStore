@@ -26,7 +26,7 @@ import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/Sdk/slides.json'
 import AppContexProvider from './components/contex-provider/index'
-import { AppContex } from './components/contex-provider'
+// import { AppContex } from './components/contex-provider'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
 
@@ -34,6 +34,7 @@ import AuthProvider from './components/auth-control';
 import HomePage from './components/containers/home/Home'
 
 import AuthManager from './components/auth-manager';
+import Contacto from './components/containers/contacto';
 
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
@@ -70,7 +71,7 @@ function App() {
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
-            <Route path={'/contacto'} element={<p>contacto</p>} />
+            <Route path={'/contacto'} element={<Contacto/>} />
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
             <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si coloca cualquier cosa */}
           

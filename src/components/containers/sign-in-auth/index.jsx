@@ -6,7 +6,7 @@ import { signOut } from 'firebase/auth'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
 //Libreria Material
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 
 //Mis componentes
 import { auth } from '../../../App'
@@ -48,23 +48,23 @@ function SignInContent({ onClose }) {
     }
 
   return (
-    <Box textAlign={"center"} >
-        <Typography variant='h6' component={'text'} color={"primary.dark"} fontWeight={"bold"}>Iniciar Sesión</Typography>
+<Paper sx={{p: 2, maxWidth: 400, margin: '0 auto', backgroundColor: '#f0f0f0', marginTop:"2rem"}}>
+    <Box sx={{textAlign:"center"}} >
+        <Typography variant='h5' component={'text'} color={"primary.dark"} fontWeight={"bold"} >
+        Iniciar Sesión
+        </Typography>
    
-        <Box sx={{display:"flex", flexDirection:"row",  gap:2}}>
-            <TextField type='text' label='Usuario' value={user} onChange={handleUser} fullWidth/>
-            <TextField type="password" label='Contraseña' value={pass} onChange={handlePass} fullWidth/>
+        <Box sx={{display:"flex", flexDirection:"column",  gap:2, maxWidth:300, margin:"1rem auto"}}>
+            <TextField type='text' label='Usuario' value={user} onChange={handleUser} sx={{backgroundColor:"white"}} fullWidth/>
+            <TextField type="password" label='Contraseña' value={pass} onChange={handlePass} sx={{backgroundColor:"white"}} fullWidth/>
         </Box>
         
         <Box sx={{display:"flex", justifyContent:"center", alignItems:"center", marginTop:2, gap:2}}>
             <Button variant='contained' onClick={handleLogIn} disabled={!user || !pass}>LogIn</Button>
             <Button variant='contained' onClick={handleLogOut}>LogOut</Button>{notifyToastContainer()}
         </Box>
-        
-    
-
-
     </Box>
+</Paper>   
   )
 }
 

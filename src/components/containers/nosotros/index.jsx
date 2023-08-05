@@ -1,8 +1,11 @@
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 function Nosotros() {
   return (
-    <div>Nosotros</div>
+    <Box>
+      <Typography variant='h4' component="h7">Nosotros</Typography>
+    </Box>
   )
 }
 
