@@ -64,7 +64,6 @@ function ModalSlide({widget}) {//Padre
         setOpen(false)//cierro el modal
         setShowUserData(false)//cierro el estado componente userData
           MySwal.fire({//abro sweetalert
-              title: 'Error',
               title: "Debe anadir un producto al carrito",
               icon: 'warning',
               showConfirmButton: true,
@@ -110,10 +109,10 @@ function ModalSlide({widget}) {//Padre
     
   };
 
-  const handleCloseWithMessages = () => {
-    setOpen(false)
-    notifyToast('💨 Compra Terminada Correctamente')
-  }
+  // const handleCloseWithMessages = () => {
+  //   setOpen(false)
+  //   notifyToast('💨 Compra Terminada Correctamente')
+  // }
 
  
 

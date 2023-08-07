@@ -13,7 +13,7 @@ const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las pro
   
   }
   return (
-    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >
+    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} margin={"1rem 1rem"} >
         {
             (loading) ? 
             <CircularProgress variant='indeterminate'/>

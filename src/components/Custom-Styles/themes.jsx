@@ -44,6 +44,29 @@ const CustomTheme = createTheme ({
     customColor3: "#B0E5FF", //Azul claro pastel
     customSpacing: 8,
   },
+
+  overrides: {
+    MuiCard: {
+      root: {
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        // Estilos para pantallas pequeñas (menos de 600px)
+        '@media (max-width:600px)': {
+          flexDirection: 'column-reverse', // Cambiar el orden en pantallas pequeñas
+          '& .MuiCardMedia-root': {
+            borderTopRightRadius: '0',
+            borderBottomRightRadius: '8px',
+            borderBottomLeftRadius: '8px',
+            borderTopLeftRadius: '8px',
+            height: '200px',
+          },
+        },
+      },
+    },
+  },
 });
 
 export default CustomTheme;

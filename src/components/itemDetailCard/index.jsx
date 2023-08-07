@@ -66,7 +66,7 @@ function CardDetail({data}) {
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 200, height: "100%", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: '8px' }}
+        sx={{ width:300, height: "100%", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: '8px' }}
         image={thumbnail}
         alt={title}
       />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   Button,
@@ -12,7 +12,7 @@ import {
 //My item card Principal
 function CardItems({ data, onItemClick }) {
   //se agrega las props
-  const [_, setIsHovered] = useState(false);
+  const [_, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -25,7 +25,7 @@ function CardItems({ data, onItemClick }) {
   return (
     <Card
       sx={{
-        maxWidth: 207,
+        maxWidth: 210,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
         overflow: "visible",
         borderRadius: "10px",
@@ -65,8 +65,8 @@ function CardItems({ data, onItemClick }) {
           onMouseLeave={handleMouseLeave}
           sx={{
             objectFit: "fill",
-            borderTopLeftRadius:"10px",
-            borderTopRightRadius:"10px",
+            borderTopLeftRadius:"6px",
+            borderTopRightRadius:"6px",
             width:"100%",
             height:"200px"
           }} //* para el estilo de la imagen dentro de la card

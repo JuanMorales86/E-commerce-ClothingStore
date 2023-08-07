@@ -31,7 +31,7 @@ import AuthManager from "../auth-manager";
 
 const MenuPages = [
   { label: "Home", path: "/home" },
-  { label: "Prendas", path: "/products/:category" },
+  { label: "Prendas", path: "/products/all" },
   { label: "Nosotros", path: "/nosotros" },
   { label: "Contacto", path:"/contacto"}
 ];
