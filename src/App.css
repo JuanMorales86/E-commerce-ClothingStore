@@ -1,8 +1,71 @@
 *,
 *::before,
 *::after {
+  margin: 0;
+  padding: 0;
     box-sizing: border-box;
 }
+
+
+
+.bordInit {
+  /* margin: 1rem auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  position: relative;
+  background-color: rosybrown;
+  transition: background-color 0.3s ease-in-out;
+  animation: changeBackground 15s ease-in-out infinite;
+  
+  
+}
+
+.bordInit::before {
+  position: absolute;
+  z-index: 1;
+  opacity: 1; 
+  font-weight: bold;
+  content: 'Nuestros Descuentos Semanales:';
+  color: #201616;
+  transition: opacity  0.5s ease-in-out;
+}
+
+.bordInit::after {
+  
+  content: 'Lunes: 10% // Miercoles: 20% // Viernes: 25%'; 
+  font-weight: bold;
+  color: #201616;
+  opacity: 0;
+  transition: opacity  0.7s ease-in-out;
+
+}
+
+.bordInit:hover {
+  animation: none;
+  background-color: #FFB366;
+  filter: blur(0.2px);
+}
+
+.bordInit:hover::before{
+  opacity: 0;
+}
+
+.bordInit:hover::after {
+  opacity: 1; 
+}
+
+
+
+
+
+
+
+
+
+
 
 
 .Custom-cart-widget{
@@ -43,13 +106,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .slidercss{
   display: block;
+  /* width: 100%;
+  height: 350px; */
+  /* max-width: 100%;
+  max-height: 100%; */
   width: 100%;
-  height: 350px;
+  height: 440px;
   object-fit: contain;
+  /* margin: 0 auto; */
 }
 
 .swiperslidesBanners{
@@ -107,3 +176,25 @@
   }
 }
 
+@keyframes changeBackground {
+  0% {
+    background-color: rosybrown;
+    opacity: 1;
+  }
+  25% {
+    background-color: #A3D2CA; /* Verde pastel */
+    opacity: 0.7;
+  }
+  50% {
+    background-color: #F4CBB2; /* Naranja pastel */
+    opacity: 0.7;
+  }
+  75% {
+    background-color: #E6D7B9; /* Amarillo pastel */
+    opacity: 0.7;
+  }
+  100% {
+    background-color: rosybrown;
+    opacity: 1;
+  }
+}

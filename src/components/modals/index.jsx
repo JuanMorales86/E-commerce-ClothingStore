@@ -107,23 +107,14 @@ function ModalSlide({widget}) {//Padre
   const handleClose = () => {//abrir y cerrar el modal 
     setOpen(false);
     
-  };
-
-  // const handleCloseWithMessages = () => {
-  //   setOpen(false)
-  //   notifyToast('💨 Compra Terminada Correctamente')
-  // }
-
- 
+  }; 
 
   return (
     <div>
       {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
       <Button variant="text" onClick={handleClickOpen}>
-       {widget}
+      {widget}
       </Button>
-
-
 
       {/* El diálogo está representado por el componente Dialog de React. Se le pasa la prop open para indicar si el diálogo debe estar visible o no. La prop TransitionComponent se establece en el componente Transition que mencioné anteriormente para proporcionar la transición animada. */}
       <Dialog
@@ -136,21 +127,21 @@ function ModalSlide({widget}) {//Padre
       >
         
         {/* formato UI del card en el modal */}
-        <DialogTitle fontFamily={"monospace"} >{"Tus Productos"}</DialogTitle>
+        <DialogTitle textAlign={"center"} fontFamily={"arial"} textTransform={"capitalize"} fontWeight={"bold"} >{"tus productos"}</DialogTitle>
         <DialogContent >
           <DialogContentText  id="alert-dialog-slide-description">
             {
               trolley.map((item) => (
-              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"strech",  marginBottom: '.3rem', background:
+              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"center",  marginBottom: '.3rem', width: "auto", height:"auto" , background:
               "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
                   <CardMedia
                   component="img"
-                  sx={{ width: "150px", height:"150px", aspectRatio: 16/9, alignSelf:'center', border:'solid 2px black', objectFit:"fill", marginLeft:"1rem" }}
+                  sx={{ width: "150px", height:"150px", aspectRatio: 10/9, alignSelf:'center', border:'solid 2px black', objectFit:"contain" }}
                   image={item.imagen}
                   alt={item.producto}
                   />
                 <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:"self-start"}}>
-                  <Typography sx={{width:'200px', textAlign:'left', lineHeight:1, marginBottom:"5px"}} flexWrap="nowrap" variant="h6" component="p">
+                  <Typography sx={{width:"150px", textAlign:'left', lineHeight:1, marginBottom:"5px"}} flexWrap="wrap" variant="h6" component="p">
                     {item.producto}
                   </Typography>
                   <Typography variant="body2" component='p' color="textSecondary">
@@ -171,17 +162,17 @@ function ModalSlide({widget}) {//Padre
         </DialogContent>
 
         <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
-            <Box display={'flex'} flexDirection={'row'} justifyContent={"center"} gap={"1rem"} textTransform={"capitalize"}>
-
-            <Typography fontFamily={"fantasy"} variant="body2" component="p">
+            
+            <Box display={'flex'} justifyContent={"center"} flexDirection={'row'} textAlign={"center"} gap={"1rem"} textTransform={"capitalize"}>
+            <Typography fontWeight={"bold"} fontFamily={"monospace"} variant="body2" component="p">
                 Items en Carrito: {quantityC} 
             </Typography>
-            <Typography fontFamily={"fantasy"} variant="body2" component="p">
-                Cantidad Total Items: {calcTotalPerItemsCart()} 
+            <Typography fontWeight={"bold"} fontFamily={"monospace"} variant="body2" component="p">
+                Cantidad Total Productos: {calcTotalPerItemsCart()} 
             </Typography>
             </Box>
             
-            <Box display={"flex"} justifyContent={"center"}>
+            <Box textAlign={"center"}>
               <Typography variant="h6" component="p">
                 Total Pago S/Iva: {calcTotalGlobalPay()} Pesos
             </Typography>

@@ -50,7 +50,18 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 }
 
 function App() {
-  // const {notifyToastContainer} = React.useState(AppContex)
+  const [showFixedImage, setShowFixedImage] = React.useState(false)
+  const [_, setAutoplayEnabled] = React.useState(true);
+
+  const handleShowFixedImage = (show) => {
+    setShowFixedImage(show);
+    setAutoplayEnabled(show); // Deshabilitar el autoplay cuando showFixedImage sea true
+  };
+
+  React.useEffect(() => {
+    setAutoplayEnabled(true);
+  }, []);
+
   return (
     <RouterLink>
       <AppContexProvider>
@@ -61,7 +72,12 @@ function App() {
           </Box>
 
           <Box>
-            <SliderSwiper slides={slides}/>
+            <Box className="bordInit"></Box>
+            </Box>
+          
+
+          <Box>
+            <SliderSwiper slides={slides} showFixedImage={showFixedImage}/>
           </Box>
 
           <Routes>
@@ -71,7 +87,7 @@ function App() {
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
-            <Route path={'/contacto'} element={<Contacto/>} />
+            <Route path={'/contacto'} element={<Contacto setShowFixedImage={handleShowFixedImage}/>}  />
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
             <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si coloca cualquier cosa */}
           
@@ -80,7 +96,6 @@ function App() {
           <Box>
             <Footer />
           </Box>
-          {/* {notifyToastContainer} */}
           </AuthManager>
         </ThemeProvider>
        

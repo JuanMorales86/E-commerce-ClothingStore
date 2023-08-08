@@ -1,61 +1,35 @@
 import React from 'react'
-import { Typography, Box, TextField, Button, Paper } from '@mui/material'
+import { Box, TextField, Button, Paper } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { AppContex } from '../../contex-provider'
 import emailjs from '@emailjs/browser';
 
 
 
-function Contacto() {
+function Contacto({ setShowFixedImage, autoplayEnabled }) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm()
     const {notifyToast} = React.useContext(AppContex)
-    const form = React.useRef()
+   
+    console.log(setShowFixedImage)
+    console.log(autoplayEnabled)
 
-    //     try {
-    //         const form = document.createElement('form');
-    //         form.action = 'https://formsubmit.co/juanjosemorales1986@gmail.com';
-    //         form.method = 'POST';
 
-    //         // Crear un elemento de entrada para cada campo de datos y añadirlos al formulario
-    //         Object.entries(data).forEach(([key, value]) => {
-    //             const input = document.createElement('input');
-    //             input.type = 'hidden';
-    //             input.name = key;
-    //             input.value = value;
-    //             form.appendChild(input);
-    //         });
+    //Para lograr la imagen fija
+    React.useEffect (() => {
+      setShowFixedImage(true)//se monta
+     
+     
+      return () => {
+        setShowFixedImage(false)//se desmonta
+    
+        
+      }
+    }, [setShowFixedImage, autoplayEnabled ])
 
-    //         // Añadir el formulario al documento y enviarlo
-    //         document.body.appendChild(form);
-    //         form.submit();
-            
-    //         //quitar el formulario del documento despues de enviarlo
-    //         document.body.removeChild(form);
-
-    //         notifyToast('Formulario enviado exitosamente.');
-    //         reset();
-    //     } catch (error) {
-    //         console.log('Error al enviar el formulario:', error);
-    //         notifyToast('Error al enviar el formulario.');
-    //     }
-    // };
-
-    // const onSubmit = async (data) => {
-    //     try {
-    //         await emailjs.sendForm('react_contact_detail', 'template_dybd6hl', form.current, 'Ab9gNllYCT5UB5o8m');
-
-    //         notifyToast('Formulario enviado exitosamente.');
-    //         reset();
-    //     } catch (error) {
-    //         console.log('Error al enviar el formulario:', error);
-    //         notifyToast('Error al enviar el formulario.');
-    //     }
-    // };
-
-    const onSubmit = async (formData) => {
+    const onSubmit = async (formData) => {//formData toma los datos de los textfield gracias al hook form
         try {
 
-        await emailjs.send('React_Sal_&_Pimienta', 'template_dybd6hl', formData, 'Ab9gNllYCT5UB5o8m');
+        await emailjs.send('React_Sal_&_Pimienta', 'template_dybd6hl', formData, 'Ab9gNllYCT5UB5o8m'); //Configuracion de emailjs
     
           notifyToast('Formulario enviado exitosamente.');
           
@@ -70,10 +44,10 @@ function Contacto() {
 
   return (
     <Box sx={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", marginTop:"1rem"}}>
-    <Typography variant='h4' component="h5">Contacto</Typography>
+
     
-    <Paper sx={{ p: 2, maxWidth:400, width:'600px', margin: '0 auto', backgroundColor: '#f0f0f0' }}>
-    <form ref={form} onSubmit={handleSubmit(onSubmit)}> 
+    <Paper sx={{ p: 2, maxWidth:400, width:'600px', margin: '2rem auto', backgroundColor: '#f0f0f0' }}>
+    
     <Box component='form'  sx={{display:"flex",flexDirection:"column", gap:"1rem", marginTop:"1rem"}}>
         
         <TextField label='Nombre y Apellido' placeholder='Nombre y Apellido...' variant='outlined' name='user_name'
@@ -130,7 +104,7 @@ function Contacto() {
     <Box sx={{margin:'1rem auto', textAlign:"center"}}>
     <Button variant='contained' type='submit' onClick={handleSubmit(onSubmit)} >Submit</Button>
     </Box>
-    </form>
+   
     </Paper>
 
     </Box>
