@@ -10,8 +10,6 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
     const {register, handleSubmit, reset, formState: { errors }} = useForm()
     const {notifyToast} = React.useContext(AppContex)
    
-    console.log(setShowFixedImage)
-    console.log(autoplayEnabled)
 
 
     //Para lograr la imagen fija

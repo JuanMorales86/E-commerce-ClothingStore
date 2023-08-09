@@ -198,3 +198,19 @@
     opacity: 1;
   }
 }
+
+.highlight-animation {
+  animation: highlightAnimation 2s infinite; /* Duración de la animación */
+}
+
+@keyframes highlightAnimation {
+  0% {
+    background-color: initial;
+  }
+  50% {
+    background-color: #ffeeaa; /* Color a destacar */
+  }
+  100% {
+    background-color: initial;
+  }
+}

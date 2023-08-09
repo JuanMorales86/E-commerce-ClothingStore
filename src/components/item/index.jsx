@@ -27,7 +27,7 @@ function CardItems({ data, onItemClick }) {
       sx={{
         maxWidth: 210,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-        overflow: "visible",
+        overflow: "hidden",
         borderRadius: "10px",
         border: "solid 2px black",
         background:
@@ -76,7 +76,7 @@ function CardItems({ data, onItemClick }) {
         <Box sx={{ flexGrow: 1 }}>
           <Typography
             gutterBottom
-            variant="h7"
+            variant="h6"
             component="div"
             fontWeight={"bold"}
             textAlign={"center"}
@@ -94,7 +94,7 @@ function CardItems({ data, onItemClick }) {
           <Typography
             gutterBottom
             component="div"
-            variant="h7"
+            variant="h6"
             sx={{ display: "block" }}
           >
             Codigo: {data.customid.toUpperCase()}
@@ -102,7 +102,7 @@ function CardItems({ data, onItemClick }) {
           <Typography
             gutterBottom
             component="div"
-            variant="h7"
+            variant="h6"
             sx={{ display: "block" }}
           >
             Condición: {data.condition}

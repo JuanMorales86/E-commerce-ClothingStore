@@ -79,6 +79,11 @@ function ModalSlide({widget}) {//Padre
             });
             }
     };
+  
+  const formatNWCS = (num) => {//Formatear los totales de miles con decimales
+    return num.toLocaleString('es-Es', {minimunFractionDigits: 2, maximunFractionDigits: 2}) //predefinidos toLocaleString minimunFractionDigits maximunFractionDigits
+    
+  }
 
   const calcTotalPerItemsCart = () => {//Calcular la cantidad de items que lleva entre productos (no tiene nada que ver con calculo de precios)
     let totalQuantity = 0
@@ -92,12 +97,12 @@ function ModalSlide({widget}) {//Padre
   const calcTotalGlobalPay = () => {//Calcular el total de todo el carrito sin iva
     let totalGlobal = 0
 
-    for (const item of trolley) { totalGlobal += calcTotalQuantityPerPrice(item) } return totalGlobal.toFixed(2)
+    for (const item of trolley) { totalGlobal += calcTotalQuantityPerPrice(item) } return formatNWCS(totalGlobal)
   }
 
   const calcwithIva = () => {//Calcular el total de todo el carrito con iva
     let totalWithIva = 0
-    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return totalWithIva.toFixed(2)
+    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return formatNWCS(totalWithIva)
   } 
 
   const handleClickOpen = () => {//abrir y cerrar el modal
@@ -164,10 +169,10 @@ function ModalSlide({widget}) {//Padre
         <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
             
             <Box display={'flex'} justifyContent={"center"} flexDirection={'row'} textAlign={"center"} gap={"1rem"} textTransform={"capitalize"}>
-            <Typography fontWeight={"bold"} fontFamily={"monospace"} variant="body2" component="p">
+            <Typography fontWeight={"bold"} fontFamily={"arial"} variant="body2" component="p">
                 Items en Carrito: {quantityC} 
             </Typography>
-            <Typography fontWeight={"bold"} fontFamily={"monospace"} variant="body2" component="p">
+            <Typography fontWeight={"bold"} fontFamily={"arial"} variant="body2" component="p">
                 Cantidad Total Productos: {calcTotalPerItemsCart()} 
             </Typography>
             </Box>

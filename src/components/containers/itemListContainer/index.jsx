@@ -24,7 +24,8 @@ const niveles = [
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  const [id, setId] = React.useState('')
+  // eslint-disable-next-line no-unused-vars
+  const [_, setId] = React.useState('')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//permite ver la prop pasada traida desde en este caso app.jsx (Hook)

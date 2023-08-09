@@ -139,8 +139,8 @@ const AppContexProvider = ({children}) => {
         const totalQuantity = existingTrolley + product.quantity //Luego de calcular la cantidad total de productos con el mismo id en el carrito
         // se verifica que no exceda el stock disponible y el límite máximo
 
-        console.log('totalQuantity:', totalQuantity);
-        console.log('product.stock:', product.stock);
+        // console.log('totalQuantity:', totalQuantity);
+        // console.log('product.stock:', product.stock);
 
         if(totalQuantity <= parseInt(product.stock)){// se verifica si la cantidad total de un producto en el carrito, incluida la cantidad que se desea agregar, es menor o igual al stock disponible para ese producto (product.stock).
         // Restar la cantidad agregada al carrito del stock original
