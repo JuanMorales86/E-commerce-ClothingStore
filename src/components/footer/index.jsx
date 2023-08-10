@@ -41,7 +41,7 @@ function Footer() {
               </Typography>
               <Typography component="p">Dirección: Gallo 606, Almagro, CABA</Typography>
               <Typography component="p">Teléfono: 9-(11) 2843-3076</Typography>
-              <Typography component="p">Email: salpimienta.shop23@gmail.com</Typography>
+              <Typography component="p" sx={{ letterSpacing:2}}>Email: <wbr />salpimienta.<wbr />shop23@<wbr />gmail.com</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <Typography variant="h6" component="h3">

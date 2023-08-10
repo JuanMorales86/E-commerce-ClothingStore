@@ -1,4 +1,8 @@
 import React from 'react'
+
+//Libreria zoom-pan-pinch
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+
 //LibreriaMaterial
 import { Box, CardActions, Card, CardContent, CardMedia, Typography } from '@mui/material';
 //Mis componentes
@@ -8,6 +12,8 @@ import { AppContex } from '../contex-provider';
 //Mi card DETAIL
 function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
+
+  const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
 
   const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
@@ -64,12 +70,31 @@ function CardDetail({data}) {
         </Box>
 
       </Box>
-      <CardMedia
-        component="img"
-        sx={{ width:300, height: "100%", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: ['0', '10px'] }}
-        image={thumbnail}
-        alt={title}
-      />
+      
+      <TransformWrapper
+            initialScale={1}
+            initialPositionX={0}
+            initialPositionY={0}
+        onPointerEnter={() => setIsHovered(true)}//activar hover
+        onPointerLeave={() => setIsHovered(false)}//desactivar hover
+      >
+        
+        {({ zoomIn, zoomOut, resetTransform }) => (
+        <TransformComponent>
+
+          <CardMedia
+            component="img"
+            sx={{ width:"350px", height: "auto", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: ['0', '10px'],
+            transition: "transform 0.5s ease",
+            transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover
+            }}
+            image={thumbnail}
+            alt={title}
+          />
+
+        </TransformComponent>
+        )}
+      </TransformWrapper>
     </Card>
   );
 }

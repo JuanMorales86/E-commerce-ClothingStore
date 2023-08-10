@@ -25,9 +25,9 @@ function CardItems({ data, onItemClick }) {
   return (
     <Card
       sx={{
-        maxWidth: 210,
+        maxWidth: 250,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-        overflow: "hidden",
+        overflow: "visible",//visible para que la imagen salgadel card
         borderRadius: "10px",
         border: "solid 2px black",
         background:
@@ -36,7 +36,7 @@ function CardItems({ data, onItemClick }) {
         "&:hover":{
           borderColor: "magenta",
           boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
-          transform: "scale(1.05)",
+          transform: "scale(1.1)",
         }
       }}
     >
@@ -46,11 +46,13 @@ function CardItems({ data, onItemClick }) {
           //animacion
           transition: "transform 0.5s ease-out", //cover, contain, fill,scale-down
           borderBottom: "2px solid black",
+          position: "relative",
+          zIndex: 0,
           "&:hover":{
             zIndex: 1,
             borderBottom: "none",
             borderRadius: "10px",
-            transform: "scale(1.6)",
+            transform: "scale(1.3)",
           },
         }}
       >
@@ -64,11 +66,12 @@ function CardItems({ data, onItemClick }) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
-            objectFit: "fill",
+            objectFit: "cover",
             borderTopLeftRadius:"6px",
             borderTopRightRadius:"6px",
             width:"100%",
-            height:"200px"
+            height:"380px",
+            transition: "transform 0.5s ease-out",
           }} //* para el estilo de la imagen dentro de la card
         />
       </Box>
@@ -76,7 +79,7 @@ function CardItems({ data, onItemClick }) {
         <Box sx={{ flexGrow: 1 }}>
           <Typography
             gutterBottom
-            variant="h6"
+            variant="inherit"
             component="div"
             fontWeight={"bold"}
             textAlign={"center"}
@@ -91,23 +94,23 @@ function CardItems({ data, onItemClick }) {
           >
             {data.title.toUpperCase()}
           </Typography>
+
+
           <Typography
             gutterBottom
             component="div"
-            variant="h6"
+            variant="inherit"
+            color={"text.secondary"}
+            textAlign={"center"}
             sx={{ display: "block" }}
           >
             Codigo: {data.customid.toUpperCase()}
           </Typography>
-          <Typography
-            gutterBottom
-            component="div"
-            variant="h6"
-            sx={{ display: "block" }}
-          >
+    
+          
+          <Typography variant="body2" color="text.secondary">
             Condición: {data.condition}
           </Typography>
-
           <Typography variant="body2" color="text.secondary">
             Precio: {data.price}
           </Typography>
