@@ -26,7 +26,7 @@ function BackOffice() {
   const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex);
 
-  const [_, setFormData] = React.useState({
+  const [, setFormData] = React.useState({
     thumbnail: "",
     title: "",
     price: 0,

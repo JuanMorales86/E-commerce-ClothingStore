@@ -3,6 +3,7 @@ import {
   lightBlue,
   blueGrey,
   indigo,
+  purple
 } from "@mui/material/colors";
 
 const CustomTheme = createTheme ({
@@ -20,6 +21,15 @@ const CustomTheme = createTheme ({
       light: lightBlue[200], // Tono mas claro
       //contrasText: "#FFFFFF", // Color de texto que contrasta con el color secundario
       A700: lightBlue["A700"], // Variante A700
+    },
+
+    tertiary: {
+      main: purple[500], // Color Principal
+      dark: purple[900], // Tono mas oscuro
+      light: purple[50], // Tono mas claro
+      A700: purple["A100"], // Variante A100 mas claro 
+      A200: purple["A200"], // Variante A200 un poco mas oscuro 
+      A400: purple["A400"], // Variante A400 mas oscuro
     },
 
     accent: {

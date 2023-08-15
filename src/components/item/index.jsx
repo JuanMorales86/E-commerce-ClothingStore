@@ -9,10 +9,13 @@ import {
   Box,
 } from "@mui/material"; //Libreria Material
 
+import PanToolAltIcon from '@mui/icons-material/PanToolAlt';//Icon Material
+
+
 //My item card Principal
 function CardItems({ data, onItemClick }) {
   //se agrega las props
-  const [_, setIsHovered] = React.useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -21,6 +24,7 @@ function CardItems({ data, onItemClick }) {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
 
   return (
     <Card
@@ -52,15 +56,19 @@ function CardItems({ data, onItemClick }) {
             zIndex: 1,
             borderBottom: "none",
             borderRadius: "10px",
-            transform: "scale(1.3)",
+            transform: "scale(1.2)",
           },
         }}
+        onMouseEnter={handleMouseEnter}//Cursor pointer
+        onMouseLeave={handleMouseLeave}//Cursor pointer
+        className={"cursorIconStyleContainer"}//Cursor pointer
       >
         {/* para el estilo de la imagen */}
 
         <CardMedia
           component="img"
           alt={data.title}
+          onClick={() => {onItemClick(data.id)}}
           height="200"
           image={data.thumbnail}
           onMouseEnter={handleMouseEnter}
@@ -72,8 +80,14 @@ function CardItems({ data, onItemClick }) {
             width:"100%",
             height:"380px",
             transition: "transform 0.5s ease-out",
+            
           }} //* para el estilo de la imagen dentro de la card
         />
+        
+        {/* para el cursor */}
+        {isHovered && <PanToolAltIcon sx={{ color: "tertiary.A200" }} className={"cursorIconStyle"} />}
+
+
       </Box>
       <CardContent sx={{maxWidth:"100%"}}>
         <Box sx={{ flexGrow: 1 }}>

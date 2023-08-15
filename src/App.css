@@ -6,7 +6,37 @@
     box-sizing: border-box;
 }
 
+a{/*enlaces*/
+  text-decoration:none!important ;
+  text-decoration-line: none!important;
+  text-decoration-thickness: from-font!important ;
+  text-underline-offset: .25rem;
+  text-decoration-skip-ink: auto!important;
+}
 
+a:hover, a:focus{
+  color: #A3D2CA;
+}
+
+ul{/*listas*/
+  list-style-type: none; 
+  padding: 0;
+}
+
+.cursorIconStyleContainer{
+  position: relative;
+}
+
+.cursorIconStyle {
+  /* Ajusta la posición del ícono en el centro del contenedor */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  pointer-events: none; /* Evita que el ícono capture eventos del mouse*/
+}
 
 .bordInit {
   /* margin: 1rem auto; */

@@ -93,8 +93,8 @@ return (
     </Button>
     </Box>
     
-    <Box sx={{ display: 'flex', marginTop:'1rem', marginBottom:'1rem' }}>
-    <Button variant='contained' size="small" sx={{marginRight:'1rem'}} onClick={handleTrollyCount}>Agregar</Button>{notifyToastContainer()}
+    <Box sx={{ display: 'flex', justifyContent:"center",alignItems:"center", marginTop:'1rem', marginBottom:'1rem', gap:1 }}>
+    <Button variant='contained' size="small" onClick={handleTrollyCount}>Agregar</Button>{notifyToastContainer()}
     <Button variant='contained' size="small" component={Link} to="/products/all">Volver</Button>
     </Box>
     </Box>

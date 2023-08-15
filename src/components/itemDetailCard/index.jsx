@@ -4,7 +4,13 @@ import React from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 //LibreriaMaterial
-import { Box, CardActions, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Button, CardActions, Card, CardContent, CardMedia, Typography } from '@mui/material';
+
+//Iconos Material
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
+import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+
 //Mis componentes
 import ItemCount from '../item-count';
 import { AppContex } from '../contex-provider';
@@ -14,6 +20,8 @@ function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
+
+  const [showZoomMessage, setShowZoomMessage] = React.useState(false)//estado para el mensage de hacer zoom
 
 
   const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
@@ -28,6 +36,21 @@ function CardDetail({data}) {
           quantity: quantity,//tiene la cantidad del producto seleccionado en el carrito
           stock: stock// tiene el stock original de el producto
       })
+  }
+
+  const handleMouseEnter = () => {
+    console.log("Mouse enter")
+    setIsHovered(true)
+    setShowZoomMessage(true)
+  }
+
+  const handleMouseLeave = () => {
+    console.log("Mouse Leave")
+    setIsHovered(false);
+    setTimeout(() => {
+      setShowZoomMessage(false)
+    }, 2000)
+    console.log(setShowZoomMessage)
   }
 
   return (
@@ -62,7 +85,7 @@ function CardDetail({data}) {
         </Box>
         </CardContent>
 
-        <Box sx={{ display:'flex', flexDirection:'column' , alignItems: ['center', 'start'] }}>
+        <Box sx={{ display:'flex', flexDirection:'column' , alignItems: ['center', 'center'] }}>
       
                 <CardActions>
                 <ItemCount stock={stock} addHandleToTrolley={addHandleToTrolley}/>
@@ -70,7 +93,8 @@ function CardDetail({data}) {
         </Box>
 
       </Box>
-      
+      {/* Componente para la funcionabilidad del zoom */}
+
       <TransformWrapper
             initialScale={1}
             initialPositionX={0}
@@ -78,21 +102,30 @@ function CardDetail({data}) {
         onPointerEnter={() => setIsHovered(true)}//activar hover
         onPointerLeave={() => setIsHovered(false)}//desactivar hover
       >
-        
+      
+        {/* si le quiero agregar botones */}
         {({ zoomIn, zoomOut, resetTransform }) => (
-        <TransformComponent>
-
+          <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"end"}}>
+         <TransformComponent>
           <CardMedia
             component="img"
             sx={{ width:"350px", height: "auto", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: ['0', '10px'],
             transition: "transform 0.5s ease",
-            transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover
-            }}
+            transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover(me parece que no funciona)
+            position:"relative"  
+          }}
             image={thumbnail}
             alt={title}
           />
-
-        </TransformComponent>
+             </TransformComponent>
+          {/* Componente para la funcionabilidad del zoom */}
+              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems: 'center', position:"absolute", gap:1, mb:"1rem", border:"2px solid white", borderRadius:"20px"  }} className="tools">
+                <Button variant="text" onClick={() => zoomIn()}><ZoomInIcon fontSize='small' color='secondary'/></Button>
+                <Button variant="text" onClick={() => zoomOut()}><ZoomOutIcon fontSize='small' color='secondary'/></Button>
+                <Button variant="text" onClick={() => resetTransform()}><RestartAltIcon fontSize='small' color='secondary'/></Button>
+              </Box>
+       
+        </Box>
         )}
       </TransformWrapper>
     </Card>
@@ -101,4 +134,7 @@ function CardDetail({data}) {
 
 export default CardDetail
 
+
 //     <Button sx={{ marginLeft:1 }} variant='contained' size="small" component={Link} to="/products/all" state={{ selectedProductId }}>Volver</Button>
+
+{/* <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position:"absolute", marginLeft:["2rem", "17.5rem"],  marginTop:["2.1rem", "19.1rem"], marginBottom: ['22rem', null], border:"2px solid black"  }} className="tools"> */}

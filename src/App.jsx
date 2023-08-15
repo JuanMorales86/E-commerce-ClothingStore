@@ -10,7 +10,7 @@ import { getAuth } from "firebase/auth"
 //Routing
 import { BrowserRouter as RouterLink, Route, Routes, Navigate  } from 'react-router-dom';//Routing
 
-//Librerias
+//Libreria Material
 import { Box, ThemeProvider } from '@mui/material'
 
 //Libreria toastify
@@ -26,7 +26,6 @@ import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
 import slides from './components/Sdk/slides.json'
 import AppContexProvider from './components/contex-provider/index'
-// import { AppContex } from './components/contex-provider'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
 
@@ -51,7 +50,7 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 
 function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
-  const [_, setAutoplayEnabled] = React.useState(true);
+  const [, setAutoplayEnabled] = React.useState(true);
 
   const handleShowFixedImage = (show) => {
     setShowFixedImage(show);
