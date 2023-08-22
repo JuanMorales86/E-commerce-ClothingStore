@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 //Libreria MaterialUi
 import { Box, TextField, Button, Typography } from '@mui/material'
 //Contex Provider
-import { AppContex } from '../contex-provider'
+import { AppContex } from '../../Providers/contex-provider'
 
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra

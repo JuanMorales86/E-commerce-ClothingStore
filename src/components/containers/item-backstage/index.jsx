@@ -81,11 +81,14 @@ const dataListPlacesOutside = ["P. Buenos Aires", "Caba"];
 
 const conditions = ["Nuevo", "Usado", "Detalles"];
 
+const dataspecialproduct = [true, false]
+
 //My item card Principal
-function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton }) {
-  const { register,getValues} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
-  const [modifiedFields, setModiefiedFields] = React.useState({})
+function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, onResetFields, showResetButton }) {
+  const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const [modifiedFields, setModiefiedFields] = React.useState({})//para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = useState(false);
+  
   
   
   const handleMouseEnter = () => {
@@ -108,8 +111,12 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     }
   };
 
+  const handleResetFields = (formData) => {
+   reset(formData)
+  };
+
   const handleChangeText = (e) => {
-    //cambio que maneja los inputs que han sido modificados
+    //funcion de cambio que maneja los inputs que han sido modificados
     setModiefiedFields((prevModifiedFiles) => ({
       ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
     }))
@@ -365,6 +372,29 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
               );
             })}
           </TextField>
+
+          <TextField
+            label="Aplicar Descuentos"
+            variant="outlined"
+            placeholder="Tendra Descuento?..."
+            size="small"
+            {...register("specialproduct", { required: false })}
+            defaultValue={data.specialproduct}
+            onChange={handleChangeText}
+            select
+            fullWidth
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.specialproduct ? "lightblue" : "transparent" }}
+          >
+            {Object.entries(dataspecialproduct).map(([key, value]) => {//En este caso, Object.entries(dataspecialproduct) te proporciona pares [index, value] donde index representa el índice único de cada elemento y value es el valor booleano (true o false) que indica si el producto tiene descuento.
+               const label = value ? 'Tiene descuento' : 'No tiene descuento';//si tiene descuento sigue siendo boolean es true si no tiene descuento es false seria la conversion en el frente de cliente
+              return (
+                <MenuItem key={key} value={value}>
+                  {label}
+                </MenuItem>
+              );
+            })}
+          </TextField>
         </Box>
       </CardContent>
       
@@ -384,6 +414,14 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           {createButtonText ? createButtonText : "Modificar"}
           {/*cambio el texto segun la funcion*/}
           </Button>
+
+            {/* Botón de restablecimiento */}
+            {showResetButton && (
+            <Button variant="contained" onClick={handleResetFields} size="small">
+              Limpiar
+            </Button>
+          )}
+
           {/* en el evento click se llama a la funcion obItemCLick que recibe una prop */}
           {showDeleteButton && (
           <Button variant="contained" onClick={onDelete} size="small">
@@ -398,4 +436,4 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
 export default CardBackStage;
 
-//El getValues() es una función proporcionada por el hook useForm de react-hook-form, y se utiliza para obtener los valores de los campos del formulario registrados con el hook. Cuando utilizas el hook register para registrar un TextField, este se vincula automáticamente con el getValues(). De esta manera, cuando llamas a getValues(), obtendrás un objeto con los valores actuales de todos los campos registrados.
+

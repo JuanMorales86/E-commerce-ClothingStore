@@ -17,23 +17,26 @@ import { Box, ThemeProvider } from '@mui/material'
 import 'react-toastify/dist/ReactToastify.css'
 
 //Mis componentes
+import CustomTheme from './components/custom-styles/themes'
+import HomePage from './components/home/Home'
 import NavBar from './components/navbar/navBar'
 import Footer from './components/footer'
-import CustomTheme from './components/Custom-Styles/themes'
-import Nosotros from './components/containers/nosotros'
+import Nosotros from './components/nosotros'
+import Contacto from './components/contacto';
 import ListContainerDetail from './components/containers/itemDetailContainer'
 import ListContainerItem from './components/containers/itemListContainer'
 import SliderSwiper from './components/slider-swiper'
-import slides from './components/Sdk/slides.json'
-import AppContexProvider from './components/contex-provider/index'
+import slides from './components/sdk/slides.json'
+import AppContexProvider from './Providers/contex-provider/index'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
 
-import AuthProvider from './components/auth-control';
-import HomePage from './components/containers/home/Home'
+import AuthManager from './Providers/auth-manager'
+import AuthProvider from './Providers/auth-provider';
 
-import AuthManager from './components/auth-manager';
-import Contacto from './components/containers/contacto';
+
+
+
 
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);

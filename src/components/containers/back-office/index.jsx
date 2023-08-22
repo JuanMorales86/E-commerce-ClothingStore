@@ -14,8 +14,8 @@ import {
 //Libreria Material
 import { Box, Typography, CircularProgress } from "@mui/material";
 //Mis Componentes
-import CardBackStage from "../../item-backstage";
-import { AppContex } from "../../contex-provider";
+import CardBackStage from "../item-backstage";
+import { AppContex } from "../../../Providers/contex-provider";
 
 
 
@@ -25,6 +25,7 @@ function BackOffice() {
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex);
+ 
 
   const [, setFormData] = React.useState({
     thumbnail: "",
@@ -38,6 +39,7 @@ function BackOffice() {
     categoryType: "",
     customId: "",
     description: "",
+    specialproduct:"",
   });
 
   const resetForm = () => {
@@ -53,6 +55,7 @@ function BackOffice() {
       categoryType: "",
       customId: "",
       description: "",
+      specialproduct:"",
     });
   };
   
@@ -73,7 +76,6 @@ function BackOffice() {
         notifyToastBD(`🎉 Documentos cargados`);
         setProductBD(items);
         setUpdateComponent(false);
-        reset()
       })
       .catch((error) => {
         console.error(error);
@@ -108,7 +110,7 @@ function BackOffice() {
       .then(() => {
         notifyToastBD("🎉 Nuevo Producto Creado");
         setUpdateComponent(true);
-        resetForm()
+        reset()
       })
       .catch((error) => {
         console.error("Error al crear el producto:", error);
@@ -162,15 +164,16 @@ function BackOffice() {
           {notifyToastContainer()}
           {productBD.map((items) => {
             return (
-              <CardBackStage
-                key={items.id}
-                data={items}
-                onClick={handleItemModify}
-                createButtonText="Modificar"
-                showDeleteButton={true}
-                onDelete={() => handleDeletion(items.id)}
-              />
-            );
+        <CardBackStage
+          key={items.id}
+          data={items}
+          onClick={handleItemModify}
+          createButtonText="Modificar"
+          showDeleteButton={true}
+          showResetButton={false}
+          onDelete={() => handleDeletion(items.id)}
+        />
+          );
           })}
         </Box>
       ) : (
@@ -187,6 +190,7 @@ function BackOffice() {
           onResetFields={resetForm}
           createButtonText= "Crear"
           showDeleteButton={false}
+          showResetButton={true}
           className="create-product-card"
           data={{
             thumbnail: "",
@@ -200,6 +204,7 @@ function BackOffice() {
             categoryType: "",
             customId: "",
             description: "",
+            specialproduct:"",
           }}
         />
       </Box>

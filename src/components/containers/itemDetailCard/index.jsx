@@ -13,7 +13,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 //Mis componentes
 import ItemCount from '../item-count';
-import { AppContex } from '../contex-provider';
+import { AppContex } from '../../../Providers/contex-provider';
 
 //Mi card DETAIL
 function CardDetail({data}) {
@@ -21,7 +21,7 @@ function CardDetail({data}) {
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
-  const [showZoomMessage, setShowZoomMessage] = React.useState(false)//estado para el mensage de hacer zoom
+  const [, setShowZoomMessage] = React.useState(false)//estado para el mensage de hacer zoom
 
 
   const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
@@ -99,8 +99,7 @@ function CardDetail({data}) {
             initialScale={1}
             initialPositionX={0}
             initialPositionY={0}
-        onPointerEnter={() => setIsHovered(true)}//activar hover
-        onPointerLeave={() => setIsHovered(false)}//desactivar hover
+   
       >
       
         {/* si le quiero agregar botones */}
@@ -116,6 +115,8 @@ function CardDetail({data}) {
           }}
             image={thumbnail}
             alt={title}
+            onMouseEnter={handleMouseEnter}//activar hover
+            onMouseLeave={handleMouseLeave}//desactivar hover
           />
              </TransformComponent>
           {/* Componente para la funcionabilidad del zoom */}
@@ -137,4 +138,11 @@ export default CardDetail
 
 //     <Button sx={{ marginLeft:1 }} variant='contained' size="small" component={Link} to="/products/all" state={{ selectedProductId }}>Volver</Button>
 
-{/* <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position:"absolute", marginLeft:["2rem", "17.5rem"],  marginTop:["2.1rem", "19.1rem"], marginBottom: ['22rem', null], border:"2px solid black"  }} className="tools"> */}
+/* <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', position:"absolute", marginLeft:["2rem", "17.5rem"],  marginTop:["2.1rem", "19.1rem"], marginBottom: ['22rem', null], border:"2px solid black"  }} className="tools"> */
+
+
+// En el fragmento de código que proporcionaste, estás llamando inmediatamente las funciones handleMouseEnter y handleMouseLeave en los eventos onPointerEnter y onPointerLeave. Esto provocará que las funciones se ejecuten inmediatamente cuando el componente se renderiza, en lugar de esperar a que ocurran los eventos de entrada y salida del mouse.
+
+// Para utilizar correctamente las funciones en los eventos, debes pasar la referencia de las funciones sin los paréntesis para que se ejecuten solo cuando ocurran los eventos. Aquí está cómo debería verse: 
+// onPointerEnter={handleMouseEnter} // No uses los paréntesis aquí
+// onPointerLeave={handleMouseLeave} // No uses los paréntesis aquí

@@ -2,7 +2,7 @@ import React from 'react'
 
 //Libreria Material
 import { Box, CircularProgress } from '@mui/material'//Libreria Material
-import CardItems from '../item'//Mis Componenetes
+import CardItems from '../../containers/item'//Mis Componenetes
 
 
 //My lista de item 

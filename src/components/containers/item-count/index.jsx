@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
 //Contex
-import { AppContex } from '../contex-provider';
+import { AppContex } from '../../../Providers/contex-provider';
 
 //Libreria Material
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';//Minus icon

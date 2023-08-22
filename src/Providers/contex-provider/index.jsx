@@ -15,9 +15,6 @@ export const AppContex = React.createContext()
 const {Provider} = AppContex
 // const {Provider: TrolleyProvider} = CustomContexProvider// ejemplo con alias
 
-
-
-
 const AppContexProvider = ({children}) => {
     const [trolley, setTrolley] = React.useState([])
     const [dispatchId, setDispatchId] = React.useState('')//para el historial de la compra

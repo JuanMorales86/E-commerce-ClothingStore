@@ -4,7 +4,7 @@ import { auth } from "../../App"; // Importa la instancia de autenticación de F
 export const AuthContext = createContext();
 
 const AuthManager = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);//inicialmente se establece en null
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

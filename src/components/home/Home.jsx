@@ -4,8 +4,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 //Mis Componentes
-import SliderBanners from "../../slider-swiper/sliderBanners";
-import slidesBanners from '../../Sdk/slidesBanners.json'
+import SliderBanners from "../slider-swiper/sliderBanners";
+import slidesBanners from '../sdk/slidesBanners.json'
 
 
 //LibreriaMaterial-UI

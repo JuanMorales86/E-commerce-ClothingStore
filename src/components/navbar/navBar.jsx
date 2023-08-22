@@ -19,12 +19,12 @@ import MenuIcon from "@mui/icons-material/Menu";//Material Icon
 
 //Mis Components
 import ModalSlide from "../modals";
-import CartWidget from "../CartWidget/CartWidget";
-import { AppContex } from "../contex-provider";
+import CartWidget from "../cart-widget/CartWidget";
+import { AppContex } from "../../Providers/contex-provider";
 import ModalLogin from "../modals/modal-login";
-import LoginWidget from "../CartWidget/LoginWidget";
-import LogOutWidget from "../CartWidget/logOutWidget";
-import AuthManager from "../auth-manager";
+import LoginWidget from "../cart-widget/LoginWidget";
+import LogOutWidget from "../cart-widget/logOutWidget";
+import AuthManager from "../../Providers/auth-manager";
 
 
 
@@ -69,7 +69,7 @@ const NavBar = () => {
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             ></CheckroomIcon>
 
-            {/* Brand */}
+            {/* Titel Brand */}
             <Box sx={{display:"flex", alignItems:"center"}}>
             <Link component={RouterLink} to={'/home'} underline="none" color={'inherit'} mr={'1rem'}>
             <Typography
@@ -92,7 +92,7 @@ const NavBar = () => {
                 whiteSpace:"nowrap"
               }}
             >
-              ClothingStore
+              Sal&Pimienta
             </Typography>
             </Link>
             </Box>
@@ -173,7 +173,7 @@ const NavBar = () => {
                 textDecoration: "none",
               }}
             >
-              ClothingStore
+              Sal&Pimienta
             </Typography>
 
             {/* Anchors del menu */}

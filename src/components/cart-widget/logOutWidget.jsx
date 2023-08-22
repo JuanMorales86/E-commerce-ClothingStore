@@ -10,15 +10,18 @@ import { IconButton } from '@mui/material';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 //Mis Componentes
-import { AppContex } from '../contex-provider';
+import { AppContex } from '../../Providers/contex-provider';
+import { useNavigate } from 'react-router-dom';
 
 function LogOutWidget() {
     const {notifyToast, notifyToastContainer} = useContext(AppContex)
+    const navigate = useNavigate()
     
     const handleLogOut = () => {
         signOut(auth)
         .then(() => {
             notifyToast('Usuario cerro sesion')
+            navigate('/home')
         }).catch((error) => {
             console.log("Error al cerrar sesion", error)
         })

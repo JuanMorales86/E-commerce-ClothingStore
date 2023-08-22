@@ -1,6 +1,6 @@
 import React from 'react'
 //Mis Componentes
-import CardDetail from '../itemDetailCard'
+import CardDetail from '../itemDetailCard/index'
 
 //Libreria Material
 import { CircularProgress, Box } from '@mui/material'

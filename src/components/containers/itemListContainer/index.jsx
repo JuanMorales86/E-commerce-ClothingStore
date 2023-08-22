@@ -5,8 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getFirestore, collection, getDocs, where, query } from 'firebase/firestore';
 
 //Mis Componenetes
-import ListElements from '../../itemList'
-import TabsMenu from '../../Tabs/tabs'
+import ListElements from '../itemList'
+import TabsMenu from '../../tabs/tabs'
 
 //Array de titulos para los tabs
 const niveles = [

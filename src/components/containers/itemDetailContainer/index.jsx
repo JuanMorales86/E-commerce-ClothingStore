@@ -6,7 +6,7 @@ import { Box, Button } from '@mui/material'
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 //Mis Componentes
-import ListElementsDetail from '../../itemDetail'
+import ListElementsDetail from '../itemDetail'
 import { useCallback } from 'react';
 
 //My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem

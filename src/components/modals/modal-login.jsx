@@ -1,7 +1,10 @@
 import React from 'react'
 //Libreria Material
 import {Box, Button , Typography, Modal} from '@mui/material';
-import AuthProvider from '../auth-control';
+import AuthProvider from '../../Providers/auth-provider';
+import AuthMessage from '../../Providers/auth-message';
+import SignInContent from '../../Providers/sign-In-content';
+
 
 
 const modalStyle = {
@@ -19,19 +22,24 @@ const paperStyle = {
   p: 4,
 };
 
-function ModalLogin({widgetL}) {
+function ModalLogin({widgetL }) {
         const [open, setOpen] = React.useState(false);
-        const [isVisible, setIsVisible] = React.useState(false)
+        // const [isVisible, setIsVisible] = React.useState(false)
+        // const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+        
 
         const handleOpen = () => {
           setOpen(true)
-          setIsVisible(true)
+          // setIsVisible(true)
         };
         const handleClose = () => {
           setOpen(false)
-          setIsVisible(false)
+          // setIsVisible(false)
         };
-      
+
+
+        // console.log(isAuthenticated)
+        // console.log(isVisible)
         return (
           <Box>
               <Button variant="text" onClick={handleOpen}>
@@ -49,12 +57,26 @@ function ModalLogin({widgetL}) {
                 <Typography fontFamily={"sans-serif"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
               </Box>
               
-              {isVisible && <AuthProvider id="modal-modal-description" onClose={handleClose}/>}
-             
+              <AuthProvider>
+            <RenderBasedOnAuthState onClose={handleClose} />
+          </AuthProvider>
               </Box>
             </Modal>
           </Box>
         );
       }
 
+      function RenderBasedOnAuthState({ isAuthenticated, handleAuthentication, onClose }) {
+        console.log(onClose)
+        console.log(isAuthenticated)
+        console.log(handleAuthentication)
+        if (isAuthenticated) {
+          return <AuthMessage />;
+        } else {
+          return <SignInContent onAuthentication={handleAuthentication} onClose={onClose} />;
+        }
+      }
+
 export default ModalLogin
+
+// {isVisible && <AuthProvider id="modal-modal-description" onClose={handleAuthentication}/>}

@@ -9,10 +9,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 
 //Mis componentes
-import { auth } from '../../../App'
-import { AppContex } from '../../contex-provider'
+import { auth } from '../../App'
+import { AppContex } from '../contex-provider'
 
-function SignInContent({ onClose }) {
+function SignInContent({ onClose, onAuthentication }) {
     const [user, setUser] = React.useState('')
     const [pass, setPass] = React.useState('')
     const navigate = useNavigate()
@@ -20,18 +20,20 @@ function SignInContent({ onClose }) {
 
     const handlePass = (e) => setPass(e.target.value)
     const handleUser = (e) => setUser(e.target.value)
-
+    
+    console.log(onAuthentication)
     const handleLogIn = (e) => {
         e.preventDefault();
         e.stopPropagation()
 
-        if(!user || !pass) {
+        if(!user || !pass) {//si no es usuario o el pasword tampoco no hacer nada
             return;
         }
 
         signInWithEmailAndPassword(auth, user, pass)
         .then((userCredential) => { 
             notifyToast('Te has logeado al sistema')
+            onAuthentication(true)
             navigate('/admin')
             onClose()
         }).catch((err) => { console.log(err)
@@ -41,6 +43,8 @@ function SignInContent({ onClose }) {
         signOut(auth)
         .then(() => {
             notifyToast('A cerrado sesión')
+            navigate('/home')
+            onClose()
         }).catch((error) => {
             notifyToast('Error al cerrar sesión')
             console.log("Error al cerrar sesión,", error)
