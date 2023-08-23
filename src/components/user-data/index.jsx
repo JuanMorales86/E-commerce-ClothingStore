@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+//Libreria Firebase
+import { getFirestore, doc, updateDoc } from 'firebase/firestore'
 //Libreria Hook Form
 import { useForm } from 'react-hook-form'
 //Libreria MaterialUi
@@ -9,9 +11,30 @@ import { AppContex } from '../../Providers/contex-provider'
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
 const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
+
   const {register, handleSubmit, formState: { errors, isValid } } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const { notifyToast } = useContext(AppContex)
   
+  const modifierStockProducts = async (trolley) => {
+    const db = getFirestore()
+
+    try{
+      for (const producto of trolley) {
+        const productRef = doc(db, 'productos', producto.id)
+        const currentStock = parseInt(producto.stock)
+      
+      if(currentStock >= producto.quantity){
+        await updateDoc(productRef, {stock: currentStock - producto.quantity})
+        }else{
+          throw new Error(`No hay stock suficiente: ${producto.producto}`)
+      }
+      }
+    } catch (error) {
+      throw error;
+    }
+    // onClose()
+  }
+
   const onSubmit = (data) => {//react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
     
     if(!createNewDispach || !trolley.length){//si no se cumplen retornara nada
@@ -74,7 +97,14 @@ const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform 
         
         variant='contained'
         color='primary'
-        onClick={handleSubmit(onSubmit)}
+        onClick={async () => {//async se usa por que en modifier uso async y como es una funcion q esta a la espera hay q usar async aqui tambien
+          try{
+            modifierStockProducts(trolley)
+            handleSubmit(onSubmit)()
+          }catch (error){
+            console.log("Error al modificar stock de productos", error)
+          }
+        }}
         disabled={!trolley.length || !isValid}//si no hay nda en el carrito desactiva el boton y si ningun textField tiene informacion o falte uno por llenar se desctivara tambien.
         style={{ marginTop: '1rem'}}
        >

@@ -40,7 +40,7 @@ function CardItems({ data, onItemClick }) {
         "&:hover":{
           borderColor: "magenta",
           boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
-          transform: "scale(1.1)",
+          transform: "scale(0.9)",
         }
       }}
     >
@@ -85,7 +85,7 @@ function CardItems({ data, onItemClick }) {
         />
         
         {/* para el cursor */}
-        {isHovered && <PanToolAltIcon sx={{ color: "tertiary.A200" }} className={"cursorIconStyle"} />}
+        {isHovered && <PanToolAltIcon fontSize="small" sx={{ color: "tertiary.A200", boxShadow: "3px 3px 2px rgba(0, 0, 0, 0.5)" }} className={"cursorIconStyle"} />}
 
 
       </Box>
