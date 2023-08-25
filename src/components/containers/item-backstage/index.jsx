@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-//Libreria react hook form
-import { useForm } from "react-hook-form";
+import React from "react";
+
 //Libreria Material
 import {
   Card,
@@ -85,9 +84,9 @@ const dataspecialproduct = [true, false]
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, onResetFields, showResetButton }) {
-  const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const { register,getValues, reset} = React.useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({})//para detectar cambios en los campos y agregarle un color 
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = React.useState(false);
   
   
   

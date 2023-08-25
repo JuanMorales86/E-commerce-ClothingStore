@@ -26,6 +26,7 @@ function ModalSlide({widget}) {//Padre
   const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast, createNewDispach, lastDispach} = React.useContext(AppContex)//ContexProvider
 
   const handleUserDataComplete = () => {
+    setShowUserData(false); // Cierra el componente UserData
     setOpen(false); // Cerrar el modal cuando UserData haya completado el proceso userdata
   };
 
@@ -60,7 +61,7 @@ function ModalSlide({widget}) {//Padre
             }
           });
         })
-      }else {
+      }else {//este else es cuando no hay nada en el trolley
         setOpen(false)//cierro el modal
         setShowUserData(false)//cierro el estado componente userData
           MySwal.fire({//abro sweetalert

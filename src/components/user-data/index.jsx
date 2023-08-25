@@ -1,21 +1,21 @@
 import React, { useContext } from 'react'
 //Libreria Firebase
 import { getFirestore, doc, updateDoc } from 'firebase/firestore'
-//Libreria Hook Form
-import { useForm } from 'react-hook-form'
 //Libreria MaterialUi
 import { Box, TextField, Button, Typography } from '@mui/material'
 //Contex Provider
 import { AppContex } from '../../Providers/contex-provider'
+//Libreria hook form
+import { useForm } from 'react-hook-form'
 
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
 const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
 
-  const {register, handleSubmit, formState: { errors, isValid } } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const {register, handleSubmit, formState: { errors, isValid }, reset } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const { notifyToast } = useContext(AppContex)
   
-  const modifierStockProducts = async (trolley) => {
+  const modifierStockProducts = async (trolley) => {//Funcion para modificar stock en la base de datos segun lo que lleve el comprador
     const db = getFirestore()
 
     try{
@@ -35,32 +35,41 @@ const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform 
     // onClose()
   }
 
-  const onSubmit = (data) => {//react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
+  const onSubmit = async (data) => {//react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
     
-    if(!createNewDispach || !trolley.length){//si no se cumplen retornara nada
+    if(!createNewDispach || !trolley.length){//si no se cumplen no retornara nada
       return
     }
+    try {
+      await modifierStockProducts(trolley);
+      createNewDispach({
+        buyer: {
+          name: data.name,
+          lastname: data.lastname,
+          direction: data.direction,
+          dataoptional: data.dataoptional,
+          telephone: data.telephone,
+          email: data.email
+        },
+        items: trolley,
+        createAt: new Date(),
+        total: trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)
+      });
 
-    const task = {
-      buyer: {
-        name : data.name,
-        lastname: data.lastname,
-        telephone: data.telephone,
-        email: data.email
-      },
-      items: trolley,
-      createAt: new Date(),
-      total: trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)//pricePerUnit es igual a price es un alias
+      notifyToast('💨 Compra Terminada Correctamente');
+      onClose();
+      reset(); // Resetear el formulario
+    } catch (error) {
+      console.log("Error al modificar stock de productos", error);
     }
-    createNewDispach(task)
-    notifyToast('💨 Compra Terminada Correctamente')
-    onClose()
-  }
+  };
 
   return (
     <Box sx={{ textAlign: 'center', marginBottom: '1rem' }}>
       <Typography fontSize={'1rem'} fontWeight={'bold'}>Datos requeridos para la factura</Typography>
+      <form onSubmit={handleSubmit(onSubmit)}>
       <Box sx={{display:'block', justifyContent:'center', textAlign:'center' , rowGap:2, columnGap:3}}>
+     
         <TextField 
         label="Nombre"
         variant='outlined'
@@ -68,11 +77,25 @@ const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform 
         {...register( "name", { required: true })}
         style={{ marginTop: '1rem', marginLeft: '1rem' }}
         />
-        <TextField 
+           <TextField 
         label="Apellido"
         variant='outlined'
         placeholder='Apellido...'
         {...register( "lastname", { required: true })}
+        style={{ marginTop: '1rem', marginLeft: '1rem' }}
+        />
+        <TextField 
+        label="Dirección"
+        variant='outlined'
+        placeholder='Tu Dirección de entraga...'
+        {...register( "direction", { required: true })}
+        style={{ marginTop: '1rem', marginLeft: '1rem' }}
+        />
+        <TextField 
+        label="Datos Opcionales"
+        variant='outlined'
+        placeholder='Deagonal casa azul...'
+        {...register( "dataoptional", { required: false })}
         style={{ marginTop: '1rem', marginLeft: '1rem' }}
         />
         <TextField 
@@ -94,23 +117,16 @@ const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform 
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
-        
+        type='submit'
         variant='contained'
         color='primary'
-        onClick={async () => {//async se usa por que en modifier uso async y como es una funcion q esta a la espera hay q usar async aqui tambien
-          try{
-            modifierStockProducts(trolley)
-            handleSubmit(onSubmit)()
-          }catch (error){
-            console.log("Error al modificar stock de productos", error)
-          }
-        }}
         disabled={!trolley.length || !isValid}//si no hay nda en el carrito desactiva el boton y si ningun textField tiene informacion o falte uno por llenar se desctivara tambien.
         style={{ marginTop: '1rem'}}
        >
         Enviar
         </Button>
       </Box>
+      </form>
     </Box>
   )
 }

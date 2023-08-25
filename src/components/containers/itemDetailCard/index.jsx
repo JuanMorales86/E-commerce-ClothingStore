@@ -50,7 +50,6 @@ function CardDetail({data}) {
     setTimeout(() => {
       setShowZoomMessage(false)
     }, 2000)
-    console.log(setShowZoomMessage)
   }
 
   return (
