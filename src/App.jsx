@@ -30,6 +30,7 @@ import slides from './components/sdk/slides.json'
 import AppContexProvider from './Providers/contex-provider/index'
 import ModalSlide from './components/modals';
 import BackOffice from './components/containers/back-office/index';
+import DiscountsBar from './components/discounts-bar'
 
 import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
@@ -54,6 +55,7 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
   const [, setAutoplayEnabled] = React.useState(true);
+ 
 
   const handleShowFixedImage = (show) => {
     setShowFixedImage(show);
@@ -74,8 +76,8 @@ function App() {
           </Box>
 
           <Box>
-            <Box className="bordInit"></Box>
-            </Box>
+            <DiscountsBar/>
+          </Box>
           
 
           <Box>
@@ -84,7 +86,7 @@ function App() {
 
           <Routes>
             <Route path={'/home'} element={<HomePage/>}/> 
-            <Route path={'/'} element={<ListContainerItem/>}/>
+            {/* <Route path={'/'} element={<ListContainerItem/>}/> */}
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>

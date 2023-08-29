@@ -1,5 +1,6 @@
 import React from 'react'
-import {Container, Typography, Grid, Link, Box, IconButton} from '@mui/material'
+import {Container, Typography, Grid, Link, Box, IconButton } from '@mui/material'
+// import Tooltip from '@mui/material/Tooltip';
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 import { Link as Lirouter } from 'react-router-dom';
 
@@ -75,10 +76,29 @@ function Footer() {
                 </IconButton>
               </Box>
             </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography variant="h6" component="h3">
+                Puedes Pagar Con:
+              </Typography>
+              
+              <Box sx={{ display: 'flex', flexFlow:"row, wrap", justifyContent:"center", alignItems:"center" }}>
+             
+             
+                  <img style={{width:"40px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=14QXMi-BlMxA898S6C9VUu5QEotq7jZvp" alt="visa" />
+          
+             
+                  <img style={{width:"100px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=1GQ1gVf13HMb4HHsIwCHpaBvxCWEMRi0c" alt="MasterCard" />
+             
+            
+                  <img style={{width:"40px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=1G5Ac6E4Akbkyik_yWOaI7JPZ8taZWO96" alt="AmercanExpress" />  
+            
+                  <Typography sx={{width:"100%", ml:"20px"}} fontSize={"0.8rem"}>Tranferencia <wbr />/ Deposito Bancario</Typography>
+              </Box>
+            </Grid>
           </Grid>
           <Box sx={{ borderTop: '1px solid #ddd', paddingTop: '1rem', marginTop: '1rem', textAlign: 'center' }}>
             <Typography variant="body2" color="textSecondary">
-              &copy; 2023 ClothingStore. Todos los derechos reservados.
+              &copy; 2023 Sal&Pimienta. Todos los derechos reservados.
             </Typography>
           </Box>
         </Container>

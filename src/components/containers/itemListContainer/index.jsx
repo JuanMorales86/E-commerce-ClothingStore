@@ -17,21 +17,24 @@ const niveles = [
   {id:'sweater', title:'Sweaters'},
   {id:'trajesdebaño', title:'Trajes de baños'}, 
   {id:'ropainterior', title:'Ropa Interior'},
-  {id:'camisas', title:'Camisas'}
+  {id:'camisas', title:'Camisas'},
+  {id:'descuentos', title:'Descuentos'}
 ]
 
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
-  // eslint-disable-next-line no-unused-vars
-  const [_, setId] = React.useState('')
+  const [hasDiscounts, sethasDiscounts] = React.useState(false)
+
+  const [, setId] = React.useState('')
 
 //const levels = useParams().levels // es lo mismo que poner lo de abajo
   const { levels } = useParams()//permite ver la prop pasada traida desde en este caso app.jsx (Hook)
   const navigate = useNavigate()
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
+  // const hasDiscountProducts = items.some(item => item.specialproduct)
 
   //!hice cambios aqui selectedproductId por id por que cambie el params en app.jsx principal a id
   const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
@@ -52,32 +55,63 @@ function ListContainerItem() {
 
       const db = getFirestore()
       const getCollection = collection(db, 'productos')
+      const hasdescuentoQuery = query(getCollection, where('specialproduct', '==', true))
 
-      if(levels === 'all') {
+      getDocs(hasdescuentoQuery)
+      .then((snapshot) => {
+        sethasDiscounts(!snapshot.empty)
+      })
+      .catch(error => {
+        console.error('Error fetching products with discount:', error);
+      });
+
+      if( levels === 'descuentos' ) {
+        const descuentoQuery = query(getCollection, where("specialproduct", '==', true))
+        getDocs(descuentoQuery)
+        .then((snapshot) => {
+          // console.log("Productos con descuento:", snapshot.docs.map(e => e.data()));
+          setItems(snapshot.docs.map(e => ({ id: e.id, ...e.data() })))
+          setLoading(false)
+        })
+        .catch(error => {
+          console.error("Error fetching products with discount:", error);
+          setLoading(false);
+        });
+
+      }else if(levels === 'all') {
         getDocs(getCollection)//promesa
         .then((snapshot) => {//resuelvo la promesa
-            setLoading(false)
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
+            setLoading(false)
         })
-      } else if(niveles.some(nivel => nivel.id === levels) ) {
-        const mark = query(getCollection, where("categoryType", '==', levels))
 
+        .catch(error => {
+          console.error("Error fetching all products:", error);
+          setLoading(false);
+        });
+      } 
+      
+      else if(niveles.some(nivel => nivel.id === levels) ) {
+        const mark = query(getCollection, where("categoryType", '==', levels))
         getDocs(mark)
         .then((snapshot) => {
             setItems(snapshot.docs.map(e => ({id: e.id, ...e.data()})))
             setLoading(false)
         })
-
-      }
+      
+        .catch(error => {
+          console.error(`Error fetching products for category:${levels}`, error);
+          setLoading(false);
+        });
+    }
 
     }, [levels])
 
+
     return (
         <>
-        <TabsMenu current={current} items={niveles}/>
+        <TabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
         <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
-        
-        
         </>
   )
 }
