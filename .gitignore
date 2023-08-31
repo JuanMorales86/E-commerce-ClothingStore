@@ -1,7 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # my stuff
-src/components/database
 src/components/content/prueba.jsx
 src/components/header
 src/components/NavBar/NavbarBootstrap.jsx
