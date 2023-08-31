@@ -93,7 +93,7 @@ function App() {
             <Route path={'/cart'} element={<ModalSlide/>} />
             <Route path={'/contacto'} element={<Contacto setShowFixedImage={handleShowFixedImage}/>}  />
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
-            <Route path='/*' element={<Navigate to="/" replace={true}/>}/> {/* vuelve al principal si coloca cualquier cosa */}
+            <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> {/* vuelve al principal {home} si coloca cualquier cosa */}
           
           </Routes>
 
