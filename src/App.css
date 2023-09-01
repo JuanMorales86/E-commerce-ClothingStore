@@ -49,8 +49,7 @@ ul{/*listas*/
   background-color: rosybrown;
   transition: background-color 0.3s ease-in-out;
   animation: changeBackground 15s ease-in-out infinite;
-  
-  
+  cursor: pointer;  
 }
 
 .bordInit::before {
@@ -65,7 +64,7 @@ ul{/*listas*/
 
 .bordInit::after {
   
-  content: 'Lunes: 10% // Miercoles: 20% // Viernes: 25%'; 
+  content: 'En Prendas Seleccionadas.'; 
   font-weight: bold;
   color: #201616;
   opacity: 0;

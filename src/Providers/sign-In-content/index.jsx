@@ -35,7 +35,7 @@ function SignInContent({ onClose, onAuthentication }) {
             notifyToast('Te has logeado al sistema')
             onAuthentication(true)
             navigate('/admin')
-            onClose()
+            
         }).catch((err) => { console.log(err)
             notifyToast('Usuario o Contraseña no es correcta')})
     }

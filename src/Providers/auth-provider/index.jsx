@@ -16,36 +16,54 @@ import { AppContex } from "../contex-provider";
 function AuthProvider({ children, onClose }) {
   const [isControl, setIsControl] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isNotificationShow, setIsNotificationShow] = React.useState(false)
   const { notifyToast } = React.useContext(AppContex);
-
-  const handleAuthentication = React.useCallback((value) => {
-    setIsAuthenticated(value);
-    notifyToast(value ? "Estás logeado" : "No estás logeado");
-  }, [notifyToast]);
 
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (!user) {
-        // setIsControl(false);
-        handleAuthentication(false);
+        setIsAuthenticated(false);
         setIsControl(false);
+        if (isNotificationShow) {
+          notifyToast("No estás logeado");
+          setIsNotificationShow(false);
+          localStorage.removeItem('isNotificationShow');
+        }
       } else {
-        // setIsControl(true);
-        handleAuthentication(true);
+        setIsAuthenticated(true);
         setIsControl(true);
+        if (!isNotificationShow) {
+          notifyToast("Estás logeado puto");
+          setIsNotificationShow(true);
+          localStorage.setItem('isNotificationShow', 'true');
+        }
       }
     });
 
     return () => unsubscribe();
-  }, [handleAuthentication, notifyToast]);
-  console.log(typeof handleAuthentication)
+  }, [notifyToast, isNotificationShow]);
+
+  React.useEffect(() => {
+    const storedNotificationShow  = localStorage.getItem('isNotificationShow');
+    if (storedNotificationShow ) {
+      setIsNotificationShow(true);
+    }
+  }, []);
+
+  
+
+
+
+
+  // console.log(typeof handleAuthentication)
   console.log(isControl)
+  console.log(isAuthenticated)
   console.log(onClose)
   return (
     <Box>
     {React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
-        return React.cloneElement(child, { isAuthenticated, handleAuthentication, onClose });
+        return React.cloneElement(child, { isAuthenticated, onClose });
       }
       return child;
     })}

@@ -17,7 +17,7 @@ const {Provider} = AppContex
 const AppContexProvider = ({children}) => {
     const [trolley, setTrolley] = React.useState([])
     const [dispatchId, setDispatchId] = React.useState('')//para el historial de la compra
-    const [orderCount, setOrderCount] = React.useState()//Comenzar el contador en 1000
+    const [orderCount, setOrderCount] = React.useState()//Comenzar el contador
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
     const MySwal = withReactContent(Swal)
 
@@ -88,7 +88,7 @@ const AppContexProvider = ({children}) => {
     const notifyToast = (message) => {//un toast
   return toast.success( `'${message}'`, {
   position: "top-right",
-  autoClose: 400,
+  autoClose: 200,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,

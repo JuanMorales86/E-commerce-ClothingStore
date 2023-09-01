@@ -8,7 +8,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
 
 //Routing
-import { BrowserRouter as RouterLink, Route, Routes, Navigate  } from 'react-router-dom';//Routing
+import { BrowserRouter as RouterLink, Route, Routes, Navigate, useNavigate  } from 'react-router-dom';//Routing
 
 //Libreria Material
 import { Box, ThemeProvider } from '@mui/material'
@@ -34,6 +34,7 @@ import DiscountsBar from './components/discounts-bar'
 
 import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
+import { AuthContext } from './Providers/auth-manager';
 
 
 
@@ -45,13 +46,18 @@ export const auth = getAuth(app)
 // Initialize Firebase
 
 function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro del route
+  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
+  const navigate = useNavigate()
+  // Verifica si el usuario está autenticado
+  if (!user) {
+    navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
+    return null // No necesitas renderizar nada aquí
+  }
   return (
-    <AuthProvider>
-      <BackOffice />
-    </AuthProvider>
+    <BackOffice />// Renderiza el componente si el usuario está autenticado
   );
 }
-
+//SPA
 function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
   const [, setAutoplayEnabled] = React.useState(true);
@@ -70,6 +76,8 @@ function App() {
     <RouterLink>
       <AppContexProvider>
         <ThemeProvider theme={CustomTheme}>
+      
+          <AuthProvider>
           <AuthManager>
           <Box>
             <NavBar />
@@ -92,7 +100,9 @@ function App() {
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
             <Route path={'/contacto'} element={<Contacto setShowFixedImage={handleShowFixedImage}/>}  />
+           
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
+         
             <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> {/* vuelve al principal {home} si coloca cualquier cosa */}
           
           </Routes>
@@ -101,6 +111,8 @@ function App() {
             <Footer />
           </Box>
           </AuthManager>
+          </AuthProvider>
+         
         </ThemeProvider>
        
       </AppContexProvider>

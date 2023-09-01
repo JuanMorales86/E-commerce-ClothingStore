@@ -86,7 +86,7 @@ function BackOffice() {
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateComponent, notifyToastBD]);
 
-
+//Modificar el producto
   const handleItemModify = (item, id) => {//Modificar Productos
     const db = getFirestore();
     const paper = doc(db, "productos", id);
@@ -101,6 +101,7 @@ function BackOffice() {
       });
   };
 
+//Crear el producto
   const handleItemCreate = (item) => {//Crear Productos
     const db = getFirestore();
     const product = collection(db, "productos"); 
@@ -116,7 +117,7 @@ function BackOffice() {
         console.error("Error al crear el producto:", error);
       });
   };
-
+//Borrar el producto
   const handleDeletion = (id) => {//Borrar Productos
     const db = getFirestore();
     const productId = doc(db, "productos", id);

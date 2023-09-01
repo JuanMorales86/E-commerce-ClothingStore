@@ -59,21 +59,21 @@ function ModalLogin({widgetL }) {
               
               <AuthProvider>
             <RenderBasedOnAuthState onClose={handleClose} />
-          </AuthProvider>
+              </AuthProvider>
               </Box>
             </Modal>
           </Box>
         );
       }
 
-      function RenderBasedOnAuthState({ isAuthenticated, handleAuthentication, onClose }) {
-        console.log(onClose)
+      function RenderBasedOnAuthState({ isAuthenticated, handleAuthentication, handleClose }) {
+        console.log(handleClose)
         console.log(isAuthenticated)
         console.log(handleAuthentication)
         if (isAuthenticated) {
           return <AuthMessage />;
         } else {
-          return <SignInContent onAuthentication={handleAuthentication} onClose={onClose} />;
+          return <SignInContent onAuthentication={handleAuthentication} onClose={handleClose} />;
         }
       }
 
