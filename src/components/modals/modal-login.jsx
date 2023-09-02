@@ -58,7 +58,7 @@ function ModalLogin({widgetL }) {
               </Box>
               
               <AuthProvider>
-            <RenderBasedOnAuthState onClose={handleClose} />
+            <RenderBasedOnAuthState handleClose={handleClose} />
               </AuthProvider>
               </Box>
             </Modal>
@@ -66,14 +66,14 @@ function ModalLogin({widgetL }) {
         );
       }
 
-      function RenderBasedOnAuthState({ isAuthenticated, handleAuthentication, handleClose }) {
+      function RenderBasedOnAuthState({ isAuthenticated, handleClose }) {
         console.log(handleClose)
         console.log(isAuthenticated)
-        console.log(handleAuthentication)
+     
         if (isAuthenticated) {
-          return <AuthMessage />;
+          return <AuthMessage onClose={handleClose} />;
         } else {
-          return <SignInContent onAuthentication={handleAuthentication} onClose={handleClose} />;
+          return <SignInContent onClose={handleClose} />;
         }
       }
 

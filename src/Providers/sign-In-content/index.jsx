@@ -12,7 +12,7 @@ import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { auth } from '../../App'
 import { AppContex } from '../contex-provider'
 
-function SignInContent({ onClose, onAuthentication }) {
+function SignInContent({ onClose }) {
     const [user, setUser] = React.useState('')
     const [pass, setPass] = React.useState('')
     const navigate = useNavigate()
@@ -21,7 +21,7 @@ function SignInContent({ onClose, onAuthentication }) {
     const handlePass = (e) => setPass(e.target.value)
     const handleUser = (e) => setUser(e.target.value)
     
-    console.log(onAuthentication)
+   
     const handleLogIn = (e) => {
         e.preventDefault();
         e.stopPropagation()
@@ -33,8 +33,8 @@ function SignInContent({ onClose, onAuthentication }) {
         signInWithEmailAndPassword(auth, user, pass)
         .then((userCredential) => { 
             notifyToast('Te has logeado al sistema')
-            onAuthentication(true)
             navigate('/admin')
+            onClose()
             
         }).catch((err) => { console.log(err)
             notifyToast('Usuario o Contraseña no es correcta')})

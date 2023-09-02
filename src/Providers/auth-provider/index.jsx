@@ -33,9 +33,9 @@ function AuthProvider({ children, onClose }) {
         setIsAuthenticated(true);
         setIsControl(true);
         if (!isNotificationShow) {
-          notifyToast("Estás logeado puto");
+          notifyToast("Estás logeado");
           setIsNotificationShow(true);
-          localStorage.setItem('isNotificationShow', 'true');
+          localStorage.setItem('isNotificationShow', 'true');//para setear la notificacion en el local storage en true
         }
       }
     });
