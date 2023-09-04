@@ -49,21 +49,15 @@ function AuthProvider({ children, onClose }) {
       setIsNotificationShow(true);
     }
   }, []);
-
-  
-
-
-
-
   // console.log(typeof handleAuthentication)
   console.log(isControl)
   console.log(isAuthenticated)
-  console.log(onClose)
+  
   return (
     <Box>
     {React.Children.map(children, (child) => {
       if (React.isValidElement(child)) {
-        return React.cloneElement(child, { isAuthenticated, onClose });
+        return React.cloneElement(child, { isAuthenticated });
       }
       return child;
     })}
