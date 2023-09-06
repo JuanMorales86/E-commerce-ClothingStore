@@ -94,10 +94,10 @@ function SignInContent({ onClose }) {
         </Typography>
    
         <Box sx={{display:"flex", flexDirection:"column",  gap:2, maxWidth:300, margin:"1rem auto"}}>
-            <TextField type='text' label='Usuario' value={user} onChange={handleUser} sx={{backgroundColor:"white"}} fullWidth
+            <TextField type='text' label='Usuario' value={user} onChange={handleUser} sx={{backgroundColor:"white", borderColor: userError ? "red" : ''}} fullWidth
               error={userError !== ''}
               helperText={userError}/>
-            <TextField type="password" label='Contraseña' value={pass} onChange={handlePass} sx={{backgroundColor:"white"}} fullWidth
+            <TextField type="password" label='Contraseña' value={pass} onChange={handlePass} sx={{backgroundColor:"white", borderColor: userError ? "red" : ''}} fullWidth
             error={passError !== ''}
             helperText={passError}/>
         </Box>

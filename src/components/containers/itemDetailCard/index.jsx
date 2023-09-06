@@ -17,7 +17,7 @@ import { AppContex } from '../../../Providers/contex-provider';
 
 //Mi card DETAIL
 function CardDetail({data}) {
-  const {id, customid, title, thumbnail, description, sold_quantity, stock, original_price, price } = data
+  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
@@ -34,7 +34,8 @@ function CardDetail({data}) {
           pricePerUnit: price,
           imagen: thumbnail,
           quantity: quantity,//tiene la cantidad del producto seleccionado en el carrito
-          stock: stock// tiene el stock original de el producto
+          stock: stock,// tiene el stock original de el producto
+          discountSelected,
       })
   }
 
@@ -70,16 +71,16 @@ function CardDetail({data}) {
               Codigo:{customid}
             </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div">
-              !Ya vendidos: {sold_quantity} Unid.
+              !Ya vendidos: {soldquantity} Unid.
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
               Stock Almac.: {stock} Unid.
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              Precio-Original: $ {original_price} Pesos
+              Precio-Original: $ {price} Pesos
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" component="div">
-              Precio-Oferta: $ {price} Pesos
+              Precio-Oferta: $ {originalprice} Pesos
             </Typography>
         </Box>
         </CardContent>

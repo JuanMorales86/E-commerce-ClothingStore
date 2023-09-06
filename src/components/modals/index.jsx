@@ -24,6 +24,7 @@ function ModalSlide({widget}) {//Padre
   const [open, setOpen] = React.useState(false);//Habilitar el componente modal
   const {showUserData, setShowUserData} = React.useContext(AppContex)//Habilitar el componente UserData
   const {trolley, quantityC, handleEmptyTrolley, notifyToastContainer, notifyToast, createNewDispach, lastDispach} = React.useContext(AppContex)//ContexProvider
+  
 
   const handleUserDataComplete = () => {
     setShowUserData(false); // Cierra el componente UserData
@@ -80,6 +81,27 @@ function ModalSlide({widget}) {//Padre
             });
             }
     };
+
+  // Función para calcular el precio con descuento
+const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
+  console.log(pricePerUnit)
+  console.log(discountSelected)
+  // Verifica si se ha seleccionado un descuento y aplica el descuento correspondiente
+  if (discountSelected === 5) {
+    return pricePerUnit * 0.95; // Aplica un descuento del 5%
+  } else if (discountSelected === 10) {
+    return pricePerUnit * 0.90; // Aplica un descuento del 10%
+  } else if (discountSelected === 15) {
+    return pricePerUnit * 0.85; // Aplica un descuento del 15%
+  } else if (discountSelected === 20) {
+    return pricePerUnit * 0.80; // Aplica un descuento del 20%
+  } else {
+    return pricePerUnit; // Si no hay descuento, devuelve el precio original
+    
+  }
+  
+};
+
   
   const formatNWCS = (num) => {//Formatear los totales de miles con decimales
     return num.toLocaleString('es-Es', {minimunFractionDigits: 2, maximunFractionDigits: 2}) //predefinidos toLocaleString minimunFractionDigits maximunFractionDigits
@@ -92,7 +114,9 @@ function ModalSlide({widget}) {//Padre
     for(const item of trolley){ totalQuantity += item.quantity } return totalQuantity }
 
   const calcTotalQuantityPerPrice = (item) => {//Calcular la cantidad que lleva con el precio y la unidad
-    return item.pricePerUnit * item.quantity
+    const discountedPricePerUnit = calculateDiscountedPrice(item.pricePerUnit , item.discountSelected)
+    console.log(discountedPricePerUnit)
+    return discountedPricePerUnit * item.quantity
   }
   
   const calcTotalGlobalPay = () => {//Calcular el total de todo el carrito sin iva
@@ -157,7 +181,14 @@ function ModalSlide({widget}) {//Padre
                     Vas a llevar: {item.quantity}
                   </Typography>
                   <Typography variant="body2" component="p">
-                    Total: {calcTotalQuantityPerPrice(item)}
+                    Descuento: {item.discountSelected}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Sin iva: {calcTotalGlobalPay()}
+                  </Typography>
+                  <Typography variant="body2" component="p">
+                    Total: {calcwithIva()}
+                    {/* calcTotalQuantityPerPrice(item) */}
                   </Typography>
                  
                 </CardContent>
@@ -180,14 +211,14 @@ function ModalSlide({widget}) {//Padre
             
             <Box textAlign={"center"}>
               <Typography variant="h6" component="p">
-                Total Pago S/Iva: {calcTotalGlobalPay()} Pesos
+                Total Pago: {calcwithIva()} Pesos
             </Typography>
             </Box>
-            <Box display={"flex"} justifyContent={"center"}>
+            {/* <Box display={"flex"} justifyContent={"center"}>
               <Typography variant="body1" component="p">
                 C/Iva: {calcwithIva()} Pesos
             </Typography>
-            </Box>
+            </Box> */}
         </Box>
       
         <DialogActions >
@@ -198,7 +229,7 @@ function ModalSlide({widget}) {//Padre
           </Box>
         </DialogActions>
         <Box>
-        {showUserData && <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach} onClose={handleUserDataComplete}/>}
+        {showUserData && <UserData trolley={trolley} createNewDispach={createNewDispach} lastDispach={lastDispach} total={calcwithIva()} onClose={handleUserDataComplete}/>}
       </Box>
       </Dialog>
    

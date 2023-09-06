@@ -18,7 +18,7 @@ function ListContainerDetail() {
 
     const {id} = useParams()//Hook tengo acceso a id
     const navigate = useNavigate()
-
+        //Consulta BDpara intemDetail
         const fetchDataD = useCallback(async () => {//LLamo a la BD (llamo a useCallback para memorizar fecthdata para que no se cree a cada rato, para que se mantenga igual entre renderizaciones)
             
             setLoading(true)

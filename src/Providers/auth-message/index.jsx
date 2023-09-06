@@ -8,10 +8,12 @@ function AuthMessage({onClose}) {
     
     const navegar = () => {
       navigate('/admin')
-
-
-      
     }
+
+    const navegarOrdenes = () => {
+      navigate('/ordenes')
+    }
+      
   return (
     <Box sx={{
       display: "flex",
@@ -25,6 +27,7 @@ function AuthMessage({onClose}) {
     <Typography textAlign={"center"} fontWeight={"bold"}>¡Ya estás autenticado!</Typography>
     <Box sx={{display: "flex", flexDirection:['column', 'row'], justifyContent:"center", gap:"0.75rem"}}>
     <Button variant="contained" onClick={navegar}>Ir a Admin</Button>
+    <Button variant="contained" onClick={navegarOrdenes}>Ir a Odenes</Button>
     <Button variant="contained" onClick={onClose}>Cerrar</Button>
     </Box>
     

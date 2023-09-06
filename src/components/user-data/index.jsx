@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form'
 
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
-const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
+const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar useform la variable principal o el componente tiene que comenzar con letra mayusculas si no da error
 
   const {register, handleSubmit, formState: { errors, isValid }, reset } = useForm()//Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const { notifyToast } = useContext(AppContex)
@@ -53,7 +53,8 @@ const UserData = ({trolley, createNewDispach, onClose}) => {//para usar useform 
         },
         items: trolley,
         createAt: new Date(),
-        total: trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)
+        total: total,
+        // trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)
       });
 
       notifyToast('💨 Compra Terminada Correctamente');

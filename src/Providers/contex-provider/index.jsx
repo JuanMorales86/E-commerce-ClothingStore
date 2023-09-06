@@ -1,6 +1,6 @@
 import React from 'react'
 //Firestore BD
-import { addDoc, collection, getDoc, getFirestore, doc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, getDoc, getFirestore, doc, updateDoc, getDocs } from 'firebase/firestore'
 
 //Libreria Toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +15,8 @@ const {Provider} = AppContex
 // const {Provider: TrolleyProvider} = CustomContexProvider// ejemplo con alias
 
 const AppContexProvider = ({children}) => {
-    const [trolley, setTrolley] = React.useState([])
+    const [trolley, setTrolley] = React.useState([])//Estado para el carrito
+    const [orders, setOrders] = React.useState([])// Estado para almacenar las órdenes
     const [dispatchId, setDispatchId] = React.useState('')//para el historial de la compra
     const [orderCount, setOrderCount] = React.useState()//Comenzar el contador
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
@@ -70,6 +71,24 @@ const AppContexProvider = ({children}) => {
         console.log(err)
       }
     }
+
+    //Leer Ordenes ya creadas
+    // Función para cargar las órdenes desde la base de datos
+    const loadOrders = async () => {
+      try{
+        const db = getFirestore()
+        const ordersCollection = collection(db, 'taskOrder')
+        const querySnapshot = await getDocs(ordersCollection)
+        const ordersData = querySnapshot.docs.map((doc) => doc.data())
+        setOrders(ordersData)
+      } catch(error) {
+        console.error('Error al cargar las ordenes:', error)
+      }
+    }
+
+    React.useEffect(() => {
+      loadOrders()// Cargar las órdenes al iniciar el contexto
+    }, [])
 
     //Para que funcione el sweetalert2 necesito un:
     const notifyToastContainer = () => {//un toastcontainer
@@ -132,7 +151,7 @@ const AppContexProvider = ({children}) => {
       const productIndex = trolley.findIndex(item => item.id === product.id)
 
       if(productIndex !== -1){
-        //El producto ya esta en el carrito, actuliza la cantidad
+        //El producto ya esta en el carrito, actualiza la cantidad
       
         const updatedTrolley =[...trolley]
         const newQuantity = updatedTrolley[productIndex].quantity + product.quantity
@@ -186,7 +205,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData}}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders}}>{children}</Provider>
 )}
 
 export default AppContexProvider

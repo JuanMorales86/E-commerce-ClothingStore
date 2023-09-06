@@ -400,6 +400,29 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
               );
             })}
           </TextField>
+
+          <TextField
+            label="Porcentaje de desuento"
+            variant="outlined"
+            placeholder="Tendra Descuento?..."
+            size="small"
+            {...register("discountSelected", { required: false })}
+            defaultValue={data.discountSelected || ''}
+            onChange={handleChangeText}
+            select
+            fullWidth
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.discountSelected ? "lightblue" : "transparent" }}
+          >
+            {[0,2,3,4,5,10,12,14,16,15,20].map((discount) => {//array de porcentajes
+            
+              return (
+                <MenuItem key={discount} value={discount}>
+                {`${discount}%`}
+                </MenuItem>
+              );
+            })}
+          </TextField>
         </Box>
       </CardContent>
       

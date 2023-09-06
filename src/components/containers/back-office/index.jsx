@@ -40,6 +40,7 @@ function BackOffice() {
     customId: "",
     description: "",
     specialproduct:"",
+    discountSelected:"",
   });
 
   const resetForm = () => {
@@ -56,6 +57,7 @@ function BackOffice() {
       customId: "",
       description: "",
       specialproduct:"",
+      discountSelected:"",
     });
   };
   
@@ -206,6 +208,7 @@ function BackOffice() {
             customId: "",
             description: "",
             specialproduct:"",
+            discountSelected:"",
           }}
         />
       </Box>
