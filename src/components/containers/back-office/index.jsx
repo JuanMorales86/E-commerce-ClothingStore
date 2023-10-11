@@ -90,6 +90,8 @@ function BackOffice() {
 
 //Modificar el producto
   const handleItemModify = (item, id) => {//Modificar Productos
+
+
     const db = getFirestore();
     const paper = doc(db, "productos", id);
 

@@ -14,7 +14,7 @@ import { AppContex } from "../contex-provider";
 
 
 function AuthProvider({ children, onClose }) {
-  const [isControl, setIsControl] = React.useState(false);
+  const [, setIsControl] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [isNotificationShow, setIsNotificationShow] = React.useState(false)
   const { notifyToast } = React.useContext(AppContex);
@@ -50,8 +50,8 @@ function AuthProvider({ children, onClose }) {
     }
   }, []);
   // console.log(typeof handleAuthentication)
-  console.log(isControl)
-  console.log(isAuthenticated)
+  // console.log(isControl)
+  // console.log(isAuthenticated)
   
   return (
     <Box>

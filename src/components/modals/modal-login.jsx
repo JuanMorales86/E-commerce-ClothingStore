@@ -48,8 +48,8 @@ function ModalLogin({widgetL }) {
             <Modal
               open={open}
               onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+              // aria-labelledby="modal-modal-title"
+              // aria-describedby="modal-modal-description"
               style={modalStyle}//centro el modal
             >
               <Box sx={paperStyle}>

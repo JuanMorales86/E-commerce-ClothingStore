@@ -29,7 +29,7 @@ function LogOutWidget() {
   return (
     <Box sx={{marginLeft:"0.8rem"}}>
         {notifyToastContainer()}
-        <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} aria-label="Deslogearse del el sistema administrativo">
+        <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} >
         
             <ExitToAppIcon/>
         </IconButton>

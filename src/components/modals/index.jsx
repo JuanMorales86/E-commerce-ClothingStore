@@ -87,12 +87,24 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
   console.log(pricePerUnit)
   console.log(discountSelected)
   // Verifica si se ha seleccionado un descuento y aplica el descuento correspondiente
-  if (discountSelected === 5) {
-    return pricePerUnit * 0.95; // Aplica un descuento del 5%
+  if (discountSelected === 2) {
+    return pricePerUnit * 0.98; // Aplica un descuento del 2%
+  } else if (discountSelected === 3) {
+    return pricePerUnit * 0.97;// Aplica un descuento del 3%
+  } else if (discountSelected === 4) {
+    return pricePerUnit * 0.96;// Aplica un descuento del 4%
+  } else if (discountSelected === 5) {
+    return pricePerUnit * 0.95;// Aplica un descuento del 5%
   } else if (discountSelected === 10) {
     return pricePerUnit * 0.90; // Aplica un descuento del 10%
+  } else if (discountSelected === 12) {
+    return pricePerUnit * 0.88;// Aplica un descuento del 12%
+  } else if (discountSelected === 14) {
+    return pricePerUnit * 0.86;// Aplica un descuento del 14%
   } else if (discountSelected === 15) {
     return pricePerUnit * 0.85; // Aplica un descuento del 15%
+  } else if (discountSelected === 16) {
+    return pricePerUnit * 0.84;// Aplica un descuento del 16%
   } else if (discountSelected === 20) {
     return pricePerUnit * 0.80; // Aplica un descuento del 20%
   } else {
@@ -127,7 +139,8 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
 
   const calcwithIva = () => {//Calcular el total de todo el carrito con iva
     let totalWithIva = 0
-    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return formatNWCS(totalWithIva)
+    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 }  console.log(totalWithIva); return formatNWCS(totalWithIva)
+   
   } 
 
   const handleClickOpen = () => {//abrir y cerrar el modal

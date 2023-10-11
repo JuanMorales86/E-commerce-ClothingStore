@@ -20,6 +20,7 @@ const AppContexProvider = ({children}) => {
     const [dispatchId, setDispatchId] = React.useState('')//para el historial de la compra
     const [orderCount, setOrderCount] = React.useState()//Comenzar el contador
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
+    const [orderStatuses, setOrderStatuses] = React.useState({});// Estados para las ordenes enviadas listas y en proceso 
     const MySwal = withReactContent(Swal)
 
     // Efecto para cargar el valor inicial del contador de órdenes
@@ -89,6 +90,16 @@ const AppContexProvider = ({children}) => {
     React.useEffect(() => {
       loadOrders()// Cargar las órdenes al iniciar el contexto
     }, [])
+
+    const markOrderStatus = (orderId, newStatus) => {
+      const updatedOrderStatuses = { ...orderStatuses } // Copia del objeto de estados de órdenes
+      updatedOrderStatuses[orderId] = newStatus // Actualiza el estado de la orden específica
+      
+      // Actualiza el estado de los estados de órdenes
+      setOrderStatuses(updatedOrderStatuses)
+
+      notifyToast(`La orden ${orderId} ha sido marcada como "${newStatus}".`);
+    }
 
     //Para que funcione el sweetalert2 necesito un:
     const notifyToastContainer = () => {//un toastcontainer
@@ -205,7 +216,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders}}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus}}>{children}</Provider>
 )}
 
 export default AppContexProvider

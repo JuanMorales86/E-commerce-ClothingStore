@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+// eslint-disable-next-line
+import {doc, collection, onSnapshot, getFirestore } from 'firebase/firestore';
 
-//Libreria Material
-import {
+
+import {//Libreria Material
   Card,
   Button,
   CardActions,
@@ -13,7 +15,6 @@ import {
   MenuItem,
   Typography
 } from "@mui/material";
-
 
 const originCategory = [
   "sweater",
@@ -84,13 +85,18 @@ const conditions = ["Nuevo", "Usado", "Detalles"];
 const dataspecialproduct = [true, false]
 
 //My item card Principal
-function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, onResetFields, showResetButton }) {
+function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
   const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({})//para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
-  
-  
-  
+  // const [discount, setDiscount] = React.useState(data.discountSelected || '');
+  console.log(data)
+
+
+
+
+
+
   const handleMouseEnter = () => {
     //Para la imagen
     setIsHovered(true);
@@ -103,12 +109,32 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
   const handleClickM = () => {
     //click que maneja el form y obtine los valores
-    const formData = getValues();
+    const formData = getValues();//se utiliza para obtener los valores actuales de todos los campos en un formulario que está siendo gestionado por la biblioteca react-hook-form. Esta línea se usa en el contexto de tu función handleClickM para obtener los valores de los campos del formulario antes de realizar alguna operación.
+
+    if(typeof formData.discountSelected === 'undefined'){
+      // Si 'discountSelected' es undefined, establece un valor predeterminado, por ejemplo, 0.
+      formData.discountSelected = 0
+    }
+
+    if(typeof formData.specialproduct === 'string'){
+      // Si 'discountSelected' es undefined, establece un valor predeterminado, por ejemplo, 0.
+      formData.specialproduct = true
+    }
+
+    // Verifica si 'specialproduct' está definido y es 'false', luego establece 'discountSelected' en 0
+    if(formData.specialproduct === false) {
+      formData.specialproduct = false;
+      formData.discountSelected = 0;
+    }
+
+
+    
     if (typeof onClick === "function") {
       onClick(formData, data.id);
       setModiefiedFields({});
-      
     }
+
+
   };
 
   const handleResetFields = (formData) => {
@@ -394,7 +420,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             {Object.entries(dataspecialproduct).map(([key, value]) => {//En este caso, Object.entries(dataspecialproduct) te proporciona pares [index, value] donde index representa el índice único de cada elemento y value es el valor booleano (true o false) que indica si el producto tiene descuento.
                const label = value ? 'Tiene descuento' : 'No tiene descuento';//si tiene descuento sigue siendo boolean es true si no tiene descuento es false seria la conversion en el frente de cliente
               return (
-                <MenuItem key={key} value={value}>
+                <MenuItem key={key} value={value === true}>
                   {label}
                 </MenuItem>
               );
@@ -407,17 +433,19 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Tendra Descuento?..."
             size="small"
             {...register("discountSelected", { required: false })}
+            // value={isdiscount}
             defaultValue={data.discountSelected || ''}
             onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.discountSelected ? "lightblue" : "transparent" }}
+            disabled={data.specialproduct === false}
           >
             {[0,2,3,4,5,10,12,14,16,15,20].map((discount) => {//array de porcentajes
             
               return (
-                <MenuItem key={discount} value={discount}>
+                <MenuItem key={discount} value={parseInt(discount)}>
                 {`${discount}%`}
                 </MenuItem>
               );
@@ -463,5 +491,3 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 }
 
 export default CardBackStage;
-
-

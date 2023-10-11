@@ -54,6 +54,7 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
         items: trolley,
         createAt: new Date(),
         total: total,
+        status: 'Pendiente', // Agregar el campo 'status' con valor 'Pendiente'
         // trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)
       });
 

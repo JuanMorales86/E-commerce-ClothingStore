@@ -7,7 +7,7 @@ const CartWidget = ({ cartQuantity }) => {
   return (
     <Box sx={{ minWidth: "unset", mr: 0 }}>
 
-      <IconButton color="warning" aria-label="add to shopping cart">
+      <IconButton color="warning">
         <Badge
           badgeContent={cartQuantity || 0}
           color="error"
