@@ -49,7 +49,7 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
           direction: data.direction,
           dataoptional: data.dataoptional,
           telephone: data.telephone,
-          email: data.email
+          email: data.email,
         },
         items: trolley,
         createAt: new Date(),

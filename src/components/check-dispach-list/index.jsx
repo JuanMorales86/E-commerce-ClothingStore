@@ -3,13 +3,18 @@ import React from 'react'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
 
+
 function OderList() {
-    const {orders, markOrderStatus} = useContext(AppContex)
+    const {orders, markOrderStatus, orderStatuses} = useContext(AppContex)
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
-    const [selectedOrder, setSelectedOrder] = React.useState(null)// Estado para la orden seleccionada
-    console.log(anchorEl)
-    console.log(selectedOrder)
+    const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
+    // const [updatestatus, setUpdateStatus] = React.useState('')
     
+    // console.log(anchorEl)
+    // console.log(selectedOrder)
+    // console.log(orderStatuses)
+    
+
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
       console.log(order)
       setAnchorEl(e.currentTarget)
@@ -23,11 +28,15 @@ function OderList() {
     const handleStatusChange = (newStatus) => {//cerrar el menú desplegable y actualizar el estado de la orden.
       console.log(newStatus)
       console.log(selectedOrder)
+      console.log(selectedOrder.customOrderId)
+    
       if(selectedOrder) {
         markOrderStatus(selectedOrder.customOrderId, newStatus)
       }
       handleCloseMenu()
     }
+
+
     
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -48,7 +57,7 @@ function OderList() {
                 <Box sx={{textAlign:['center','start'], alignItems:'center'}}>
                 <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
                 <Typography>Fecha de Creación: {order.createAt.toDate().toLocaleDateString()}</Typography>
-                <Typography>Estado de la Orden: {order.status}</Typography>
+                <Typography>Estado de la Orden: {orderStatuses[order.customOrderId]}</Typography>
                 <Button 
                   aria-controls='order-status-menu'
                   aria-haspopup='true'

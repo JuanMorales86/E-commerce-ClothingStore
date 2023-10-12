@@ -1,6 +1,6 @@
 import React from 'react'
 //Firestore BD
-import { addDoc, collection, getDoc, getFirestore, doc, updateDoc, getDocs } from 'firebase/firestore'
+import { addDoc, collection, getDoc, getFirestore, doc, updateDoc, getDocs, where, query } from 'firebase/firestore'
 
 //Libreria Toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -37,7 +37,7 @@ const AppContexProvider = ({children}) => {
       getCounterValue();
     }, []);
     
-    //Ordenes
+    //Crear Ordenes
     const createNewDispach = async (task) => {
       const db = getFirestore()
       const taskOrder = collection(db, 'taskOrder')
@@ -73,6 +73,50 @@ const AppContexProvider = ({children}) => {
       }
     }
 
+    //Status en la Ordenes
+    const updateOrderStatusInDatabase = async (orderId, newStatus) => {
+      console.log(orderId)
+      console.log(newStatus)
+      const db = getFirestore()
+        const ordersCollection = collection(db, 'taskOrder');
+        const querySnapshot = await getDocs(query(ordersCollection, where('customOrderId', '==', orderId)));
+
+        
+
+        try{
+
+          querySnapshot.forEach(async (queryDoc) => {
+            const docId = queryDoc.id;
+            const orderRef = doc(ordersCollection, docId);
+             // Actualizar el campo 'status' en la base de datos con el nuevo estado
+            await updateDoc(orderRef, { status: newStatus });
+          });
+          notifyToast(`El estado se actualizo ${orderId}`)
+
+           // Actualiza el estado en el contexto con la nueva información
+          setOrderStatuses((prevOrderStatuses) => ({
+            ...prevOrderStatuses,
+            [orderId]: newStatus
+          }))
+        }catch (error) {
+          notifyToast(`Error al actualizar el estado ${error}`)
+          console.error('Error al actualizar el estado en la base de datos:', error);
+        }
+    }
+
+    const markOrderStatus = (orderId, newStatus) => {
+      const updatedOrderStatuses = { ...orderStatuses } // Copia del objeto de estados de órdenes
+      updatedOrderStatuses[orderId] = newStatus // Actualiza el estado de la orden específica
+      
+      // Actualiza el estado de los estados de órdenes
+      setOrderStatuses(updatedOrderStatuses)
+
+      // Llama a la función para actualizar el estado en la base de datos
+      updateOrderStatusInDatabase(orderId, newStatus)
+
+      notifyToast(`La orden ${orderId} ha sido marcada como "${newStatus}".`);
+    }
+
     //Leer Ordenes ya creadas
     // Función para cargar las órdenes desde la base de datos
     const loadOrders = async () => {
@@ -82,6 +126,12 @@ const AppContexProvider = ({children}) => {
         const querySnapshot = await getDocs(ordersCollection)
         const ordersData = querySnapshot.docs.map((doc) => doc.data())
         setOrders(ordersData)
+
+        const initialOrderStatuses = {}
+        ordersData.forEach((order) => {
+          initialOrderStatuses[order.customOrderId] = order.status
+        })
+        setOrderStatuses(initialOrderStatuses)
       } catch(error) {
         console.error('Error al cargar las ordenes:', error)
       }
@@ -90,16 +140,6 @@ const AppContexProvider = ({children}) => {
     React.useEffect(() => {
       loadOrders()// Cargar las órdenes al iniciar el contexto
     }, [])
-
-    const markOrderStatus = (orderId, newStatus) => {
-      const updatedOrderStatuses = { ...orderStatuses } // Copia del objeto de estados de órdenes
-      updatedOrderStatuses[orderId] = newStatus // Actualiza el estado de la orden específica
-      
-      // Actualiza el estado de los estados de órdenes
-      setOrderStatuses(updatedOrderStatuses)
-
-      notifyToast(`La orden ${orderId} ha sido marcada como "${newStatus}".`);
-    }
 
     //Para que funcione el sweetalert2 necesito un:
     const notifyToastContainer = () => {//un toastcontainer
@@ -216,7 +256,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus}}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses}}>{children}</Provider>
 )}
 
 export default AppContexProvider
