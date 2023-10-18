@@ -1,4 +1,4 @@
-import { Box, List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Stack } from '@mui/material'
+import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid, Box } from '@mui/material'
 import React from 'react'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
@@ -13,6 +13,17 @@ function OderList() {
     // console.log(anchorEl)
     // console.log(selectedOrder)
     // console.log(orderStatuses)
+  
+
+    // const truncateEmail = (email, maxWidth) => {
+
+    //   if (email.length > maxWidth)  {
+      
+    //   return email.slice(0, maxWidth) + " ..." ;
+    //   }
+    //   return email
+    // }
+
     
 
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
@@ -39,22 +50,29 @@ function OderList() {
 
     
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography variant="h4" mt={2} mb={2}>
-            Lista de Órdenes
-          </Typography>
+      <>
+      <Grid container item xs={12} justifyContent={'center'} alignContent={'center'}  >
+      <Typography variant="h3" mt={4} mb={4}>
+        Lista de Órdenes
+      </Typography>
+      </Grid>
+
+        <Grid container flexDirection={['column', 'row']} justifyContent={"center"} alignItems={"center"} spacing={3}>
+        
+      
+          
           {orders.map((order, index) => (
+
+          <Grid item xs={6} key={`${order.customOrderId}_${index}`}>
             <Paper
-              key={`${order.customOrderId}_${index}`}
               elevation={3}
-              sx={{ p: 2, my: 2, display: 'flex', flexWrap:'wrap', justifyContent:['center', 'space-around'], backgroundColor: '#F5F5F5', width: '50%', overflow:'hidden' }}
+              sx={{ p: '16px', backgroundColor: '#F5F5F5' }}
+              
             >
-              <Stack direction={'column'}>
-              <Box sx={{ flex: 1 }}>
                 <Typography variant="h6" color="primary" fontWeight={"bold"}>
                   Número de Orden: {order.customOrderId.toUpperCase()}
                 </Typography>
-                <Box sx={{textAlign:['center','start'], alignItems:'center'}}>
+               
                 <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
                 <Typography>Fecha de Creación: {order.createAt.toDate().toLocaleDateString()}</Typography>
                 <Typography>Estado de la Orden: {orderStatuses[order.customOrderId]}</Typography>
@@ -77,7 +95,7 @@ function OderList() {
                   <MenuItem onClick={() => handleStatusChange("Entregada")}>Entregada</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Devuelta")}>Devuelta</MenuItem>
                 </Menu>
-                </Box>
+               
                 <Typography variant="h6" color="primary" marginTop={"0.8rem"}>
                   Información del Cliente
                 </Typography>
@@ -90,18 +108,21 @@ function OderList() {
                 </List> */}
                 <List  >
                   <ListItem sx={{display:"block", flexFlow:"row wrap"}}>
+                    
                     <ListItemText primary={`Nombre: ${order.buyer.name}`}></ListItemText>
                     <ListItemText primary={`Apellido: ${order.buyer.lastname}`}></ListItemText>
                     <ListItemText primary={`Telefono: ${order.buyer.telephone}`}></ListItemText>
-                    <ListItemText primary={`Email: ${order.buyer.email}`}></ListItemText>
+                    <Box className='scroll-container'>
+                    <ListItemText primary={`Email: ${order.buyer.email}`} className='textScrolls'>
+                    </ListItemText>
+                    </Box>
                     <ListItemText primary={`Direccion: ${order.buyer.direction}`}></ListItemText>
                     <ListItemText primary={`Datos opcionales: ${order.buyer.dataoptional}`}></ListItemText>
+                  
                   </ListItem>
                 </List>
-              </Box>
-              </Stack>
-              <Stack flexDirection={'column'}>
-              <Box sx={{ flex: 0.5 }}>
+            
+              
                 <Typography align={"center"} variant="h6" color="primary" fontWeight={"bold"}>
                   Productos
                 </Typography>
@@ -110,7 +131,7 @@ function OderList() {
                     <Paper
                       key={itemIndex}
                       elevation={2}
-                      sx={{
+                      style={{
                         p: 1,
                         my: 1,
                         backgroundColor: '#FFFFFF',
@@ -119,10 +140,10 @@ function OderList() {
                       }}
                     >
                       <ListItem>
-                        <ListItemText primary={`Articulo: ${item.producto}`} />
+                        <ListItemText primary={`Articulo: ${item.producto}`}  />
                       </ListItem>
                       <ListItem>
-                        <ListItemText primary={`ProductoID: ${item.id}`} />
+                        <ListItemText primary={`ProductoID: ${item.id}`} className='scroll-container' />
                       </ListItem>
                       <ListItem>
                         <ListItemText primary={`Cantidad: ${item.quantity} Unidades.`} />
@@ -136,11 +157,14 @@ function OderList() {
                     </Paper>
                   ))}
                 </List>
-              </Box>
-              </Stack>
             </Paper>
+          </Grid>
           ))}
-        </Box>
+        </Grid>
+        </>
       );
     }
+
+    // sx={{whiteSpace:'normal',
+    //                 overflowY:'auto', maxHeight:'6rem'}}
 export default OderList

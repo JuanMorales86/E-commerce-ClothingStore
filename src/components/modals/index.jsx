@@ -44,7 +44,7 @@ function ModalSlide({widget}) {//Padre
 
           MySwal.fire({//abro sweetalert
             title: 'Venta Casi Lista',
-            html: `Muchas gracias por preferirnos, su factura a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos, Ahora debe ingresar los siguientes datos que requeridos habilitados un poco mas abajo`,
+            html: `Muchas gracias por preferirnos, su monto a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos, Ahora debe ingresar los siguientes datos requeridos que se habilitaran un poco mas abajo`,
             icon: 'success',
             showConfirmButton: true,
             timer:4000,
