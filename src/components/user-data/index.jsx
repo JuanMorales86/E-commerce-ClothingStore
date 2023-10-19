@@ -42,6 +42,10 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
     }
     try {
       await modifierStockProducts(trolley);
+      
+      // Formatea la fecha al formato deseado antes de insertarla en el objeto `order`
+      const formatteDate = new Date().toLocaleDateString()// Esto utilizará el formato predeterminado
+
       createNewDispach({
         buyer: {
           name: data.name,
@@ -52,7 +56,7 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
           email: data.email,
         },
         items: trolley,
-        createAt: new Date(),
+        createAt: formatteDate,
         total: total,
         status: 'Pendiente', // Agregar el campo 'status' con valor 'Pendiente'
         // trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)

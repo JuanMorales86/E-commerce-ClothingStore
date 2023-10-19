@@ -75,15 +75,17 @@ function BackOffice() {
             ...doc.data(),
           };
         });
-        notifyToastBD(`🎉 Documentos cargados`);
+        
         setProductBD(items);
         setUpdateComponent(false);
+        
       })
       .catch((error) => {
         console.error(error);
       })
       .finally(() => {
         setLoading(false);
+        notifyToastBD(`🎉 Documentos cargados`);
       });
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateComponent, notifyToastBD]);

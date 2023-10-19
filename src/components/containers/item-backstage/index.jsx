@@ -90,7 +90,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
   const [modifiedFields, setModiefiedFields] = React.useState({})//para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
   // const [discount, setDiscount] = React.useState(data.discountSelected || '');
-  console.log(data)
+  
 
 
 

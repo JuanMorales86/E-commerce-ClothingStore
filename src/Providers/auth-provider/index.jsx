@@ -25,7 +25,7 @@ function AuthProvider({ children, onClose }) {
         setIsAuthenticated(false);
         setIsControl(false);
         if (isNotificationShow) {
-          notifyToast("No estás logeado");
+          // notifyToast("No estás logeado");
           setIsNotificationShow(false);
           localStorage.removeItem('isNotificationShow');
         }
@@ -33,7 +33,7 @@ function AuthProvider({ children, onClose }) {
         setIsAuthenticated(true);
         setIsControl(true);
         if (!isNotificationShow) {
-          notifyToast("Estás logeado");
+          // notifyToast("Estás logeado");
           setIsNotificationShow(true);
           localStorage.setItem('isNotificationShow', 'true');//para setear la notificacion en el local storage en true
         }

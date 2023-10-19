@@ -67,8 +67,6 @@ function ModalLogin({widgetL }) {
       }
 
       function RenderBasedOnAuthState({ isAuthenticated, handleClose }) {
-        console.log(handleClose)
-        console.log(isAuthenticated)
      
         if (isAuthenticated) {
           return <AuthMessage onClose={handleClose} />;

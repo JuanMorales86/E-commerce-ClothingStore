@@ -21,6 +21,7 @@ const AppContexProvider = ({children}) => {
     const [orderCount, setOrderCount] = React.useState()//Comenzar el contador
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
     const [orderStatuses, setOrderStatuses] = React.useState({});// Estados para las ordenes enviadas listas y en proceso 
+    const [filteredOrders, setFilteredOrders] = React.useState([]);// Estado para los resultados de la búsqueda
     const MySwal = withReactContent(Swal)
 
     // Efecto para cargar el valor inicial del contador de órdenes
@@ -75,14 +76,9 @@ const AppContexProvider = ({children}) => {
 
     //Status en la Ordenes
     const updateOrderStatusInDatabase = async (orderId, newStatus) => {
-      console.log(orderId)
-      console.log(newStatus)
       const db = getFirestore()
         const ordersCollection = collection(db, 'taskOrder');
         const querySnapshot = await getDocs(query(ordersCollection, where('customOrderId', '==', orderId)));
-
-        
-
         try{
 
           querySnapshot.forEach(async (queryDoc) => {
@@ -103,7 +99,7 @@ const AppContexProvider = ({children}) => {
           console.error('Error al actualizar el estado en la base de datos:', error);
         }
     }
-
+    //Uso del estado de cmabio de ordenes
     const markOrderStatus = (orderId, newStatus) => {
       const updatedOrderStatuses = { ...orderStatuses } // Copia del objeto de estados de órdenes
       updatedOrderStatuses[orderId] = newStatus // Actualiza el estado de la orden específica
@@ -140,6 +136,36 @@ const AppContexProvider = ({children}) => {
     React.useEffect(() => {
       loadOrders()// Cargar las órdenes al iniciar el contexto
     }, [])
+
+    //Funcion para buscar ordenes en funcion del criterio de busqueda
+    const searchOrders = (searchText) => {
+       // Convertimos el texto de búsqueda a minúsculas
+       const searchTextLower = searchText.toLowerCase();
+       console.log(searchTextLower)
+       const filteredOrders = orders.filter((order) => {
+      
+      // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
+      // const statusValues = Object.values(order).map(status => status.toLowerCase());
+      // console.log(statusValues)
+        
+
+     
+        
+        //Logica basa en criterios
+        return (
+          order.customOrderId.includes(searchText) || // Busca por numero de orden
+          order.buyer.name.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por nombre del cliente (insensible a mayúsculas/minúsculas)
+          order.buyer.lastname.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por apellido del cliente (insensible a mayúsculas/minúsculas)
+          order.buyer.telephone.includes(searchText) || // Buscar por telefono del cliente 
+          order.buyer.email.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por email del cliente
+          order.createAt.includes(searchText) ||
+          order.status.toLowerCase().includes(searchText.toLowerCase())// Buscar por estado de órdenes 
+        )
+      })
+     
+      setFilteredOrders(filteredOrders)
+      
+    }
 
     //Para que funcione el sweetalert2 necesito un:
     const notifyToastContainer = () => {//un toastcontainer
@@ -256,7 +282,7 @@ const AppContexProvider = ({children}) => {
     }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses}}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses, filteredOrders, searchOrders }}>{children}</Provider>
 )}
 
 export default AppContexProvider

@@ -100,21 +100,21 @@ ul{/*listas*/
 }
 
 
-.textScrolls {
-  /* white-space: normal;
+/* .textScrolls {
+  white-space: normal;
   overflow-y: auto;
-  max-height: 5rem; */
-}
+  max-height: 5rem; 
+} */
 
 /* Estilo del contenedor del scroll */
 .scroll-container {
-  width: 100%;
+  
   max-height: 5rem; /* Personaliza la altura máxima según tus necesidades */
   overflow-x: hidden;
 }
 
 /*Establece el estilo del scroll solo cuando el ancho de la pantalla es menor a 651 píxeles*/
-@media (max-width: 648px){
+@media (max-width: 642px){
   .scroll-container {
     overflow-x: scroll
   }

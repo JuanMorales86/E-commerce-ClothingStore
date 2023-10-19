@@ -1,18 +1,21 @@
-import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid, Box } from '@mui/material'
 import React from 'react'
+import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid } from '@mui/material'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
+import SearchBar from '../utilities/searchbar'
+
 
 
 function OderList() {
-    const {orders, markOrderStatus, orderStatuses} = useContext(AppContex)
+    const {orders, markOrderStatus, orderStatuses, filteredOrders} = useContext(AppContex)
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
+    const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
     // const [updatestatus, setUpdateStatus] = React.useState('')
     
-    // console.log(anchorEl)
-    // console.log(selectedOrder)
-    // console.log(orderStatuses)
+    console.log(anchorEl)
+    console.log(selectedOrder)
+    console.log(orderStatuses)
   
 
     // const truncateEmail = (email, maxWidth) => {
@@ -23,6 +26,14 @@ function OderList() {
     //   }
     //   return email
     // }
+
+
+    React.useEffect(() => {
+       // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,
+        // actualizamos las órdenes que se muestran.
+        const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
+        setdisplayedOrders(ordersToDisplay);
+    }, [orders, filteredOrders])
 
     
 
@@ -37,9 +48,6 @@ function OderList() {
     }
 
     const handleStatusChange = (newStatus) => {//cerrar el menú desplegable y actualizar el estado de la orden.
-      console.log(newStatus)
-      console.log(selectedOrder)
-      console.log(selectedOrder.customOrderId)
     
       if(selectedOrder) {
         markOrderStatus(selectedOrder.customOrderId, newStatus)
@@ -57,13 +65,17 @@ function OderList() {
       </Typography>
       </Grid>
 
-        <Grid container flexDirection={['column', 'row']} justifyContent={"center"} alignItems={"center"} spacing={3}>
+      <Grid container item xs={12} justifyContent={'center'} alignItems={'center'} mb={4} mt={2}>
+        <SearchBar/>
+      </Grid>
+
+        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={2}>
         
       
           
-          {orders.map((order, index) => (
+          {displayedOrders.map((order, index) => (
 
-          <Grid item xs={6} key={`${order.customOrderId}_${index}`}>
+          <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`}>
             <Paper
               elevation={3}
               sx={{ p: '16px', backgroundColor: '#F5F5F5' }}
@@ -74,7 +86,7 @@ function OderList() {
                 </Typography>
                
                 <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
-                <Typography>Fecha de Creación: {order.createAt.toDate().toLocaleDateString()}</Typography>
+                <Typography>Fecha de Creación: {order.createAt}</Typography>
                 <Typography>Estado de la Orden: {orderStatuses[order.customOrderId]}</Typography>
                 <Button 
                   aria-controls='order-status-menu'
@@ -91,7 +103,7 @@ function OderList() {
                 onClose={handleCloseMenu}            
                 >
                   <MenuItem onClick={() => handleStatusChange("Pendiente")}>Pendiente</MenuItem>
-                  <MenuItem onClick={() => handleStatusChange("Eviada")}>Enviada</MenuItem>
+                  <MenuItem onClick={() => handleStatusChange("Enviada")}>Enviada</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Entregada")}>Entregada</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Devuelta")}>Devuelta</MenuItem>
                 </Menu>
@@ -112,10 +124,10 @@ function OderList() {
                     <ListItemText primary={`Nombre: ${order.buyer.name}`}></ListItemText>
                     <ListItemText primary={`Apellido: ${order.buyer.lastname}`}></ListItemText>
                     <ListItemText primary={`Telefono: ${order.buyer.telephone}`}></ListItemText>
-                    <Box className='scroll-container'>
-                    <ListItemText primary={`Email: ${order.buyer.email}`} className='textScrolls'>
+                    
+                    <ListItemText primary={`Email: ${order.buyer.email}`} className='scroll-container'>
                     </ListItemText>
-                    </Box>
+                    
                     <ListItemText primary={`Direccion: ${order.buyer.direction}`}></ListItemText>
                     <ListItemText primary={`Datos opcionales: ${order.buyer.dataoptional}`}></ListItemText>
                   
@@ -164,7 +176,4 @@ function OderList() {
         </>
       );
     }
-
-    // sx={{whiteSpace:'normal',
-    //                 overflowY:'auto', maxHeight:'6rem'}}
 export default OderList

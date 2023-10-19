@@ -153,7 +153,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
   }; 
 
   return (
-    <div>
+    <Box>
       {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
       <Button variant="text" onClick={handleClickOpen}>
       {widget}
@@ -194,11 +194,11 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
                     Vas a llevar: {item.quantity}
                   </Typography>
                   <Typography variant="body2" component="p">
-                    Descuento: {item.discountSelected}
+                    Descuento: {item.discountSelected} %
                   </Typography>
-                  <Typography variant="body2" component="p">
+                  {/* <Typography variant="body2" component="p">
                     Sin iva: {calcTotalGlobalPay()}
-                  </Typography>
+                  </Typography> */}
                   <Typography variant="body2" component="p">
                     Total: {calcwithIva()}
                     {/* calcTotalQuantityPerPrice(item) */}
@@ -246,7 +246,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
       </Box>
       </Dialog>
    
-    </div>
+    </Box>
   );
 }
 
