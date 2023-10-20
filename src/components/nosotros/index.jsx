@@ -1,11 +1,12 @@
-import { Box, Typography } from '@mui/material'
+
 import React from 'react'
+import ConstructionPage from '../utilities/constructionpage'
 
 function Nosotros() {
   return (
-    <Box>
-      <Typography variant='h4' component="h6">Nosotros</Typography>
-    </Box>
+    
+      <ConstructionPage/>
+   
   )
 }
 

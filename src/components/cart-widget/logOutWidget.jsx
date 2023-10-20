@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import {Box} from '@mui/material'
+import {Box, Tooltip} from '@mui/material'
 
 //Libreria firebase
 import { signOut } from 'firebase/auth'
@@ -29,10 +29,12 @@ function LogOutWidget() {
   return (
     <Box sx={{marginLeft:"0.8rem"}}>
         {notifyToastContainer()}
+        <Tooltip title="Cerrar Sesión">
         <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} >
         
             <ExitToAppIcon/>
         </IconButton>
+        </Tooltip>
     </Box>
   )
 }

@@ -6,7 +6,7 @@ import SearchBar from '../utilities/searchbar'
 
 
 
-function OderList() {
+function OrderList() {
     const {orders, markOrderStatus, orderStatuses, filteredOrders} = useContext(AppContex)
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
@@ -176,4 +176,4 @@ function OderList() {
         </>
       );
     }
-export default OderList
+export default OrderList

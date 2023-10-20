@@ -253,9 +253,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             sx={{ backgroundColor: modifiedFields.title ? "lightblue" : "transparent" }}
           />
              <TextField
-            label="Descripcion"
+            label="Descripción"
             variant="outlined"
-            placeholder="Una Breve Descripcion..."
+            placeholder="Una Breve Descripción..."
             size="small"
             {...register("description", { required: false })}
             defaultValue={data.description}
@@ -281,9 +281,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             sx={{ backgroundColor: modifiedFields.customid ? "lightblue" : "transparent" }}
           />
           <TextField
-            label="Condicion"
+            label="Condición"
             variant="outlined"
-            placeholder="Condicion..."
+            placeholder="Condición..."
             size="small"
             {...register("condition", { required: false })}
             defaultValue={data.condition || ''}
@@ -319,9 +319,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             sx={{ backgroundColor: modifiedFields.price ? "lightblue" : "transparent" }}
           />
           <TextField
-            label="Categoria"
+            label="Categoría"
             variant="outlined"
-            placeholder="Tipo de categoria del producto..."
+            placeholder="Tipo de categoría del producto..."
             size="small"
             {...register("categoryType", { required: false })}
             defaultValue={data.categoryType}
@@ -362,7 +362,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             sx={{ backgroundColor: modifiedFields.brand ? "lightblue" : "transparent" }}
           />
           <TextField
-            label="Direccion Delimitada"
+            label="Dirección Delimitada"
             variant="outlined"
             placeholder="Hasta donde se puede entregar..."
             size="small"
@@ -383,9 +383,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             })}
           </TextField>
           <TextField
-            label="Direccion del Vendedor"
+            label="Dirección del Vendedor"
             variant="outlined"
-            placeholder="Direccion del Vendedor..."
+            placeholder="Dirección del Vendedor..."
             size="small"
             {...register("addressPlace", { required: false })}
             defaultValue={data.addressPlace}
@@ -428,7 +428,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           </TextField>
 
           <TextField
-            label="Porcentaje de desuento"
+            label="Porcentaje de descuento"
             variant="outlined"
             placeholder="Tendra Descuento?..."
             size="small"

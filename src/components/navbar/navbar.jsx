@@ -14,7 +14,7 @@ import {
   Link
 } from "@mui/material"; //Componentes Material
 import CheckroomIcon from "@mui/icons-material/Checkroom"; //Material Icon
-import MenuIcon from "@mui/icons-material/Menu";//Material Icon
+import MenuIcon from "@mui/icons-material/Menu";//Material Icon Burguer
 
 //Mis Components
 import ModalSlide from "../modals";
@@ -60,13 +60,15 @@ const NavBar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ overflowX: "auto" }}>
             
-
+          
             {/* Icono Tienda */}
+            <Link component={RouterLink} to={'/home'} underline="none" color={'inherit'} mr={'1rem'}>
             <CheckroomIcon
               htmlColor="#fff"
               fontSize="large"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+              sx={{display: { xs: "flex", md: "flex" } }}
             ></CheckroomIcon>
+            </Link>
 
             {/* Titel Brand */}
             <Box sx={{display:"flex", alignItems:"center"}}>
@@ -74,7 +76,6 @@ const NavBar = () => {
             <Typography
               variant="h6"
               href="/home"
-              component="a"
               noWrap
               className="clothing-store-text"
               sx={{
@@ -95,8 +96,10 @@ const NavBar = () => {
             </Typography>
             </Link>
             </Box>
+            
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+           
               {/* Burguer */}
               <IconButton
                 size="large"
@@ -111,6 +114,7 @@ const NavBar = () => {
               {/* Fin Burguer */}
 
               {/* Menu Cuando se retrae a mobile */}
+              
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
@@ -146,11 +150,7 @@ const NavBar = () => {
 
             {/* Otra resolucion (grande) */}
             {/* Icono Tienda */}
-            <CheckroomIcon
-              htmlColor="#fff"
-              fontSize="large"
-              sx={{ mr: 1, display: { xs: "flex", md: "none" } }}
-            ></CheckroomIcon>
+           
 
             {/* Brand */}
             <Typography

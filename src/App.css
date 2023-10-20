@@ -44,12 +44,19 @@ ul{/*listas*/
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 20px;
+  height: 100%;
   position: relative;
   background-color: rosybrown;
   transition: background-color 0.3s ease-in-out;
   animation: changeBackground 15s ease-in-out infinite;
   cursor: pointer;  
+}
+
+@media (max-width: 258px){
+  .bordInit {
+    font-size: x-small;
+    
+  }
 }
 
 .bordInit::before {
@@ -113,7 +120,7 @@ ul{/*listas*/
   overflow-x: hidden;
 }
 
-/*Establece el estilo del scroll solo cuando el ancho de la pantalla es menor a 651 píxeles*/
+/*Establece el estilo del scroll solo cuando el ancho de la pantalla es menor a 642 píxeles*/
 @media (max-width: 642px){
   .scroll-container {
     overflow-x: scroll

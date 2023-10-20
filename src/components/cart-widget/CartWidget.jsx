@@ -16,7 +16,9 @@ const CartWidget = ({ cartQuantity }) => {
             horizontal: "left",
           }}
         >
+          <Box>
           <AddShoppingCartIcon />
+          </Box>
         </Badge>
       </IconButton>
     </Box>

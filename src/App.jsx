@@ -35,7 +35,7 @@ import DiscountsBar from './components/discounts-bar'
 import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
 import { AuthContext } from './Providers/auth-manager';
-import OderList from './components/check-dispach-list';
+import OrderList from './components/check-dispach-list';
 
 
 
@@ -55,11 +55,28 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
     return null // No necesitas renderizar nada aquí
   }
   return (
-
-    <BackOffice />//Renderiza el componente si el usuario está autenticado
-
+    
+    //Renderiza el componente si el usuario está autenticado
+    <BackOffice />
   );
 }
+
+function ProtectedOrderList() {//Para poder pasar la autehntificacion dentro del route
+  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
+  const navigate = useNavigate()
+  // Verifica si el usuario está autenticado
+  if (!user) {
+    navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
+    return null // No necesitas renderizar nada aquí
+  }
+  return (
+    
+    //Renderiza el componente si el usuario está autenticado
+    <OrderList />
+  );
+}
+
+
 //SPA
 function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
@@ -105,7 +122,7 @@ function App() {
             <Route path={'/contacto'} element={<Contacto setShowFixedImage={handleShowFixedImage}/>}  />
            
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
-            <Route path={'/ordenes'} element={<OderList/>} />
+            <Route path={'/ordenes'} element={<ProtectedOrderList/>} />
          
             <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> {/* vuelve al principal {home} si coloca cualquier cosa */}
           

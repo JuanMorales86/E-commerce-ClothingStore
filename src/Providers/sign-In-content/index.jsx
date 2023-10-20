@@ -11,6 +11,7 @@ import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 //Mis componentes
 import { auth } from '../../App'
 import { AppContex } from '../contex-provider'
+import AuthMessage from '../auth-message'
 
 function SignInContent({ onClose }) {
     const [user, setUser] = React.useState('')
@@ -19,6 +20,7 @@ function SignInContent({ onClose }) {
     const [passError, setPassError] = React.useState('');
     const navigate = useNavigate()
     const {notifyToast, notifyToastContainer} = React.useContext(AppContex)
+    const [authmessage, setAuthMessage] = React.useState(false)
 
     //Validar correo electronico
     const isEmailValid = (email) => {
@@ -68,8 +70,9 @@ function SignInContent({ onClose }) {
         signInWithEmailAndPassword(auth, user, pass)
         .then((userCredential) => { 
             notifyToast('Te has logeado al sistema')
-            navigate('/admin')
-            onClose()
+            // navigate('/admin')
+            setAuthMessage(true)
+            // onClose()
             
         }).catch((err) => { console.log(err)
             notifyToast('Usuario o Contraseña no es correcta')})
@@ -89,7 +92,7 @@ function SignInContent({ onClose }) {
   return (
 <Paper sx={{p: 2, maxWidth: 400, margin: '0 auto', backgroundColor: '#f0f0f0', marginTop:"2rem"}}>
     <Box sx={{textAlign:"center"}} >
-        <Typography variant='h5' component={'text'} color={"primary.dark"} fontWeight={"bold"} >
+        <Typography variant='h5'  color={"primary.dark"} fontWeight={"bold"} >
         Iniciar Sesión
         </Typography>
    
@@ -107,6 +110,7 @@ function SignInContent({ onClose }) {
             <Button variant='contained' onClick={handleLogOut}>LogOut</Button>{notifyToastContainer()}
         </Box>
     </Box>
+    {authmessage && <AuthMessage/>}
 </Paper>   
   )
 }

@@ -143,7 +143,6 @@ const AppContexProvider = ({children}) => {
        const searchTextLower = searchText.toLowerCase();
        console.log(searchTextLower)
        const filteredOrders = orders.filter((order) => {
-      
       // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
       // const statusValues = Object.values(order).map(status => status.toLowerCase());
       // console.log(statusValues)
@@ -159,7 +158,8 @@ const AppContexProvider = ({children}) => {
           order.buyer.telephone.includes(searchText) || // Buscar por telefono del cliente 
           order.buyer.email.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por email del cliente
           order.createAt.includes(searchText) ||
-          order.status.toLowerCase().includes(searchText.toLowerCase())// Buscar por estado de órdenes 
+          order.status.toLowerCase().includes(searchText.toLowerCase()) // Buscar por estado de órdenes 
+          // order.items.discountSelected.includes(searchText) // Buscar por descuento hecho(no funciona)
         )
       })
      

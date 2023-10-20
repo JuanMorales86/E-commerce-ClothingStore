@@ -49,7 +49,9 @@ const handleSearchTextChange = (e) => {
         <Tooltip title="Puedes realizar las siguientes busquedas por tipo: Numero de Orden, Nombre, Apellido, Telefono, Correo, Estado de orden, Fecha de creacion formato(01/10/2023)">
         <TextField sx={{width:'100%'}} id='filled-basic' label="Buscar Ordenes" placeholder='orden1014' variant='outlined' value={searchText} onChange={handleSearchTextChange} helperText={error} error={!!error} />
         </Tooltip>
-        <Button sx={{width:'100px', height:'55px', alignSelf:"center"}} variant='contained' color='primary' onClick={handleSearch}>Buscar</Button>
+        <Box alignSelf={'center'}>
+        <Button sx={{width:'100px', height:'55px', borderRadius:"0.25rem"}} variant='contained' color='primary' onClick={handleSearch}>Buscar</Button>
+        </Box>
     </Box>
     {/* <Box>
         {filteredOrders.map((order,index) => (
