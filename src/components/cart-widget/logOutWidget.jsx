@@ -27,12 +27,13 @@ function LogOutWidget() {
         })
     }
   return (
-    <Box sx={{marginLeft:"0.8rem"}}>
+    <Box sx={{ minWidth: "unset", mr: 0 }}>
         {notifyToastContainer()}
         <Tooltip title="Cerrar Sesión">
         <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} >
-        
+            <Box>
             <ExitToAppIcon/>
+            </Box>
         </IconButton>
         </Tooltip>
     </Box>

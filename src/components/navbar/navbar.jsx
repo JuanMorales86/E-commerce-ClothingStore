@@ -191,11 +191,18 @@ const NavBar = () => {
               ))}
 
             </Box>
-            {/* Fin otra resolucion */}
+            {/* Fin otra resolucion d */}
+              <Box display={'flex'}>
               
               <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
+              
+             
               <ModalLogin widgetL={<LoginWidget/>}/>
+              
+              <Box sx={{alignSelf:'center', justifyContent:"center"}}>
               <LogOutWidget/>
+              </Box>
+              </Box>
 
           </Toolbar>
         </Container>

@@ -1,5 +1,5 @@
 {
-    "apiKey": "AIzaSyDcNMdxR32VHeeeMQhRAiwT-lZfcKAox0k",
+    "apiKey": "process.env.REACT_APP_FIREBASE_API_KEY",
     "authDomain": "clothingstoredb-5a6f8.firebaseapp.com",
     "projectId": "clothingstoredb-5a6f8",
     "storageBucket": "clothingstoredb-5a6f8.appspot.com",
