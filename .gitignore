@@ -12,7 +12,6 @@ src/components/CartWidget/CartWidgetBootstrap.js
 src/components/content
 src/components/itemListContainer2
 src/components/Tabs/indexPrueba.jsx
-src/components/database/firebaseconfig.js
 src/components/database/firestore.json
 webpack.config.js
 updateFirebaseConfig.js
