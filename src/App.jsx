@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
 
+
 //Firebase
-import firebaseConfig from './components/database/firestore.json'
+import firebaseConfig from './components/database/firebaseconfig';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth"
@@ -36,6 +37,7 @@ import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
 import { AuthContext } from './Providers/auth-manager';
 import OrderList from './components/check-dispach-list';
+
 
 
 

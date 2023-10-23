@@ -192,6 +192,7 @@ const NavBar = () => {
 
             </Box>
             {/* Fin otra resolucion d */}
+          
               <Box display={'flex'}>
               
               <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
