@@ -58,7 +58,7 @@ function CardDetail({data}) {
     <Card sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto" }}>
         <CardContent sx={{ flex: '1 0 auto', width:'auto', height:"auto" }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
-          <Typography component="div" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.2rem'} textAlign={'center'} >
+          <Typography component="p" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.2rem'} textAlign={'center'} >
             {title}
           </Typography>
          
@@ -67,19 +67,19 @@ function CardDetail({data}) {
         </Typography>
 
         <Box sx={{marginTop:'1rem',display:'flex', flexDirection:'column', alignItems:['center', 'start']}}>
-          <Typography component="div" variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'.1rem'} textAlign={'start'} >
+          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'.1rem'} textAlign={'start'} >
               Codigo:{customid}
             </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
+          <Typography variant="subtitle1" color="text.secondary" >
               !Ya vendidos: {soldquantity} Unid.
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
+            <Typography variant="subtitle1" color="text.secondary" >
               Stock Almac.: {stock} Unid.
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
+            <Typography variant="subtitle1" color="text.secondary" >
               Precio-Original: $ {price} Pesos
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
+            <Typography variant="subtitle1" color="text.secondary" >
               Precio-Oferta: $ {originalprice} Pesos
             </Typography>
         </Box>

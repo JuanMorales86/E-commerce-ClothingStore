@@ -175,16 +175,16 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
           <DialogContentText  id="alert-dialog-slide-description">
             {
               trolley.map((item) => (
-              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"center",  marginBottom: '.3rem', width: "auto", height:"auto" , background:
+              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"center",  marginBottom: '.3rem', width: "auto", height:"auto" , flexDirection:['column', 'row'],  background:
               "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
                   <CardMedia
                   component="img"
-                  sx={{ width: "150px", height:"150px", aspectRatio: 10/9, alignSelf:'center', border:'solid 2px black', objectFit:"contain" }}
+                  sx={{ width: "150px", height:"150px", aspectRatio: 10/9, alignSelf:'center', border:'solid 2px black', objectFit:"contain"}}
                   image={item.imagen}
                   alt={item.producto}
                   />
-                <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:"self-start"}}>
-                  <Typography sx={{width:"150px", textAlign:'left', lineHeight:1, marginBottom:"5px"}} flexWrap="wrap" variant="h6" component="p">
+                <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:["center","self-start"]}}>
+                  <Typography sx={{width:"150px", textAlign:['center','left'], lineHeight:1, marginBottom:"5px", alignItems:["center","self-start"]}} flexWrap="wrap" variant="h6" component="p">
                     {item.producto}
                   </Typography>
                   <Typography variant="body2" component='p' color="textSecondary">

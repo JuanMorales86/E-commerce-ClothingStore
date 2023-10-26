@@ -12,7 +12,7 @@ import {
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';//Icon Material
 
 
-//My item card Principal
+//My item card Principal en la visuallizaciond de las prendas
 function CardItems({ data, onItemClick }) {
   //se agrega las props
   const [isHovered, setIsHovered] = React.useState(false);

@@ -40,9 +40,9 @@ function Footer() {
               <Typography variant="h6" component="h3">
                 Contacto
               </Typography>
-              <Typography component="p">Dirección: Gallo 606, Almagro, CABA</Typography>
-              <Typography component="p">Teléfono: 9-(11) 2843-3076</Typography>
-              <Typography component="p" sx={{ letterSpacing:2}}>Email: <wbr />salpimienta.<wbr />shop23@<wbr />gmail.com</Typography>
+              <Typography >Dirección: Gallo 606, Almagro, CABA</Typography>
+              <Typography >Teléfono: 9-(11) 2843-3076</Typography>
+              <Typography  sx={{ letterSpacing:2}}>Email: <wbr />salpimienta.<wbr />shop23@<wbr />gmail.com</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
               <Typography variant="h6" component="h3">
@@ -84,13 +84,13 @@ function Footer() {
               <Box sx={{ display: 'flex', flexFlow:"row, wrap", justifyContent:"center", alignItems:"center" }}>
              
              
-                  <img style={{width:"40px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=14QXMi-BlMxA898S6C9VUu5QEotq7jZvp" alt="visa" />
+                  <img style={{width:"40px",height:"40px"}} src="https://i.imgur.com/xm8TQC3.png" alt="visa" />
           
              
-                  <img style={{width:"100px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=1GQ1gVf13HMb4HHsIwCHpaBvxCWEMRi0c" alt="MasterCard" />
+                  <img style={{width:"100px",height:"40px"}} src="https://i.imgur.com/uuLL15w.png" alt="MasterCard" />
              
             
-                  <img style={{width:"40px",height:"40px"}} src="http://drive.google.com/uc?export=view&id=1G5Ac6E4Akbkyik_yWOaI7JPZ8taZWO96" alt="AmercanExpress" />  
+                  <img style={{width:"40px",height:"40px"}} src="https://i.imgur.com/Ibf7JfX.png" alt="AmercanExpress" />  
             
                   <Typography sx={{width:"100%", ml:"20px"}} fontSize={"0.8rem"}>Tranferencia <wbr />/ Deposito Bancario</Typography>
               </Box>

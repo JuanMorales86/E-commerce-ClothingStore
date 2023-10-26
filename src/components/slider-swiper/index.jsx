@@ -34,7 +34,7 @@ import 'swiper/css/scrollbar';
 
         {showFixedImage && (
         <SwiperSlide className='swiperslide'>
-          <img className='slidercss' src='http://drive.google.com/uc?export=view&id=1vd-BPqwzO7o1DgXdSS5oN1WAqnEptMXa' alt='Imagen Fija' />
+          <img className='slidercss' src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Fija' />
         </SwiperSlide>
         )}
         
