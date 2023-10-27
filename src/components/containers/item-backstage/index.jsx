@@ -239,6 +239,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             onChange={handleChangeText}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.thumbnail ? "lightblue" : "transparent" }}
+            
           />
           <TextField
             label="Titulo"

@@ -100,7 +100,7 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
     </Box>
 
     <Box sx={{margin:'1rem auto', textAlign:"center"}}>
-    <Button variant='contained' type='submit' onClick={handleSubmit(onSubmit)} >Submit</Button>
+    <Button variant='contained' type='submit' onClick={handleSubmit(onSubmit)} >Enviar</Button>
     </Box>
    
     </Paper>

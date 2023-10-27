@@ -7,7 +7,7 @@ const LoginWidget = ({ isUser }) => {
   return (
     <Box sx={{ minWidth: "unset", mr: 0 }}>
       <Tooltip title="Iniciar Sesión">
-      <IconButton color="secondary" aria-label="Accesar al sistema de administracion">
+      <IconButton color="secondary">
         <Badge
           badgeContent={isUser || 0}
           color="error"

@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { Tabs, Tab, Box, useMediaQuery } from '@mui/material'
+import { Tabs, Tab, Box  } from '@mui/material'  //useMediaQuery
 import { useNavigate } from 'react-router-dom';
 
 
 function TabsMenu({current, items}) {
   const navigate = useNavigate()//Custom hook
-  const isXSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('xs'));
-  const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md'));
+  // const isXSmallScreen = useMediaQuery((theme) => theme.breakpoints.between('xs', 'sm'));
+  // const isMediumScreen = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md'));
+  // const screenWidth = window.innerWidth
 
 
 
@@ -16,13 +17,18 @@ function TabsMenu({current, items}) {
 
   return (
    
-      <Box sx={{ display: 'flex',  bgcolor: 'background.paper', borderBottom: 2, borderColor: 'divider', justifyContent:'center'  }}>
+      <Box sx={{ display: 'flex',  bgcolor: 'background.paper', borderBottom: 1, borderColor: 'divider', justifyContent:'center', maxWidth: { xs: 600, sm: '100%' }  }}>
         <Tabs 
         value={current} 
-        variant={isXSmallScreen || isMediumScreen ? 'scrollable' : 'standard'} 
+        // variant={isXSmallScreen || isMediumScreen ? 'scrollable' : 'scrollable'} 
+        // variant={screenWidth < 600 ? "scrollable" : "standard"} // Cambia a scrollable si el ancho es menor a 600px
+        variant='scrollable'
         onChange={handleChange} 
-        aria-label="basic tabs example" 
-        scrollButtons={isXSmallScreen || isMediumScreen ? 'auto' : false} // Corregimos el valor de scrollButtons
+        scrollButtons
+        allowScrollButtonsMobile
+        aria-label="scrollable force tabs example"
+        // scrollButtons={isXSmallScreen || isMediumScreen ? 'auto' : 'auto'} // Corregimos el valor de scrollButtons
+        // scrollButtons={screenWidth < 600 ? 'auto' : false} // Muestra los botones en pantallas más pequeñas
         swipeable={"true"} >
         {
             items?.map((item, index)=>{

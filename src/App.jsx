@@ -38,46 +38,10 @@ import AuthProvider from './Providers/auth-provider';
 import { AuthContext } from './Providers/auth-manager';
 import OrderList from './components/check-dispach-list';
 
-
-
-
-
-
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 // Initialize Firebase
-
-function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro del route
-  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
-  const navigate = useNavigate()
-  // Verifica si el usuario está autenticado
-  if (!user) {
-    navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
-    return null // No necesitas renderizar nada aquí
-  }
-  return (
-    
-    //Renderiza el componente si el usuario está autenticado
-    <BackOffice />
-  );
-}
-
-function ProtectedOrderList() {//Para poder pasar la autehntificacion dentro del route
-  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
-  const navigate = useNavigate()
-  // Verifica si el usuario está autenticado
-  if (!user) {
-    navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
-    return null // No necesitas renderizar nada aquí
-  }
-  return (
-    
-    //Renderiza el componente si el usuario está autenticado
-    <OrderList />
-  );
-}
-
 
 //SPA
 function App() {
@@ -141,6 +105,52 @@ function App() {
       </AppContexProvider>
       
     </RouterLink>
+  );
+}
+
+function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro del route
+  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
+  const navigate = useNavigate()
+  // Verifica si el usuario está autenticado
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/home', { replace: true });// Usa navigate para redirigir al usuario
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return null;// No necesitas renderizar nada aquí
+  }
+  // Verifica si el usuario está autenticado
+  // if (!user) {
+  //   navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
+  //   return null // No necesitas renderizar nada aquí
+  // }
+  return (
+    
+    //Renderiza el componente si el usuario está autenticado
+    <BackOffice />
+  );
+}
+
+function ProtectedOrderList() {//Para poder pasar la autehntificacion dentro del route
+  const { user  } = React.useContext(AuthContext); // Accede al contexto de autenticación
+  const navigate = useNavigate()
+  // Verifica si el usuario está autenticado
+  React.useEffect(() => {
+    if (!user) {
+      navigate('/home', { replace: true });// Usa navigate para redirigir al usuario
+    }
+  }, [user, navigate]);
+
+  if (!user) {
+    return null;// No necesitas renderizar nada aquí
+  }
+  
+  return (
+    
+    //Renderiza el componente si el usuario está autenticado
+    <OrderList />
   );
 }
 
