@@ -7,7 +7,7 @@ function ConstructionPage() {
     <Grid container item spacing={0.5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
       
         <Grid item xs={12}>
-            <Typography variant='h3' fontWeight={'bold'}>En Constuccion</Typography>
+            <Typography variant='h3' fontWeight={'bold'}>En Construcción</Typography>
         </Grid>
 
         <Grid item xs={12}  justifyContent={'center'} alignItems={'center'} mt={15} mb={15}>
