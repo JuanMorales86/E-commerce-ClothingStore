@@ -17,7 +17,7 @@ import { AppContex } from '../../../Providers/contex-provider';
 
 //Mi card DETAIL
 function CardDetail({data}) {
-  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected } = data
+  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected, size } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
@@ -81,6 +81,9 @@ function CardDetail({data}) {
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" >
               Precio-Oferta: $ {originalprice} Pesos
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" >
+              Talles: 
             </Typography>
         </Box>
         </CardContent>

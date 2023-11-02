@@ -10,6 +10,8 @@ import {
   doc,
   addDoc,
   deleteDoc,
+  where,
+  query,
 } from "firebase/firestore";
 //Libreria Material
 import { Box, Typography, CircularProgress } from "@mui/material";
@@ -35,12 +37,14 @@ function BackOffice() {
     addressShipping: "",
     addressPlace: "",
     brand: "",
+    color: "",
     condition: "",
     categoryType: "",
     customId: "",
     description: "",
     specialproduct:"",
     discountSelected:"",
+    size:"",
   });
 
   const resetForm = () => {
@@ -52,12 +56,14 @@ function BackOffice() {
       addressShipping: "",
       addressPlace: "",
       brand: "",
+      color: "",
       condition: "",
       categoryType: "",
       customId: "",
       description: "",
       specialproduct:"",
       discountSelected:"",
+      size:"",
     });
   };
   
@@ -65,8 +71,6 @@ function BackOffice() {
   React.useEffect(() => {//Obtener la data y actualizar
     const db = getFirestore();
     const products = collection(db, "productos"); //tabla
-  
-
     getDocs(products) //tabla
       .then((snapshot) => {
         const items = snapshot.docs.map((doc) => {
@@ -75,10 +79,8 @@ function BackOffice() {
             ...doc.data(),
           };
         });
-        
         setProductBD(items);
         setUpdateComponent(false);
-        
       })
       .catch((error) => {
         console.error(error);
@@ -91,12 +93,27 @@ function BackOffice() {
   }, [updateComponent, notifyToastBD]);
 
 //Modificar el producto
-  const handleItemModify = (item, id) => {//Modificar Productos
-
-
+  const handleItemModify = async (item, id) => {//Modificar Productos
     const db = getFirestore();
-    const paper = doc(db, "productos", id);
+    const product = collection(db, "productos");
+    const customId = item.customid //El  customId que se quiere crear
 
+   // Realiza una consulta para buscar productos con el mismo customId
+    const q = query(product, where("customid", "==", customId))
+
+    const querySnapshot = await getDocs(q)
+
+    // Filtra los productos para excluir el producto actual (con el mismo id)
+    const filteredProducts = querySnapshot.docs.filter((doc) => doc.id !== id)
+
+    if(filteredProducts.length > 0) {
+      //Si ya existe un producto con el mismo customid, muestra un mensaje de error
+      notifyToastBD('⚠️ El CustomID del producto a crear ya existe')
+      return
+    }
+
+    // Continúa con la actualización del producto
+    const paper = doc(db, "productos", id);
     updateDoc(paper, item)
       .then(() => {
         notifyToastBD("💨 Producto Modificado Correctamente");
@@ -108,11 +125,23 @@ function BackOffice() {
   };
 
 //Crear el producto
-  const handleItemCreate = (item) => {//Crear Productos
+  const handleItemCreate = async (item) => {//Crear Productos
     const db = getFirestore();
     const product = collection(db, "productos"); 
-    const idAleatorio = uuidv4();// Generar una clave única usando uuidv4()
+    const customId = item.customid //El  customId que se quiere crear
 
+    //Verificar si ya existe un producto con el mismo customId
+    const q = query(product, where("customid", "==", customId))
+    const querySnapshot = await getDocs(q)
+
+    if(querySnapshot.size > 0) {
+      //Si ya existe un producto con el mismo customid, muestra un mensaje de error
+      notifyToastBD('⚠️ El CustomID del producto a crear ya existe')
+      return
+    }
+
+    //Si no existe un producto con el mimso customid, procede a creal el nuevo producto
+    const idAleatorio = uuidv4();// Generar una clave única usando uuidv4()
     addDoc(product, {...item, idAleatorio })
       .then(() => {
         notifyToastBD("🎉 Nuevo Producto Creado");
@@ -207,12 +236,14 @@ function BackOffice() {
             addressShipping: "",
             addressPlace: "",
             brand: "",
+            color: "",
             condition: "",
             categoryType: "",
             customId: "",
             description: "",
             specialproduct:"",
             discountSelected:"",
+            size:"",
           }}
         />
       </Box>

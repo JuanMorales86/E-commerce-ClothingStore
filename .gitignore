@@ -7,8 +7,8 @@ src/components/NavBar/NavbarBootstrap.jsx
 src/components/NavBar/NavBarWDrawer.jsx
 src/components/modals/modalHandler.js
 src/components/modals/prueba.jsx
-src/components/CartWidget/CartWidgetMaterial.js
-src/components/CartWidget/CartWidgetBootstrap.js
+src/components/cart-widget/CartWidgetMaterial.js
+src/components/cart-widget/CartWidgetBootstrap.js
 src/components/content
 src/components/itemListContainer2
 src/components/Tabs/indexPrueba.jsx

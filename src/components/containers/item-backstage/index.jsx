@@ -13,7 +13,7 @@ import {//Libreria Material
   Box,
   TextField,
   MenuItem,
-  Typography
+  Typography,
 } from "@mui/material";
 
 const originCategory = [
@@ -87,14 +87,10 @@ const dataspecialproduct = [true, false]
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
   const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
-  const [modifiedFields, setModiefiedFields] = React.useState({})//para detectar cambios en los campos y agregarle un color 
+  const [modifiedFields, setModiefiedFields] = React.useState({}) //para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
+  const [selectedSize, setSelectedSize] = React.useState(data.size || "") // Inicializa con el valor de data.size o en blanco ('')
   // const [discount, setDiscount] = React.useState(data.discountSelected || '');
-  
-
-
-
-
 
 
   const handleMouseEnter = () => {
@@ -127,14 +123,10 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
       formData.discountSelected = 0;
     }
 
-
-    
     if (typeof onClick === "function") {
       onClick(formData, data.id);
       setModiefiedFields({});
     }
-
-
   };
 
   const handleResetFields = (formData) => {
@@ -147,6 +139,8 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
       ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
     }))
   }
+
+
 
   return (
     <Card
@@ -253,7 +247,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.title ? "lightblue" : "transparent" }}
           />
-             <TextField
+          <TextField
             label="Descripción"
             variant="outlined"
             placeholder="Una Breve Descripción..."
@@ -282,6 +276,71 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             sx={{ backgroundColor: modifiedFields.customid ? "lightblue" : "transparent" }}
           />
           <TextField
+            label="Precio $$"
+            variant="outlined"
+            placeholder="Precio..."
+            size="small"
+            {...register("price", { required: false, 
+            pattern: {
+              value: /^[0-9]+$/,//Solo Numeros
+              message: "Ingrese solo números"
+            }
+            })}
+            defaultValue={data.price}
+            onChange={handleChangeText}
+            inputProps={{ type: "number" }}
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.price ? "lightblue" : "transparent" }}
+          />
+          <TextField
+            label="Marca"
+            variant="outlined"
+            placeholder="Marca..."
+            size="small"
+            {...register("brand", { required: false })}
+            defaultValue={data.brand}
+            onChange={handleChangeText}
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.brand ? "lightblue" : "transparent" }}
+          />
+          <TextField
+            label="Color"
+            variant="outlined"
+            placeholder="Color..."
+            size="small"
+            {...register("color", { required: false })}
+            defaultValue={data.color}
+            onChange={handleChangeText}
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.color ? "lightblue" : "transparent" }}
+          />
+          <TextField
+            label="Stock"
+            variant="outlined"
+            placeholder="Cantidad en el Deposito..."
+            size="small"
+            {...register("stock", { required: false, 
+              pattern: {
+                value: /^[0-9]+$/,//Solo Numeros
+                message: "Ingrese solo números"
+              }
+              })}
+            inputProps={{ 
+              type: "text",// Cambiado a "text" en lugar de "number"
+            }}
+            defaultValue={data.stock}
+            onChange={(e) => {
+              const input = e.target.value;
+              // Utiliza una expresión regular para eliminar caracteres no numéricos
+              const watchinput = input.replace(/[^0-9]/g, '');
+              // Actualiza el valor en el campo
+              e.target.value = watchinput;
+              handleChangeText(e);
+            }}
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.stock ? "lightblue" : "transparent" }}
+          />
+          <TextField
             label="Condición"
             variant="outlined"
             placeholder="Condición..."
@@ -302,23 +361,6 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
               );
             })}
           </TextField>
-          <TextField
-            label="Precio $$"
-            variant="outlined"
-            placeholder="Precio..."
-            size="small"
-            {...register("price", { required: false, 
-            pattern: {
-              value: /^[0-9]+$/,//Solo Numeros
-              message: "Ingrese solo números"
-            }
-            })}
-            defaultValue={data.price}
-            onChange={handleChangeText}
-            inputProps={{ type: "number" }}
-            style={{ width: "250px" }}
-            sx={{ backgroundColor: modifiedFields.price ? "lightblue" : "transparent" }}
-          />
           <TextField
             label="Categoría"
             variant="outlined"
@@ -341,27 +383,31 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             })}
           </TextField>
           <TextField
-            label="Stock"
+            label="Talle"
             variant="outlined"
-            placeholder="Cantidad en el Deposito..."
+            placeholder="Que talle eliges?..."
             size="small"
-            {...register("stock", { required: false })}
-            defaultValue={data.stock}
-            onChange={handleChangeText}
+            {...register("size", { required: false })}
+            value={selectedSize}
+            //defaultValue={data.size || ""}// Establece 'XS' como valor predeterminado si data.size es undefined
+            onChange={(e) => {
+              setSelectedSize(e.target.value)
+              handleChangeText(e)  
+            }}
+            select
+            fullWidth
             style={{ width: "250px" }}
-            sx={{ backgroundColor: modifiedFields.stock ? "lightblue" : "transparent" }}
-          />
-          <TextField
-            label="Marca"
-            variant="outlined"
-            placeholder="Marca..."
-            size="small"
-            {...register("brand", { required: false })}
-            defaultValue={data.brand}
-            onChange={handleChangeText}
-            style={{ width: "250px" }}
-            sx={{ backgroundColor: modifiedFields.brand ? "lightblue" : "transparent" }}
-          />
+            sx={{ backgroundColor: modifiedFields.size ? "lightblue" : "transparent" }}
+          >
+            {['XS','S','M','L','XL','XXL'].map((sizes) => {//array de porcentajes
+            
+              return (
+                <MenuItem key={sizes} value={sizes}>
+                {sizes}
+                </MenuItem>
+              );
+            })}
+          </TextField>
           <TextField
             label="Dirección Delimitada"
             variant="outlined"

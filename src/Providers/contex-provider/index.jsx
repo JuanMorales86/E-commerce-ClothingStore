@@ -146,10 +146,7 @@ const AppContexProvider = ({children}) => {
       // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
       // const statusValues = Object.values(order).map(status => status.toLowerCase());
       // console.log(statusValues)
-        
-
-     
-        
+      
         //Logica basa en criterios
         return (
           order.customOrderId.includes(searchText) || // Busca por numero de orden
