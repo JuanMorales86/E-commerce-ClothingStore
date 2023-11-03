@@ -61,12 +61,11 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
         status: 'Pendiente', // Agregar el campo 'status' con valor 'Pendiente'
         // trolley.reduce((acc, item) => acc + item.pricePerUnit * item.quantity, 0)
       });
-
       notifyToast('💨 Compra Terminada Correctamente');
       onClose();
       reset(); // Resetear el formulario
     } catch (error) {
-      console.log("Error al modificar stock de productos", error);
+      notifyToast("Error al modificar stock de productos", error);
     }
   };
 

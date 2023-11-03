@@ -1,4 +1,5 @@
 import React from 'react'
+import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
 import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid } from '@mui/material'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
@@ -13,9 +14,9 @@ function OrderList() {
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
     // const [updatestatus, setUpdateStatus] = React.useState('')
     
-    console.log(anchorEl)
-    console.log(selectedOrder)
-    console.log(orderStatuses)
+    // console.log(anchorEl)
+    // console.log(selectedOrder)
+    // console.log(orderStatuses)
   
 
     // const truncateEmail = (email, maxWidth) => {
@@ -35,7 +36,21 @@ function OrderList() {
         setdisplayedOrders(ordersToDisplay);
     }, [orders, filteredOrders])
 
-    
+    const setupRealtimeListener = () => {
+      const db = getFirestore()
+      const taskOrderCollection = collection(db, 'taskOrder')
+      onSnapshot(taskOrderCollection, (snapshot) => {
+        // console.log('Firestore emitió un cambio:', snapshot)
+        const ordersData = snapshot.docs.map((doc) => doc.data())
+        setdisplayedOrders(ordersData)
+        
+      })
+    }
+
+    React.useEffect(() => {
+      setupRealtimeListener()
+      
+    },[])
 
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
       console.log(order)
@@ -65,20 +80,20 @@ function OrderList() {
       </Typography>
       </Grid>
 
-      <Grid container item xs={12} justifyContent={'center'} alignItems={'center'} mb={4} mt={2}>
+      <Grid container item xs={12} justifyContent={'center'} alignItems={'center'} mb={6} mt={2}>
         <SearchBar/>
       </Grid>
 
-        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={2}>
+        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={2} >
         
       
           
           {displayedOrders.map((order, index) => (
 
-          <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`}>
+          <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`} m={0.05} >
             <Paper
               elevation={3}
-              sx={{ p: '16px', backgroundColor: '#F5F5F5' }}
+              sx={{ p: '16px', backgroundColor: '#F5F5F5', width:"100%", margin:"0 0.05rem" }}
               
             >
                 <Typography variant="h6" color="primary" fontWeight={"bold"}>
@@ -155,10 +170,16 @@ function OrderList() {
                         <ListItemText primary={`Articulo: ${item.producto}`}  />
                       </ListItem>
                       <ListItem>
-                        <ListItemText primary={`ProductoID: ${item.id}`} className='scroll-container' />
+                        <ListItemText primary={`ProductoID: ${item.customid}`} className='scroll-container' />
                       </ListItem>
                       <ListItem>
                         <ListItemText primary={`Cantidad: ${item.quantity} Unidades.`} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText primary={`Color: ${item.color}`} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemText primary={`Talle: ${item.size}`} />
                       </ListItem>
                       <ListItem>
                         <ListItemText primary={`Descuento hecho de: ${item.discountSelected}%`} />

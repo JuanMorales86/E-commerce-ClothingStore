@@ -399,7 +399,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.size ? "lightblue" : "transparent" }}
           >
-            {['XS','S','M','L','XL','XXL'].map((sizes) => {//array de porcentajes
+            {['xs','s','m','l','xl','xxl'].map((sizes) => {//array de porcentajes
             
               return (
                 <MenuItem key={sizes} value={sizes}>

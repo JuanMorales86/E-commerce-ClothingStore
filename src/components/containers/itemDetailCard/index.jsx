@@ -17,7 +17,7 @@ import { AppContex } from '../../../Providers/contex-provider';
 
 //Mi card DETAIL
 function CardDetail({data}) {
-  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected, size } = data
+  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected, size, color } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
@@ -28,14 +28,17 @@ function CardDetail({data}) {
 
   //Parte de cart
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
-      handlePrToTrolley({//esta seleccion de items va tambie a task
+      handlePrToTrolley({//esta seleccion de items va tambie a taskOrder
           id:id,
+          customid,
           producto: title,
           pricePerUnit: price,
           imagen: thumbnail,
           quantity: quantity,//tiene la cantidad del producto seleccionado en el carrito
           stock: stock,// tiene el stock original de el producto
           discountSelected,
+          color,
+          size
       })
   }
 
@@ -74,6 +77,12 @@ function CardDetail({data}) {
               !Ya vendidos: {soldquantity} Unid.
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" >
+              Talle: {size}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" >
+              Color: {color}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary" >
               Stock Almac.: {stock} Unid.
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" >
@@ -82,9 +91,7 @@ function CardDetail({data}) {
             <Typography variant="subtitle1" color="text.secondary" >
               Precio-Oferta: $ {originalprice} Pesos
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
-              Talles: 
-            </Typography>
+           
         </Box>
         </CardContent>
 

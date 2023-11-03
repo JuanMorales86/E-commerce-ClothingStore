@@ -22,6 +22,7 @@ const AppContexProvider = ({children}) => {
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
     const [orderStatuses, setOrderStatuses] = React.useState({});// Estados para las ordenes enviadas listas y en proceso 
     const [filteredOrders, setFilteredOrders] = React.useState([]);// Estado para los resultados de la búsqueda
+    // const [forceUpdate, setForceUpdate] = React.useState(false)
     const MySwal = withReactContent(Swal)
 
     // Efecto para cargar el valor inicial del contador de órdenes
@@ -37,8 +38,17 @@ const AppContexProvider = ({children}) => {
       }
       getCounterValue();
     }, []);
+
+    // const forceComponentUpdate = () => {
+    //   setForceUpdate((prev) => !prev)
+    // }
+
+    // React.useEffect(() => {
+    //   loadOrders()
+    // }, [forceUpdate])
     
     //Crear Ordenes
+    
     const createNewDispach = async (task) => {
       const db = getFirestore()
       const taskOrder = collection(db, 'taskOrder')
@@ -63,6 +73,7 @@ const AppContexProvider = ({children}) => {
       .then(() =>{
         setDispatchId(customOrderId)
         setTrolley([])
+        setOrders((prevOrders) => [...prevOrders, {...task, customOrderId}])
         MySwal.fire(
           'Perfecto!',
           `Su orden #${customOrderId} fué procesada correctamente!`,
@@ -99,7 +110,7 @@ const AppContexProvider = ({children}) => {
           console.error('Error al actualizar el estado en la base de datos:', error);
         }
     }
-    //Uso del estado de cmabio de ordenes
+    //Uso del estado de cambio de ordenes
     const markOrderStatus = (orderId, newStatus) => {
       const updatedOrderStatuses = { ...orderStatuses } // Copia del objeto de estados de órdenes
       updatedOrderStatuses[orderId] = newStatus // Actualiza el estado de la orden específica
@@ -144,8 +155,10 @@ const AppContexProvider = ({children}) => {
        console.log(searchTextLower)
        const filteredOrders = orders.filter((order) => {
       // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
-      // const statusValues = Object.values(order).map(status => status.toLowerCase());
-      // console.log(statusValues)
+       // Verifica si la propiedad "size" es una cadena y si incluye el texto de búsqueda
+      const hasSize = typeof order.size === 'string' && order.size.includes(searchText);
+      // Verifica si la propiedad "color" es una cadena y si incluye el texto de búsqueda
+      const hasColor = typeof order.color === 'string' && order.color.includes(searchText);
       
         //Logica basa en criterios
         return (
@@ -155,7 +168,9 @@ const AppContexProvider = ({children}) => {
           order.buyer.telephone.includes(searchText) || // Buscar por telefono del cliente 
           order.buyer.email.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por email del cliente
           order.createAt.includes(searchText) ||
-          order.status.toLowerCase().includes(searchText.toLowerCase()) // Buscar por estado de órdenes 
+          order.status.toLowerCase().includes(searchText.toLowerCase()) || // Buscar por status de órdenes 
+          hasSize ||// Buscar por talle de órdenes 
+          hasColor // Buscar por color de ordenes
           // order.items.discountSelected.includes(searchText) // Buscar por descuento hecho(no funciona)
         )
       })
@@ -216,11 +231,8 @@ const AppContexProvider = ({children}) => {
   theme: "light",
   })
 }
-    
-    
-    
     //Manejador del carrito
-    const handlePrToTrolley = (product) => {
+const handlePrToTrolley = (product) => {
       // Verificar si ya esta el producto en el carrito
       const productIndex = trolley.findIndex(item => item.id === product.id)
 
@@ -269,17 +281,17 @@ const AppContexProvider = ({children}) => {
       }
 
       
-    }
+}
 
-    const notifyClose = () => notifyToast('💨 Carrito Vaciado');
-    const handleEmptyTrolley = () => {
+const notifyClose = () => notifyToast('💨 Carrito Vaciado');
+const handleEmptyTrolley = () => {
       setTrolley([])
       setShowUserData(false)
       notifyClose()
-    }
+}
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses, filteredOrders, searchOrders }}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses, filteredOrders, searchOrders, loadOrders }}>{children}</Provider>
 )}
 
 export default AppContexProvider
