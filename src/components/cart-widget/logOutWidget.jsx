@@ -7,7 +7,10 @@ import { auth } from '../../App'
 
 //Libreria Material
 import { IconButton } from '@mui/material';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+//import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+
+//Icono de yesicon.app
+import { MdiAccountCircleOutline } from '../utilities/iconosalida';
 
 //Mis Componentes
 import { AppContex } from '../../Providers/contex-provider';
@@ -32,7 +35,7 @@ function LogOutWidget() {
         <Tooltip title="Cerrar Sesión">
         <IconButton variant={"inherent"} color="error"  onClick={handleLogOut} >
             <Box>
-            <ExitToAppIcon/>
+            <MdiAccountCircleOutline/>
             </Box>
         </IconButton>
         </Tooltip>

@@ -129,6 +129,12 @@ function CardItems({ data, onItemClick }) {
             Precio: {data.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
+            Color: {data.color}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Talle: {data.size}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
             Vendidos: {data.sold_quantity} Und.
           </Typography>
           <Typography variant="body2" color="text.secondary">
@@ -140,12 +146,7 @@ function CardItems({ data, onItemClick }) {
           <Typography variant="body2" color="text.secondary">
             Marca: {data.brand}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Color: {data.color}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Talle: {data.size}
-          </Typography>
+      
         </Box>
       </CardContent>
       <Box

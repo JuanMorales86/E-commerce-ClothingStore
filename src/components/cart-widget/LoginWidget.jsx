@@ -1,7 +1,8 @@
 //Material
 import { Box, IconButton, Tooltip} from "@mui/material";
-import LoginIcon from '@mui/icons-material/Login';
+//import LoginIcon from '@mui/icons-material/Login';
 import Badge from "@mui/material/Badge";
+import { MdiAccountCircle } from "../utilities/iconoentrada";
 
 const LoginWidget = ({ isUser }) => {
   return (
@@ -17,9 +18,8 @@ const LoginWidget = ({ isUser }) => {
           }}
         >
           <Box>
-          <LoginIcon />
+          <MdiAccountCircle/>
           </Box>
-         
         </Badge>
       </IconButton>
       </Tooltip>

@@ -1,7 +1,9 @@
 //Material
 import { Box, IconButton} from "@mui/material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+//import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Badge from "@mui/material/Badge";
+import { MdiCartVariant } from "../utilities/iconocarrito";
+
 
 const CartWidget = ({ cartQuantity }) => {
   return (
@@ -17,7 +19,7 @@ const CartWidget = ({ cartQuantity }) => {
           }}
         >
           <Box>
-          <AddShoppingCartIcon />
+          <MdiCartVariant />
           </Box>
         </Badge>
       </IconButton>

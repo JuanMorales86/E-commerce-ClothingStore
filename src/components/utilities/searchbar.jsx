@@ -26,7 +26,7 @@ const handleSearchTextChange = (e) => {
     const newText = e.target.value;
     setSearchText(newText);
 
-    // Realiza la validación aquí (puedes personalizar esta función)
+    // Realiza la validación aquí 
     if (newText.trim() === '') {
       setError('No se encontraron resultados.'); // Muestra el mensaje de error si no hay resultados
     } else {

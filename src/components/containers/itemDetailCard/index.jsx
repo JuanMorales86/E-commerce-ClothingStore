@@ -61,7 +61,7 @@ function CardDetail({data}) {
     <Card sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto" }}>
         <CardContent sx={{ flex: '1 0 auto', width:'auto', height:"auto" }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
-          <Typography component="p" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.2rem'} textAlign={'center'} >
+          <Typography component="p" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.1rem'} textAlign={'center'} >
             {title}
           </Typography>
          
@@ -77,10 +77,10 @@ function CardDetail({data}) {
               !Ya vendidos: {soldquantity} Unid.
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" >
-              Talle: {size}
+              {size ? `Talle: ${size.toUpperCase()}` : 'Talle sin especificar'}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
-              Color: {color}
+            <Typography variant="subtitle1" color="text.secondary" className='colortallecss' >
+              {color ? `Color: ${color.charAt(0).toUpperCase() + color.slice(1).toLowerCase()}` : 'Color sin especificar'}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary" >
               Stock Almac.: {stock} Unid.
@@ -109,13 +109,11 @@ function CardDetail({data}) {
             initialScale={1}
             initialPositionX={0}
             initialPositionY={0}
-   
       >
-      
         {/* si le quiero agregar botones */}
         {({ zoomIn, zoomOut, resetTransform }) => (
           <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"end"}}>
-         <TransformComponent>
+        <TransformComponent>
           <CardMedia
             component="img"
             sx={{ width:"350px", height: "auto", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: ['0', '10px'],

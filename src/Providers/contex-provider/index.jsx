@@ -1,6 +1,6 @@
 import React from 'react'
 //Firestore BD
-import { addDoc, collection, getDoc, getFirestore, doc, updateDoc, getDocs, where, query } from 'firebase/firestore'
+import { addDoc, collection, getDoc, getFirestore, doc, updateDoc, getDocs, where, query, onSnapshot } from 'firebase/firestore'
 
 //Libreria Toastify
 import { ToastContainer, toast } from 'react-toastify';
@@ -73,7 +73,7 @@ const AppContexProvider = ({children}) => {
       .then(() =>{
         setDispatchId(customOrderId)
         setTrolley([])
-        setOrders((prevOrders) => [...prevOrders, {...task, customOrderId}])
+        setOrders((prevOrders) => [...prevOrders, {...task, customOrderId}])// Actualizar el estado de orders después de crear una nueva orden
         MySwal.fire(
           'Perfecto!',
           `Su orden #${customOrderId} fué procesada correctamente!`,
@@ -126,33 +126,69 @@ const AppContexProvider = ({children}) => {
 
     //Leer Ordenes ya creadas
     // Función para cargar las órdenes desde la base de datos
-    const loadOrders = async () => {
-      try{
-        const db = getFirestore()
-        const ordersCollection = collection(db, 'taskOrder')
-        const querySnapshot = await getDocs(ordersCollection)
-        const ordersData = querySnapshot.docs.map((doc) => doc.data())
-        setOrders(ordersData)
+    // const loadOrders = async () => {
+    //   try{
+    //     const db = getFirestore()
+    //     const ordersCollection = collection(db, 'taskOrder')
+    //     const querySnapshot = await getDocs(ordersCollection)
+    //     const ordersData = querySnapshot.docs.map((doc) => doc.data())
+    //     setOrders(ordersData)
 
-        const initialOrderStatuses = {}
-        ordersData.forEach((order) => {
-          initialOrderStatuses[order.customOrderId] = order.status
-        })
-        setOrderStatuses(initialOrderStatuses)
-      } catch(error) {
-        console.error('Error al cargar las ordenes:', error)
+    //     const initialOrderStatuses = {}
+    //     ordersData.forEach((order) => {
+    //       initialOrderStatuses[order.customOrderId] = order.status
+    //     })
+    //     setOrderStatuses(initialOrderStatuses)
+    //   } catch(error) {
+    //     console.error('Error al cargar las ordenes:', error)
+    //   }
+    // }
+
+    const loadOrders = () => {
+      try {
+        const db = getFirestore();
+        const ordersCollection = collection(db, 'taskOrder');
+        
+        // Establece un oyente en tiempo real para la colección de órdenes
+        const unsubscribe = onSnapshot(ordersCollection, (querySnapshot) => {
+          const ordersData = querySnapshot.docs.map((doc) => doc.data());
+          setOrders(ordersData);
+    
+          const initialOrderStatuses = {};
+          ordersData.forEach((order) => {
+            initialOrderStatuses[order.customOrderId] = order.status;
+          });
+          setOrderStatuses(initialOrderStatuses);
+        });
+    
+        // Retorna una función para desvincular el oyente cuando sea necesario
+        return unsubscribe;
+      } catch (error) {
+        console.log('Error al cargar las órdenes:', error);
       }
     }
+    
+    // React.useEffect(() => {
+    //   loadOrders()// Cargar las órdenes al iniciar el contexto
+    // }, [])
 
     React.useEffect(() => {
-      loadOrders()// Cargar las órdenes al iniciar el contexto
-    }, [])
+      // Al montar el componente, establece el oyente en tiempo real para cargar las órdenes
+      const unsubscribe = loadOrders();
+    
+      // Al desmontar el componente, desvincula el oyente llamando a la función de desvinculación
+      return () => {
+        unsubscribe();
+      };
+    }, []);
+
+    
 
     //Funcion para buscar ordenes en funcion del criterio de busqueda
     const searchOrders = (searchText) => {
        // Convertimos el texto de búsqueda a minúsculas
-       const searchTextLower = searchText.toLowerCase();
-       console.log(searchTextLower)
+       //const searchTextLower = searchText.toLowerCase();
+       //console.log(searchTextLower)
        const filteredOrders = orders.filter((order) => {
       // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
        // Verifica si la propiedad "size" es una cadena y si incluye el texto de búsqueda

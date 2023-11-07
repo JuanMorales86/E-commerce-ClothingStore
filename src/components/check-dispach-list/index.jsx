@@ -40,7 +40,6 @@ function OrderList() {
       const db = getFirestore()
       const taskOrderCollection = collection(db, 'taskOrder')
       onSnapshot(taskOrderCollection, (snapshot) => {
-        // console.log('Firestore emitió un cambio:', snapshot)
         const ordersData = snapshot.docs.map((doc) => doc.data())
         setdisplayedOrders(ordersData)
         
