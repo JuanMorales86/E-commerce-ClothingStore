@@ -58,38 +58,38 @@ function CardDetail({data}) {
 
   return (
  
-    <Card sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <Card className='cardItemDetail' sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto" }}>
-        <CardContent sx={{ flex: '1 0 auto', width:'auto', height:"auto" }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
-          <Typography component="p" variant="h5" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.1rem'} textAlign={'center'} >
+        <CardContent sx={{ flex: '2 1 200px', width:'auto', height:"auto", display:'flex',flexDirection:'column',alignItems:'center', justifyContent:'center' }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
+          <Typography variant="h1" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.1rem'} textAlign={'center'} >
             {title}
           </Typography>
          
-          <Typography variant="body2" color="text.secondary" fontWeight={'bold'} marginTop={'1rem'} fontSize={'0.9rem'} display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
+          <Typography variant="h5" color="text.secondary" fontWeight={'bold'} marginTop={'1rem'} fontSize={'0.9rem'} textAlign={'center'}>
           {description || 'Sin descripcion'}
         </Typography>
 
-        <Box sx={{marginTop:'1rem',display:'flex', flexDirection:'column', alignItems:['center', 'start']}}>
-          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'.1rem'} textAlign={'start'} >
+        <Box sx={{marginTop:'1rem',display:'flex', flexDirection:'column', alignItems:'center'}}>
+          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'0.2rem'} textAlign={'center'} marginBottom={2} >
               Codigo:{customid}
             </Typography>
-          <Typography variant="subtitle1" color="text.secondary" >
+          <Typography  color="text.secondary" >
               !Ya vendidos: {soldquantity} Unid.
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
+            <Typography  color="text.secondary" >
               {size ? `Talle: ${size.toUpperCase()}` : 'Talle sin especificar'}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" className='colortallecss' >
+            <Typography  color="text.secondary" className='colortallecss' >
               {color ? `Color: ${color.charAt(0).toUpperCase() + color.slice(1).toLowerCase()}` : 'Color sin especificar'}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
+            <Typography  color="text.secondary" >
               Stock Almac.: {stock} Unid.
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
+            <Typography  color="text.secondary" >
               Precio-Original: $ {price} Pesos
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary" >
-              Precio-Oferta: $ {originalprice} Pesos
+            <Typography  color="text.secondary" >
+              Precio-Oferta: {originalprice ? `${originalprice} Pesos` : 'Sin datos'}
             </Typography>
            
         </Box>
@@ -115,11 +115,12 @@ function CardDetail({data}) {
           <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"end"}}>
         <TransformComponent>
           <CardMedia
+            className='cardDetailImage'
             component="img"
-            sx={{ width:"350px", height: "auto", objectFit:"cover",  borderTopRightRadius: '8px', borderBottomRightRadius: ['0', '10px'],
+            sx={{ width:["350px","480px"], height: "100%", objectFit:"cover",  borderTopRightRadius: '15px', borderBottomRightRadius: ['0', '15px'],borderTopLeftRadius: ['15px', '0'], border:'2px solid black' ,
             transition: "transform 0.5s ease",
             transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover(me parece que no funciona)
-            position:"relative"  
+            position:"relative", 
           }}
             image={thumbnail}
             alt={title}

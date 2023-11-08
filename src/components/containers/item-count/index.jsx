@@ -14,7 +14,7 @@ function ItemCount({ stock, addHandleToTrolley }) {
     const { notifyToastContainer, notifyToastAdd } = React.useContext(AppContex)
     const [score, setScore] = useState(1)
     
-    const notifyAddTrolley = () => notifyToastAdd('🛒 Producto Agregado al Carrito') 
+    
 
     const addHandleCount = () => {
         if (score < stock){
@@ -33,7 +33,7 @@ function ItemCount({ stock, addHandleToTrolley }) {
     const handleTrollyCount = () => {
             addHandleToTrolley(score, stock)
             setScore(1)//resetaer el score despues de tomar los datos en 1  
-            notifyAddTrolley()
+            notifyToastAdd('🛒 Producto Agregado al Carrito') 
         }
     
         const getBackGroundColor = () => {

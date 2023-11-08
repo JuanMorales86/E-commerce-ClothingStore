@@ -4,7 +4,8 @@
   margin: 0;
   padding: 0;
     box-sizing: border-box;
- 
+    /* color-scheme: dark; */
+    
 }
 
 a{/*enlaces*/
@@ -22,6 +23,17 @@ a:hover, a:focus{
 ul{/*listas*/
   list-style-type: none; 
   padding: 0;
+}
+
+@media (min-width: 600px) and (max-width: 697.60px) {
+  .cardItemDetail{
+    flex-direction: column-reverse !important;
+  }
+  .cardDetailImage{
+    width: 400px !important;
+    border-top-left-radius: 15px !important;
+    border-bottom-right-radius: 0 !important;
+  }
 }
 
 .cursorIconStyleContainer{

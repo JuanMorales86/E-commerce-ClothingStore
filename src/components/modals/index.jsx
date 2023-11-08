@@ -131,6 +131,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
     return discountedPricePerUnit * item.quantity
   }
   
+  // eslint-disable-next-line
   const calcTotalGlobalPay = () => {//Calcular el total de todo el carrito sin iva
     let totalGlobal = 0
 
@@ -188,7 +189,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
                     {item.producto}
                   </Typography>
                   <Typography variant="body2" component='p' color="textSecondary">
-                    Valor Unid: {item.pricePerUnit}
+                    Valor Unid: ${item.pricePerUnit} Pesos
                   </Typography>
                   <Typography variant="body2" component="p">
                     Vas a llevar: {item.quantity}
@@ -200,7 +201,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
                     Sin iva: {calcTotalGlobalPay()}
                   </Typography> */}
                   <Typography variant="body2" component="p">
-                    Total: {calcwithIva()}
+                    Total P. Unidad: ${calcTotalQuantityPerPrice(item) } Pesos
                     {/* calcTotalQuantityPerPrice(item) */}
                   </Typography>
                  

@@ -69,14 +69,14 @@ function CardItems({ data, onItemClick }) {
           component="img"
           alt={data.title}
           onClick={() => {onItemClick(data.id)}}
-          height="200"
+          height={200}
           image={data.thumbnail}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
             objectFit: "cover",
-            borderTopLeftRadius:"6px",
-            borderTopRightRadius:"6px",
+            borderTopLeftRadius:"7px",
+            borderTopRightRadius:"7px",
             width:"100%",
             height:"380px",
             transition: "transform 0.5s ease-out",
@@ -100,10 +100,11 @@ function CardItems({ data, onItemClick }) {
             sx={{
               maxHeight: "2.5rem",
               maxWidth: "100%",
-              height:"3rem",//para que no se corrar el titulo y desfase las cards
+              height:"4rem",//para que no se corra el titulo y desfase las cards
               overflow: "hidden",
               textOverflow: "ellipsis",
               color: "secondary.dark",
+              
             }}
           >
             {data.title.toUpperCase()}
@@ -129,10 +130,10 @@ function CardItems({ data, onItemClick }) {
             Precio: {data.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Color: {data.color}
+            {data.size ? `Talle: ${data.size.toUpperCase()}` : 'Talle no especificado'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Talle: {data.size}
+            {data.color ? `Color: ${data.color.charAt(0).toUpperCase() + data.color.slice(1).toLowerCase()}` : 'Color no especificado'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Vendidos: {data.sold_quantity} Und.
@@ -155,6 +156,7 @@ function CardItems({ data, onItemClick }) {
           height: "auto",
           placeItems: "center",
           marginBottom: "1rem",
+          marginTop:'1rem',
         }}
       >
         {/* los pongo al fondo del card con margin top */}
