@@ -86,11 +86,11 @@ const dataspecialproduct = [true, false]
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
-  const { register,getValues, reset} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const { register,getValues, reset, setValue} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({}) //para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
   const [selectedSize, setSelectedSize] = React.useState(data.size || "") // Inicializa con el valor de data.size o en blanco ('')
-  // const [discount, setDiscount] = React.useState(data.discountSelected || '');
+  const [errors, ] = React.useState({})
 
 
   const handleMouseEnter = () => {
@@ -129,16 +129,70 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     }
   };
 
-  const handleResetFields = (formData) => {
-   reset(formData)
+  const handleResetFields = (data) => {
+    console.log('Botón de Limpiar presionado');
+        reset({
+          thumbnail: "",
+          title: "",
+          description: "",
+          customid: "",
+          price: "",
+          brand: "",
+          color: "",
+          stock: "",
+          condition: "",
+          categoryType: "",
+          size: "",
+          addressShipping: "",
+          addressPlace: "",
+          specialproduct: "",
+          discountSelected: "",
+        });
+
+        setValue("condition", ""); // Cambiado a cadena vacía
+        setValue("categoryType", ""); // Cambiado a cadena vacía
+        setValue("size", ""); // Cambiado a cadena vacía
+        setValue("addressShipping", ""); // Cambiado a cadena vacía
+        setValue("addressPlace", ""); // Cambiado a cadena vacía
+        setValue("specialproduct", ""); // Cambiado a cadena vacía
+        setValue("discountSelected", ""); // Cambiado a cadena vacía
   };
 
-  const handleChangeText = (e) => {
+ // const handleChangeText = (e) => {
     //funcion de cambio que maneja los inputs que han sido modificados
+    //setModiefiedFields((prevModifiedFiles) => ({
+    //  ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
+   // }))
+  //}
+
+  const handleChangeText = (e) => {
+    const fieldName = e.target.name
+    const newValue = e.target.value
+
     setModiefiedFields((prevModifiedFiles) => ({
-      ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
+      ...prevModifiedFiles, 
+      [fieldName] : isNaN(newValue) ? newValue : parseFloat(newValue) || 0
     }))
   }
+
+  //  const handleChangeText = (e) => {
+  //   const fieldName = e.target.name
+  //   const newValue = e.target.value
+    
+  //   const parsedValue = isNaN(newValue) ? null : parseFloat(newValue)
+
+  //   if(parsedValue !== null) {
+  //     setModiefiedFields((prevModifiedFiles) => ({
+  //       ...prevModifiedFiles,
+  //       [fieldName]: parsedValue || 0
+  //     }))
+
+  //     setErrors((prevErrors) => ({...prevErrors, [fieldName]: ''}))
+  //   } else {
+  //     setErrors((prevErrors) => ({...prevErrors, [fieldName]: 'Ingrese solo numeros'}))
+    
+  // }
+  // }
 
 
 
@@ -148,8 +202,8 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
         maxWidth: 300,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
         overflow: "visible",
-        borderRadius: "10px",
-        border: "solid 2px black",
+        borderRadius: "6px",
+        border: "solid 1px black",
         background: "linear-gradient(to bottom, #ffffff, #f1f1f1)",
       }}
     >
@@ -179,6 +233,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           onMouseLeave={handleMouseLeave}
           sx={{
             objectFit: "fill",
+            borderRadius: "6px",
+            borderBottomRightRadius:"0",
+            borderBottomLeftRadius:"0",
             "&:hover":{
               transform:"scale(1)",
               filter: "blur(1px)",
@@ -203,7 +260,6 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
               background: "rgba(0, 0, 0, 0.7)",
               color: "white",
               padding: "8px",
-              borderRadius: "4px",
               pointerEvents: "none",
             }}
           >
@@ -252,7 +308,12 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Una Breve Descripción..."
             size="small"
-            {...register("description", { required: false })}
+            {...register("description", { required: false, 
+              pattern: {
+                value: /^[0-9]+$/,//Solo Numeros
+                message: "Ingrese solo números"
+              }
+            })}
             defaultValue={data.description}
             onChange={handleChangeText}
             inputProps={{ maxLength:80 }}
@@ -280,15 +341,12 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Precio..."
             size="small"
-            {...register("price", { required: false, 
-            pattern: {
-              value: /^[0-9]+$/,//Solo Numeros
-              message: "Ingrese solo números"
-            }
-            })}
+            {...register("price", { required: false })}
             defaultValue={data.price}
             onChange={handleChangeText}
             inputProps={{ type: "number" }}
+            error={Boolean(errors.price)}
+            helperText={errors.price}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.price ? "lightblue" : "transparent" }}
           />
@@ -389,7 +447,6 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("size", { required: false })}
             value={selectedSize}
-            //defaultValue={data.size || ""}// Establece 'XS' como valor predeterminado si data.size es undefined
             onChange={(e) => {
               setSelectedSize(e.target.value)
               handleChangeText(e)  
@@ -520,7 +577,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
             {/* Botón de restablecimiento */}
             {showResetButton && (
-            <Button variant="contained" onClick={handleResetFields} size="small">
+            <Button variant="contained" onClick={() => {console.log('Boton presionado'); handleResetFields();}} size="small">
               Limpiar
             </Button>
           )}

@@ -13,6 +13,7 @@ import { AppContex } from '../../Providers/contex-provider';//ContexProvider
 
 
 
+
 //!Se definen dos componentes Transition y AlertDialogSlide
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;//se setea una transicion de aparicion del modal.
@@ -43,8 +44,8 @@ function ModalSlide({widget}) {//Padre
           setShowUserData(false)
 
           MySwal.fire({//abro sweetalert
-            title: 'Venta Casi Lista',
-            html: `Muchas gracias por preferirnos, su monto a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos, Ahora debe ingresar los siguientes datos requeridos que se habilitaran un poco mas abajo`,
+            title: 'Compra Casi Lista',
+            html: `Muchas gracias por preferirnos, su monto a abonar es de ${calcwithIva()} Pesos.<br>Le estaremos enviando la factura a su correo electronico con la cantidad de # ${calcTotalPerItemsCart()} productos,tambien le adjuntaremos el link de pago y estaremos a la espera de confirmar el mismo, una vez corroborado el abono le enviaremos sus respectivos productos, Ahora debe ingresar los siguientes datos requeridos que se habilitaran un poco mas abajo`,
             icon: 'success',
             showConfirmButton: true,
             timer:4000,
@@ -127,7 +128,6 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
 
   const calcTotalQuantityPerPrice = (item) => {//Calcular la cantidad que lleva con el precio y la unidad
     const discountedPricePerUnit = calculateDiscountedPrice(item.pricePerUnit , item.discountSelected)
-    console.log(discountedPricePerUnit)
     return discountedPricePerUnit * item.quantity
   }
   

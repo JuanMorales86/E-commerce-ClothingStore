@@ -1,26 +1,26 @@
 [
     {
-        "image": "https://i.imgur.com/4WKi4Na.jpg",
+        "image": "https://i.imgur.com/99Zh7Te.png",
         "titled": "For carrousels Swiper",
-        "subtitled": "for a long time ago in a far a far away galaxy",
-        "interval": 1000
+        "subtitled": "Imagen mujer compra",
+        "interval": 5000
     },
     {
         "image": "https://i.imgur.com/bXChjRe.jpg",
-        "subtitled": "for a long time ago in a far a far away galaxy",
-        "interval": 500
+        "subtitled": "Imagen ropero florero",
+        "interval": 2500
     },
     {
         "image": "https://i.imgur.com/SvINcZX.jpg",
         "titled": "For carrousels Swiper",
-        "subtitled": "for a long time ago in a far a far away galaxy",
-        "interval": 2500
+        "subtitled": "imagen gancho ropa",
+        "interval": 3500
     },
     {
         "image": "https://i.imgur.com/Yw3M7vc.jpg",
         "titled": "For carrousels Swiper",
-        "subtitled": "for a long time ago in a far a far away galaxy",
-        "interval": 1000
+        "subtitled": "imagen tubo gancho exterior",
+        "interval": 10000
     }
     
 ]

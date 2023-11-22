@@ -84,16 +84,13 @@ function OrderList() {
       </Grid>
 
         <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={2} >
-        
-      
-          
+
           {displayedOrders.map((order, index) => (
 
           <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`} m={0.05} >
             <Paper
               elevation={3}
               sx={{ p: '16px', backgroundColor: '#F5F5F5', width:"100%", margin:"0 0.05rem" }}
-              
             >
                 <Typography variant="h6" color="primary" fontWeight={"bold"}>
                   Número de Orden: {order.customOrderId.toUpperCase()}
@@ -132,7 +129,7 @@ function OrderList() {
                     </ListItem>
                   ))}
                 </List> */}
-                <List  >
+                <List  className='list-element-orders'>
                   <ListItem sx={{display:"block", flexFlow:"row wrap"}}>
                     
                     <ListItemText primary={`Nombre: ${order.buyer.name}`}></ListItemText>

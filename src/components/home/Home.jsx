@@ -13,8 +13,10 @@ import "@fontsource/roboto/400.css"; //Material
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
 
 
+
 function HomePage() {
   const navigate = useNavigate()
+  // const [loading,setLoading] = React.useState(false)
 
   const handleNavigate = (levels) => {
     navigate(`/products/${levels}`);

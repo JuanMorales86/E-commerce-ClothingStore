@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+
 function SliderBanners({banners, onBannerClick}) {
     const [, setSeeImge] = React.useState(null)
 
@@ -21,7 +22,6 @@ function SliderBanners({banners, onBannerClick}) {
     const handleMouseLeave = () => {
         setSeeImge(null)
     }
-
   
   return (
     <Swiper
@@ -38,14 +38,14 @@ function SliderBanners({banners, onBannerClick}) {
       }}
       navigation
       pagination={{ clickable: true }}
-      scrollbar={{ draggable: true }}
+      // scrollbar={{ draggable: true }}
       className="mySwiper"
       style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
     >
       {banners.map((slide, index) => (
         <SwiperSlide key={index} className="swiperslidesBanners" onMouseEnter={() => handleMouseOver(index)} onMouseLeave={handleMouseLeave}>
-                <Box className="sliderImageContainer" position="relative">
-                    <img className="slidercssBanners" src={slide.image} alt={slide.titled} />
+                <Box className="blurred-img" position="relative" >
+                    <img className="sliderblurred" src={slide.image} alt={slide.titled} loading="lazy" />
                     <Box className="sliderContent" position="absolute" bottom={20} left={0} right={0} textAlign="center" color="white" width="100%">
                             <Typography textTransform={"capitalize"} variant="h4" style={{ fontWeight: "bold", fontSize: "28px" }}>{slide.titled}</Typography>
                             <Button variant="contained" className="sliderBannerButton" onClick={() => onBannerClick(slide.titled)}>Ver..</Button>

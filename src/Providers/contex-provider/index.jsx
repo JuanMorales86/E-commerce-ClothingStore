@@ -24,6 +24,7 @@ const AppContexProvider = ({children}) => {
     const [filteredOrders, setFilteredOrders] = React.useState([]);// Estado para los resultados de la búsqueda
     // const [forceUpdate, setForceUpdate] = React.useState(false)
     const MySwal = withReactContent(Swal)
+    console.log(trolley)
 
     // Efecto para cargar el valor inicial del contador de órdenes
     React.useEffect(() => {

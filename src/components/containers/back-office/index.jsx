@@ -108,7 +108,7 @@ function BackOffice() {
 
     if(filteredProducts.length > 0) {
       //Si ya existe un producto con el mismo customid, muestra un mensaje de error
-      notifyToastBD('⚠️ El CustomID del producto a crear ya existe')
+      notifyToastBD('⚠️ El IdPersonalizable del producto a crear ya existe')
       return
     }
 

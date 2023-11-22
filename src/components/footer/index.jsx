@@ -26,13 +26,13 @@ function Footer() {
                   <Link href="/categorias">Categorías</Link>
                 </li>
                 <li>
-                  <Link href="/ofertas">Ofertas</Link>
+                  <Link component={Lirouter} to="/products/descuentos">Ofertas</Link>
                 </li>
                 <li>
                   <Link href="/blog">Blog</Link>
                 </li>
                 <li>
-                  <Link href="/contacto">Contacto</Link>
+                  <Link href="/contacto">Consultas</Link>
                 </li>
               </ul>
             </Grid>
@@ -40,7 +40,7 @@ function Footer() {
               <Typography variant="h6" component="h3">
                 Contacto
               </Typography>
-              <Typography >Dirección: Gallo 606, Almagro, CABA</Typography>
+              <Typography >Dirección: Tucuman 540, San Cristobal, CABA.</Typography>
               <Typography >Teléfono: 9-(11) 2843-3076</Typography>
               <Typography  sx={{ letterSpacing:2}}>Email: <wbr />salpimienta.<wbr />shop23@<wbr />gmail.com</Typography>
             </Grid>

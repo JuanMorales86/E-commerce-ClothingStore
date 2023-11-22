@@ -7,6 +7,7 @@ import { Box, TextField, Button, Typography } from '@mui/material'
 import { AppContex } from '../../Providers/contex-provider'
 //Libreria hook form
 import { useForm } from 'react-hook-form'
+import handleSoldQuantity from '../utilities/soldquantity'
 
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
@@ -45,6 +46,11 @@ const UserData = ({trolley, createNewDispach, onClose, total}) => {//para usar u
       
       // Formatea la fecha al formato deseado antes de insertarla en el objeto `order`
       const formatteDate = new Date().toLocaleDateString()// Esto utilizará el formato predeterminado
+    
+      //! Llama a handleSoldQuantity para actualizar el campo soldquantity en la base de datos
+      for(const item of trolley){
+        await handleSoldQuantity(item.id, item.quantity)
+    }
 
       createNewDispach({
         buyer: {

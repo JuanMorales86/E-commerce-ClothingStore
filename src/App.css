@@ -8,6 +8,14 @@
     
 }
 
+:root {
+  --clr-neutral-100: hsl(0, 0%, 100%);
+  --clr-primary-100: hsl(205, 15%, 58%);
+  --clr-primary-400: hsl(215, 25%, 27%);
+  --clr-primary-800: hsl(217, 33%, 17%);
+  --clr-primary-900: hsl(218, 33%, 9%);
+}
+
 a{/*enlaces*/
   text-decoration:none!important ;
   text-decoration-line: none!important;
@@ -36,9 +44,9 @@ ul{/*listas*/
   }
 }
 
-.cursorIconStyleContainer{
+/* .cursorIconStyleContainer{
   position: relative;
-}
+} */
 
 .cursorIconStyle {
   /* Ajusta la posición del ícono en el centro del contenedor */
@@ -176,23 +184,35 @@ ul{/*listas*/
 
 .swiperslide{
   background: #201616;
-  /* centrar el slide text vertically */
-  display: flex;
   justify-content: center;
+  display: flex;
   align-items: center;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.slidercss{
-  display: block;
-  /* width: 100%;
-  height: 350px; */
-  /* max-width: 100%;
-  max-height: 100%; */
+.cssbutton-Banner-Principal{
+  position: absolute;
+  bottom: 60px;
+  
+  z-index: 1;
+}
+
+.slider-content{
+  background: #201616;
+  display:block;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 440px;
-  object-fit: contain;
-  /* margin: 0 auto; */
+  height: 100%;
+}
+
+.slider-css{
+  display: block;
+  width: 100%;
+  height: 490px;
+  object-fit: cover;
 }
 
 .swiperslidesBanners{
@@ -201,29 +221,46 @@ ul{/*listas*/
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform filter 0.5s ease-in-out;
+  transition: transform filter 0.5s ease-in-out; 
+}
+
+.blurred-img{
+  background-image: url(https://imgur.com/Vn8JvcX);
+  background-size: cover;
+  background-position: center;
   
 }
 
-.slidercssBanners{
+.blurred-img img{
   display: block;
   width: 100%;
   height: 1200px;
+  object-position: center;
   object-fit: cover;
+  filter: blur(0);
+  aspect-ratio: 1 / 1;
+}
+
+/* .blurred-img.loaded {
+  opacity: 1;
+}
+
+.blurred-img > img {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+} */
+
+.blurred-img img:not(:hover){
   filter: blur(0)
 }
 
-.slidercssBanners:not(:hover){
-  filter: blur(0)
-}
-
-.slidercssBanners:hover{
+.blurred-img img:hover{
   filter: blur(4px);
   transform: scale(1.1);
 }
 
 .App {
-  text-align: center;
+  text-wrap: pretty;
   
 }
 
@@ -240,6 +277,95 @@ ul{/*listas*/
   align-items: center;
 }
 
+.list-element-orders{
+  text-wrap: balance;
+}
+
+.tag-list{
+  margin: 0;
+  padding-inline: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  padding: 1rem;
+  background: aliceblue;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900);
+}
+
+.body-scroller{
+  display: grid;
+  min-block-size: 15vh;
+  place-content: center;
+  font-family: system-ui;
+  font-size: 1.125rem;
+  background-color: var(--clr-primary-100);
+}
+
+.scroller{
+  max-width: 100%;/*OJO no esta al 100% de la pantalla*/
+  /* outline: 3px solid lime; */
+  /* overflow: hidden; */
+  
+}
+
+.scroller__inner{
+  padding-block: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.scroller[data-animated="true"]{
+  overflow: hidden;
+  background-color: linear-gradient(90deg,
+  transparent,
+  white 20%,
+  white 80%,
+  transparent);/*-webkit-mask*/
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+
+  & .scroller__inner {
+    width: max-content;
+    flex-wrap: nowrap;
+    transform: translateZ(0);
+    animation: scroll var(--_animation-duration, 40s)
+    var(--_animation-direction, forwards) linear infinite
+  }
+}
+
+/* .scroller[data-animated="true"] .scroller__inner{
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: scroll var(--_animation-duration, 40s)
+  var(--_animation-duration, forwards) linear infinite
+} */
+
+/* .scroller[data-direction="right"]{
+  --_animation-direction: reverse
+}
+
+.scroller[data-direction="left"]{
+  --_animation-direction: forwards
+} */
+
+.scroller[data-speed="fast"]{
+  --_animation-direction: reverse;
+  --_animation-duration: 1100s;
+}
+
+.scroller[data-speed="slow"]{
+  --_animation-direction: forwards;
+  --_animation-duration: 2000s;
+}
+
+@keyframes scroll{
+  to{
+    /* transform: translate(calc(-50% - 0.5rem)); */
+    transform: translateX(calc(-100% - 1rem));
+  }
+}
 
 @keyframes App-logo-spin {
   from {

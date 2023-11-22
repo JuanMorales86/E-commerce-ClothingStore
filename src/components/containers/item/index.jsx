@@ -12,10 +12,13 @@ import {
 import PanToolAltIcon from '@mui/icons-material/PanToolAlt';//Icon Material
 
 
+
+
 //My item card Principal en la visuallizaciond de las prendas
 function CardItems({ data, onItemClick }) {
   //se agrega las props
   const [isHovered, setIsHovered] = React.useState(false);
+  
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -31,7 +34,7 @@ function CardItems({ data, onItemClick }) {
       sx={{
         maxWidth: 250,
         boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-        overflow: "visible",//visible para que la imagen salgadel card
+        overflow: "visible",//visible para que la imagen salga del card
         borderRadius: "10px",
         border: "solid 2px black",
         background:
@@ -40,7 +43,7 @@ function CardItems({ data, onItemClick }) {
         "&:hover":{
           borderColor: "magenta",
           boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
-          transform: "scale(0.9)",
+          transform: "scale(0.99)",
         }
       }}
     >
@@ -56,7 +59,8 @@ function CardItems({ data, onItemClick }) {
             zIndex: 1,
             borderBottom: "none",
             borderRadius: "10px",
-            transform: "scale(1.2)",
+            transform: "scale(1.05)"
+            
           },
         }}
         onMouseEnter={handleMouseEnter}//Cursor pointer
@@ -113,7 +117,6 @@ function CardItems({ data, onItemClick }) {
 
           <Typography
             gutterBottom
-            component="div"
             variant="inherit"
             color={"text.secondary"}
             textAlign={"center"}
@@ -127,16 +130,13 @@ function CardItems({ data, onItemClick }) {
             Condición: {data.condition}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Precio: {data.price}
+            {data.size ? `Talle: ${data.size.toUpperCase()}` : 'Talle no especificado.'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {data.size ? `Talle: ${data.size.toUpperCase()}` : 'Talle no especificado'}
+            {data.color ? `Color: ${data.color.charAt(0).toUpperCase() + data.color.slice(1).toLowerCase()}` : 'Color no especificado.'}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {data.color ? `Color: ${data.color.charAt(0).toUpperCase() + data.color.slice(1).toLowerCase()}` : 'Color no especificado'}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Vendidos: {data.sold_quantity} Und.
+            {data.soldquantity ? `Vendidos: ${data.soldquantity}` : `Vendidos: no especificado.`}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Envios: {data.addressShipping}

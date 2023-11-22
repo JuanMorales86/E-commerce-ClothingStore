@@ -2,7 +2,9 @@ import React from 'react'
 
 //Libreria Material
 import { Box, CircularProgress } from '@mui/material'//Libreria Material
-import CardItems from '../../containers/item'//Mis Componenetes
+//Mis Componenetes
+import CardItems from '../../containers/item'
+
 
 
 //My lista de item 
@@ -13,7 +15,7 @@ const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las pro
   
   }
   return (
-    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} margin={"1rem 1rem"} >
+    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={2} flexWrap={'wrap'}  margin={"1rem 1rem"} minHeight={"100vh"} overflow={"visible"}>
         {
             (loading) ? 
             <CircularProgress variant='indeterminate'/>

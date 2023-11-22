@@ -74,7 +74,7 @@ function CardDetail({data}) {
               Codigo:{customid}
             </Typography>
           <Typography  color="text.secondary" >
-              !Ya vendidos: {soldquantity} Unid.
+              {soldquantity ? `!Ya Vendidos: ${soldquantity} Und.` : '!Ya Vendidos: 0 Und.'}
             </Typography>
             <Typography  color="text.secondary" >
               {size ? `Talle: ${size.toUpperCase()}` : 'Talle sin especificar'}
