@@ -41,7 +41,7 @@ function InfiniteScroller() {
 
       scrollerContent.forEach((item) => {
         const duplicateItem = item.cloneNode(true)
-        //duplicateItem.setAttribute("aria-hidden", true)//El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado
+        duplicateItem.setAttribute("aria-hidden", true)//El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado
         scrollerInner.appendChild(duplicateItem)
       })
     })
