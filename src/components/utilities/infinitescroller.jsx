@@ -41,7 +41,7 @@ function InfiniteScroller() {
 
       scrollerContent.forEach((item) => {
         const duplicateItem = item.cloneNode(true)
-        // duplicateItem.setAttribute("aria-hidden", true)//El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado
+        duplicateItem.setAttribute("aria-hidden", true)//El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado
         scrollerInner.appendChild(duplicateItem)
       })
     })
@@ -68,8 +68,11 @@ function InfiniteScroller() {
         <li>Levis</li>
         <li>American Eagle</li>
         <li>H&M</li>
+        <li>Fendi</li>
         <li>Giorgio Armani</li>
         <li>Gap</li>
+        <li>Ralph Lauren</li>
+        <li>Mango</li>
         <li>Jackie Smith</li>
       </ul>
       </div>
@@ -77,7 +80,7 @@ function InfiniteScroller() {
       <div className="scroller"  data-speed="slow" >
         <div className="scroller__inner">
           <img src="https://i.imgur.com/EetOdLJ.png" alt="" />
-          <img src="https://i.imgur.com/mkmU7Da.png" alt="" />
+          <img src="https://i.imgur.com/iOhT4Mo.png" alt="" />
           <img src="https://i.imgur.com/TbyKuVP.png" alt="" />
           <img src="https://i.imgur.com/54W7AWD.png" alt="" />
           <img src="https://i.imgur.com/K8Z6cqF.png" alt="" />

@@ -291,7 +291,7 @@ ul{/*listas*/
   padding: 1rem;
   background: aliceblue;
   border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1rem -0.25rem var(--clr-primary-900);
+  box-shadow: 0 0.34rem 0.95rem -0.35rem var(--clr-primary-900);
 }
 
 .body-scroller{
@@ -329,7 +329,7 @@ ul{/*listas*/
   & .scroller__inner {
     width: max-content;
     flex-wrap: nowrap;
-    transform: translateZ(0);
+    /* transform: translateZ(0); */
     animation: scroll var(--_animation-duration, 40s)
     var(--_animation-direction, forwards) linear infinite
   }
@@ -352,18 +352,19 @@ ul{/*listas*/
 
 .scroller[data-speed="fast"]{
   --_animation-direction: reverse;
-  --_animation-duration: 60s;
+  --_animation-duration: 20s;
 }
 
 .scroller[data-speed="slow"]{
   --_animation-direction: forwards;
-  --_animation-duration: 500s;
+  --_animation-duration: 60s;
 }
 
 @keyframes scroll{
   to{
-    /* transform: translate(calc(-50% - 0.5rem)); */
-    transform: translateX(calc(-100% - 1rem));
+    /* esto es lo que hace q se repita sutilmente los elementos dentro d elos scroll__inner*/
+    transform: translate(calc(-50% - 0.5rem));
+    /* transform: translateX(calc(-100% - 1rem)); */
   }
 }
 
