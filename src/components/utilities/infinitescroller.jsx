@@ -24,8 +24,9 @@ function InfiniteScroller() {
 
   //   return () => clearInterval(interval);
   // }, []);
-
+  window.onload = function () {
   const scrollers = document.querySelectorAll(".scroller")
+  console.log(scrollers.length)
 
   if(!window.matchMedia("prefers-reduced-motion: reduce").matches){
     addAnimation()
@@ -45,6 +46,7 @@ function InfiniteScroller() {
       })
     })
   }
+}
 
   return (
 

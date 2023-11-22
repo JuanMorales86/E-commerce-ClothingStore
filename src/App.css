@@ -352,12 +352,12 @@ ul{/*listas*/
 
 .scroller[data-speed="fast"]{
   --_animation-direction: reverse;
-  --_animation-duration: 1100s;
+  --_animation-duration: 60s;
 }
 
 .scroller[data-speed="slow"]{
   --_animation-direction: forwards;
-  --_animation-duration: 2000s;
+  --_animation-duration: 500s;
 }
 
 @keyframes scroll{
