@@ -5,13 +5,9 @@ function InfiniteScroller() {
 
   const styleH1 = {
     textAlign: "center",
-    fontSize: "34px",
+    fontSize: "24px",
   }
 
-  // const styleScroller = {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  // };
 
   // React.useEffect(() => {
   //   const scroller = document.querySelector('.scroller__inner');
@@ -41,7 +37,8 @@ function InfiniteScroller() {
 
       scrollerContent.forEach((item) => {
         const duplicateItem = item.cloneNode(true)
-        duplicateItem.setAttribute("aria-hidden", true)//El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado
+        //duplicateItem.setAttribute("aria-hidden", true)
+        //El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado //cambiar si no funciona en el mobile por el de abajo
         scrollerInner.appendChild(duplicateItem)
       })
     })
