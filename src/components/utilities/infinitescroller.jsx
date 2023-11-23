@@ -1,61 +1,86 @@
 
+
 import React from 'react'
 
 
 function InfiniteScroller() {
 
-  const styleH1 = {
+ const styleH1 = {
     textAlign: "center",
     fontSize: "24px",
-  }
+ }
+
+//  window.onload = function () {
+//   const scrollers = document.querySelectorAll(".scroller");
+
+//   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+//     addAnimation();
+//   }
 
 
-  // React.useEffect(() => {
-  //   const scroller = document.querySelector('.scroller__inner');
+// function addAnimation() {
+//   scrollers.forEach((scroller) => {
+//     scroller.setAttribute("data-animated", true)
 
-  //   const scroll = () => {
-  //     scroller.scrollLeft += 1; // Ajusta la velocidad de desplazamiento aquí
-  //   };
+//     const scrollerInner = scroller.querySelector(".scroller__inner")
+//     const scrollerContent = Array.from(scrollerInner.children)
 
-  //   const interval = setInterval(scroll, 50); // Ajusta la frecuencia de actualización aquí
+//     scrollerContent.forEach((item) => {
+//       const duplicateItem = item.cloneNode(true)
+//       duplicateItem.setAttribute("aria-hidden", true)
+//       //El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado //cambiar si no funciona en el mobile por el de abajo
+//       scrollerInner.appendChild(duplicateItem)
+//     })
+//   })
+// }
+// }
 
-  //   return () => clearInterval(interval);
-  // }, []);
+ React.useEffect(() => {
+  const scrollers = document.querySelectorAll(".scroller");
 
-  window.onload = function () {
-    const scrollers = document.querySelectorAll(".scroller");
-  
+  const handleAnimation = () => {
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       addAnimation();
     }
+  };
 
-
-  function addAnimation() {
+  const addAnimation = () => {
     scrollers.forEach((scroller) => {
-      scroller.setAttribute("data-animated", true)
+      scroller.setAttribute("data-animated", true);
 
-      const scrollerInner = scroller.querySelector(".scroller__inner")
-      const scrollerContent = Array.from(scrollerInner.children)
+      const scrollerInner = scroller.querySelector(".scroller__inner");
+      const scrollerContent = Array.from(scrollerInner.children);
 
       scrollerContent.forEach((item) => {
-        const duplicateItem = item.cloneNode(true)
-        //duplicateItem.setAttribute("aria-hidden", true)
-        //El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado //cambiar si no funciona en el mobile por el de abajo
-        scrollerInner.appendChild(duplicateItem)
-      })
-    })
-  }
-}
+        const duplicateItem = item.cloneNode(true);
+        duplicateItem.setAttribute("aria-hidden", true);
+        scrollerInner.appendChild(duplicateItem);
+      });
+    });
+  };
+
+  // Manejar la animación cuando el componente se monta
+  handleAnimation();
+
+  // Agregar un event listener para manejar la animación en futuros cambios
+  window.addEventListener('resize', handleAnimation);
+
+  // Limpiar el event listener cuando el componente se desmonta
+  return () => {
+    window.removeEventListener('resize', handleAnimation);
+  };
+}, []); // El segundo argumento vacío asegura que este efecto se ejecute solo una vez al montar el componente.
 
 
-  return (
+
+ return (
 
     <>
       <h1 style={styleH1}>Marcas</h1>
 
       <div className='body-scroller'>
-      <div className='scroller'  data-speed="fast" >
-        
+      <div className='scroller' data-speed="fast" >
+       
       <ul className='tag-list scroller__inner'>
         <li>Hermes</li>
         <li>Michael Kors</li>
@@ -73,13 +98,13 @@ function InfiniteScroller() {
         <li>Fendi</li>
         <li>Giorgio Armani</li>
         <li>Gap</li>
-        <li>Ralph Lauren</li>
+        <li>Ralph Lauren</li> 
         <li>Mango</li>
         <li>Jackie Smith</li>
       </ul>
       </div>
 
-      <div className="scroller"  data-speed="slow" >
+      <div className="scroller" data-speed="slow" >
         <div className="scroller__inner">
           <img src="https://i.imgur.com/EetOdLJ.png" alt="" />
           <img src="https://i.imgur.com/iOhT4Mo.png" alt="" />
@@ -104,8 +129,7 @@ function InfiniteScroller() {
       </div>
       </div>
     </>
-    
-  )
+)
 }
 
 export default InfiniteScroller
