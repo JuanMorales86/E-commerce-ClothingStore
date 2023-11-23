@@ -7,6 +7,8 @@ import { getFirestore, collection, getDocs, where, query } from 'firebase/firest
 //Mis Componenetes
 import ListElements from '../itemList'
 import TabsMenu from '../../tabs/tabs'
+import InfiniteScroller from '../../utilities/infinitescroller';
+import { Box } from '@mui/material';
 
 //Array de titulos para los tabs
 const niveles = [
@@ -42,6 +44,7 @@ function ListContainerItem() {
     navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state
   }
 
+
     //Restriccion en url
     React.useEffect(() => {
         if(!niveles.some(niv => niv.id === levels)){//si no devuelve nada
@@ -62,7 +65,7 @@ function ListContainerItem() {
         sethasDiscounts(!snapshot.empty)
       })
       .catch(error => {
-        console.error('Error fetching products with discount:', error);
+        console.error('Error al consultar los products con descuento:', error);
       });
 
       if( levels === 'descuentos' ) {
@@ -74,7 +77,7 @@ function ListContainerItem() {
           setLoading(false)
         })
         .catch(error => {
-          console.error("Error fetching products with discount:", error);
+          console.error("Error al consultar los products con descuento:", error);
           setLoading(false);
         });
 
@@ -112,6 +115,9 @@ function ListContainerItem() {
         <>
         <TabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
         <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
+        <Box sx={{marginTop: "2rem"}}>
+        <InfiniteScroller/>
+        </Box>
         </>
   )
 }

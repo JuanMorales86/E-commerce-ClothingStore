@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 //Mis Componentes
 import SliderBanners from "../slider-swiper/sliderBanners";
 import slidesBanners from '../sdk/slidesBanners.json'
+import InfiniteScroller from "../utilities/infinitescroller";
 
 
 //LibreriaMaterial-UI
@@ -22,7 +23,17 @@ function HomePage() {
     navigate(`/products/${levels}`);
   };
 
+  const styleH1 = {
+    textAlign: "center",
+    
+    textTransform: "capitalize",
+    marginTop: "2rem",
+    
+   
+ }
+
   return (
+    <>
     <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="center" alignItems="center">
             <Grid item xs={12}>
@@ -43,6 +54,15 @@ function HomePage() {
           </Grid>
         </Grid>
     </Container>
+
+    <Box>
+    <Typography variant="h4" style={styleH1}>Marcas</Typography>
+    </Box>
+
+    <Box>
+      <InfiniteScroller/>
+    </Box>
+    </>
   )
 }
 

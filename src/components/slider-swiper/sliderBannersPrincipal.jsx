@@ -51,13 +51,13 @@ const SliderSwiper = ({ type, slides, showFixedImage  }) => {
     const slidesWithInterval = slides.map((slide, index) => {
       console.log(slide.interval)
       const titled = slide.subtitled
-      const autoplayer = config.autoplay.delay
+      // const autoplayer = config.autoplay.delay
       const mycustomIndex = slide.interval
       const interval = mycustomIndex  ;
 
-    console.log(mycustomIndex)
-      console.log(interval)
-      console.log(`Intervalo para la diapositiva ${slide.image}: ${slide.interval} ms y la configuracion si no la toma ${autoplayer}`);
+    // console.log(mycustomIndex)
+    //   console.log(interval)
+    //   console.log(`Intervalo para la diapositiva ${slide.image}: ${slide.interval} ms y la configuracion si no la toma ${autoplayer}`);
       return {
         ...slide,
         interval: interval,

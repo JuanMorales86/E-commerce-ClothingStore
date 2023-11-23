@@ -5,11 +5,6 @@ import React from 'react'
 
 function InfiniteScroller() {
 
- const styleH1 = {
-    textAlign: "center",
-    fontSize: "24px",
- }
-
 //  window.onload = function () {
 //   const scrollers = document.querySelectorAll(".scroller");
 
@@ -70,8 +65,6 @@ function InfiniteScroller() {
  return (
 
     <>
-      <h1 style={styleH1}>Marcas</h1>
-
       <div className='body-scroller'>
       <div className='scroller' data-speed="fast" >
        

@@ -37,7 +37,7 @@ import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
 import { AuthContext } from './Providers/auth-manager';
 import OrderList from './components/check-dispach-list';
-import InfiniteScroller from './components/utilities/infinitescroller';
+
 
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
@@ -94,10 +94,6 @@ function App() {
             <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> {/* vuelve al principal {home} si coloca cualquier cosa */}
           
           </Routes>
-
-          <Box>
-            <InfiniteScroller/>
-          </Box>
 
           <Box>
             <Footer />
