@@ -62,13 +62,7 @@ function InfiniteScroller() {
   // Manejar la animación cuando el componente se monta
   handleAnimation();
 
-  // Agregar un event listener para manejar la animación en futuros cambios
-  window.addEventListener('resize', handleAnimation);
-
-  // Limpiar el event listener cuando el componente se desmonta
-  return () => {
-    window.removeEventListener('resize', handleAnimation);
-  };
+ 
 }, []); // El segundo argumento vacío asegura que este efecto se ejecute solo una vez al montar el componente.
 
 
