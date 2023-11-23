@@ -1,6 +1,7 @@
 
 import React from 'react'
 
+
 function InfiniteScroller() {
 
   const styleH1 = {
@@ -20,13 +21,14 @@ function InfiniteScroller() {
 
   //   return () => clearInterval(interval);
   // }, []);
-  window.onload = function () {
-  const scrollers = document.querySelectorAll(".scroller")
-  console.log(scrollers.length)
 
-  if(!window.matchMedia("prefers-reduced-motion: reduce").matches){
-    addAnimation()
-  }
+  window.onload = function () {
+    const scrollers = document.querySelectorAll(".scroller");
+  
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      addAnimation();
+    }
+
 
   function addAnimation() {
     scrollers.forEach((scroller) => {
@@ -37,13 +39,14 @@ function InfiniteScroller() {
 
       scrollerContent.forEach((item) => {
         const duplicateItem = item.cloneNode(true)
-        //duplicateItem.setAttribute("aria-hidden", true)
+        duplicateItem.setAttribute("aria-hidden", true)
         //El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado //cambiar si no funciona en el mobile por el de abajo
         scrollerInner.appendChild(duplicateItem)
       })
     })
   }
 }
+
 
   return (
 
