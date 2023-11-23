@@ -363,8 +363,8 @@ ul{/*listas*/
 @keyframes scroll{
   to{
     /* esto es lo que hace q se repita sutilmente los elementos dentro d elos scroll__inner*/
-    transform: translate(calc(-50% - 0.5rem));/*cambiar si no funciona en el mobile por el de abajo*/
-    /* transform: translateX(calc(-100% - 1rem));  */
+    /* transform: translate(calc(-50% - 0.5rem));cambiar si no funciona en el mobile por el de abajo */
+    transform: translateX(calc(-100% - 1rem)); 
   }
 }
 
