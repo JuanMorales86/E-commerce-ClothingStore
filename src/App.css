@@ -285,14 +285,16 @@ ul{/*listas*/
   margin: 0;
   padding-inline: 0;
   list-style: none;
+  text-transform: capitalize;
+
+  & li {
+    padding: 1rem;
+    background: #F7F7F7;/*color de fondo de los botones textos*/
+    border-radius: 0.5rem;
+    box-shadow: 0 0.34rem 0.95rem -0.35rem var(--clr-primary-900);/*sombra detras del los texts*/
+  }
 }
 
-.tag-list li {
-  padding: 1rem;
-  background: aliceblue;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.34rem 0.95rem -0.35rem var(--clr-primary-900);/*sombra detras del los texts*/
-}
 
 .body-scroller{
   display: grid;
@@ -300,14 +302,14 @@ ul{/*listas*/
   place-content: center;
   font-family: system-ui;
   font-size: 1.125rem;
-  background-color: var(--clr-primary-100);
+  background-color: #F7F7F7
+  ;
 }
 
 .scroller{
   max-width: 100%;/*OJO no esta al 100% de la pantalla*/
   /* outline: 3px solid lime; */
   /* overflow: hidden; */
-  
 }
 
 .scroller__inner{
@@ -315,11 +317,15 @@ ul{/*listas*/
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+
+  & img{
+    box-shadow: 0 0.5rem .9rem -0.45rem var(--clr-primary-900);/*sombra detras del los texts*/
+  }
 }
 
 .scroller[data-animated="true"]{
   overflow: hidden;
-  background-color: linear-gradient(90deg,
+  -webkit-mask: linear-gradient(90deg,
   transparent,
   white 20%,
   white 80%,
