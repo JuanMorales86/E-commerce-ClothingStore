@@ -39,7 +39,7 @@ function InfiniteScroller() {
 
       scrollerContent.forEach((item) => {
         const duplicateItem = item.cloneNode(true)
-        duplicateItem.setAttribute("aria-hidden", true)
+        //duplicateItem.setAttribute("aria-hidden", true)
         //El atributo aria-hidden se utiliza para indicar a los lectores de pantalla que un elemento no debe ser anunciado //cambiar si no funciona en el mobile por el de abajo
         scrollerInner.appendChild(duplicateItem)
       })
