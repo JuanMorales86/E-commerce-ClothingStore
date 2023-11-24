@@ -25,9 +25,6 @@ import LoginWidget from "../cart-widget/LoginWidget";
 import LogOutWidget from "../cart-widget/logOutWidget";
 import AuthManager from "../../Providers/auth-manager";
 
-
-
-
 const MenuPages = [
   { label: "Home", path: "/home" },
   { label: "Prendas", path: "/products/all" },

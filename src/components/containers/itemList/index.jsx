@@ -9,7 +9,7 @@ import CardItems from '../../containers/item'
 
 //My lista de item 
 const  ListElements = ({ loading, items, onItemClick }) => {//se agregan las props
-  const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja va a recibir otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
+  const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja  otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
   
   onItemClick(productId)
   

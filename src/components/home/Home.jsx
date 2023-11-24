@@ -12,6 +12,7 @@ import InfiniteScroller from "../utilities/infinitescroller";
 //LibreriaMaterial-UI
 import "@fontsource/roboto/400.css"; //Material
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
+import MostProductSelled from "../utilities/mostproductselled";
 
 
 
@@ -62,6 +63,8 @@ function HomePage() {
     <Box>
       <InfiniteScroller/>
     </Box>
+
+    <MostProductSelled/>
     </>
   )
 }

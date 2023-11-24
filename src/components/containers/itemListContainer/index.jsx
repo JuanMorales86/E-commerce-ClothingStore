@@ -112,13 +112,13 @@ function ListContainerItem() {
 
 
     return (
-        <>
+      <>
         <TabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
         <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
         <Box sx={{marginTop: "2rem"}}>
         <InfiniteScroller/>
         </Box>
-        </>
+      </>
   )
 }
 

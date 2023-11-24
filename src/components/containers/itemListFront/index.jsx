@@ -1,0 +1,173 @@
+import React from 'react';
+import { Card, CardMedia, CardContent, CardActions, Button, Typography, Box, CircularProgress } from '@mui/material';
+import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
+
+
+
+function ListElementsFrontCard({data, onItemClick}) {
+  const [isHovered, setIsHovered] = React.useState(true);
+  
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  return (
+    <Card
+    sx={{
+      maxWidth: 200,
+      boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
+      overflow: "visible",
+      borderRadius: "10px",
+      border: "solid 2px black",
+      background: "linear-gradient(to bottom, #ffffff, #f1f1f1)",
+      transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
+      "&:hover": {
+        borderColor: "green",
+        boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.3)",
+        transform: "scale(1)",
+      }
+    }}
+  >
+    <Box
+      sx={{
+        overflow: "hidden",
+        transition: "transform 0.5s ease-out",
+        borderBottom: "2px solid black",
+        position: "relative",
+        zIndex: 0,
+        "&:hover": {
+          zIndex: 1,
+          borderBottom: "none",
+          borderRadius: "10px",
+          transform: "scale(1.05)"
+        },
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={"cursorIconStyleContainer"}
+    >
+      {/* Estilo de la imagen */}
+      <CardMedia
+        component="img"
+        alt={data.title}
+        onClick={() => onItemClick(data.id)}
+        height={200}
+        image={data.thumbnail}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        sx={{
+          objectFit: "scale-down",
+          borderTopLeftRadius: "7px",
+          borderTopRightRadius: "7px",
+          width: "100%",
+          height: "100%",
+        }}
+      />
+
+      {/* Icono de "Más Vendido" en la esquina superior derecha */}
+      {data.discountSelected && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            fontSize: "1.5rem",
+            color: "red",
+            
+          }}
+        >
+          🔥
+        </Box>
+      )}
+
+      {/* Icono de cursor */}
+      {isHovered && (
+       <CircularProgress fontSize="small"
+       className={"cursorIconStyle"}/>
+      )}
+
+    </Box>
+    <CardContent sx={{ maxWidth: "100%" }}>
+      <Box sx={{ flexGrow: 1 }}>
+        
+
+        {/* Otras propiedades */}
+        <Box display={"flex"} width={"100%"} justifyContent={"center"}>
+        <Typography
+          gutterBottom
+          variant="inherit"
+          color={"aliceblue"}
+          fontWeight={"bold"}
+          textAlign={"center"}
+          sx={{ display: "block", backgroundColor:"steelblue", borderRadius:"5px", width:"100%" }}
+        >
+        🌻  Mas vendidos 🌟
+        </Typography>
+        {/* En este caso, el operador ternario se encuentra en {data.discountSelected && (...)}. Esto asegura que el contenido dentro del bloque {...} solo se renderice si data.discountSelected tiene un valor. De lo contrario, ese bloque se omite y solo se mostrará el precio. */}
+        </Box>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left" }}>
+          
+          
+          <span style={{ fontSize: "1.8rem" }}>${data.price}</span>
+          {data.discountSelected && (
+            <span style={{ fontSize: "0.8rem", color: "green" }}>
+              {` ${data.discountSelected}% OFF`}
+            </span>
+          )}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {data.soldquantity ? `Vendidos: ${data.soldquantity}` : `Vendidos: no especificado.`}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Envios Gratis: {data.addressShipping}
+        </Typography>
+        <Typography 
+          gutterBottom
+          variant="inherit"
+          fontWeight={"bold"}
+          textAlign={"left"}
+          sx={{
+            maxHeight: "2rem",
+            maxWidth: "100%",
+            height: "4rem",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            color: "secondary.dark",
+          }}
+        >
+          {data.title ? `${data.title.charAt(0).toUpperCase() + data.title.slice(1).toLowerCase()}` : 'Titulo no especificado.'}
+        </Typography >
+      </Box>
+    </CardContent>
+    <Box
+      sx={{
+        display: "grid",
+        height: "auto",
+        placeItems: "center",
+        marginBottom: "0.5rem",
+        
+      }}
+    >
+      <CardActions>
+        {/* Botones adicionales */}
+        <Button
+          variant="contained"
+          onClick={() => onItemClick(data.id)}
+          size="small"
+        >
+          Ir...
+        </Button>{" "}
+        
+      </CardActions>
+    </Box>
+  </Card>
+);
+};
+
+
+export default ListElementsFrontCard
