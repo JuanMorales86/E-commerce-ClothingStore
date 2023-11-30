@@ -5,6 +5,14 @@ import {
   indigo,
   purple
 } from "@mui/material/colors";
+import 'typeface-lato'//Importacion fuente Roboto
+import 'typeface-montserrat'//Importacion fuente Monserrate
+import 'typeface-roboto'//Importacion fuente Roboto
+import 'typeface-open-sans'//Import fuente Open-Sans
+import 'typeface-alegreya'//Import fuente Alegreya
+import 'typeface-nunito'//Import fuente nunito
+import 'typeface-playfair-display'//Import fuente PlayFair Display
+
 
 const CustomTheme = createTheme ({
   palette: {
@@ -44,8 +52,16 @@ const CustomTheme = createTheme ({
 
   // ...otros estilos y configuraciones del tema
   typography: {
-    fontFamily: "Arial, sans-serif",
-    fontSize: 14,
+    letters: {
+      fontA: "'Arial', sans-serif",
+      fontR: "'Roboto', sans-serif",
+      fontL: "'Lato', sans-serif",
+      fontM: "'Montserrate', sans-serif",
+      fontPF: "'Playfair Display', sans-serif",
+      fontN: "'Nunito', sans-serif",
+      fontALG: "'Alegreya', serif",
+      sizeTitles: "2rem",
+    }
   },
 
   customProps: {

@@ -22,11 +22,41 @@ const AppContexProvider = ({children}) => {
     const [showUserData, setShowUserData] = React.useState(false)//Habilitar el componente UserData
     const [orderStatuses, setOrderStatuses] = React.useState({});// Estados para las ordenes enviadas listas y en proceso 
     const [filteredOrders, setFilteredOrders] = React.useState([]);// Estado para los resultados de la búsqueda
+    const [solditems, setSoldItems] = React.useState([])
+    const [loading, setLoading] = React.useState(true)
     // const [forceUpdate, setForceUpdate] = React.useState(false)
     const MySwal = withReactContent(Swal)
-    console.log(trolley)
-
+    
+    React.useEffect(() => {
+      const selledProducts = async () => {
+        const db = getFirestore();
+        const productSelledRef = collection(db, 'productos');
+        const soldProductsQuery = query(
+          productSelledRef,
+          where("soldquantity", ">", 0)
+        );
+  
+        try {
+          const queryPromise = await getDocs(soldProductsQuery);
+          const soldProducts = queryPromise.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            }
+          });//devuelvo especificamaente el id que lo necesito y el resto de los campos
+          // Realiza alguna acción con los productos obtenidos
+          setSoldItems(soldProducts);
+          setLoading(false);
+        } catch (error) {
+          console.error("Error obteniendo productos vendidos:", error);
+          setLoading(false);
+        }
+      };
+  
+      selledProducts(); // Llama a la función asíncrona inmediatamente
+    }, []);// El segundo argumento del useEffect indica que solo debe ejecutarse una vez al montarse el componente
     // Efecto para cargar el valor inicial del contador de órdenes
+    
     React.useEffect(() => {
       const db = getFirestore()
 
@@ -85,7 +115,6 @@ const AppContexProvider = ({children}) => {
         console.log(err)
       }
     }
-
     //Status en la Ordenes
     const updateOrderStatusInDatabase = async (orderId, newStatus) => {
       const db = getFirestore()
@@ -328,7 +357,7 @@ const handleEmptyTrolley = () => {
 }
     
   return (
-   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses, filteredOrders, searchOrders, loadOrders }}>{children}</Provider>
+   <Provider value={{notifyToastContainer, notifyToast, notifyToastAdd, notifyToastBD, handlePrToTrolley, handleEmptyTrolley, trolley, quantityC: trolley.length, createNewDispach, lastDispach: dispatchId, showUserData, setShowUserData, orders, markOrderStatus, orderStatuses, filteredOrders, searchOrders, loadOrders, solditems, loading }}>{children}</Provider>
 )}
 
 export default AppContexProvider

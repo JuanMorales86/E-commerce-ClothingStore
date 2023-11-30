@@ -27,7 +27,7 @@ function SliderBanners({banners, onBannerClick}) {
     <Swiper
       // install Swiper modules
       modules={[Navigation, A11y, Autoplay]}//Pagination, Scrollbar
-      spaceBetween={10}
+      spaceBetween={1}
       slidesPerView={4}
       centeredSlides={false}
       centeredSlidesBounds={true}
@@ -39,7 +39,7 @@ function SliderBanners({banners, onBannerClick}) {
       navigation
       pagination={{ clickable: true }}
       // scrollbar={{ draggable: true }}
-      className="mySwiper"
+      
       style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
     >
       {banners.map((slide, index) => (

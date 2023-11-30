@@ -1,5 +1,6 @@
 import React from "react";
 
+
 //libreria react router dom
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +13,9 @@ import InfiniteScroller from "../utilities/infinitescroller";
 //LibreriaMaterial-UI
 import "@fontsource/roboto/400.css"; //Material
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
-import MostProductSelled from "../utilities/mostproductselled";
+import SliderMostSelledCards from "../slider-swiper/sliderMostSelledCards";
+// import IfiniteScrollerCard from "../utilities/infinitescrollerCards";
+
 
 
 
@@ -26,23 +29,20 @@ function HomePage() {
 
   const styleH1 = {
     textAlign: "center",
-    
+    fontSize: "1.8rem",
     textTransform: "capitalize",
-    marginTop: "2rem",
-    
-   
+    fontWeight: "400",
+    fontFamily: "letters.fontM",
+    margin: "2rem 0 1rem 0"
  }
 
   return (
     <>
     <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="center" alignItems="center">
+        <Grid container spacing={4} justifyContent="center" alignItems="center" >
             <Grid item xs={12}>
-              {/* <Typography variant="h2" align="center" gutterBottom>
-                Tu tienda siempre a tu alcance...
-              </Typography> */}
-              <Typography variant="h4" align="center" marginTop={4} marginBottom={4} textTransform={"capitalize"} gutterBottom>
-                Las últimas tendencias de moda para ti...
+              <Typography   style={styleH1} align="center" marginTop={4} marginBottom={4} textTransform={"capitalize"} gutterBottom >
+                Inspira tu estilo con nuestras prendas...
               </Typography>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center",gap:4}}>
                 <SliderBanners banners={slidesBanners} onBannerClick={handleNavigate}/>
@@ -56,15 +56,17 @@ function HomePage() {
         </Grid>
     </Container>
 
-    <Box>
-    <Typography variant="h4" style={styleH1}>Marcas</Typography>
-    </Box>
 
+   
+    
+   
+
+    <SliderMostSelledCards/>
     <Box>
+    <Typography  style={styleH1}>Marcas</Typography>
       <InfiniteScroller/>
     </Box>
-
-    <MostProductSelled/>
+    
     </>
   )
 }

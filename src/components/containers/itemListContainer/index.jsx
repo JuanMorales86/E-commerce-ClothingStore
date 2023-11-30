@@ -37,14 +37,11 @@ function ListContainerItem() {
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
   // const hasDiscountProducts = items.some(item => item.specialproduct)
-
   //!hice cambios aqui selectedproductId por id por que cambie el params en app.jsx principal a id
   const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
     setId(id)
     navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state
   }
-
-
     //Restriccion en url
     React.useEffect(() => {
         if(!niveles.some(niv => niv.id === levels)){//si no devuelve nada

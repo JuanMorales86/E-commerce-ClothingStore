@@ -131,6 +131,8 @@ const NavBar = () => {
                 }}
               >
                 {MenuPages.map((page, index) => (
+                 
+
                   <MenuItem key={page.label + index } onClick={handleCloseNavMenu}>
                     <Link component={RouterLink}
                       color={"inherit"}
@@ -141,6 +143,7 @@ const NavBar = () => {
                       {page.label}
                     </Link>
                   </MenuItem>
+                  
                 ))}
               </Menu>
             </Box>

@@ -39,6 +39,7 @@ import { AuthContext } from './Providers/auth-manager';
 import OrderList from './components/check-dispach-list';
 
 
+
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
@@ -48,6 +49,7 @@ export const auth = getAuth(app)
 function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
   const [, setAutoplayEnabled] = React.useState(true);
+  
  
 
   const handleShowFixedImage = (show) => {
@@ -80,18 +82,18 @@ function App() {
           </Box>
 
           <Routes>
-            <Route path={'/home'} element={<HomePage/>}/> 
+            
+            <Route path={'/home'} element={<HomePage/> }></Route> 
             {/* <Route path={'/'} element={<ListContainerItem/>}/> */}
             <Route path={'/products/:levels'} element={<ListContainerItem/>}/>
             <Route path={'/product/:id'} element={<ListContainerDetail/>} />
             <Route path={'/nosotros'} element={<Nosotros/>}/>
             <Route path={'/cart'} element={<ModalSlide/>} />
             <Route path={'/contacto'} element={<Contacto setShowFixedImage={handleShowFixedImage}/>}  />
-           
             <Route path={'/admin'} element={<ProtectedBackOffice/>} />
             <Route path={'/ordenes'} element={<ProtectedOrderList/>} />
-         
-            <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> {/* vuelve al principal {home} si coloca cualquier cosa */}
+            <Route path='/*' element={<Navigate to="/home" replace={true}/>}/> 
+            {/* vuelve al principal {home} si coloca cualquier cosa */}
           
           </Routes>
 

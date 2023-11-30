@@ -33,6 +33,17 @@ ul{/*listas*/
   padding: 0;
 }
 
+.styleH2 {
+  text-align: center;
+  font-size: 2rem;
+  text-transform: capitalize;
+  margin-top: 2rem;
+  font-weight: bold;
+  font-family: 'Montserrate', sans-serif;
+}
+
+
+
 @media (min-width: 600px) and (max-width: 697.60px) {
   .cardItemDetail{
     flex-direction: column-reverse !important;
@@ -54,8 +65,6 @@ ul{/*listas*/
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30px;
-  height: 30px;
   pointer-events: none; /* Evita que el ícono capture eventos del mouse*/
 }
 
@@ -182,6 +191,44 @@ ul{/*listas*/
   }
 }
 
+
+
+.cssbutton-Banner-Principal{
+  position: absolute;
+  bottom: 60px;
+  
+  z-index: 1;
+}
+
+/* Estilo predeterminado para las flechas de navegación */
+/* .swiper-button-next,
+.swiper-button-prev {
+  width: 30px; /* Ancho personalizado */
+  /* height: 30px; Altura personalizada */
+  /* background-color: #ffffff; /* Color de fondo personalizado */
+  /* color: #000000; Color del icono personalizado */
+  /* border-radius: 50%; Bordes redondeados */
+  /* opacity: 0.8; Opacidad predeterminada */
+/* } */
+
+/* Mostrar las flechas de navegación al hacer hover en el contenedor del Swiper */
+/* .swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1;
+} */
+
+.swiperPS {
+  width: 40%;
+  background-color: #F7F7F7;
+  margin: auto;
+}
+
+.swiper-slidePS {
+  font-size: 15px;
+  margin:1rem 0 1rem 0;
+  
+}
+
 .swiperslide{
   background: #201616;
   justify-content: center;
@@ -190,13 +237,6 @@ ul{/*listas*/
   height: 100vh;
   position: relative;
   overflow: hidden;
-}
-
-.cssbutton-Banner-Principal{
-  position: absolute;
-  bottom: 60px;
-  
-  z-index: 1;
 }
 
 .slider-content{
@@ -298,7 +338,7 @@ ul{/*listas*/
 
 .body-scroller{
   display: grid;
-  min-block-size: 15vh;
+  min-block-size: 10vh;
   place-content: center;
   font-family: system-ui;
   font-size: 1.125rem;
@@ -313,7 +353,7 @@ ul{/*listas*/
 }
 
 .scroller__inner{
-  padding-block: 1rem;
+  padding-block: 0.9rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -341,24 +381,10 @@ ul{/*listas*/
   }
 }
 
-/* .scroller[data-animated="true"] .scroller__inner{
-  width: max-content;
-  flex-wrap: nowrap;
-  animation: scroll var(--_animation-duration, 40s)
-  var(--_animation-duration, forwards) linear infinite
-} */
-
-/* .scroller[data-direction="right"]{
-  --_animation-direction: reverse
-}
-
-.scroller[data-direction="left"]{
-  --_animation-direction: forwards
-} */
 
 .scroller[data-speed="fast"]{
   --_animation-direction: reverse;
-  --_animation-duration: 100s;
+  --_animation-duration: 200s;
 }
 
 .scroller[data-speed="slow"]{

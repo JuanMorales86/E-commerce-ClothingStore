@@ -72,7 +72,8 @@ function CardItems({ data, onItemClick }) {
         <CardMedia
           component="img"
           alt={data.title}
-          onClick={() => {onItemClick(data.id)}}
+          onClick={() => {
+            onItemClick(data.id)}}
           height={200}
           image={data.thumbnail}
           onMouseEnter={handleMouseEnter}

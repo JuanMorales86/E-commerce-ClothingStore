@@ -171,7 +171,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
       >
         
         {/* formato UI del card en el modal */}
-        <DialogTitle textAlign={"center"} fontFamily={"arial"} textTransform={"capitalize"} fontWeight={"bold"} >{"tus productos"}</DialogTitle>
+        <DialogTitle textAlign={"center"} fontFamily={"letters.fontM"} textTransform={"capitalize"} fontWeight={"bold"} >{"tus productos"}</DialogTitle>
         <DialogContent >
           <DialogContentText  id="alert-dialog-slide-description">
             {
@@ -215,16 +215,16 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
         <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
             
             <Box display={'flex'} justifyContent={"center"} flexDirection={'row'} textAlign={"center"} gap={"1rem"} textTransform={"capitalize"}>
-            <Typography fontWeight={"bold"} fontFamily={"arial"} variant="body2" component="p">
+            <Typography fontWeight={"bold"}  variant="body2" component="p" fontFamily={'letters.fontM'}>
                 Items en Carrito: {quantityC} 
             </Typography>
-            <Typography fontWeight={"bold"} fontFamily={"arial"} variant="body2" component="p">
+            <Typography fontWeight={"bold"}  variant="body2" component="p" fontFamily={'letters.fontM'}>
                 Cantidad Total Productos: {calcTotalPerItemsCart()} 
             </Typography>
             </Box>
             
             <Box textAlign={"center"}>
-              <Typography variant="h6" component="p">
+              <Typography variant="h6" component="p" fontFamily={'letters.fontM'}>
                 Total Pago: {calcwithIva()} Pesos
             </Typography>
             </Box>

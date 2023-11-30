@@ -173,7 +173,7 @@ function BackOffice() {
     <Box textAlign={"center"}>
       <Box>
         <Typography
-          fontFamily={"monospace"}
+          fontFamily={"letters.fontM"}
           fontSize={"2rem"}
           fontWeight={"bold"}
           letterSpacing={2}
@@ -219,7 +219,7 @@ function BackOffice() {
       )}
 
       <Box sx={{ maxWidth: "400", marginBottom: "1rem", marginTop:"2rem",display:"flex", flexFlow:"column", justifyContent:"center", alignItems:"center" }}>
-        <Typography letterSpacing={2} variant="h1" component={'h2'} fontFamily={'monospace'} fontSize={'2rem'} color={'balck'} borderBottom={'solid 4px black'} borderTop={'solid 4px black'} width={"100%"} marginBottom={'2rem'}>Crear Nuevos Productos</Typography>
+        <Typography letterSpacing={2} variant="h1" component={'h2'} fontFamily={'letters.fontM'} fontWeight={'bold'} fontSize={'2rem'} color={'balck'} borderBottom={'solid 4px black'} borderTop={'solid 4px black'} width={"100%"} marginBottom={'2rem'}>Crear Nuevos Productos</Typography>
         
         <CardBackStage  
           onClick={handleItemCreate}

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, CardActions, Button, Typography, Box, CircularProgress } from '@mui/material';
-import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
+import { Card, CardMedia, CardContent, CardActions, Button, Typography, Box } from '@mui/material';
+import { Fade } from "react-awesome-reveal";
+// import MaterialSymbolsSell from '../../utilities/yesiconsolarflameicon';
 
 
 
 function ListElementsFrontCard({data, onItemClick}) {
-  const [isHovered, setIsHovered] = React.useState(true);
-  
+  const [, setIsHovered] = React.useState(true);
+  const handleItemClick = (productId) => {//se crea la funcion handleclick que maneja  otra funcion onitemclick y dentro se le pasa la propiedad productId en el boton
+    onItemClick(productId)
+    }
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -17,6 +20,9 @@ function ListElementsFrontCard({data, onItemClick}) {
   };
 
   return (
+    <>
+    <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+
     <Card
     sx={{
       maxWidth: 200,
@@ -42,9 +48,9 @@ function ListElementsFrontCard({data, onItemClick}) {
         zIndex: 0,
         "&:hover": {
           zIndex: 1,
-          borderBottom: "none",
-          borderRadius: "10px",
-          transform: "scale(1.05)"
+          // borderBottom: "none",
+          // borderRadius: "10px",
+          transform: "scale(1)"
         },
       }}
       onMouseEnter={handleMouseEnter}
@@ -55,7 +61,7 @@ function ListElementsFrontCard({data, onItemClick}) {
       <CardMedia
         component="img"
         alt={data.title}
-        onClick={() => onItemClick(data.id)}
+        onClick={() => handleItemClick(data.id)}
         height={200}
         image={data.thumbnail}
         onMouseEnter={handleMouseEnter}
@@ -71,6 +77,8 @@ function ListElementsFrontCard({data, onItemClick}) {
 
       {/* Icono de "Más Vendido" en la esquina superior derecha */}
       {data.discountSelected && (
+        <Fade>
+
         <Box
           sx={{
             position: "absolute",
@@ -83,13 +91,21 @@ function ListElementsFrontCard({data, onItemClick}) {
         >
           🔥
         </Box>
+        </Fade>
       )}
 
       {/* Icono de cursor */}
-      {isHovered && (
-       <CircularProgress fontSize="small"
-       className={"cursorIconStyle"}/>
-      )}
+      {/* {isHovered && (
+          <>
+        
+          {data.discountSelected && (
+              <Fade cascade className='cursorIconStyle'>
+              <Typography>En Oferta</Typography>
+              </Fade>
+          )}
+        </>
+      )} */}
+      {/* cursorIconStyle */}
 
     </Box>
     <CardContent sx={{ maxWidth: "100%" }}>
@@ -127,14 +143,16 @@ function ListElementsFrontCard({data, onItemClick}) {
           Envios Gratis: {data.addressShipping}
         </Typography>
         <Typography 
-          gutterBottom
+          
           variant="inherit"
           fontWeight={"bold"}
           textAlign={"left"}
+          
           sx={{
-            maxHeight: "2rem",
+            maxHeight: "100%",
             maxWidth: "100%",
-            height: "4rem",
+            height: "3rem",
+            maxInlineSize:"auto",
             overflow: "hidden",
             textOverflow: "ellipsis",
             color: "secondary.dark",
@@ -149,6 +167,7 @@ function ListElementsFrontCard({data, onItemClick}) {
         display: "grid",
         height: "auto",
         placeItems: "center",
+        marginTop: 0,
         marginBottom: "0.5rem",
         
       }}
@@ -157,7 +176,8 @@ function ListElementsFrontCard({data, onItemClick}) {
         {/* Botones adicionales */}
         <Button
           variant="contained"
-          onClick={() => onItemClick(data.id)}
+          onClick={() => {
+            handleItemClick(data.id)}}
           size="small"
         >
           Ir...
@@ -166,6 +186,9 @@ function ListElementsFrontCard({data, onItemClick}) {
       </CardActions>
     </Box>
   </Card>
+    </Box>
+ 
+    </>
 );
 };
 

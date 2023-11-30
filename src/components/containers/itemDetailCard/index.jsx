@@ -15,9 +15,13 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import ItemCount from '../item-count';
 import { AppContex } from '../../../Providers/contex-provider';
 
+const styletters={
+  fontWeight:600,
+}
+
 //Mi card DETAIL
 function CardDetail({data}) {
-  const {id, customid, title, thumbnail, description, soldquantity, stock, originalprice, price, discountSelected, size, color } = data
+  const {id, customid, title, thumbnail, description, soldquantity, stock, price, discountSelected, size, color } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
@@ -58,39 +62,39 @@ function CardDetail({data}) {
 
   return (
  
-    <Card className='cardItemDetail' sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto" }}>
+    <Card className='cardItemDetail' sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'}}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto"  }}>
         <CardContent sx={{ flex: '2 1 200px', width:'auto', height:"auto", display:'flex',flexDirection:'column',alignItems:'center', justifyContent:'center' }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
-          <Typography variant="h1" fontSize={'1rem'} textTransform={'capitalize'} fontWeight={'bold'} letterSpacing={'.1rem'} textAlign={'center'} >
+          <Typography variant="h1" fontSize={'1.2rem'} textTransform={'capitalize'} fontWeight={"bold"} textAlign={'center'} style={styletters} fontFamily={"letters.fontM"} >
             {title}
           </Typography>
          
-          <Typography variant="h5" color="text.secondary" fontWeight={'bold'} marginTop={'1rem'} fontSize={'0.9rem'} textAlign={'center'}>
+          <Typography variant="h5" color="text.secondary"  marginTop={'1rem'} fontSize={'0.9rem'} textAlign={'center'} style={styletters} fontFamily={"letters.fontM"}>
           {description || 'Sin descripcion'}
         </Typography>
 
         <Box sx={{marginTop:'1rem',display:'flex', flexDirection:'column', alignItems:'center'}}>
-          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700} letterSpacing={'0.2rem'} textAlign={'center'} marginBottom={2} >
+          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700}  textAlign={'center'} marginBottom={2} style={styletters} fontFamily={"letters.fontM"}>
               Codigo:{customid}
             </Typography>
-          <Typography  color="text.secondary" >
+          <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               {soldquantity ? `!Ya Vendidos: ${soldquantity} Und.` : '!Ya Vendidos: 0 Und.'}
             </Typography>
-            <Typography  color="text.secondary" >
+            <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               {size ? `Talle: ${size.toUpperCase()}` : 'Talle sin especificar'}
             </Typography>
-            <Typography  color="text.secondary" className='colortallecss' >
+            <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"} >
               {color ? `Color: ${color.charAt(0).toUpperCase() + color.slice(1).toLowerCase()}` : 'Color sin especificar'}
             </Typography>
-            <Typography  color="text.secondary" >
+            <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               Stock Almac.: {stock} Unid.
             </Typography>
-            <Typography  color="text.secondary" >
+            <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               Precio-Original: $ {price} Pesos
             </Typography>
-            <Typography  color="text.secondary" >
+            {/* <Typography  color="text.secondary" >
               Precio-Oferta: {originalprice ? `${originalprice} Pesos` : 'Sin datos'}
-            </Typography>
+            </Typography> */}
            
         </Box>
         </CardContent>

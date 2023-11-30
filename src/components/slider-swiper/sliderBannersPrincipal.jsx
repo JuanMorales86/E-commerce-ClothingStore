@@ -49,7 +49,6 @@ const SliderSwiper = ({ type, slides, showFixedImage  }) => {
     const config = sliderConfigurations[type] || sliderConfigurations.normal
 
     const slidesWithInterval = slides.map((slide, index) => {
-      console.log(slide.interval)
       const titled = slide.subtitled
       // const autoplayer = config.autoplay.delay
       const mycustomIndex = slide.interval

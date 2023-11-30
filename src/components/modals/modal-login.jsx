@@ -54,7 +54,7 @@ function ModalLogin({widgetL }) {
             >
               <Box sx={paperStyle}>
               <Box textAlign={"center"}>
-                <Typography fontFamily={"sans-serif"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
+                <Typography fontFamily={"letters.fontM"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
               </Box>
               
               <AuthProvider>
