@@ -60,8 +60,9 @@ function HomePage() {
    
     
    
-
+    <Box className="sliderBoxHomeMS" >
     <SliderMostSelledCards/>
+    </Box>
     <Box>
     <Typography  style={styleH1}>Marcas</Typography>
       <InfiniteScroller/>

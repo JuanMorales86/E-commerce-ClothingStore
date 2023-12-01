@@ -21,7 +21,7 @@ function ListElementsFrontCard({data, onItemClick}) {
 
   return (
     <>
-    <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+    <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
 
     <Card
     sx={{
@@ -38,6 +38,7 @@ function ListElementsFrontCard({data, onItemClick}) {
         transform: "scale(1)",
       }
     }}
+    className='swiper-cardMS'
   >
     <Box
       sx={{

@@ -217,15 +217,65 @@ ul{/*listas*/
   opacity: 1;
 } */
 
+.sliderBoxHomeMS {
+  width: 90%;
+  display: block;
+  margin: auto;
+  text-align: center;
+  
+}
+.containerSwiperMS{
+  background-image: url(https://i.imgur.com/Mmottoy.jpg);
+  background-color:"#F7F7F7";
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 420px;
+  position: relative;
+  /* width:100%; */
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  
+ 
+}
+
+
 .swiperPS {
-  width: 40%;
-  background-color: #F7F7F7;
+ 
+  /* background-color: #F7F7F7; */
   margin: auto;
 }
 
 .swiper-slidePS {
+  
   font-size: 15px;
   margin:1rem 0 1rem 0;
+  
+  
+  
+}
+
+@media (min-width: 719px){/*Resoluciones mayores de 719px*/
+  .swiperPS{
+    width: 100%;
+  }
+}
+
+@media (max-width: 719px){/*Resoluciones menores de 719px*/
+  .swiperPS{
+    width: 100%;
+  }
+}
+
+.swiper-cardMS{
+  display: block;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.8s ease-in-out;
+  box-shadow: 0 0 10px rgba(0,0,0,.5), inset 0 0;
+  
+
   
 }
 

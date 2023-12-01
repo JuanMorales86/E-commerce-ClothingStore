@@ -27,8 +27,22 @@ const styleH1 = {
 function SliderMostSelledCards() {
     // const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
     const [, setId] = React.useState('')
+    const [slidesPerView, setSlidesPerView] = React.useState(1)
     const navigate = useNavigate()
     const {solditems, loading} = React.useContext(AppContex)
+
+    React.useEffect(() => { //Para limitar la cantidad de cards por view en el slider
+      const handleResize = () => {
+        
+        const newSlides =  window.innerWidth > 1032 ? 3 : 1 // 2 es el valor cuando el mediaquery es mayor a 1032 y 1 cuando es menor a 1032
+        setSlidesPerView(newSlides)
+        
+      }
+
+      window.addEventListener('resize', handleResize)
+
+      handleResize()
+    }, [])
 
     const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
       setId(id)
@@ -44,13 +58,14 @@ return (
     <Typography style={styleH1} fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
     </Box>
     
-    <Box sx={{backgroundColor:"#F7F7F7"}}>
+    <Box  className='containerSwiperMS'>
+     
     <Swiper 
     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
     autoplay={{delay: 3000}}
     navigation
-    slidesPerView={1}
-    // spaceBetween={50}
+    slidesPerView={slidesPerView}
+    // spaceBetween={"-600rem"}
     centeredSlides={true} 
     centeredSlidesBounds={true}
     className="swiperPS"
@@ -61,7 +76,7 @@ return (
       <CircularProgress/> 
     </Box>
     : (
-    solditems.map((productS, index) => (
+    solditems.slice(0, 5).map((productS, index) => ( // Limita a los primeros 5 elementos
       <SwiperSlide key={index} className="swiper-slidePS">
         <ListElementsFrontCard
         key={index}
@@ -70,14 +85,10 @@ return (
         />
       </SwiperSlide>
     )) 
-    
-    
     )}
-   
     </>
     </Swiper>
   </Box>
-   
   </>
 )}
 

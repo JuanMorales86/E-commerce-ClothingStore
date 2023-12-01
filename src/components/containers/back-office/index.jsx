@@ -26,8 +26,15 @@ function BackOffice() {
   const [loading, setLoading] = React.useState(true);
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
-  const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex);
- 
+  const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex)
+  // const currentDate = new Date().toDateString('es-AR')
+  const currentDate = new Date()
+  const day = currentDate.getDate();// Obtiene el día del mes (1-31)
+  const month = currentDate.getMonth() +1;// Obtiene el mes (0-11) y se suma 1 para ajustar
+  const year = currentDate.getFullYear();// Obtiene el año de cuatro dígitos
+  
+  // Formatea la fecha como "d/m/yyyy"
+  const formattedDate = `${day}/${month}/${year}`
 
   const [, setFormData] = React.useState({
     thumbnail: "",
@@ -142,7 +149,12 @@ function BackOffice() {
 
     //Si no existe un producto con el mimso customid, procede a creal el nuevo producto
     const idAleatorio = uuidv4();// Generar una clave única usando uuidv4()
-    addDoc(product, {...item, idAleatorio })
+    const newProduct = {
+      ...item,
+      idAleatorio,
+      createAt: formattedDate,
+    }
+    addDoc(product, newProduct)
       .then(() => {
         notifyToastBD("🎉 Nuevo Producto Creado");
         setUpdateComponent(true);

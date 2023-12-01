@@ -27,13 +27,14 @@ const AppContexProvider = ({children}) => {
     // const [forceUpdate, setForceUpdate] = React.useState(false)
     const MySwal = withReactContent(Swal)
     
+    //Productos mas vendidos
     React.useEffect(() => {
       const selledProducts = async () => {
         const db = getFirestore();
         const productSelledRef = collection(db, 'productos');
         const soldProductsQuery = query(
           productSelledRef,
-          where("soldquantity", ">", 0)
+          where("soldquantity", ">", 0) //! Cambia el valor: 0, a la cantidad deseada
         );
   
         try {
