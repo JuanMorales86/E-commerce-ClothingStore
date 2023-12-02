@@ -18,6 +18,7 @@ import { Box, Typography, CircularProgress } from "@mui/material";
 //Mis Componentes
 import CardBackStage from "../item-backstage";
 import { AppContex } from "../../../Providers/contex-provider";
+import { formattedDate } from "../../utilities/helpers";
 
 
 
@@ -28,13 +29,17 @@ function BackOffice() {
   const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex)
   // const currentDate = new Date().toDateString('es-AR')
-  const currentDate = new Date()
-  const day = currentDate.getDate();// Obtiene el día del mes (1-31)
-  const month = currentDate.getMonth() +1;// Obtiene el mes (0-11) y se suma 1 para ajustar
-  const year = currentDate.getFullYear();// Obtiene el año de cuatro dígitos
+  // const currentDate = new Date()
+  // const day = currentDate.getDate();// Obtiene el día del mes (1-31)
+  // const month = currentDate.getMonth() +1;// Obtiene el mes (0-11) y se suma 1 para ajustar
+  // const year = currentDate.getFullYear();// Obtiene el año de cuatro dígitos
   
   // Formatea la fecha como "d/m/yyyy"
-  const formattedDate = `${day}/${month}/${year}`
+  // const formattedDate = `${day}/${month}/${year}`
+
+
+  const currentDate = new Date();
+  const formattedDateValue = formattedDate(currentDate);// Formatea la fecha como "dd/mm/yyyy"
 
   const [, setFormData] = React.useState({
     thumbnail: "",
@@ -152,7 +157,7 @@ function BackOffice() {
     const newProduct = {
       ...item,
       idAleatorio,
-      createAt: formattedDate,
+      createAt: formattedDateValue,
     }
     addDoc(product, newProduct)
       .then(() => {

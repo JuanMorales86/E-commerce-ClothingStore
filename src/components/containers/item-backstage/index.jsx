@@ -86,10 +86,11 @@ const dataspecialproduct = [true, false]
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
+  const { id, title, thumbnail, description , price, color, size, brand, condition, stock, customid, categoryType, addressShipping,addressPlace, specialproduct, discountSelected } = data //Destructuracion (es mas ordenado para saber que es lo que estoy pasando por props)
   const { register,getValues, reset, setValue} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({}) //para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
-  const [selectedSize, setSelectedSize] = React.useState(data.size || "") // Inicializa con el valor de data.size o en blanco ('')
+  const [selectedSize, setSelectedSize] = React.useState(size || "") // Inicializa con el valor de data.size o en blanco ('')
   const [errors, ] = React.useState({})
 
 
@@ -124,7 +125,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     }
 
     if (typeof onClick === "function") {
-      onClick(formData, data.id);
+      onClick(formData, id);
       setModiefiedFields({});
     }
   };
@@ -226,9 +227,9 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
       >
         <CardMedia
           component="img"
-          alt={data.title}
+          alt={title}
           height="260"
-          image={data.thumbnail}
+          image={thumbnail}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
@@ -285,7 +286,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Imagen..."
             size="small"
             {...register("thumbnail", { required: false })}
-            defaultValue={data.thumbnail}
+            defaultValue={thumbnail}
             onChange={handleChangeText}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.thumbnail ? "lightblue" : "transparent" }}
@@ -297,7 +298,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Titulo..."
             size="small"
             {...register("title", { required: false })}
-            defaultValue={data.title}
+            defaultValue={title}
             onChange={handleChangeText}
             inputProps={{ maxLength:35 }}
             style={{ width: "250px" }}
@@ -308,13 +309,13 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Una Breve Descripción..."
             size="small"
-            {...register("description", { required: false, 
+            {...register("description", { required: true, 
               pattern: {
                 value: /^[0-9]+$/,//Solo Numeros
                 message: "Ingrese solo números"
               }
             })}
-            defaultValue={data.description}
+            defaultValue={description}
             onChange={handleChangeText}
             inputProps={{ maxLength:80 }}
             style={{ width: "250px" }}
@@ -325,14 +326,18 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Id Personalizable..."
             size="small"
+            helperText={'Minimo 5 a 10 caracteres'}
             {...register("customid", { 
               required: true,
               pattern: /^[0-9]+$/,
-              minLength: 8, // Mínimo de 3 caracteres
+              minLength: 5, // Mínimo de 5 caracteres
               maxLength: 10, // Máximo de 10 caracteres
             })}
-            defaultValue={data.customid}
-            onChange={handleChangeText}
+            defaultValue={customid}
+            onChange={(e) => {
+              const uppercaseValue = e.target.value.toUpperCase() //Se crea una nueva variable llamada uppercaseValue que almacena el resultado de convertir el valor del campo de texto a mayúsculas
+              e.target.value = uppercaseValue //se asigna este nuevo valor de vuelta al campo de texto.
+              handleChangeText(e)}}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.customid ? "lightblue" : "transparent" }}
           />
@@ -342,7 +347,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Precio..."
             size="small"
             {...register("price", { required: false })}
-            defaultValue={data.price}
+            defaultValue={price}
             onChange={handleChangeText}
             inputProps={{ type: "number" }}
             error={Boolean(errors.price)}
@@ -356,7 +361,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Marca..."
             size="small"
             {...register("brand", { required: false })}
-            defaultValue={data.brand}
+            defaultValue={brand}
             onChange={handleChangeText}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.brand ? "lightblue" : "transparent" }}
@@ -367,7 +372,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Color..."
             size="small"
             {...register("color", { required: false })}
-            defaultValue={data.color}
+            defaultValue={color}
             onChange={handleChangeText}
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.color ? "lightblue" : "transparent" }}
@@ -386,7 +391,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             inputProps={{ 
               type: "text",// Cambiado a "text" en lugar de "number"
             }}
-            defaultValue={data.stock}
+            defaultValue={stock}
             onChange={(e) => {
               const input = e.target.value;
               // Utiliza una expresión regular para eliminar caracteres no numéricos
@@ -404,7 +409,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Condición..."
             size="small"
             {...register("condition", { required: false })}
-            defaultValue={data.condition || ''}
+            defaultValue={condition || ''}
             onChange={handleChangeText}
             select
             fullWidth
@@ -424,8 +429,8 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Tipo de categoría del producto..."
             size="small"
-            {...register("categoryType", { required: false })}
-            defaultValue={data.categoryType}
+            {...register("categoryType", { required: true })}
+            defaultValue={categoryType}
             onChange={handleChangeText}
             select
             fullWidth
@@ -445,7 +450,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             variant="outlined"
             placeholder="Que talle eliges?..."
             size="small"
-            {...register("size", { required: false })}
+            {...register("size", { required: true })}
             value={selectedSize}
             onChange={(e) => {
               setSelectedSize(e.target.value)
@@ -471,7 +476,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Hasta donde se puede entregar..."
             size="small"
             {...register("addressShipping", { required: false })}
-            defaultValue={data.addressShipping}
+            defaultValue={addressShipping}
             onChange={handleChangeText}
             select
             fullWidth
@@ -492,7 +497,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Dirección del Vendedor..."
             size="small"
             {...register("addressPlace", { required: false })}
-            defaultValue={data.addressPlace}
+            defaultValue={addressPlace}
             onChange={handleChangeText}
             select
             fullWidth
@@ -514,7 +519,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             placeholder="Tendra Descuento?..."
             size="small"
             {...register("specialproduct", { required: false })}
-            defaultValue={data.specialproduct}
+            defaultValue={specialproduct}
             onChange={handleChangeText}
             select
             fullWidth
@@ -538,13 +543,13 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             size="small"
             {...register("discountSelected", { required: false })}
             // value={isdiscount}
-            defaultValue={data.discountSelected || ''}
+            defaultValue={discountSelected || ''}
             onChange={handleChangeText}
             select
             fullWidth
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.discountSelected ? "lightblue" : "transparent" }}
-            disabled={data.specialproduct === false}
+            disabled={specialproduct === false}
           >
             {[0,2,3,4,5,10,12,14,16,15,20].map((discount) => {//array de porcentajes
             

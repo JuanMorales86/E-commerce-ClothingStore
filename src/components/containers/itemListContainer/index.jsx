@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { lazy } from 'react'
 //Libreria router dom
 import { useNavigate, useParams } from 'react-router-dom'
 //Libreria database Firestore 
 import { getFirestore, collection, getDocs, where, query } from 'firebase/firestore';
 
 //Mis Componenetes
-import ListElements from '../itemList'
-import TabsMenu from '../../tabs/tabs'
+// import ListElements from '../itemList'
+// import TabsMenu from '../../tabs/tabs'
 import InfiniteScroller from '../../utilities/infinitescroller';
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
+import { Suspense } from 'react';
 
 //Array de titulos para los tabs
 const niveles = [
@@ -23,11 +24,15 @@ const niveles = [
   {id:'descuentos', title:'Descuentos'}
 ]
 
+Object.freeze(niveles)
+
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
 function ListContainerItem() {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [hasDiscounts, sethasDiscounts] = React.useState(false)
+  const LazyTabsMenu = lazy(() => import('../../tabs/tabs'))
+  const LazyListElements = lazy(() => import('../itemList'))
 
   const [, setId] = React.useState('')
 
@@ -109,13 +114,20 @@ function ListContainerItem() {
 
 
     return (
+     
       <>
-        <TabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
-        <ListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
+        <Suspense fallback={<CircularProgress/>}>
+        <LazyTabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
+        
+        <LazyListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
+        
         <Box sx={{marginTop: "2rem"}}>
         <InfiniteScroller/>
         </Box>
+        </Suspense>
+      
       </>
+     
   )
 }
 
