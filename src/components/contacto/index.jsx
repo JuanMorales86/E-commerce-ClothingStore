@@ -4,14 +4,18 @@ import { useForm } from "react-hook-form";
 import { AppContex } from "../../Providers/contex-provider";
 import emailjs from "@emailjs/browser";
 
+
+
 function Contacto({ setShowFixedImage, autoplayEnabled }) {
+  const refForm = React.useRef(); //es un objeto
+  const { notifyToast } = React.useContext(AppContex);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const { notifyToast } = React.useContext(AppContex);
+
 
   //Para lograr la imagen fija
   React.useEffect(() => {
@@ -22,25 +26,35 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
     };
   }, [setShowFixedImage, autoplayEnabled]);
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async () => {
+    const serviceId = "React_Sal_&_Pimienta";
+    const templateId = "template_dybd6hl"; //my React Sal & Pimienta Contact Page
+    const apikey = process.env.REACT_APP_EMAILJS_KEY;
+    console.log(refForm)
+    
     //formData toma los datos de los textfield gracias al hook form
     try {
-      await emailjs.send(
-        "React_Sal_&_Pimienta",
-        "template_dybd6hl",
-        formData,
-        "Ab9gNllYCT5UB5o8m"
-      ); //Configuracion de emailjs
-
-      notifyToast("Formulario enviado exitosamente.");
-    } catch (error) {
-      console.log("Error al enviar el formulario:", error.text);
+      await emailjs
+          .sendForm(serviceId, templateId, refForm.current, apikey)
+          .then((result) => {
+              console.log(result.text);
+              notifyToast("Formulario enviado exitosamente.");
+          })
+          .catch((error) => {
+              console.error("Error al enviar el formulario:", error.text);
+              notifyToast("Error al enviar el formulario.");
+          });
+  } catch (error) {
+      console.error("Error al enviar el formulario:", error);
       notifyToast("Error al enviar el formulario.");
-    }
-    reset();
+  }
+
+  reset();
   };
 
   return (
+    
+
     <Box
       sx={{
         display: "flex",
@@ -59,8 +73,8 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
           backgroundColor: "#f0f0f0",
         }}
       >
+        <form ref={refForm} onSubmit={handleSubmit(onSubmit)}>
         <Box
-          component="form"
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -155,13 +169,14 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
           <Button
             variant="contained"
             type="submit"
-            onClick={handleSubmit(onSubmit)}
           >
             Enviar
           </Button>
         </Box>
+        </form>
       </Paper>
     </Box>
+   
   );
 }
 

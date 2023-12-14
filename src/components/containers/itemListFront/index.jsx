@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardMedia, CardContent, CardActions, Button, Typography, Box } from '@mui/material';
 import { Fade } from "react-awesome-reveal";
+// import { Bounce } from 'react-awesome-reveal';
 // import MaterialSymbolsSell from '../../utilities/yesiconsolarflameicon';
 
 
@@ -21,11 +22,11 @@ function ListElementsFrontCard({data, onItemClick}) {
 
   return (
     <>
-    <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
+    <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"left"}}>
 
     <Card
     sx={{
-      maxWidth: 200,
+      maxWidth: 225,
       boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
       overflow: "visible",
       borderRadius: "10px",
@@ -56,7 +57,7 @@ function ListElementsFrontCard({data, onItemClick}) {
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={"cursorIconStyleContainer"}
+      //className={"cursorIconStyleContainer"}
     >
       {/* Estilo de la imagen */}
       <CardMedia
@@ -73,11 +74,12 @@ function ListElementsFrontCard({data, onItemClick}) {
           borderTopRightRadius: "7px",
           width: "100%",
           height: "100%",
+          background: "transparent", // Fondo transparente
         }}
       />
 
       {/* Icono de "Más Vendido" en la esquina superior derecha */}
-      {data.discountSelected && (
+      {/* {data.discountSelected && (
         <Fade>
 
         <Box
@@ -87,10 +89,40 @@ function ListElementsFrontCard({data, onItemClick}) {
             right: 0,
             fontSize: "1.5rem",
             color: "red",
-            
           }}
         >
           🔥
+        </Box>
+        </Fade>
+      )} */}
+
+      {data.discountSelected !== 0 ? (
+        <Fade>
+
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            fontSize: "1.5rem",
+            color: "red",
+          }}
+        >
+          🔥
+        </Box>
+        </Fade>
+      ) : (
+        <Fade cascade damping={1}>
+        
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            fontSize: "1.5rem",
+          }}
+        >
+          🌹
         </Box>
         </Fade>
       )}
@@ -127,21 +159,29 @@ function ListElementsFrontCard({data, onItemClick}) {
         </Typography>
         {/* En este caso, el operador ternario se encuentra en {data.discountSelected && (...)}. Esto asegura que el contenido dentro del bloque {...} solo se renderice si data.discountSelected tiene un valor. De lo contrario, ese bloque se omite y solo se mostrará el precio. */}
         </Box>
-        <Typography variant="body2" color="text.secondary" sx={{ textAlign: "left" }}>
+        <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
           
           
           <span style={{ fontSize: "1.8rem" }}>${data.price}</span>
-          {data.discountSelected && (
+          {data.discountSelected !==0 ? (
             <span style={{ fontSize: "0.8rem", color: "green" }}>
               {` ${data.discountSelected}% OFF`}
             </span>
+          ):(
+            <span style={{ fontSize: "0.8rem", color: "green" }}>
+              {`Pesos`}
+            </span>
           )}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" textAlign={"left"}>
           {data.soldquantity ? `Vendidos: ${data.soldquantity}` : `Vendidos: no especificado.`}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Envios Gratis: {data.addressShipping}
+        <Typography variant="body2" color="text.secondary" textAlign={"left"}>
+          {data.discountSelected !==0 ? (
+            `Envios Gratis: ${data.addressShipping}`
+          ):(
+            `Envios: ${data.addressShipping}`
+          )}
         </Typography>
         <Typography 
           

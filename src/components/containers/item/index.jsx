@@ -65,7 +65,7 @@ function CardItems({ data, onItemClick }) {
         }}
         onMouseEnter={handleMouseEnter}//Cursor pointer
         onMouseLeave={handleMouseLeave}//Cursor pointer
-        className={"cursorIconStyleContainer"}//Cursor pointer
+        //className={"cursorIconStyleContainer"}//Cursor pointer
       >
         {/* para el estilo de la imagen */}
 

@@ -118,9 +118,7 @@ function ListContainerItem() {
       <>
         <Suspense fallback={<CircularProgress/>}>
         <LazyTabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
-        
         <LazyListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
-        
         <Box sx={{marginTop: "2rem"}}>
         <InfiniteScroller/>
         </Box>
@@ -132,3 +130,5 @@ function ListContainerItem() {
 }
 
 export default ListContainerItem
+
+//En React, Suspense es un componente que se utiliza para gestionar la carga de recursos, como componentes perezosos o datos, de forma asincrónica. fallback es una prop (propiedad) de Suspense que especifica el contenido que se debe renderizar mientras se están cargando los recursos. El prop fallback acepta cualquier elemento de React que se renderizará mientras los recursos están siendo cargados. Esto puede ser cualquier cosa, desde un simple mensaje hasta un indicador de carga más complejo, como un spinner o una barra de progreso.
