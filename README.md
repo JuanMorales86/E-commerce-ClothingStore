@@ -31,23 +31,22 @@ Este proyecto es un e-commerce para un emprendimiento de tienda de ropa. Permite
 * Esto fue un proyecto de la cursada de Coder House que duro 2 meses, a futuro se seguira actualizando y pasara a hacer una pagina en situacion real.
 
 ## Puntos Claves:
+- Es una aplicación web de una tienda online que permite a los usuarios ver y comprar productos.
 
-* Es una aplicación web de una tienda online que permite a los usuarios ver y comprar productos.
+- Utiliza React para construir la interfaz de usuario con componentes.
 
-* Utiliza React para construir la interfaz de usuario con componentes.
+- Incluye funcionalidades como carrito de compras, filtrado de productos, gestión de usuarios y autenticación.
 
-* Incluye funcionalidades como carrito de compras, filtrado de productos, gestión de usuarios y autenticación.
+- El backend parece estar hecho con Firebase para la base de datos y autenticación.
 
-* El backend parece estar hecho con Firebase para la base de datos y autenticación.
+- Usa React Router para la navegación y enrutamiento entre páginas.
 
-* Usa React Router para la navegación y enrutamiento entre páginas.
+- Tiene una sección de administración para gestionar productos, usuarios, órdenes, etc. Protegida con autenticación.
 
-* Tiene una sección de administración para gestionar productos, usuarios, órdenes, etc. Protegida con autenticación.
+- El estilo visual está hecho con Material UI, una biblioteca de componentes para React.
 
-El estilo visual está hecho con Material UI, una biblioteca de componentes para React.
+- Entre otras librerías utiliza React Hook Form para formularios, Axios para peticiones HTTP y Context API para manejo de estado global.
 
-* Entre otras librerías utiliza React Hook Form para formularios, Axios para peticiones HTTP y Context API para manejo de estado global.
+- El proyecto está configurado para poder ejecutarse localmente siguiendo las instrucciones del README.
 
-* El proyecto está configurado para poder ejecutarse localmente siguiendo las instrucciones del README.
-
-* En resumen, es un proyecto completo de e-commerce con frontend en React y backend en Firebase, con las funcionalidades típicas de una tienda online. Fue desarrollado como proyecto de un curso de programación.
+- En resumen, es un proyecto completo de e-commerce con frontend en React y backend en Firebase, con las funcionalidades típicas de una tienda online. Fue desarrollado como proyecto de un curso de programación.
