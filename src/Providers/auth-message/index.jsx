@@ -5,9 +5,17 @@ import UseAuth from '../auth-useauth/useAuth'
 
 
 function AuthMessage({onClose}) {
-    const {logOut} = UseAuth()
+    const {logOut, user} = UseAuth()
     const navigate = useNavigate()
     
+    const handleLogout = () => {
+      if (user) { 
+        // cerrar sesión  
+        onClose();
+      } else {
+        onClose(); // solo cierra el modal
+      }
+    }
     
     const navegar = () => {
       navigate('/admin')
@@ -31,7 +39,7 @@ function AuthMessage({onClose}) {
     <Box sx={{display: "flex", flexDirection:['column', 'row'], justifyContent:"center", gap:"0.75rem"}}>
     <Button variant="contained" onClick={navegar}>Ir a Admin</Button>
     <Button variant="contained" onClick={navegarOrdenes}>Ir a Odenes</Button>
-    <Button variant="contained" onClick={onClose}>Cerrar</Button>
+    <Button variant="contained" onClick={handleLogout}>Cerrar</Button>
     <Button variant="contained" onClick={logOut}>Deslogearse</Button>
     </Box>
     

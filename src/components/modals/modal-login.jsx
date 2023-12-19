@@ -22,7 +22,7 @@ const paperStyle = {
   p: 4,
 };
 
-function ModalLogin({widgetL, open: isOpen, onClose}) {
+function ModalLogin({widgetL, open: isOpen}) {
         const [open, setOpen] = React.useState(false);// Evito confundir con el state open
         const controllerOpen = isOpen || open;
         
@@ -35,7 +35,7 @@ function ModalLogin({widgetL, open: isOpen, onClose}) {
           // setIsVisible(true)
         };
         const handleClose = () => {
-          onClose(false)
+         
           setOpen(false)
           // setIsVisible(false)
         };

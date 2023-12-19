@@ -3,7 +3,7 @@ import React, { createContext } from "react";
 import UseAuth from "../auth-useauth/useAuth";
 
 export const AuthContext = createContext();
-
+//Este componente maneja la authentificacion gracias a React Contex
 const AuthManager = ({ children }) => {
   const {user} = UseAuth()
   

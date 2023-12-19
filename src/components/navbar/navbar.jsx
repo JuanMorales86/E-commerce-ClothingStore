@@ -26,6 +26,7 @@ import { AppContex } from "../../Providers/contex-provider";
 import ModalLogin from "../modals/modal-login";
 import LoginWidget from "../cart-widget/LoginWidget";
 import LogOutWidget from "../cart-widget/LogOutWidget";
+
 import AuthManager from "../../Providers/auth-manager";
 import UseAuth from "../../Providers/auth-useauth/useAuth";
 
@@ -46,8 +47,8 @@ const NavBar = () => {
   console.log(openModal)
   
   
-  // const handleOpenModal = () => {
-  //   setOpenModal(true)
+  // const handleCloseModal = () => {
+  //   setOpenModal(false)
   // }
 
   const handleOpenNavMenu = (event) => {
@@ -162,6 +163,8 @@ const NavBar = () => {
                     setOpenModal(true) 
                     handleCloseNavMenu()}}
                   sx={{color:"inherit"}}
+                  
+                  
                 >
                   Admin
                 </Link>
@@ -233,12 +236,13 @@ const NavBar = () => {
               
               {user ? (
                 <Box sx={{alignSelf:'center', justifyContent:"center"}}>
-                <LogOutWidget/>
+                  <LogOutWidget/>
                 </Box>
               ) : (
                 <Box>
                   <ModalLogin widgetL={<LoginWidget/>} open={openModal}/>
                 </Box>
+                
               )
 
               }
