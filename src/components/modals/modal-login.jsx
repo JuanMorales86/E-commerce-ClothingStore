@@ -22,8 +22,10 @@ const paperStyle = {
   p: 4,
 };
 
-function ModalLogin({widgetL }) {
-        const [open, setOpen] = React.useState(false);
+function ModalLogin({widgetL, open: isOpen, onClose}) {
+        const [open, setOpen] = React.useState(false);// Evito confundir con el state open
+        const controllerOpen = isOpen || open;
+        
         // const [isVisible, setIsVisible] = React.useState(false)
         // const [isAuthenticated, setIsAuthenticated] = React.useState(false);
         
@@ -33,6 +35,7 @@ function ModalLogin({widgetL }) {
           // setIsVisible(true)
         };
         const handleClose = () => {
+          onClose(false)
           setOpen(false)
           // setIsVisible(false)
         };
@@ -45,13 +48,14 @@ function ModalLogin({widgetL }) {
               <Button variant="text" onClick={handleOpen}>
                 {widgetL}
             </Button>
+            
+            
             <Modal
-              open={open}
+              open={controllerOpen}
               onClose={handleClose}
-              // aria-labelledby="modal-modal-title"
-              // aria-describedby="modal-modal-description"
               style={modalStyle}//centro el modal
             >
+            
               <Box sx={paperStyle}>
               <Box textAlign={"center"}>
                 <Typography fontFamily={"letters.fontM"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
@@ -62,6 +66,7 @@ function ModalLogin({widgetL }) {
               </AuthProvider>
               </Box>
             </Modal>
+          
           </Box>
         );
       }

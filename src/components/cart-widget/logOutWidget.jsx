@@ -16,6 +16,7 @@ import { MdiAccountCircleOutline } from '../utilities/iconosalida';
 import { AppContex } from '../../Providers/contex-provider';
 import { useNavigate } from 'react-router-dom';
 
+//Creacion del icono de cerrar session y la funcion de cierre
 function LogOutWidget() {
     const {notifyToast, notifyToastContainer} = useContext(AppContex)
     const navigate = useNavigate()

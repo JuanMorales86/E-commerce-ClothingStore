@@ -20,10 +20,14 @@ import MenuIcon from "@mui/icons-material/Menu";//Material Icon Burguer
 import ModalSlide from "../modals";
 import CartWidget from "../cart-widget/CartWidget";
 import { AppContex } from "../../Providers/contex-provider";
+// import CustomTheme from "../Custom-Styles/themes"
+
+//Authentificaciones
 import ModalLogin from "../modals/modal-login";
 import LoginWidget from "../cart-widget/LoginWidget";
-import LogOutWidget from "../cart-widget/logOutWidget";
+import LogOutWidget from "../cart-widget/LogOutWidget";
 import AuthManager from "../../Providers/auth-manager";
+import UseAuth from "../../Providers/auth-useauth/useAuth";
 
 const MenuPages = [
   { label: "Home", path: "/home" },
@@ -36,11 +40,15 @@ const MenuPages = [
 const NavBar = () => {
   //Funcionalidad Abrir y cerrar Navbar en el burguer
   const [anchorElNav, setAnchorElNav] = React.useState(null);//acciones de material para abrir y cerrar burguer
-  
-  
+  const {user} = UseAuth()
+  const [openModal, setOpenModal] = React.useState(false)
   const {quantityC} = React.useContext(AppContex)//Contex
+  console.log(openModal)
   
   
+  // const handleOpenModal = () => {
+  //   setOpenModal(true)
+  // }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -145,6 +153,26 @@ const NavBar = () => {
                   </MenuItem>
                   
                 ))}
+
+                {user && (
+                <MenuItem >
+                 <Link
+                  component={RouterLink}
+                  onClick={() => {
+                    setOpenModal(true) 
+                    handleCloseNavMenu()}}
+                  sx={{color:"inherit"}}
+                >
+                  Admin
+                </Link>
+
+                <ModalLogin
+                  open={openModal}
+                  onClose={() => setOpenModal(false)}
+                  
+                />
+                </MenuItem>
+              )}
               </Menu>
             </Box>
 
@@ -176,7 +204,7 @@ const NavBar = () => {
             </Typography>
 
             {/* Anchors del menu */}
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}>
               
               {MenuPages.map((page) => (
                 <Button
@@ -190,6 +218,12 @@ const NavBar = () => {
                 </Button>
               ))}
 
+              {user && (
+                <MenuItem >
+                <ModalLogin  open={openModal} onClose={() => setOpenModal(false)}   widgetL={<span style={{color:"white"}}>Administrador</span>}/>
+                </MenuItem>
+              )}
+
             </Box>
             {/* Fin otra resolucion d */}
           
@@ -197,12 +231,17 @@ const NavBar = () => {
               
               <ModalSlide widget={<CartWidget cartQuantity={quantityC}/>}/>
               
-             
-              <ModalLogin widgetL={<LoginWidget/>}/>
-              
-              <Box sx={{alignSelf:'center', justifyContent:"center"}}>
-              <LogOutWidget/>
-              </Box>
+              {user ? (
+                <Box sx={{alignSelf:'center', justifyContent:"center"}}>
+                <LogOutWidget/>
+                </Box>
+              ) : (
+                <Box>
+                  <ModalLogin widgetL={<LoginWidget/>} open={openModal}/>
+                </Box>
+              )
+
+              }
               </Box>
 
           </Toolbar>
@@ -214,3 +253,8 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+  // {/* <MenuItem>
+  // <Link component={RouterLink} color={"inherit"} underline="none" to="/admin">Admin</Link>
+  //</MenuItem> */}

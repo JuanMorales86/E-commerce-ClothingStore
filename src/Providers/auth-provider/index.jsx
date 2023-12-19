@@ -49,9 +49,7 @@ function AuthProvider({ children, onClose }) {
       setIsNotificationShow(true);
     }
   }, []);
-  // console.log(typeof handleAuthentication)
-  // console.log(isControl)
-  // console.log(isAuthenticated)
+
   
   return (
     <Box>

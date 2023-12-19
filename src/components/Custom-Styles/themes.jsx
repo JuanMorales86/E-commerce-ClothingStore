@@ -71,6 +71,49 @@ const CustomTheme = createTheme ({
     customSpacing: 8,
   },
 
+  buttonStyles: {
+    primary: {
+      backgroundColor: '#007bff', 
+      color: '#fff',
+      border: 'none',
+      borderRadius: '4px',
+      padding: '8px 12px',
+      cursor: 'pointer'
+    },
+  
+    secondary: {
+      backgroundColor: '#6c757d',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '4px',
+      padding: '8px 12px',
+      cursor: 'pointer'  
+    },
+  
+    danger: {
+      backgroundColor: '#dc3545',
+      color: '#fff',
+      border: 'none', 
+      borderRadius: '4px',
+      padding: '8px 12px',
+      cursor: 'pointer'
+    }
+  },
+
+  boxStyles: {
+    rounded: {
+      borderRadius: '16px',
+      border: '1px solid #ccc',
+      display: "flex",
+      alignItems: "center",
+      padding:"0 12px",
+      color:"white",
+      
+    }
+  },
+  
+  
+
   overrides: {
     MuiCard: {
       root: {

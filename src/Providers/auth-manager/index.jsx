@@ -1,18 +1,12 @@
-import React, { createContext, useEffect, useState } from "react";
-import { auth } from "../../App"; // Importa la instancia de autenticación de Firebase
+import React, { createContext } from "react";
+//import { auth } from "../../App"; // Importa la instancia de autenticación de Firebase
+import UseAuth from "../auth-useauth/useAuth";
 
 export const AuthContext = createContext();
 
 const AuthManager = ({ children }) => {
-  const [user, setUser] = useState(null);//inicialmente se establece en null
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-
-    return () => unsubscribe();
-  }, []);
+  const {user} = UseAuth()
+  
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

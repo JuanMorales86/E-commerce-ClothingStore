@@ -1,8 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography, Button } from '@mui/material'
+import UseAuth from '../auth-useauth/useAuth'
+
 
 function AuthMessage({onClose}) {
+    const {logOut} = UseAuth()
     const navigate = useNavigate()
     
     
@@ -29,6 +32,7 @@ function AuthMessage({onClose}) {
     <Button variant="contained" onClick={navegar}>Ir a Admin</Button>
     <Button variant="contained" onClick={navegarOrdenes}>Ir a Odenes</Button>
     <Button variant="contained" onClick={onClose}>Cerrar</Button>
+    <Button variant="contained" onClick={logOut}>Deslogearse</Button>
     </Box>
     
   </Box>
