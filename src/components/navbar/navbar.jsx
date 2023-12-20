@@ -25,7 +25,7 @@ import { AppContex } from "../../Providers/contex-provider";
 //Authentificaciones
 import ModalLogin from "../modals/modal-login";
 import LoginWidget from "../cart-widget/LoginWidget";
-import LogOutWidget from "../cart-widget/LogOutWidget";
+//import LogOutWidget from "../cart-widget/LogOutWidget";
 
 import AuthManager from "../../Providers/auth-manager";
 import UseAuth from "../../Providers/auth-useauth/useAuth";
@@ -236,7 +236,7 @@ const NavBar = () => {
               
               {user ? (
                 <Box sx={{alignSelf:'center', justifyContent:"center"}}>
-                  <LogOutWidget/>
+                  <LoginWidget/>
                 </Box>
               ) : (
                 <Box>
