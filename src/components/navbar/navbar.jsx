@@ -31,6 +31,7 @@ import AuthManager from "../../Providers/auth-manager";
 import UseAuth from "../../Providers/auth-useauth/useAuth";
 
 
+
 const MenuPages = [
   { label: "Home", path: "/home" },
   { label: "Prendas", path: "/products/all" },
@@ -45,12 +46,12 @@ const NavBar = () => {
   const {user} = UseAuth()
   const [openModal, setOpenModal] = React.useState(false)
   const {quantityC} = React.useContext(AppContex)//Contex
-  console.log(openModal)
   
   
-  // const handleCloseModal = () => {
-  //   setOpenModal(false)
-  // }
+  
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -63,7 +64,7 @@ const NavBar = () => {
   return (
     <AuthManager>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{  backgroundColor: "primary.dark", }}>
+      <AppBar position="static" sx={{  backgroundColor: "primary.main" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ overflowX: "auto" }}>
             
@@ -162,9 +163,9 @@ const NavBar = () => {
                   component={RouterLink}
                   onClick={() => {
                     setOpenModal(true) 
-                    handleCloseNavMenu()}}
+                    handleCloseNavMenu()
+                  }}
                   sx={{color:"inherit"}}
-                  
                   
                 >
                   Admin
@@ -172,8 +173,8 @@ const NavBar = () => {
 
                 <ModalLogin
                   open={openModal}
-                  onClose={() => setOpenModal(false)}
-                  
+                  onClose={handleCloseModal}//Pasamos la funcion que actualiza el estado del modal
+                 
                 />
                 </MenuItem>
               )}
@@ -188,7 +189,6 @@ const NavBar = () => {
             <Typography
               variant="h5"
               href="/home"
-              component="a"
               noWrap
               className="clothing-store-text"
               sx={{

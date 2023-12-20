@@ -15,11 +15,23 @@ import 'typeface-playfair-display'//Import fuente PlayFair Display
 
 
 const CustomTheme = createTheme ({
+
+  breakpoints:{
+    values:{
+      xs: 0,
+      sm: 600,
+      md2:628,
+      md: 900,
+      lg: 1280,
+      xl: 1920,
+    }
+  },
+
   palette: {
     primary: {
-      main: blueGrey[500], // Color Principal
-      dark: blueGrey[700], // Tono mas oscuro
-      light: blueGrey[300], // Tono mas claro
+      main: blueGrey[600], // Color Principal gris
+      dark: blueGrey[700], // Tono mas oscuro gris
+      light: blueGrey[400], // Tono mas claro gris
       //contrasText: "#FFFFFF", // Color de texto que contrasta con el color secundario
     },
 

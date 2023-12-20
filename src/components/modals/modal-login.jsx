@@ -4,7 +4,8 @@ import {Box, Button , Typography, Modal} from '@mui/material';
 import AuthProvider from '../../Providers/auth-provider';
 import AuthMessage from '../../Providers/auth-message';
 import SignInContent from '../../Providers/sign-In-content';
-
+import CustomTheme from '../Custom-Styles/themes';
+const {breakpoints} = CustomTheme
 
 
 const modalStyle = {
@@ -12,17 +13,32 @@ const modalStyle = {
   alignItems: 'center',
   justifyContent: 'center',
 };
-
 const paperStyle = {
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  
+  // width: ['90%','93%','80%', '70%','70%', '60%', '50%','50%'],
+ 
+  [`@media (min-width: ${breakpoints.values.sm}px) and (max-width: ${breakpoints.values.md2 - 1}px)`]: {
+    // Estilos entre 600px y 627px
+    width: "92%",
+   
+    
+    
+  },
+
+  [`@media (min-width: ${breakpoints.values.md2}px) and (max-width: ${breakpoints.values.md - 1}px)`]: {
+    // Estilos entre 600px y 899px
+    width: "90%" 
+  },
+  [`@media (min-width: ${breakpoints.values.md}px)`]:{
+    width:"70%"
+  },
+  bgcolor: "background.paper",
   boxShadow: 24,
   borderRadius: 4,
   p: 4,
 };
 
-function ModalLogin({widgetL, open: isOpen}) {
+function ModalLogin({widgetL, open: isOpen, onClose}) {
         const [open, setOpen] = React.useState(false);// Evito confundir con el state open
         const controllerOpen = isOpen || open;
         
@@ -35,17 +51,15 @@ function ModalLogin({widgetL, open: isOpen}) {
           // setIsVisible(true)
         };
         const handleClose = () => {
-         
           setOpen(false)
+          if(onClose){
+            onClose()
+          }
           // setIsVisible(false)
         };
-
-
-        // console.log(isAuthenticated)
-        // console.log(isVisible)
         return (
           <Box>
-              <Button variant="text" onClick={handleOpen}>
+              <Button  onClick={handleOpen}>
                 {widgetL}
             </Button>
             
@@ -58,7 +72,7 @@ function ModalLogin({widgetL, open: isOpen}) {
             
               <Box sx={paperStyle}>
               <Box textAlign={"center"}>
-                <Typography fontFamily={"letters.fontM"} fontSize={"1.5rem"} fontWeight={"bold"}>Acceso al Sistema</Typography>
+                <Typography fontSize={"1.5rem"} fontFamily={"letters.fontM"} fontWeight={"bold"}>Acceso al Sistema</Typography>
               </Box>
               
               <AuthProvider>
