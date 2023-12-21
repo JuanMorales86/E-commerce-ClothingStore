@@ -20,17 +20,18 @@ const paperStyle = {
   [`@media (min-width: ${breakpoints.values.sm}px) and (max-width: ${breakpoints.values.md2 - 1}px)`]: {
     // Estilos entre 600px y 627px
     width: "92%",
-   
-    
-    
   },
 
   [`@media (min-width: ${breakpoints.values.md2}px) and (max-width: ${breakpoints.values.md - 1}px)`]: {
     // Estilos entre 600px y 899px
     width: "90%" 
   },
-  [`@media (min-width: ${breakpoints.values.md}px)`]:{
-    width:"70%"
+  [`@media (min-width: ${breakpoints.values.md3}px) and (max-width: ${breakpoints.values.xl - 1}px)`]: {
+    // Estilos entre 600px y 899px
+    width: "65%" 
+  },
+  [`@media (min-width: ${breakpoints.values.xl}px)`]:{
+    width:"40%"
   },
   bgcolor: "background.paper",
   boxShadow: 24,
@@ -97,3 +98,12 @@ function ModalLogin({widgetL, open: isOpen, onClose}) {
 export default ModalLogin
 
 // {isVisible && <AuthProvider id="modal-modal-description" onClose={handleAuthentication}/>}
+
+// min-width define el ancho mínimo a partir del cual se aplicarán los estilos dentro de la media query.
+//@media (min-width: 500px) {
+  /* estilos que se aplican cuando el ancho de pantalla es de 500px o más */
+//}
+// max-width define el ancho máximo hasta el cual se aplicarán los estilos dentro de la media query.
+//@media (max-width: 767px) {
+  /* estilos que se aplican cuando el ancho de pantalla es de 767px o menos */
+//}

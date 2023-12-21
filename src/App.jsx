@@ -37,6 +37,7 @@ import AuthManager from './Providers/auth-manager'
 import AuthProvider from './Providers/auth-provider';
 import { AuthContext } from './Providers/auth-manager';
 import OrderList from './components/check-dispach-list';
+import ChatElfsightWhatsapp from './components/utilities/chatelfsightwhatsapp';
 
 
 
@@ -100,7 +101,7 @@ function App() {
             {/* vuelve al principal {home} si coloca cualquier cosa */}
           
           </Routes>
-
+          <ChatElfsightWhatsapp/>
           <Box>
             <Footer />
           </Box>
