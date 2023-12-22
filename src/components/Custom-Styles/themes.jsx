@@ -77,6 +77,7 @@ const CustomTheme = createTheme ({
     }
   },
 
+
   customProps: {
     customColor: "#8DB7CC", //Azul tirando a gris entre oscuro y claro
     customColor2: "#32657F", // Entre Azul Oscuro y Verde

@@ -18,9 +18,9 @@ import { AppContex } from "../../Providers/contex-provider";
 
 const styleH1 = {
   textAlign: "center",
-  fontSize: "1.8rem",
-  textTransform: "capitalize",
-  fontWeight: 400,
+  fontSize: "2.5rem",
+  
+  fontWeight: 600,
   margin: "2rem 0 1rem 0"
 }
 
@@ -55,7 +55,7 @@ return (
   
 
     <Box sx={{display:"flex",justifyContent:"center"}}>
-    <Typography style={styleH1} fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
+    <Typography className="degradado-texto" style={styleH1} fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
     </Box>
     
     <Box  className='containerSwiperMS'>

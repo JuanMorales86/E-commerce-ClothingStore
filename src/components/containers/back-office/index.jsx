@@ -187,17 +187,20 @@ function BackOffice() {
   };
 
   return (
-    <Box textAlign={"center"}>
-      <Box>
+    <Box textAlign={"center"} >
+      <Box >
         <Typography
+          className="degradado-texto"
+          
           fontFamily={"letters.fontM"}
-          fontSize={"2rem"}
-          fontWeight={"bold"}
-          letterSpacing={2}
+          fontSize={"2.5rem"}
+          fontWeight={600}
           marginBottom={4}
-          marginTop={2}
+          padding={"2rem 4rem"}
+          
         >
           Administrador de Productos
+         
         </Typography>
       </Box>
       {loading ? (

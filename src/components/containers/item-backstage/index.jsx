@@ -262,6 +262,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
               color: "white",
               padding: "8px",
               pointerEvents: "none",
+              fontFamily:"letters.fontM"
             }}
           >
             Modificacion de Productos

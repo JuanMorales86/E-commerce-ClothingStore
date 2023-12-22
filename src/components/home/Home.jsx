@@ -29,9 +29,9 @@ function HomePage() {
 
   const styleH1 = {
     textAlign: "center",
-    fontSize: "1.8rem",
-    textTransform: "capitalize",
-    fontWeight: "400",
+    fontSize: "2.5rem",
+    
+    fontWeight: "600",
     fontFamily: "letters.fontM",
     margin: "2rem 0 1rem 0"
  }
@@ -41,7 +41,7 @@ function HomePage() {
     <Container maxWidth="lg">
         <Grid container spacing={4} justifyContent="center" alignItems="center" >
             <Grid item xs={12}>
-              <Typography   style={styleH1} align="center" marginTop={4} marginBottom={4} textTransform={"capitalize"} gutterBottom >
+              <Typography className="degradado-texto"   style={styleH1} align="center" marginTop={4} marginBottom={4} textTransform={"capitalize"} gutterBottom >
                 Inspira tu estilo con nuestras prendas...
               </Typography>
               <Box sx={{display:"flex", justifyContent:"center", alignItems:"center",gap:4}}>
@@ -64,7 +64,7 @@ function HomePage() {
     <SliderMostSelledCards/>
     </Box>
     <Box>
-    <Typography  style={styleH1}>Marcas</Typography>
+    <Typography className="degradado-texto" style={styleH1}>Marcas</Typography>
       <InfiniteScroller/>
     </Box>
     

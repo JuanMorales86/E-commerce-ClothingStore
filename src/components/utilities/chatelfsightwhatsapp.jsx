@@ -1,6 +1,6 @@
 import React from 'react'
 
-//Componente de conexion con Whastapp que usa un icono mas un popup que lleva a whastapp web hevho por elfsight widgets
+//Componente de conexion con Whastapp que usa un icono mas un popup que lleva a whastapp web hecho por elfsight widgets
 function ChatElfsightWhatsapp() {
     const APP_ELFSIGHT_KEY = process.env.REACT_APP_ELFSIGHT_API_KEY
     React.useEffect(() => {

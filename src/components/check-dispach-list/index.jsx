@@ -12,7 +12,7 @@ function OrderList() {
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
-    // const [updatestatus, setUpdateStatus] = React.useState('')
+    
     
     // console.log(anchorEl)
     // console.log(selectedOrder)
@@ -74,7 +74,7 @@ function OrderList() {
     return (
       <>
       <Grid container item xs={12} justifyContent={'center'} alignContent={'center'}  >
-      <Typography variant="h3" mt={4} mb={4}>
+      <Typography className='degradado-texto'  mt={4} mb={4} fontFamily={"letters.fontM"} fontSize={"2.5rem"} fontWeight={600}>
         Lista de Órdenes
       </Typography>
       </Grid>
@@ -98,7 +98,10 @@ function OrderList() {
                
                 <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
                 <Typography>Fecha de Creación: {order.createAt}</Typography>
-                <Typography>Estado de la Orden: {orderStatuses[order.customOrderId]}</Typography>
+                <Typography>Estado de la Orden:<span className='degradado-orderstatus'>
+                        { orderStatuses[order.customOrderId]}</span>
+                  
+                  </Typography>
                 <Button 
                   aria-controls='order-status-menu'
                   aria-haspopup='true'
@@ -122,13 +125,6 @@ function OrderList() {
                 <Typography variant="h6" color="primary" marginTop={"0.8rem"}>
                   Información del Cliente
                 </Typography>
-                {/* <List>
-                  {Object.entries(order.buyer).map(([key, value]) => (
-                    <ListItem key={key}>
-                      <ListItemText primary={`${key}: ${value}`} />
-                    </ListItem>
-                  ))}
-                </List> */}
                 <List  className='list-element-orders'>
                   <ListItem sx={{display:"block", flexFlow:"row wrap"}}>
                     
