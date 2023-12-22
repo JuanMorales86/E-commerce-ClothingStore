@@ -107,3 +107,6 @@ export default ModalLogin
 //@media (max-width: 767px) {
   /* estilos que se aplican cuando el ancho de pantalla es de 767px o menos */
 //}
+
+// min-width: Aplica los estilos a partir del ancho indicado y superiores.
+// max-width: Aplica los estilos hasta el ancho indicado.
