@@ -29,7 +29,7 @@ function HomePage() {
 
   const styleH1 = {
   
-    fontSize: "3.5rem",
+    fontSize: {xs: "2.7rem", md: "3.5rem"},
     width: {
       xs:"100%", 
       md:"50%"
@@ -56,11 +56,11 @@ function HomePage() {
   return (
     <>
     <Container maxWidth="lg">
-        <Grid container spacing={2} justifyContent="center" alignItems="center" margin={"1rem 0"}>
+        <Grid container spacing={0.1} justifyContent="center" alignItems="center" margin={"1rem 0"}>
             <Grid item xs={12}>
-              <Box sx={{display:{xs: "block", md: "flex"}, flexDirection:"row", justifyContent:"center", alignItems:"center", gap:5 }}>
+              <Box sx={{display:{xs: "block", md: "flex"}, flexDirection:"row", justifyContent:"center", alignItems:"center", gap:{xs: 0, md: 5} }}>
               <Typography className="degradado-texto"   sx={styleH1} marginTop={4} marginBottom={4}  gutterBottom >
-              Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de ropa casual
+              Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de ropa casual.
               </Typography>
                 <SliderBanners banners={slidesBanners} onBannerClick={handleNavigate}/>
               </Box>
