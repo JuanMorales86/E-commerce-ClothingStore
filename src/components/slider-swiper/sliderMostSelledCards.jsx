@@ -19,13 +19,13 @@ import { AppContex } from "../../Providers/contex-provider";
 const styleH1 = {
   textAlign: "center",
   fontSize: "2.5rem",
-  
   fontWeight: 600,
   margin: "2rem 0 1rem 0"
 }
 
 function SliderMostSelledCards() {
     // const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
+    const swiperRef = React.useRef(null)
     const [, setId] = React.useState('')
     const [slidesPerView, setSlidesPerView] = React.useState(1)
     const navigate = useNavigate()
@@ -38,7 +38,7 @@ function SliderMostSelledCards() {
         setSlidesPerView(newSlides)
         
       }
-
+      
       window.addEventListener('resize', handleResize)
 
       handleResize()
@@ -61,11 +61,12 @@ return (
     <Box  className='containerSwiperMS'>
      
     <Swiper 
+    ref={swiperRef}
     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
-    autoplay={{delay: 3000}}
+    autoplay={{delay: 5000}}
     navigation
     slidesPerView={slidesPerView}
-    // spaceBetween={"-600rem"}
+    spaceBetween={10}
     centeredSlides={true} 
     centeredSlidesBounds={true}
     className="swiperPS"

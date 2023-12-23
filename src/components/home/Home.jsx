@@ -28,23 +28,40 @@ function HomePage() {
   };
 
   const styleH1 = {
-    textAlign: "center",
-    fontSize: "2.5rem",
-    
-    fontWeight: "600",
+  
+    fontSize: "3.5rem",
+    width: {
+      xs:"100%", 
+      md:"50%"
+    },
+    fontWeight: "500",
     fontFamily: "letters.fontM",
-    margin: "2rem 0 1rem 0"
+    margin: "2rem 0 1rem 0",
+    boder: "2px solid black",
+    lineHeight: 1,
+    textAlign:{xs:"center", md:"left"}
+    
  }
+
+ 
+ const styleH2 = {
+  textAlign: "center",
+  fontSize: "2.5rem",
+  fontWeight: "500",
+  fontFamily: "letters.fontM",
+  margin: "2rem 0 1rem 0",
+}
+
 
   return (
     <>
     <Container maxWidth="lg">
-        <Grid container spacing={4} justifyContent="center" alignItems="center" >
+        <Grid container spacing={2} justifyContent="center" alignItems="center" margin={"1rem 0"}>
             <Grid item xs={12}>
-              <Typography className="degradado-texto"   style={styleH1} align="center" marginTop={4} marginBottom={4} textTransform={"capitalize"} gutterBottom >
-                Inspira tu estilo con nuestras prendas...
+              <Box sx={{display:{xs: "block", md: "flex"}, flexDirection:"row", justifyContent:"center", alignItems:"center", gap:5 }}>
+              <Typography className="degradado-texto"   sx={styleH1} marginTop={4} marginBottom={4}  gutterBottom >
+              Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de ropa casual
               </Typography>
-              <Box sx={{display:"flex", justifyContent:"center", alignItems:"center",gap:4}}>
                 <SliderBanners banners={slidesBanners} onBannerClick={handleNavigate}/>
               </Box>
               <Box sx={{textAlign:"center", marginTop: 8}}>
@@ -64,7 +81,7 @@ function HomePage() {
     <SliderMostSelledCards/>
     </Box>
     <Box>
-    <Typography className="degradado-texto" style={styleH1}>Marcas</Typography>
+    <Typography  className="degradado-texto" style={styleH2}>Marcas</Typography>
       <InfiniteScroller/>
     </Box>
     
