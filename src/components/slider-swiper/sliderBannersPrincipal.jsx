@@ -77,8 +77,8 @@ const SliderSwiper = ({ type, slides, showFixedImage  }) => {
         autoHeight={true}
       >
         {showFixedImage ? (
-        <SwiperSlide type="contacto" className='swiperslide'>
-          <img className='slider-css'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Fija' loading='lazy' />
+        <SwiperSlide  type="contacto" className='swiperslide'>
+          <img className='slider-css'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Contacto' loading='lazy' />
           
         </SwiperSlide>
         ):(

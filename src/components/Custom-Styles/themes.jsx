@@ -122,11 +122,52 @@ const CustomTheme = createTheme ({
       alignItems: "center",
       padding:"0 12px",
       color:"white",
-      
     }
   },
   
-  
+  paragraphs: {
+    titlesParagraphs:{
+      fontSize:"38px",
+      color:"#d74694",
+    },
+
+    contentParagraphs: {
+      fontSize: "20px",
+      lineHeight: 1.6,
+      color: "#4a4a4a",
+    },
+
+    contentList:{
+      backgroundColor:"#f8f0fc",
+      padding: "20px",
+      borderRadius: '10px',
+      boxShadow: "0 5px 10px rgba(0,0,0,0.1)",
+    },
+
+    contentUL: {
+      listStyleType: "none",
+      padding: 0,
+    },
+
+    contentLI:{
+      fontSize: "18px",
+      lineHeight: 1.7,
+      color: "#585858;",
+      marginBottom: "5px",
+    }
+  },
+
+  imagesAboutUs:{
+    bannersSizes:{
+      width: "100%",
+      maxWidth:"800px",
+      height:"auto",
+      objectFit:"contain",
+      flexShrink:0,
+      borderRadius:"18px"
+      
+    }
+  },
 
   overrides: {
     MuiCard: {

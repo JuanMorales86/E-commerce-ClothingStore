@@ -40,11 +40,6 @@ import OrderList from './components/check-dispach-list';
 import ChatElfsightWhatsapp from './components/utilities/chatelfsightwhatsapp';
 
 
-
-
-
-
-
 // Your web app's Firebase configuration
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
@@ -55,7 +50,6 @@ function App() {
   const [showFixedImage, setShowFixedImage] = React.useState(false)
   const [, setAutoplayEnabled] = React.useState(true);
   
- 
 
   const handleShowFixedImage = (show) => {
     setShowFixedImage(show);

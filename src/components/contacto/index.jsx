@@ -62,9 +62,9 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
       <Paper
         sx={{
           p: 2,
-          maxWidth: 400,
+          maxWidth: ["70%" , 400  ],
           width: "600px",
-          margin: "2rem auto",
+          margin: [ "auto" ,"1rem auto"],
           backgroundColor: "#f0f0f0",
         }}
       >
@@ -75,6 +75,7 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
               flexDirection: "column",
               gap: "1rem",
               marginTop: "1rem",
+            
             }}
           >
             <TextField
