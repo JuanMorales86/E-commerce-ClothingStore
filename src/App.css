@@ -500,6 +500,7 @@ ul {
 
   & .in-content-paragrahps {
     font-family: "letters.fontM";
+    
   }
 
   & .in-content-list li:last-child {
@@ -593,12 +594,15 @@ ul {
     display: flex;
     flex-flow: column wrap !important;
     align-items: center;
-
+    
   }
+
+  
 
   .in-content-title-paragraph-ourhistory {
     align-items: center !important;
     width: 100%;
+    
 
     & .paragrahs-history {
       text-align: center !important;
@@ -606,6 +610,9 @@ ul {
 
   }
 }
+
+
+
 
 .scroller[data-speed="fast"] {
   --_animation-direction: reverse;

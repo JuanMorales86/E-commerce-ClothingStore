@@ -5,11 +5,13 @@ import CustomTheme from "../Custom-Styles/themes";
 import bannersAboutUs from "../sdk/bannersAboutUs.json";
 const { paragraphs, imagesAboutUs } = CustomTheme;
 
+
+
 function Nosotros() {
   return (
     <Box className="in-container">
       <Box className="in-content">
-        <Box className="in-content-know-us">
+        <Box className="in-content-know-us" >
           <Typography
             style={paragraphs.titlesParagraphs}
             className="in-content-titles"
@@ -17,9 +19,10 @@ function Nosotros() {
             Conocenos
           </Typography>
 
-          <Box className="paragraphs-know-us">
+          <Box className="paragraphs-know-us" >
           <Typography
             style={paragraphs.contentParagraphs}
+            
             className="in-content-paragrahps" 
           >
             ¡Hola! Soy Johana Alcalá, la mente creativa y el corazón detrás de

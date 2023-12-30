@@ -132,8 +132,8 @@ const CustomTheme = createTheme ({
     },
 
     contentParagraphs: {
-      fontSize: "20px",
-      lineHeight: 1.6,
+      fontSize: "100%",
+      lineHeight: 1.5,
       color: "#4a4a4a",
     },
 
@@ -142,6 +142,7 @@ const CustomTheme = createTheme ({
       padding: "20px",
       borderRadius: '10px',
       boxShadow: "0 5px 10px rgba(0,0,0,0.1)",
+     
     },
 
     contentUL: {
@@ -150,8 +151,8 @@ const CustomTheme = createTheme ({
     },
 
     contentLI:{
-      fontSize: "18px",
-      lineHeight: 1.7,
+      fontSize: "16px",
+      lineHeight: 1.5,
       color: "#585858;",
       marginBottom: "5px",
     }
