@@ -17,7 +17,14 @@ import { Box } from '@mui/material';
 //Libreria Swiper Element
 
 
-const SliderSwiper = ({ type, slides, showFixedImage  }) => {
+const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) => {
+  
+  // Calcular alturas de antemano
+  const heights = slides.map((slide) => {
+    const img = new Image()
+    img.src = slide.image
+    return img.height
+  })
 
   const sliderConfigurations = {
     normal: {
@@ -54,9 +61,7 @@ const SliderSwiper = ({ type, slides, showFixedImage  }) => {
       const mycustomIndex = slide.interval
       const interval = mycustomIndex  ;
 
-    // console.log(mycustomIndex)
-    //   console.log(interval)
-    //   console.log(`Intervalo para la diapositiva ${slide.image}: ${slide.interval} ms y la configuracion si no la toma ${autoplayer}`);
+
       return {
         ...slide,
         interval: interval,
@@ -79,11 +84,18 @@ const SliderSwiper = ({ type, slides, showFixedImage  }) => {
         {showFixedImage ? (
         <SwiperSlide  type="contacto" className='swiperslide'>
           <img className='slider-css'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Contacto' loading='lazy' />
-          
+        </SwiperSlide>
+        ) : isAdmin ? (
+          <SwiperSlide  type="contacto" className='swiperslide'>
+          <img className='slider-css'  src='https://i.imgur.com/lLyPJiq.png' alt='Imagen Contacto' loading='lazy' />
+        </SwiperSlide>
+        ) : isOrderPage ? (
+          <SwiperSlide  type="contacto" className='swiperslide'>
+          <img className='slider-css'  src='https://i.imgur.com/lQbPiqk.png' alt='Imagen Contacto' loading='lazy' />
         </SwiperSlide>
         ):(
         slidesWithInterval.map((slide, index) => (
-        <SwiperSlide   className="swiperslide"  key={index}>
+        <SwiperSlide   className="swiperslide"  key={index} height={heights[index]}>
           <Box className='slider-content'>
           <img rel='preload' as='image' className='slider-css' src={slide.image} alt={slide.titled} loading='lazy'/> 
           

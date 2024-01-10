@@ -27,7 +27,7 @@ function BackOffice() {
   const [loading, setLoading] = React.useState(true);
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
-  const { notifyToastBD, notifyToastContainer } = React.useContext(AppContex)
+  const { notifyToastBD, notifyToastContainer, handleAdminChanger } = React.useContext(AppContex)
   // const currentDate = new Date().toDateString('es-AR')
   // const currentDate = new Date()
   // const day = currentDate.getDate();// Obtiene el día del mes (1-31)
@@ -36,6 +36,12 @@ function BackOffice() {
   
   // Formatea la fecha como "d/m/yyyy"
   // const formattedDate = `${day}/${month}/${year}`
+
+  React.useEffect(() => {
+    handleAdminChanger(true)
+    return () => handleAdminChanger(false)
+  },[handleAdminChanger])
+
 
 
   const currentDate = new Date();

@@ -142,7 +142,6 @@ const CustomTheme = createTheme ({
       padding: "20px",
       borderRadius: '10px',
       boxShadow: "0 5px 10px rgba(0,0,0,0.1)",
-     
     },
 
     contentUL: {
@@ -153,7 +152,7 @@ const CustomTheme = createTheme ({
     contentLI:{
       fontSize: "16px",
       lineHeight: 1.5,
-      color: "#585858;",
+      color: "#585858",
       marginBottom: "5px",
     }
   },

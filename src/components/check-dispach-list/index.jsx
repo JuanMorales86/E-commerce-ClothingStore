@@ -8,17 +8,11 @@ import SearchBar from '../utilities/searchbar'
 
 
 function OrderList() {
-    const {orders, markOrderStatus, orderStatuses, filteredOrders} = useContext(AppContex)
+    const {orders, markOrderStatus, orderStatuses, filteredOrders, handleOrderPageChanger} = useContext(AppContex)
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
-    
-    
-    // console.log(anchorEl)
-    // console.log(selectedOrder)
-    // console.log(orderStatuses)
   
-
     // const truncateEmail = (email, maxWidth) => {
 
     //   if (email.length > maxWidth)  {
@@ -28,6 +22,10 @@ function OrderList() {
     //   return email
     // }
 
+    React.useEffect(() => {
+      handleOrderPageChanger(true)
+      return () => handleOrderPageChanger(false)
+    },[handleOrderPageChanger])
 
     React.useEffect(() => {
        // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,

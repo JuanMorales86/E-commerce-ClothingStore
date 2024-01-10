@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 //El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. en este caso devuelve un tipo slide
 });
 
-function ModalSlide({widget}) {//Padre
+function ModalSlide({widget}) {//Padre Carrito
   //El componente AlertDialogSlide (Nombre de MaterialUI) o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones.
   const [open, setOpen] = React.useState(false);//Habilitar el componente modal
   const {showUserData, setShowUserData} = React.useContext(AppContex)//Habilitar el componente UserData

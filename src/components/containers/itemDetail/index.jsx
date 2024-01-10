@@ -9,7 +9,7 @@ import { CircularProgress, Box } from '@mui/material'
 function ListElementsDetail( {item, loading}) {
 
   return (
-    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} marginTop={'2em'} >
+    <Box display={'flex'} justifyContent={'center'} flexDirection={"row"} gap={5} flexWrap={'wrap'} margin={'2rem 2rem'} >
     {
         (loading) ? 
         <CircularProgress variant='indeterminate'/>

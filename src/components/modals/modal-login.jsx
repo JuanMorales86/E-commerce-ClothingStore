@@ -5,6 +5,7 @@ import AuthProvider from '../../Providers/auth-provider';
 import AuthMessage from '../../Providers/auth-message';
 import SignInContent from '../../Providers/sign-In-content';
 import CustomTheme from '../Custom-Styles/themes';
+import { AppContex } from '../../Providers/contex-provider';
 const {breakpoints} = CustomTheme
 
 
@@ -39,35 +40,39 @@ const paperStyle = {
   p: 4,
 };
 
-function ModalLogin({widgetL, open: isOpen, onClose}) {
-        const [open, setOpen] = React.useState(false);// Evito confundir con el state open
-        const controllerOpen = isOpen || open;
+function ModalLogin({widgetL}) {
+        // const [open, setOpen] = React.useState(false);// Evito confundir con el state open
+        // const controllerOpen = isOpen || open;
+        const { ismodalOpen ,toggleModal} = React.useContext(AppContex)
         
         // const [isVisible, setIsVisible] = React.useState(false)
         // const [isAuthenticated, setIsAuthenticated] = React.useState(false);
         
 
-        const handleOpen = () => {
-          setOpen(true)
-          // setIsVisible(true)
-        };
-        const handleClose = () => {
-          setOpen(false)
-          if(onClose){
-            onClose()
-          }
-          // setIsVisible(false)
-        };
+        // const handleOpen = () => {
+        //   setOpen(true)
+        //   // setIsVisible(true)
+        // };
+
+        // const handleClose = () => {
+        //   setOpen(false)
+          
+        //   if(onClose){
+        //     onClose()
+        //   }
+        //   // setIsVisible(false)
+        // };
+
         return (
           <Box>
-              <Button  onClick={handleOpen}>
+              <Button  onClick={toggleModal}>
                 {widgetL}
             </Button>
             
             
             <Modal
-              open={controllerOpen}
-              onClose={handleClose}
+              open={ismodalOpen}
+              onClose={toggleModal}
               style={modalStyle}//centro el modal
             >
             
@@ -77,7 +82,7 @@ function ModalLogin({widgetL, open: isOpen, onClose}) {
               </Box>
               
               <AuthProvider>
-            <RenderBasedOnAuthState handleClose={handleClose} />
+            <RenderBasedOnAuthState handleClose={toggleModal} />
               </AuthProvider>
               </Box>
             </Modal>

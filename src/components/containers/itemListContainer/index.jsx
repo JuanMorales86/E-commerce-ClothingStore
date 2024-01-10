@@ -27,12 +27,19 @@ const niveles = [
 Object.freeze(niveles)
 
 //Renderizado desde itemListContainer llmando a itemlist y a su vez item card (Render *PRINCIPAL)
-function ListContainerItem() {
+function ListContainerItem({setShowComponent}) {
   const [items, setItems] = React.useState([])
   const [loading, setLoading] = React.useState(false)
   const [hasDiscounts, sethasDiscounts] = React.useState(false)
   const LazyTabsMenu = lazy(() => import('../../tabs/tabs'))
   const LazyListElements = lazy(() => import('../itemList'))
+
+  //Mostrar por props Componente Whastapp
+  React.useEffect(() => {
+    setShowComponent(true)
+    return () => 
+    setShowComponent(false)
+  },[setShowComponent])
 
   const [, setId] = React.useState('')
 

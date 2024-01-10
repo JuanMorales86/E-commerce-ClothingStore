@@ -10,11 +10,17 @@ import ListElementsDetail from '../itemDetail'
 import { useCallback } from 'react';
 
 //My renderizado desde itemlistcontainer llamando a itemlist y su vez carditem
-function ListContainerDetail() {
+function ListContainerDetail({setShowComponent}) {
     const [item, setItem] = useState([])
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
-
+    
+    //Mostrar por props Componente Whastapp
+    React.useEffect(() => {
+        setShowComponent(true)
+        return () => 
+        setShowComponent(false)
+    },[setShowComponent])
 
     const {id} = useParams()//Hook tengo acceso a id
     const navigate = useNavigate()

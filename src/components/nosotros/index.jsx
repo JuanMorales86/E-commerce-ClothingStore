@@ -7,7 +7,15 @@ const { paragraphs, imagesAboutUs } = CustomTheme;
 
 
 
-function Nosotros() {
+function Nosotros({setShowComponent}) {
+
+  //Mostrar por props Componente Whastapp
+  React.useEffect(() => {
+    setShowComponent(true)
+    return () => 
+    setShowComponent(false)
+  },[setShowComponent])
+
   return (
     <Box className="in-container">
       <Box className="in-content">
@@ -126,7 +134,6 @@ function Nosotros() {
               component="img"
               alt={bannersAboutUs[3].titled}
               image={bannersAboutUs[3].image}
-              style={imagesAboutUs.bannersSizes}
               className="in-content-footerimg"
             />
           </Box>

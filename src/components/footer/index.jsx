@@ -8,7 +8,7 @@ import { Link as Lirouter } from 'react-router-dom';
 
 function Footer() {
     return (
-      <Box sx={{ backgroundColor: '#f9f9f9', padding: '2rem', marginTop: "2rem" }}>
+      <Box sx={{ backgroundColor: '#f9f9f9', padding: '2rem', marginTop: "0" }}>
         <Container maxWidth="lg">
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>

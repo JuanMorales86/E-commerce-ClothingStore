@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { AppContex } from "../../Providers/contex-provider";
 import emailjs from "@emailjs/browser";
 
-function Contacto({ setShowFixedImage, autoplayEnabled }) {
+function Contacto({ setShowFixedImage, autoplayEnabled, setShowComponent }) {
   const refForm = React.useRef(); //es un objeto
   const { notifyToast } = React.useContext(AppContex);
   const {
@@ -14,14 +14,20 @@ function Contacto({ setShowFixedImage, autoplayEnabled }) {
     formState: { errors },
   } = useForm();
 
-  //Para lograr la imagen fija
+ 
+  //Mostrar por props Componente Whastapp
   React.useEffect(() => {
-    setShowFixedImage(true); //se monta
+    setShowComponent(true)
+    return () => 
+    setShowComponent(false)
+  },[setShowComponent])
 
-    return () => {
-      setShowFixedImage(false); //se desmonta
-    };
-  }, [setShowFixedImage, autoplayEnabled]);
+  //Para lograr la imagen fija
+  React.useEffect(() => {//se monta
+    setShowFixedImage(true); 
+    return () => {//se desmonta
+      setShowFixedImage(false); 
+    };},[setShowFixedImage, autoplayEnabled]);
 
   const onSubmit = async () => {
     const serviceId = "React_Sal_&_Pimienta";
