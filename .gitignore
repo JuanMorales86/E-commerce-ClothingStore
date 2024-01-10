@@ -18,6 +18,7 @@ src/components/email/sendemail.jsx
 src/components/Api/route.jsx
 src/components/contacto/resendContacto.jsx
 src/components/utilities/chatelfsightwhatsapp.jsx
+src/server/server.js
 Pruebas
 webpack.config.js
 updateFirebaseConfig.js

@@ -324,8 +324,7 @@ ul {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
+
 }
 
 .slider-content {
@@ -334,7 +333,7 @@ ul {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 490px;
+  max-height: 440px;
   background-size: cover;
   background-position: center;
 }
@@ -342,9 +341,7 @@ ul {
 .slider-css {
   display: block;
   width: 100%;
-  height: 490px;
   object-fit: cover;
-  
 }
 
 @media screen and (width <=500px) {
