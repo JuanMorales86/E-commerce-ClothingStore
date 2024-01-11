@@ -94,8 +94,6 @@ function App() {
             <DiscountsBar/>
           </Box>
           
-         
-
           <Box>
             <SliderSwiper slides={slides} showFixedImage={showFixedImage} isAdmin={isAdmin} isOrderPage={isOrderPage}/>
           </Box>
@@ -103,7 +101,6 @@ function App() {
           <Routes>
             
             <Route path={'/home'} element={<HomePage setShowComponent={setShowComponent}/> }></Route> 
-            {/* <Route path={'/'} element={<ListContainerItem/>}/> */}
             <Route path={'/products/:levels'} element={<ListContainerItem setShowComponent={setShowComponent}/>}/>
             <Route path={'/product/:id'} element={<ListContainerDetail setShowComponent={setShowComponent}/>} />
             <Route path={'/nosotros'} element={<Nosotros setShowComponent={setShowComponent}/>}/>

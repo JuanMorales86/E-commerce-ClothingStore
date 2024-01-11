@@ -1,6 +1,6 @@
 import React from 'react'
 //Libreria Material
-import {Box, Button , Typography, Modal} from '@mui/material';
+import {Box, Typography, Modal} from '@mui/material';
 import AuthProvider from '../../Providers/auth-provider';
 import AuthMessage from '../../Providers/auth-message';
 import SignInContent from '../../Providers/sign-In-content';
@@ -65,9 +65,9 @@ function ModalLogin({widgetL}) {
 
         return (
           <Box>
-              <Button  onClick={toggleModal}>
-                {widgetL}
-            </Button>
+            <Box fontFamily={"letters.fontM"}  onClick={toggleModal}>
+              {widgetL}
+            </Box>
             
             
             <Modal

@@ -83,15 +83,15 @@ const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) =
       >
         {showFixedImage ? (
         <SwiperSlide  type="contacto" className='swiperslide'>
-          <img className='slider-css'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Contacto' loading='lazy' />
+          <img className='slider-content'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Contacto' loading='lazy' />
         </SwiperSlide>
         ) : isAdmin ? (
           <SwiperSlide  type="contacto" className='swiperslide'>
-          <img className='slider-css'  src='https://i.imgur.com/lLyPJiq.png' alt='Imagen Contacto' loading='lazy' />
+          <img className='slider-content'  src='https://i.imgur.com/lLyPJiq.png' alt='Imagen Contacto' loading='lazy' />
         </SwiperSlide>
         ) : isOrderPage ? (
           <SwiperSlide  type="contacto" className='swiperslide'>
-          <img className='slider-css'  src='https://i.imgur.com/lQbPiqk.png' alt='Imagen Contacto' loading='lazy' />
+          <img className='slider-content'  src='https://i.imgur.com/lQbPiqk.png' alt='Imagen Contacto' loading='lazy' />
         </SwiperSlide>
         ):(
         slidesWithInterval.map((slide, index) => (

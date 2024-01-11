@@ -95,11 +95,11 @@ const AppContexProvider = ({ children }) => {
 
   //Crear Ordenes
   
-  const handleAdminChanger = (show) => {
+  const handleAdminChanger = (show) => {//funcion que cambia en el slider imagen en admin
     setIsAdmin(show)
   }
 
-  const handleOrderPageChanger  = (show) => {
+  const handleOrderPageChanger  = (show) => {//funcion que cambia en el slider imagen ena Orderlist
     setIsOrderPage(show)
   }
   

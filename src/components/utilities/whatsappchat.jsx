@@ -16,6 +16,7 @@ export default function WhatsAppComponent() {
   const [anim, setAnim] = React.useState(true);//se usa para forzar la re-ejecución de useEffect
   const [isVisible, setIsVisible] = React.useState(true);
   const [visible, setVisible] = React.useState(true);
+  const nodeRef = React.useRef(null)//Tuve un problema con findDOMNode me daba un error con el CSSTransition de react-transition-group "Ese mensaje de advertencia indica que estás usando findDOMNode dentro de un componente que está envuelto en StrictMode" . "findDOMNode permite acceder al nodo DOM subyacente de un componente React. Sin embargo, su uso generalmente se considera un anti-patrón en React, ya que rompe la abstracción del componente." "Dentro de StrictMode, findDOMNode está obsoleto y arrojará esta advertencia."
 
   const handleClick = () => {//handleClick abre el chat de WhatsApp al hacer click.
     const msg =  `Hola, quisiera más información sobre sus productos.Me llamo: ' ' y mi telefono es: ' '`;
@@ -47,11 +48,9 @@ export default function WhatsAppComponent() {
   };
 
   return (
-
-    
-
     <Box style={{position:"fixed", zIndex:1000}}>
       <CSSTransition
+      nodeRef={nodeRef}
         in={isVisible}
         timeout={{
         enter: 800,
@@ -61,7 +60,7 @@ export default function WhatsAppComponent() {
         }}
         classNames={'fade'}>
       {isVisible ? (
-        <Box
+        <Box ref={nodeRef}
           sx={whatsappButtonCss}
           style={{
             animation: isAnimated ? "pulseWhatsapp 2s infinite" : "none",
@@ -71,7 +70,7 @@ export default function WhatsAppComponent() {
           <LogosWhatsappIcon className="whatsapp-button" onClick={toggleAnimation}/>
         </Box> 
       ) : (
-        <Box
+        <Box ref={nodeRef}
         width="24px"
         height="60px"
         position="fixed" 
@@ -132,3 +131,20 @@ export default function WhatsAppComponent() {
 // >
 //   <ArrowBackIosNewOutlinedIcon fontSize="small"/>
 // </Button> */}
+
+
+//!importante acerca de findDOMNode
+// function ComponenteProblematico() {
+
+//   return (
+     // Desactivar StrictMode solo aquí
+//     <React.Fragment>  
+
+//       <CSSTransition>
+//         {/* Uso de findDOMNode */}
+//       </CSSTransition>
+
+//     </React.Fragment>
+//   )
+
+// }

@@ -154,11 +154,11 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
   }; 
 
   return (
-    <Box>
+    <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
       {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
-      <Button variant="text" onClick={handleClickOpen}>
+      <Box onClick={handleClickOpen}>
       {widget}
-      </Button>
+      </Box>
 
       {/* El diálogo está representado por el componente Dialog de React. Se le pasa la prop open para indicar si el diálogo debe estar visible o no. La prop TransitionComponent se establece en el componente Transition que mencioné anteriormente para proporcionar la transición animada. */}
       <Dialog

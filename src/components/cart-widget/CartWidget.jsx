@@ -5,7 +5,7 @@ import Badge from "@mui/material/Badge";
 import { MdiCartVariant } from "../utilities/iconocarrito";
 
 
-const CartWidget = ({ cartQuantity }) => {
+const CartWidget = ({ cartQuantity,  }) => {
   return (
     <Box sx={{ minWidth: "unset", mr: 0 }}>
 

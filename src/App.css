@@ -336,6 +336,7 @@ ul {
   max-height: 440px;
   background-size: cover;
   background-position: center;
+  object-fit:cover;
 }
 
 .slider-css {
