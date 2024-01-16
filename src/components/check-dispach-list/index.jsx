@@ -1,14 +1,15 @@
 import React from 'react'
-import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
+//import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
 import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid } from '@mui/material'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
 import SearchBar from '../utilities/searchbar'
+import { onOrdersUpdate } from '../../Providers/Api/api'
 
 
 
 function OrderList() {
-    const {orders, markOrderStatus, orderStatuses, filteredOrders, handleOrderPageChanger} = useContext(AppContex)
+    const { orders2, markOrderStatus, orderStatuses, filteredOrders, handleOrderPageChanger} = useContext(AppContex)
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
@@ -22,6 +23,7 @@ function OrderList() {
     //   return email
     // }
 
+    //Escucha para cambiar la imagen en el orderlist
     React.useEffect(() => {
       handleOrderPageChanger(true)
       return () => handleOrderPageChanger(false)
@@ -30,23 +32,34 @@ function OrderList() {
     React.useEffect(() => {
        // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,
         // actualizamos las órdenes que se muestran.
-        const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders;
+        const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders2;
         setdisplayedOrders(ordersToDisplay);
-    }, [orders, filteredOrders])
+    }, [orders2, filteredOrders])
 
-    const setupRealtimeListener = () => {
-      const db = getFirestore()
-      const taskOrderCollection = collection(db, 'taskOrder')
-      onSnapshot(taskOrderCollection, (snapshot) => {
-        const ordersData = snapshot.docs.map((doc) => doc.data())
-        setdisplayedOrders(ordersData)
+    // const setupRealtimeListener = () => {
+    //   const db = getFirestore()
+    //   const taskOrderCollection = collection(db, 'taskOrder')
+    //   onSnapshot(taskOrderCollection, (snapshot) => {
+    //     const ordersData = snapshot.docs.map((doc) => doc.data())
+    //     setdisplayedOrders(ordersData)
         
-      })
-    }
+    //   })
+    //}
 
-    React.useEffect(() => {
-      setupRealtimeListener()
+    // React.useEffect(() => {
+    //   setupRealtimeListener()
       
+    // },[])
+    
+    //Busco escuchar el cambio en las ordenes y mostrarlo en displayedOrders (Polling)
+    React.useEffect(() => {
+      const handleUpdate = (displayedOrders) => {
+        setdisplayedOrders(displayedOrders)
+      }
+
+      const unsubscribe = onOrdersUpdate(handleUpdate)
+
+      return unsubscribe
     },[])
 
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable

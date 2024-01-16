@@ -20,6 +20,10 @@ import { ToastContainer, toast } from "react-toastify";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+//Api(prueba apiRest polling)
+import { getOrders } from "../Api/api";
+
+
 //Padre de todo y
 export const AppContex = React.createContext();
 const { Provider } = AppContex;
@@ -28,6 +32,7 @@ const { Provider } = AppContex;
 const AppContexProvider = ({ children }) => {
   const [trolley, setTrolley] = React.useState([]); //Estado para el carrito
   const [orders, setOrders] = React.useState([]); // Estado para almacenar las órdenes
+  const [orders2, setOrders2] = React.useState([]); // Pruebas apiRest,Polling
   const [dispatchId, setDispatchId] = React.useState(""); //para el historial de la compra
   const [orderCount, setOrderCount] = React.useState(); //Comenzar el contador
   const [showUserData, setShowUserData] = React.useState(false); //Habilitar el componente UserData
@@ -94,15 +99,17 @@ const AppContexProvider = ({ children }) => {
   // }, [forceUpdate])
 
   //Crear Ordenes
-  
-  const handleAdminChanger = (show) => {//funcion que cambia en el slider imagen en admin
-    setIsAdmin(show)
-  }
 
-  const handleOrderPageChanger  = (show) => {//funcion que cambia en el slider imagen ena Orderlist
-    setIsOrderPage(show)
-  }
-  
+  const handleAdminChanger = (show) => {
+    //funcion que cambia en el slider imagen en admin
+    setIsAdmin(show);
+  };
+
+  const handleOrderPageChanger = (show) => {
+    //funcion que cambia en el slider imagen en el Orderlist
+    setIsOrderPage(show);
+  };
+
   const createNewDispach = async (task) => {
     const db = getFirestore();
     const taskOrder = collection(db, "taskOrder");
@@ -205,6 +212,31 @@ const AppContexProvider = ({ children }) => {
   //   }
   // }
 
+  //!Pruebas integracion apirest polling (encapsulando la comunicacion con base de datos)
+  React.useEffect(() => {
+    const loadersOrder = async () => {
+      const ordersSnapshot = await getOrders();
+      //console.log("order laoded", ordersSnapshot);
+      setOrders2(ordersSnapshot);
+    };
+
+    loadersOrder();
+
+    // const interval = setInterval(async () => {
+       //console.log("Polling...");
+
+    //   const ordersSnapshot = await getOrders();
+    //   setOrders2(ordersSnapshot);
+    // }, 5000);
+
+    // return () => clearInterval(interval);
+  }, []);
+  //!Pruebas integracion apirest polling (encapsulando la comunicacion con base de datos)
+
+  // React.useEffect(() => {
+  //   console.log("15s", orders2);
+  // }, [orders2]);
+
   const loadOrders = () => {
     try {
       const db = getFirestore();
@@ -246,8 +278,6 @@ const AppContexProvider = ({ children }) => {
   //Funcion para buscar ordenes en funcion del criterio de busqueda
   const searchOrders = (searchText) => {
     // Convertimos el texto de búsqueda a minúsculas
-    //const searchTextLower = searchText.toLowerCase();
-    //console.log(searchTextLower)
     const filteredOrders = orders.filter((order) => {
       // Verifica si alguno de los valores del objeto orderStatuses incluye el texto de búsqueda
       // Verifica si la propiedad "size" es una cadena y si incluye el texto de búsqueda
@@ -284,12 +314,13 @@ const AppContexProvider = ({ children }) => {
         autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
+        limit={1}
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
+        pauseOnFocusLoss={false}
         draggable
-        pauseOnHover
-        theme="light"
+        pauseOnHover={false}
+        theme="colored"
       />
     );
   };
@@ -304,7 +335,7 @@ const AppContexProvider = ({ children }) => {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: "colored",
     });
   };
 
@@ -326,15 +357,33 @@ const AppContexProvider = ({ children }) => {
     //un toast
     return toast.success(`'${message}'`, {
       position: "top-right",
-      autoClose: 3000,
+      autoClose: 1500,
       hideProgressBar: false,
       closeOnClick: true,
-      pauseOnHover: true,
+      pauseOnHover: false,
       draggable: true,
       progress: undefined,
       theme: "light",
     });
   };
+
+  const notifyToastError = (message) => {
+    //un toast
+    return toast.error(`'${message}'`, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      
+    });
+  };
+
+
+
   //Manejador del carrito
   const handlePrToTrolley = (product) => {
     // Verificar si ya esta el producto en el carrito
@@ -393,7 +442,7 @@ const AppContexProvider = ({ children }) => {
     notifyClose();
   };
 
-  const toggleModal = () => setIsModalOpen(prev => !prev);
+  const toggleModal = () => setIsModalOpen((prev) => !prev);
 
   return (
     <Provider
@@ -402,6 +451,7 @@ const AppContexProvider = ({ children }) => {
         notifyToast,
         notifyToastAdd,
         notifyToastBD,
+        notifyToastError,
         handlePrToTrolley,
         handleEmptyTrolley,
         trolley,
@@ -418,6 +468,7 @@ const AppContexProvider = ({ children }) => {
         loadOrders,
         solditems,
         loading,
+        setLoading,
         ismodalOpen,
         toggleModal,
         handleAdminChanger,
@@ -425,7 +476,8 @@ const AppContexProvider = ({ children }) => {
         isAdmin,
         handleOrderPageChanger,
         setIsOrderPage,
-        isOrderPage
+        isOrderPage,
+        orders2,
       }}
     >
       {children}

@@ -15,6 +15,9 @@ import {
 } from "firebase/firestore";
 //Libreria Material
 import { Box, Typography, CircularProgress } from "@mui/material";
+//Libreria React-Toast
+import { toast  } from "react-toastify";
+
 //Mis Componentes
 import CardBackStage from "../item-backstage";
 import { AppContex } from "../../../Providers/contex-provider";
@@ -42,7 +45,11 @@ function BackOffice() {
     return () => handleAdminChanger(false)
   },[handleAdminChanger])
 
+// const notify = (message) => {
 
+//   toast.dismiss()
+//   toast(message)
+// }
 
   const currentDate = new Date();
   const formattedDateValue = formattedDate(currentDate);// Formatea la fecha como "dd/mm/yyyy"
@@ -105,10 +112,18 @@ function BackOffice() {
       })
       .finally(() => {
         setLoading(false);
-        notifyToastBD(`🎉 Documentos cargados`);
+        
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updateComponent, notifyToastBD]);
+      
+  }, [updateComponent, setLoading]);
+
+
+  React.useEffect(() => {
+    if(!loading){
+      toast.dismiss()
+      notifyToastBD(`🎉 Documentos cargados`)
+    }
+  }, [loading, notifyToastBD])//Al poner notifyToastBD como dependencia en el segundo useEffect, React ya no se quejará porque esa función está siendo usada dentro del efecto.
 
 //Modificar el producto
   const handleItemModify = async (item, id) => {//Modificar Productos
@@ -240,7 +255,7 @@ function BackOffice() {
         </Box>
       ) : (
         <Typography textTransform="capitalize" fontSize={"2rem"}>
-          No existen items en la base de datos o hubo un error
+          No existen items en la base de datos o hubo un error.
         </Typography>
       )}
 
