@@ -83,7 +83,7 @@ const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) =
       >
         {showFixedImage ? (
         <SwiperSlide  type="contacto" className='swiperslide'>
-          <img className='slider-content'  src='https://i.imgur.com/5b1xfZC.jpg' alt='Imagen Contacto' loading='lazy' />
+          <img className='slider-content'  src='https://i.imgur.com/lEkuQxq.png' alt='Imagen Contacto' loading='lazy' />
         </SwiperSlide>
         ) : isAdmin ? (
           <SwiperSlide  type="contacto" className='swiperslide'>

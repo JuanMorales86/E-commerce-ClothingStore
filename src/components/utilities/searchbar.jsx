@@ -3,6 +3,7 @@ import { TextField, Box, Button, Tooltip, Typography  } from '@mui/material'
 import { AppContex } from '../../Providers/contex-provider'
 import { useContext } from 'react'
 
+
 function SearchBar() {
 const {searchOrders, filteredOrders} = useContext(AppContex) //filteredOrders
 const [searchText, setSearchText] = React.useState('')
@@ -38,17 +39,23 @@ const handleSearchTextChange = (e) => {
   return (
     <>
     <Box display={'flex'} flexDirection={['column', 'row']} gap={1}>
+        <Box sx={{width:'100%'}}>
         <Tooltip title="Puedes realizar las siguientes busquedas por tipo: Numero de Orden, Nombre, Apellido, Telefono, Correo, Estado de orden, Fecha de creacion formato(01/10/2023)">
-        <TextField sx={{width:'100%'}} id='filled-basic' label="Buscar Ordenes" placeholder='orden1014' variant='outlined' value={searchText} onChange={handleSearchTextChange} helperText={error} error={!!error} />
+        <TextField sx={{width:"100%"}} id='filled-basic' label="Buscar Ordenes" placeholder='orden1014' variant='outlined' value={searchText} onChange={handleSearchTextChange} helperText={error} error={!!error} />
         </Tooltip>
+        </Box>
         <Box display={'flex'} justifyContent={'center'}>
         <Button sx={{width:'100px', height:'55px', borderRadius:"0.25rem"}} variant='contained' color='primary' onClick={handleSearch}>Buscar</Button>
         </Box>
-        <>
-        {!filteredOrders.length && 
-  <Typography>No se encontraron resultados</Typography>
-} 
-        </>
+      
+    </Box>
+    <Box sx={{display:'flex', justifyContent:'center', alignItems:'center', width:"100%"}}>
+        {
+        !filteredOrders.length 
+          &&
+            <Typography >
+              No se encontraron resultados.
+            </Typography>}
     </Box>
     {/* <Box>
         {filteredOrders.map((order,index) => (

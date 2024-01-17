@@ -13,7 +13,7 @@ function OrderList() {
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
-  
+    const open = Boolean(anchorEl)
     // const truncateEmail = (email, maxWidth) => {
 
     //   if (email.length > maxWidth)  {
@@ -36,20 +36,6 @@ function OrderList() {
         setdisplayedOrders(ordersToDisplay);
     }, [orders2, filteredOrders])
 
-    // const setupRealtimeListener = () => {
-    //   const db = getFirestore()
-    //   const taskOrderCollection = collection(db, 'taskOrder')
-    //   onSnapshot(taskOrderCollection, (snapshot) => {
-    //     const ordersData = snapshot.docs.map((doc) => doc.data())
-    //     setdisplayedOrders(ordersData)
-        
-    //   })
-    //}
-
-    // React.useEffect(() => {
-    //   setupRealtimeListener()
-      
-    // },[])
     
     //Busco escuchar el cambio en las ordenes y mostrarlo en displayedOrders (Polling)
     React.useEffect(() => {
@@ -63,7 +49,6 @@ function OrderList() {
     },[])
 
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
-      console.log(order)
       setAnchorEl(e.currentTarget)
       setSelectedOrder(order)
     }
@@ -100,7 +85,7 @@ function OrderList() {
 
           <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`} m={0.05} >
             <Paper
-              elevation={3}
+              elevation={4}
               sx={{ p: '16px', backgroundColor: '#F5F5F5', width:"100%", margin:"0 0.05rem" }}
             >
                 <Typography variant="h6" color="primary" fontWeight={"bold"}>
@@ -113,21 +98,34 @@ function OrderList() {
                         { orderStatuses[order.customOrderId]}</span>
                   
                   </Typography>
-                <Button 
-                  aria-controls='order-status-menu'
-                  aria-haspopup='true'
+                <Button
+                  id='order-button'
+                  aria-controls={open ? 'order-status-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
                   onClick={(e) => handleMenuDes(e, order)}
                   >
                   Cambiar Estado
                 </Button>
                 <Menu
+                    sx={{boxShadow:'none', '& .MuiPaper-root': {
+                      boxShadow:'none',
+                      },
+                    }} 
+                disableAutoFocusItem
                 id='order-status-menu'
                 anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleCloseMenu}            
+                //keepMounted
+                open={open}
+                onClose={handleCloseMenu}    
+                MenuListProps={{'aria-labelledby': 'order-button'}}        
                 >
-                  <MenuItem onClick={() => handleStatusChange("Pendiente")}>Pendiente</MenuItem>
+                  <MenuItem onClick={() =>{
+
+                    handleStatusChange("Pendiente");
+                    handleCloseMenu();
+                  } 
+                }>Pendiente</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Enviada")}>Enviada</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Entregada")}>Entregada</MenuItem>
                   <MenuItem onClick={() => handleStatusChange("Devuelta")}>Devuelta</MenuItem>
