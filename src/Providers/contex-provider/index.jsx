@@ -221,15 +221,6 @@ const AppContexProvider = ({ children }) => {
     };
 
     loadersOrder();
-
-    // const interval = setInterval(async () => {
-       //console.log("Polling...");
-
-    //   const ordersSnapshot = await getOrders();
-    //   setOrders2(ordersSnapshot);
-    // }, 5000);
-
-    // return () => clearInterval(interval);
   }, []);
   //!Pruebas integracion apirest polling (encapsulando la comunicacion con base de datos)
 

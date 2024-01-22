@@ -1,10 +1,11 @@
 import React from 'react'
 //import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
-import { List, Paper, Typography, ListItem, ListItemText, Button, Menu, MenuItem, Grid } from '@mui/material'
+import { List, Paper, Typography, ListItem, ListItemText, Grid, Accordion, AccordionSummary, AccordionDetails, Box } from '@mui/material'
 import { useContext } from 'react'
 import { AppContex } from '../../Providers/contex-provider'
 import SearchBar from '../utilities/searchbar'
 import { onOrdersUpdate } from '../../Providers/Api/api'
+import ButtonMenu from '../containers/menu-boton/menuboton'
 
 
 
@@ -48,24 +49,22 @@ function OrderList() {
       return unsubscribe
     },[])
 
+    
+    // const handleCloseMenu = () => {// Funcion para cerrar el menu desplegable
+    //   setAnchorEl(null)
+    // }
+
     const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
-      setAnchorEl(e.currentTarget)
+      if(e){
+
+        setAnchorEl(e.currentTarget)
+      }
       setSelectedOrder(order)
     }
 
-    const handleCloseMenu = () => {// Funcion para cerrar el menu desplegable
-      setAnchorEl(null)
+    const handleStatusChange = (newStatus) => {// actualizar el estado de la orden.
+      markOrderStatus(selectedOrder.customOrderId, newStatus) 
     }
-
-    const handleStatusChange = (newStatus) => {//cerrar el menú desplegable y actualizar el estado de la orden.
-    
-      if(selectedOrder) {
-        markOrderStatus(selectedOrder.customOrderId, newStatus)
-      }
-      handleCloseMenu()
-    }
-
-
     
     return (
       <>
@@ -79,14 +78,14 @@ function OrderList() {
         <SearchBar/>
       </Grid>
 
-        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={2} >
+        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={3} >
 
           {displayedOrders.map((order, index) => (
 
           <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`} m={0.05} >
             <Paper
               elevation={4}
-              sx={{ p: '16px', backgroundColor: '#F5F5F5', width:"100%", margin:"0 0.05rem" }}
+              sx={{ p: '16px', backgroundColor: '#F5F5F5',maxWidth:"100vw", margin:"0 0.05rem" }}
             >
                 <Typography variant="h6" color="primary" fontWeight={"bold"}>
                   Número de Orden: {order.customOrderId.toUpperCase()}
@@ -96,42 +95,13 @@ function OrderList() {
                 <Typography>Fecha de Creación: {order.createAt}</Typography>
                 <Typography>Estado de la Orden:<span className='degradado-orderstatus'>
                         { orderStatuses[order.customOrderId]}</span>
-                  
                   </Typography>
-                <Button
-                  id='order-button'
-                  aria-controls={open ? 'order-status-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={(e) => handleMenuDes(e, order)}
-                  >
-                  Cambiar Estado
-                </Button>
-                <Menu
-                    sx={{boxShadow:'none', '& .MuiPaper-root': {
-                      boxShadow:'none',
-                      },
-                    }} 
-                disableAutoFocusItem
-                id='order-status-menu'
-                anchorEl={anchorEl}
-                //keepMounted
-                open={open}
-                onClose={handleCloseMenu}    
-                MenuListProps={{'aria-labelledby': 'order-button'}}        
-                >
-                  <MenuItem onClick={() =>{
 
-                    handleStatusChange("Pendiente");
-                    handleCloseMenu();
-                  } 
-                }>Pendiente</MenuItem>
-                  <MenuItem onClick={() => handleStatusChange("Enviada")}>Enviada</MenuItem>
-                  <MenuItem onClick={() => handleStatusChange("Entregada")}>Entregada</MenuItem>
-                  <MenuItem onClick={() => handleStatusChange("Devuelta")}>Devuelta</MenuItem>
-                </Menu>
-               
-                <Typography variant="h6" color="primary" marginTop={"0.8rem"}>
+                  <ButtonMenu orderSe={order} displayedOrders={displayedOrders} onSelectOrder={handleMenuDes} handleStatusChange={handleStatusChange} selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} open={open}/>
+
+         
+              
+                <Typography variant="h6" color="primary" fontWeight={"bold"} marginTop={"0.8rem"} fontFamily={"letters.fontM"}>
                   Información del Cliente
                 </Typography>
                 <List  className='list-element-orders'>
@@ -150,24 +120,30 @@ function OrderList() {
                   </ListItem>
                 </List>
             
-              
-                <Typography align={"center"} variant="h6" color="primary" fontWeight={"bold"}>
+              <Accordion>
+                <AccordionSummary sx={{display:"flex", flexFlow:"column wrap"}}>
+                <Typography  variant="h6" color="primary" fontWeight={"bold"} fontFamily={"letters.fontM"}>
                   Productos
                 </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
                 <List>
                   {order.items.map((item, itemIndex) => (
                     <Paper
                       key={itemIndex}
-                      elevation={2}
-                      style={{
+                      elevation={0}
+                      sx={{
                         p: 1,
-                        my: 1,
-                        backgroundColor: '#FFFFFF',
                         border: '1px solid #DDDDDD',
-                        borderRadius: '4px',
+                        borderRadius: '16px',
+                        display:"flex",
+                        flexDirection:"column",
+                        alignItems:"left",
+                        
                       }}
                     >
-                      <ListItem>
+                      <Box >
+                      <ListItem   >
                         <ListItemText primary={`Articulo: ${item.producto}`}  />
                       </ListItem>
                       <ListItem>
@@ -188,9 +164,14 @@ function OrderList() {
                       <ListItem>
                         <ListItemText primary={`Valor cada unidad: $${item.pricePerUnit} Pesos.`} />
                       </ListItem>
+
+                      </Box>
                     </Paper>
                   ))}
                 </List>
+                </AccordionDetails>
+              </Accordion>
+               
             </Paper>
           </Grid>
           ))}
