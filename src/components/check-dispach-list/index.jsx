@@ -6,6 +6,17 @@ import { AppContex } from '../../Providers/contex-provider'
 import SearchBar from '../utilities/searchbar'
 import { onOrdersUpdate } from '../../Providers/Api/api'
 import ButtonMenu from '../containers/menu-boton/menuboton'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+const stylesOrders = {
+  borderBottom:"1px solid #eee",
+  
+  "&:hover": {
+    backgroundColor: '#f8bbd0',
+    borderRadius:"16px",
+    cursor: 'pointer',
+  }
+}
 
 
 
@@ -14,6 +25,7 @@ function OrderList() {
     const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
     const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
     const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
+    const [expanded, setExpanded] = React.useState(false)
     const open = Boolean(anchorEl)
     // const truncateEmail = (email, maxWidth) => {
 
@@ -25,10 +37,11 @@ function OrderList() {
     // }
 
     //Escucha para cambiar la imagen en el orderlist
-    React.useEffect(() => {
+      React.useEffect(() => {
       handleOrderPageChanger(true)
       return () => handleOrderPageChanger(false)
     },[handleOrderPageChanger])
+    console.log(expanded)
 
     React.useEffect(() => {
        // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,
@@ -43,11 +56,30 @@ function OrderList() {
       const handleUpdate = (displayedOrders) => {
         setdisplayedOrders(displayedOrders)
       }
-
       const unsubscribe = onOrdersUpdate(handleUpdate)
-
       return unsubscribe
     },[])
+
+    React.useEffect(() => {
+      if(expanded){
+        const timer = setTimeout(() => {
+          setExpanded(false)
+        }, 5000)
+        return () => clearTimeout(timer)
+      }
+    },[expanded])
+
+
+
+    const handleChange = (orderId) => () => {
+      setExpanded(prev => prev === orderId ? null : orderId);
+    }
+
+    // function useZebraStyles(index) {
+    //   return index % 2 === 0 ? { background: "#fff" } : { background: "#f5f5f5" } 
+    // }
+
+    
 
     
     // const handleCloseMenu = () => {// Funcion para cerrar el menu desplegable
@@ -119,10 +151,9 @@ function OrderList() {
                   
                   </ListItem>
                 </List>
-            
-              <Accordion>
-                <AccordionSummary sx={{display:"flex", flexFlow:"column wrap"}}>
-                <Typography  variant="h6" color="primary" fontWeight={"bold"} fontFamily={"letters.fontM"}>
+              <Accordion key={order.id} expanded={expanded[order.id]} onChange={() => handleChange(order.id)}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{display:"flex", flexFlow:"row wrap"}}  onClick={() => setExpanded(true)} id={order.id} >
+                <Typography sx={{width:"33%", flexShrink:0}} variant="h6" color="primary" fontWeight={"bold"} fontFamily={"letters.fontM"}>
                   Productos
                 </Typography>
                 </AccordionSummary>
@@ -140,28 +171,35 @@ function OrderList() {
                         flexDirection:"column",
                         alignItems:"left",
                         
+                        
                       }}
                     >
-                      <Box >
-                      <ListItem   >
+                      <Box >                   
+                      <ListItem key={item.id} sx={stylesOrders} className={itemIndex % 2 === 0 ? 'par' : "impar"}>
                         <ListItemText primary={`Articulo: ${item.producto}`}  />
                       </ListItem>
-                      <ListItem>
+                      <ListItem sx={stylesOrders}>
                         <ListItemText primary={`ProductoID: ${item.customid}`} className='scroll-container' />
                       </ListItem>
-                      <ListItem>
+                      {/* <ListItem>
                         <ListItemText primary={`Cantidad: ${item.quantity} Unidades.`} />
+                      </ListItem> */}
+                      <ListItem sx={stylesOrders}>
+                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                          <Typography>Cantidad: </Typography>
+                          <Typography marginLeft={"3px"}>{item.quantity} Unidades.</Typography>
+                        </Box>
                       </ListItem>
-                      <ListItem>
+                      <ListItem sx={stylesOrders}>
                         <ListItemText primary={`Color: ${item.color}`} />
                       </ListItem>
-                      <ListItem>
+                      <ListItem sx={stylesOrders}>
                         <ListItemText primary={`Talle: ${item.size}`} />
                       </ListItem>
-                      <ListItem>
+                      <ListItem sx={stylesOrders}>
                         <ListItemText primary={`Descuento hecho de: ${item.discountSelected}%`} />
                       </ListItem>
-                      <ListItem>
+                      <ListItem sx={stylesOrders}>
                         <ListItemText primary={`Valor cada unidad: $${item.pricePerUnit} Pesos.`} />
                       </ListItem>
 
