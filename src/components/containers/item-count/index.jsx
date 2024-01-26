@@ -9,13 +9,13 @@ import { AppContex } from "../../../Providers/contex-provider";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox"; //Minus icon
 import AddBoxIcon from "@mui/icons-material/AddBox"; //Add icon
 import { Button, Typography, Box } from "@mui/material";
-import { SignedIn, SignedOut, useSignIn } from "@clerk/clerk-react";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";//useSignIn
 
 function ItemCount({ stock, addHandleToTrolley }) {
   const { notifyToastContainer, notifyToastAdd } = React.useContext(AppContex);
   const [score, setScore] = useState(1);
   //const { signedIn } = useClerk()
-  const { signedIn } = useSignIn(); console.log(signedIn);
+  // const { signedIn } = useSignIn(); console.log('Logeo',signedIn);
   const {toggleModal} = React.useContext(AppContex)
   
 

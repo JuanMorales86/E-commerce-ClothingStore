@@ -1,220 +1,459 @@
-import React from 'react'
+import React from "react";
 //import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
-import { List, Paper, Typography, ListItem, ListItemText, Grid, Accordion, AccordionSummary, AccordionDetails, Box } from '@mui/material'
-import { useContext } from 'react'
-import { AppContex } from '../../Providers/contex-provider'
-import SearchBar from '../utilities/searchbar'
-import { onOrdersUpdate } from '../../Providers/Api/api'
-import ButtonMenu from '../containers/menu-boton/menuboton'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {
+  List,
+  Paper,
+  Typography,
+  ListItem,
+  ListItemText,
+  Grid,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box,
+} from "@mui/material";
+import { useContext } from "react";
+import { AppContex } from "../../Providers/contex-provider";
+import SearchBar from "../utilities/searchbar";
+import { onOrdersUpdate } from "../../Providers/Api/api";
+import ButtonMenu from "../containers/menu-boton/menuboton";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const stylesOrders = {
-  borderBottom:"1px solid #eee",
-  
+  borderBottom: "2px solid #eee",
+  marginTop: "0.34rem",
+
   "&:hover": {
-    backgroundColor: '#f8bbd0',
-    borderRadius:"16px",
-    cursor: 'pointer',
-  }
-}
-
-
+    backgroundColor: "#f8bbd0",
+    borderRadius: "16px",
+    borderBottom: "4px solid",
+    cursor: "pointer",
+  },
+};
 
 function OrderList() {
-    const { orders2, markOrderStatus, orderStatuses, filteredOrders, handleOrderPageChanger} = useContext(AppContex)
-    const [anchorEl, setAnchorEl] = React.useState(null)//tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
-    const [selectedOrder, setSelectedOrder] = React.useState('')// Estado para la orden seleccionada
-    const [displayedOrders, setdisplayedOrders] = React.useState([])// Estado para las órdenes a mostrar
-    const [expanded, setExpanded] = React.useState(false)
-    const open = Boolean(anchorEl)
-    // const truncateEmail = (email, maxWidth) => {
+  const {
+    orders2,
+    markOrderStatus,
+    orderStatuses,
+    filteredOrders,
+    handleOrderPageChanger,
+    color,
+  } = useContext(AppContex);
+  const [anchorEl, setAnchorEl] = React.useState(null); //tiene que ser anchorEl por que mui lo entiende asi //Estado para el menu desplegable
+  const [selectedOrder, setSelectedOrder] = React.useState(""); // Estado para la orden seleccionada
+  const [displayedOrders, setdisplayedOrders] = React.useState([]); // Estado para las órdenes a mostrar
+  const [expanded, setExpanded] = React.useState(false); //estado para cerrar el acordeon
+  //const [timers, setTimers] = React.useState({})
+  const [openSectionId, setOpenSectionId] = React.useState();
+  //const [openSections, setOpenSections] = React.useState({});
+  const [colorList, setColorList] = React.useState();
+  const open = Boolean(anchorEl);
 
-    //   if (email.length > maxWidth)  {
-      
-    //   return email.slice(0, maxWidth) + " ..." ;
-    //   }
-    //   return email
-    // }
+  //Escucha para cambiar la imagen en el orderlist
 
-    //Escucha para cambiar la imagen en el orderlist
-      React.useEffect(() => {
-      handleOrderPageChanger(true)
-      return () => handleOrderPageChanger(false)
-    },[handleOrderPageChanger])
-    console.log(expanded)
+  React.useEffect(() => {
+    //setear colores locales en orderList no pude cambiar colores por cada item ya q tienen el mismo index y el mismo id asi que use este local y color de contexprovider
+    const newColors = [];
 
-    React.useEffect(() => {
-       // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,
-        // actualizamos las órdenes que se muestran.
-        const ordersToDisplay = filteredOrders.length > 0 ? filteredOrders : orders2;
-        setdisplayedOrders(ordersToDisplay);
-    }, [orders2, filteredOrders])
+    displayedOrders.forEach((_) => {
+      const hue = Math.floor(Math.random() * 360);
+      newColors.push(`hsl(${hue}, 80%, 90%)`);
+    });
 
-    
+    setColorList(newColors);
+  }, [displayedOrders]);
+
+  React.useEffect(() => {
+    //Cambiar el slider de imagen
+    handleOrderPageChanger(true);
+    return () => handleOrderPageChanger(false);
+  }, [handleOrderPageChanger]);
+
+  React.useEffect(() => {
+    //Carga de las ordenes
+    // Cuando el componente se carga o cuando cambian las órdenes o las órdenes filtradas,
+    // actualizamos las órdenes que se muestran.
+    const ordersToDisplay =
+      filteredOrders.length > 0 ? filteredOrders : orders2;
+    setdisplayedOrders(ordersToDisplay);
+  }, [orders2, filteredOrders]);
+
+  React.useEffect(() => {
     //Busco escuchar el cambio en las ordenes y mostrarlo en displayedOrders (Polling)
-    React.useEffect(() => {
-      const handleUpdate = (displayedOrders) => {
-        setdisplayedOrders(displayedOrders)
-      }
-      const unsubscribe = onOrdersUpdate(handleUpdate)
-      return unsubscribe
-    },[])
+    const handleUpdate = (displayedOrders) => {
+      setdisplayedOrders(displayedOrders);
+    };
+    const unsubscribe = onOrdersUpdate(handleUpdate);
+    return unsubscribe;
+  }, []);
 
-    React.useEffect(() => {
-      if(expanded){
-        const timer = setTimeout(() => {
-          setExpanded(false)
-        }, 5000)
-        return () => clearTimeout(timer)
-      }
-    },[expanded])
-
-
-
-    const handleChange = (orderId) => () => {
-      setExpanded(prev => prev === orderId ? null : orderId);
+  React.useEffect(() => {
+    //Timer para cerrar la orden abierta
+    if (openSectionId) {
+      const timer = setTimeout(() => {
+        setExpanded(false);
+        setOpenSectionId(false);
+      }, 15000);
+      return () => clearTimeout(timer);
     }
+  }, [openSectionId]);
 
-    // function useZebraStyles(index) {
-    //   return index % 2 === 0 ? { background: "#fff" } : { background: "#f5f5f5" } 
-    // }
+  // React.useEffect(() => {
+  //   if (expanded) {
+  //     const id = expanded //el Id de la orden expandida
 
-    
+  //     const timer = setTimeout(() => {
+  //       console.log("Cerrando")
+  //       setExpanded(prev => {
+  //         const updated = {...prev}
+  //         delete updated[id]
+  //         return updated
+  //       })
+  //     }, 5000);
 
-    
-    // const handleCloseMenu = () => {// Funcion para cerrar el menu desplegable
-    //   setAnchorEl(null)
-    // }
+  //     setTimers(prev => ({...prev, [id]: timer}))
+  //     // return () => clearTimeout(timer);
+  //   }
+  // }, [expanded]);
 
-    const handleMenuDes = (e, order) => {//Funcion para abrir le menu desplegable
-      if(e){
+  //! const toggleExpanded = (id) => {
+  //   setExpanded(prev => ({
+  //     ...prev,
+  //     [id]: !prev[id]
+  //   }));
 
-        setAnchorEl(e.currentTarget)
-      }
-      setSelectedOrder(order)
+  //   // Limpiar timer anterior
+  //   if (timers[id]) {
+  //     clearTimeout(timers[id]);
+  //     setTimers(prev => ({...prev, [id]: null}));
+  //   }
+
+  //   // Setear nuevo timer
+  //   const timer = setTimeout(() => {
+  //     setExpanded(prev => {
+  //       const updated = {...prev};
+  //       delete updated[id];
+  //       return updated;
+  //     });
+  //   }, 5000);
+
+  //   setTimers(prev => ({...prev, [id]: timer}));
+  // }
+
+  // const handleCloseMenu = () => {// Funcion para cerrar el menu desplegable
+  //   setAnchorEl(null)
+  // }
+
+  const handleChange = () => {
+    setExpanded((prev) => !prev);
+    setOpenSectionId(true);
+  };
+
+  const handleMenuDes = (e, order) => {
+    //Funcion para abrir le menu desplegable
+    if (e) {
+      setAnchorEl(e.currentTarget); //Estado para saber cual menu se abrio en cual orden para cerralo cuando seleccione el cambio de estado de la orden
     }
+    setSelectedOrder(order); //Estado con la orden seleccionada
+  };
 
-    const handleStatusChange = (newStatus) => {// actualizar el estado de la orden.
-      markOrderStatus(selectedOrder.customOrderId, newStatus) 
-    }
-    
-    return (
-      <>
-      <Grid container item xs={12} justifyContent={'center'} alignContent={'center'}  >
-      <Typography className='degradado-texto'  mt={4} mb={4} fontFamily={"letters.fontM"} fontSize={"2.5rem"} fontWeight={600}>
-        Lista de Órdenes
-      </Typography>
+  const handleStatusChange = (newStatus) => {
+    // actualizar el estado de la orden.
+    markOrderStatus(selectedOrder.customOrderId, newStatus);
+  };
+
+  return (
+    <>
+      <Grid
+        container
+        item
+        xs={12}
+        justifyContent={"center"}
+        alignContent={"center"}
+      >
+        <Typography
+          className="degradado-texto"
+          mt={4}
+          mb={4}
+          fontFamily={"letters.fontM"}
+          fontSize={"2.5rem"}
+          fontWeight={600}
+        >
+          Lista de Órdenes
+        </Typography>
       </Grid>
 
-      <Grid container item xs={12} justifyContent={'center'} alignItems={'center'} mb={6} mt={2}>
-        <SearchBar/>
+      <Grid
+        container
+        item
+        xs={12}
+        justifyContent={"center"}
+        alignItems={"center"}
+        mb={6}
+        mt={2}
+      >
+        <SearchBar />
       </Grid>
 
-        <Grid container flexDirection={['column', 'row']} alignItems={"center"} justifyContent={'center'}  spacing={3} >
-
-          {displayedOrders.map((order, index) => (
-
-          <Grid item xs={12} sm={6} md={4} key={`${order.customOrderId}_${index}`} m={0.05} >
+      <Grid
+        container
+        flexDirection={["column", "row"]}
+        alignItems={"center"}
+        justifyContent={"center"}
+        spacing={3}
+      >
+        {displayedOrders.map((order, index) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={`${order.customOrderId}_${index}`}
+            m={0.05}
+          >
             <Paper
               elevation={4}
-              sx={{ p: '16px', backgroundColor: '#F5F5F5',maxWidth:"100vw", margin:"0 0.05rem" }}
+              sx={{
+                p: "16px",
+                backgroundColor: "#F5F5F5",
+                maxWidth: "100vw",
+                margin: "0 0.05rem",
+              }}
             >
-                <Typography variant="h6" color="primary" fontWeight={"bold"}>
-                  Número de Orden: {order.customOrderId.toUpperCase()}
-                </Typography>
-               
-                <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
-                <Typography>Fecha de Creación: {order.createAt}</Typography>
-                <Typography>Estado de la Orden:<span className='degradado-orderstatus'>
-                        { orderStatuses[order.customOrderId]}</span>
-                  </Typography>
+              <Typography variant="h6" color="primary" fontWeight={"bold"}>
+                Número de Orden: {order.customOrderId.toUpperCase()}
+              </Typography>
 
-                  <ButtonMenu orderSe={order} displayedOrders={displayedOrders} onSelectOrder={handleMenuDes} handleStatusChange={handleStatusChange} selectedOrder={selectedOrder} setSelectedOrder={setSelectedOrder} open={open}/>
+              <Typography>Total A Facturar: ${order.total} Pesos.</Typography>
+              <Typography>Fecha de Creación: {order.createAt}</Typography>
+              <Typography>
+                Estado de la Orden:
+                <span className="degradado-orderstatus">
+                  {orderStatuses[order.customOrderId]}
+                </span>
+              </Typography>
 
-         
-              
-                <Typography variant="h6" color="primary" fontWeight={"bold"} marginTop={"0.8rem"} fontFamily={"letters.fontM"}>
-                  Información del Cliente
-                </Typography>
-                <List  className='list-element-orders'>
-                  <ListItem sx={{display:"block", flexFlow:"row wrap"}}>
-                    
-                    <ListItemText primary={`Nombre: ${order.buyer.name}`}></ListItemText>
-                    <ListItemText primary={`Apellido: ${order.buyer.lastname}`}></ListItemText>
-                    <ListItemText primary={`Telefono: ${order.buyer.telephone}`}></ListItemText>
-                    
-                    <ListItemText primary={`Email: ${order.buyer.email}`} className='scroll-container'>
-                    </ListItemText>
-                    
-                    <ListItemText primary={`Direccion: ${order.buyer.direction}`}></ListItemText>
-                    <ListItemText primary={`Datos opcionales: ${order.buyer.dataoptional}`}></ListItemText>
-                  
-                  </ListItem>
-                </List>
-              <Accordion key={order.id} expanded={expanded[order.id]} onChange={() => handleChange(order.id)}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{display:"flex", flexFlow:"row wrap"}}  onClick={() => setExpanded(true)} id={order.id} >
-                <Typography sx={{width:"33%", flexShrink:0}} variant="h6" color="primary" fontWeight={"bold"} fontFamily={"letters.fontM"}>
-                  Productos
-                </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                <List>
-                  {order.items.map((item, itemIndex) => (
-                    <Paper
-                      key={itemIndex}
-                      elevation={0}
-                      sx={{
-                        p: 1,
-                        border: '1px solid #DDDDDD',
-                        borderRadius: '16px',
-                        display:"flex",
-                        flexDirection:"column",
-                        alignItems:"left",
-                        
-                        
-                      }}
-                    >
-                      <Box >                   
-                      <ListItem key={item.id} sx={stylesOrders} className={itemIndex % 2 === 0 ? 'par' : "impar"}>
-                        <ListItemText primary={`Articulo: ${item.producto}`}  />
-                      </ListItem>
-                      <ListItem sx={stylesOrders}>
-                        <ListItemText primary={`ProductoID: ${item.customid}`} className='scroll-container' />
-                      </ListItem>
-                      {/* <ListItem>
-                        <ListItemText primary={`Cantidad: ${item.quantity} Unidades.`} />
-                      </ListItem> */}
-                      <ListItem sx={stylesOrders}>
-                        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                          <Typography>Cantidad: </Typography>
-                          <Typography marginLeft={"3px"}>{item.quantity} Unidades.</Typography>
-                        </Box>
-                      </ListItem>
-                      <ListItem sx={stylesOrders}>
-                        <ListItemText primary={`Color: ${item.color}`} />
-                      </ListItem>
-                      <ListItem sx={stylesOrders}>
-                        <ListItemText primary={`Talle: ${item.size}`} />
-                      </ListItem>
-                      <ListItem sx={stylesOrders}>
-                        <ListItemText primary={`Descuento hecho de: ${item.discountSelected}%`} />
-                      </ListItem>
-                      <ListItem sx={stylesOrders}>
-                        <ListItemText primary={`Valor cada unidad: $${item.pricePerUnit} Pesos.`} />
-                      </ListItem>
+              <ButtonMenu
+                orderSe={order}
+                displayedOrders={displayedOrders}
+                onSelectOrder={handleMenuDes}
+                handleStatusChange={handleStatusChange}
+                selectedOrder={selectedOrder}
+                setSelectedOrder={setSelectedOrder}
+                open={open}
+              />
 
-                      </Box>
-                    </Paper>
-                  ))}
-                </List>
-                </AccordionDetails>
+              <Typography
+                variant="h6"
+                color="primary"
+                fontWeight={"bold"}
+                marginTop={"0.8rem"}
+                fontFamily={"letters.fontM"}
+              >
+                Información del Cliente
+              </Typography>
+              <List className="list-element-orders">
+                <ListItem sx={{ display: "block", flexFlow: "row wrap" }}>
+                  <ListItemText
+                    primary={`Nombre: ${order.buyer.name}`}
+                  ></ListItemText>
+                  <ListItemText
+                    primary={`Apellido: ${order.buyer.lastname}`}
+                  ></ListItemText>
+                  <ListItemText
+                    primary={`Telefono: ${order.buyer.telephone}`}
+                  ></ListItemText>
+
+                  <ListItemText
+                    primary={`Email: ${order.buyer.email}`}
+                    className="scroll-container"
+                  ></ListItemText>
+
+                  <ListItemText
+                    primary={`Direccion: ${order.buyer.direction}`}
+                  ></ListItemText>
+                  <ListItemText
+                    primary={`Datos opcionales: ${order.buyer.dataoptional}`}
+                  ></ListItemText>
+                </ListItem>
+              </List>
+              <Accordion
+                key={order.id}
+                id={order.id}
+                expanded={expanded}
+                // onClick={() => toggleExpanded(order.id, true)}
+                onChange={() => handleChange(index)}
+              >
+                <AccordionInside
+                  index={index}
+                  color={color}
+                  colorList={colorList}
+                  order={order}
+                  openSectionId={openSectionId}
+                  setOpenSectionId={setOpenSectionId}
+                />
               </Accordion>
-               
             </Paper>
           </Grid>
-          ))}
-        </Grid>
-        </>
-      );
-    }
-export default OrderList
+        ))}
+      </Grid>
+    </>
+  );
+}
+export default OrderList;
+
+function AccordionInside({
+  color,
+  colorList,
+  order,
+  openSectionId,
+  setOpenSectionId,
+}) {
+  // lifted up function
+
+  const isOpen = openSectionId === order.id;
+
+  return (
+    <Box>
+      <AccordionSummary
+        onClick={() => setOpenSectionId(order.id)}
+        expandIcon={<ExpandMoreIcon />}
+        sx={{ display: "flex", flexFlow: "row wrap" }}
+        // onClick={() => setExpanded(true)}
+        id={order.id}
+      >
+        <Typography
+          sx={{ width: "33%", flexShrink: 0 }}
+          variant="h6"
+          color="primary"
+          fontWeight={"bold"}
+          fontFamily={"letters.fontM"}
+        >
+          Productos
+        </Typography>
+      </AccordionSummary>
+      {isOpen && (
+        <AccordionDetails>
+          <List>
+            {order.items.map((item, itemIndex) => (
+              <Paper
+                key={itemIndex}
+                elevation={0}
+                sx={{
+                  p: 1,
+                  border: "1px solid #DDDDDD",
+                  borderRadius: "16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "stretch",
+                }}
+              >
+                <Box>
+                  <ListItem
+                    key={1}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: colorList[itemIndex],
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <ListItemText primary={`Articulo: ${item.producto}`} />
+                  </ListItem>
+                  <ListItem
+                    key={2}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: color,
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <ListItemText
+                      primary={`ProductoID: ${item.customid}`}
+                      className="scroll-container"
+                    />
+                  </ListItem>
+                  {/* <ListItem>
+                              <ListItemText primary={`Cantidad: ${item.quantity} Unidades.`} />
+                            </ListItem> */}
+                  <ListItem
+                    key={3}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: colorList[itemIndex],
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography>Cantidad: </Typography>
+                      <Typography marginLeft={"3px"}>
+                        {item.quantity} Unidades.
+                      </Typography>
+                    </Box>
+                  </ListItem>
+                  <ListItem
+                    key={4}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: color,
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <ListItemText primary={`Color: ${item.color}`} />
+                  </ListItem>
+                  <ListItem
+                    key={5}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: colorList[itemIndex],
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <ListItemText primary={`Talle: ${item.size}`} />
+                  </ListItem>
+                  <ListItem
+                    key={6}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: color,
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <ListItemText
+                      primary={`Descuento hecho de: ${item.discountSelected}%`}
+                    />
+                  </ListItem>
+                  <ListItem
+                    key={7}
+                    sx={stylesOrders}
+                    style={{
+                      backgroundColor: colorList[itemIndex],
+                      borderRadius: "10px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography>Valor C/Unidad: </Typography>
+                      <Typography marginLeft={"3px"}>
+                        ${item.pricePerUnit}
+                      </Typography>
+                    </Box>
+                  </ListItem>
+                </Box>
+              </Paper>
+            ))}
+          </List>
+        </AccordionDetails>
+      )}
+    </Box>
+  );
+}

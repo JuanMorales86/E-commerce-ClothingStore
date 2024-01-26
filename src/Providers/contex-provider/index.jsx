@@ -26,7 +26,7 @@ import { getOrders } from "../Api/api";
 
 //Padre de todo y
 export const AppContex = React.createContext();
-const { Provider } = AppContex;
+const { Provider } = AppContex;//alias
 // const {Provider: TrolleyProvider} = CustomContexProvider// ejemplo con alias
 
 const AppContexProvider = ({ children }) => {
@@ -43,6 +43,7 @@ const AppContexProvider = ({ children }) => {
   const [ismodalOpen, setIsModalOpen] = React.useState(false);
   const [isAdmin, setIsAdmin] = React.useState(false);
   const [isOrderPage, setIsOrderPage] = React.useState(false);
+  const [color, setColor] = React.useState([])//Estado para setear colores (OrderList)
   // const [forceUpdate, setForceUpdate] = React.useState(false)
   const MySwal = withReactContent(Swal);
 
@@ -90,6 +91,11 @@ const AppContexProvider = ({ children }) => {
     getCounterValue();
   }, []);
 
+  React.useEffect(() => {//Effecto para agregar un color pastel y setearlo en el estado
+    const newColor = getRandomPasteColor()
+    setColor(newColor)
+  },[])
+
   // const forceComponentUpdate = () => {
   //   setForceUpdate((prev) => !prev)
   // }
@@ -99,6 +105,11 @@ const AppContexProvider = ({ children }) => {
   // }, [forceUpdate])
 
   //Crear Ordenes
+
+  const getRandomPasteColor = () => {//Funcion para calcular un color pastel
+    const hue = Math.floor(Math.random() * 600)
+    return `hsl(${hue}, 80%, 90%)`
+  }
 
   const handleAdminChanger = (show) => {
     //funcion que cambia en el slider imagen en admin
@@ -469,6 +480,7 @@ const AppContexProvider = ({ children }) => {
         setIsOrderPage,
         isOrderPage,
         orders2,
+        color,
       }}
     >
       {children}

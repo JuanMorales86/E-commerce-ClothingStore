@@ -85,8 +85,6 @@ function ModalSlide({widget}) {//Padre Carrito
 
   // Función para calcular el precio con descuento
 const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
-  console.log(pricePerUnit)
-  console.log(discountSelected)
   // Verifica si se ha seleccionado un descuento y aplica el descuento correspondiente
   if (discountSelected === 2) {
     return pricePerUnit * 0.98; // Aplica un descuento del 2%
@@ -140,7 +138,7 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
 
   const calcwithIva = () => {//Calcular el total de todo el carrito con iva
     let totalWithIva = 0
-    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 }  console.log(totalWithIva); return formatNWCS(totalWithIva)
+    for (const item of trolley) { totalWithIva += calcTotalQuantityPerPrice(item) * 1.21 } return formatNWCS(totalWithIva)
    
   } 
 

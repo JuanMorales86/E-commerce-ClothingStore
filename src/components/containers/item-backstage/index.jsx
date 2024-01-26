@@ -583,7 +583,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
             {/* Botón de restablecimiento */}
             {showResetButton && (
-            <Button variant="contained" onClick={() => {console.log('Boton presionado'); handleResetFields();}} size="small">
+            <Button variant="contained" onClick={() => { handleResetFields();}} size="small">
               Limpiar
             </Button>
           )}

@@ -33,14 +33,14 @@ function Contacto({ setShowFixedImage, autoplayEnabled, setShowComponent }) {
     const serviceId = "React_Sal_&_Pimienta";
     const templateId = "template_dybd6hl"; //my React Sal & Pimienta Contact Page
     const apikey = process.env.REACT_APP_EMAILJS_KEY;
-    console.log(refForm);
+    
 
     //formData toma los datos de los textfield gracias al hook form
     try {
       await emailjs
         .sendForm(serviceId, templateId, refForm.current, apikey)
         .then((result) => {
-          console.log(result.text);
+          notifyToast(result.text);
           notifyToast("Formulario enviado exitosamente.");
         })
         .catch((error) => {

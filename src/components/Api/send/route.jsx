@@ -19,9 +19,9 @@ const EmailSender = (() => {
           text: "",
         });
 
-        console.log(data);
+        // console.log(data);
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     // Llama a la función para enviar el correo electrónico
    

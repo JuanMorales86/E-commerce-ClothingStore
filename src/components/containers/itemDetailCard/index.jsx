@@ -47,13 +47,11 @@ function CardDetail({data}) {
   }
 
   const handleMouseEnter = () => {
-    console.log("Mouse enter")
     setIsHovered(true)
     setShowZoomMessage(true)
   }
 
   const handleMouseLeave = () => {
-    console.log("Mouse Leave")
     setIsHovered(false);
     setTimeout(() => {
       setShowZoomMessage(false)
