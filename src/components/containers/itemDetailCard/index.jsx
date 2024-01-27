@@ -14,6 +14,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 //Mis componentes
 import ItemCount from '../item-count';
 import { AppContex } from '../../../Providers/contex-provider';
+import SlideritemDetailCard from '../../slider-swiper/slider-itemDetailCard';
 
 const styletters={
   fontWeight:600,
@@ -129,6 +130,7 @@ function CardDetail({data}) {
             onMouseEnter={handleMouseEnter}//activar hover
             onMouseLeave={handleMouseLeave}//desactivar hover
           />
+          {/* <SlideritemDetailCard isHovered={isHovered} thumbnail={thumbnail} /> */}
              </TransformComponent>
           {/* Componente para la funcionabilidad del zoom */}
               <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems: 'center', position:"absolute", gap:1, mb:"1rem", border:"2px solid white", borderRadius:"20px"  }} className="tools">

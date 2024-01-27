@@ -161,25 +161,18 @@ const NavBar = () => {
                     </MenuItem>
                   ))}
 
-                  {user && (
-                    <MenuItem>
-                      <Link
-                        component={RouterLink}
-                        onClick={() => {
-                          setOpenModal(true);
-                          handleCloseNavMenu();
-                        }}
-                        sx={{ color: "inherit" }}
-                      >
-                        Admin
-                      </Link>
-
-                      <ModalLogin
-                        open={openModal}
-                        onClose={handleCloseModal} //Pasamos la funcion que actualiza el estado del modal
-                      />
-                    </MenuItem>
-                  )}
+{user && (
+                  <MenuItem  onClick={handleCloseNavMenu}>
+                    <ModalLogin
+                      open={openModal}
+                      onClick={handleCloseNavMenu}
+                      onClose={handleCloseModal}
+                      widgetL={
+                        <span style={{ color: "inherit" }}>Admin</span>
+                      }
+                    />
+                  </MenuItem>
+                )}
                 </Menu>
               </Box>
 
