@@ -44,13 +44,10 @@ function OrderList() {
   const [selectedOrder, setSelectedOrder] = React.useState(""); // Estado para la orden seleccionada
   const [displayedOrders, setdisplayedOrders] = React.useState([]); // Estado para las órdenes a mostrar
   const [expanded, setExpanded] = React.useState(false); //estado para cerrar el acordeon
-  //const [timers, setTimers] = React.useState({})
-  const [openSectionId, setOpenSectionId] = React.useState();
-  //const [openSections, setOpenSections] = React.useState({});
-  const [colorList, setColorList] = React.useState();
+  const [openSectionId, setOpenSectionId] = React.useState(false); //Estado para setear y seguir el orderid detro del accordion clickeado
+  const [openSections, setOpenSections] = React.useState({}); //Estado para saber cual accordion abri y poder cerrarlo independientemente
+  const [colorList, setColorList] = React.useState(); //Estado para cambiar el color localmente
   const open = Boolean(anchorEl);
-
-  //Escucha para cambiar la imagen en el orderlist
 
   React.useEffect(() => {
     //setear colores locales en orderList no pude cambiar colores por cada item ya q tienen el mismo index y el mismo id asi que use este local y color de contexprovider
@@ -65,6 +62,7 @@ function OrderList() {
   }, [displayedOrders]);
 
   React.useEffect(() => {
+    //Escucha para cambiar la imagen en el orderlist
     //Cambiar el slider de imagen
     handleOrderPageChanger(true);
     return () => handleOrderPageChanger(false);
@@ -89,15 +87,17 @@ function OrderList() {
   }, []);
 
   React.useEffect(() => {
-    //Timer para cerrar la orden abierta
-    if (openSectionId) {
+    //Timer para cerrar la orden abierta//Esto reinicia el timer cada vez que cambia openSections. Y cuando se dispara después de 3 segundos, limpiamos openSections para cerrar todas las secciones.
+
+    if (Object.keys(openSections).length > 0) {
       const timer = setTimeout(() => {
         setExpanded(false);
         setOpenSectionId(false);
-      }, 15000);
+        setOpenSections({});
+      }, 60000);//Cambiar segun necesidad
       return () => clearTimeout(timer);
     }
-  }, [openSectionId]);
+  }, [openSectionId, openSections]);
 
   // React.useEffect(() => {
   //   if (expanded) {
@@ -145,9 +145,25 @@ function OrderList() {
   //   setAnchorEl(null)
   // }
 
-  const handleChange = () => {
+  const toggleSection = (id) => {
+    setOpenSections((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
+  const closeSection = () => {
+    setOpenSectionId(false);
+  };
+
+  const handleChange = (orderid) => {
     setExpanded((prev) => !prev);
-    setOpenSectionId(true);
+    // setOpenSectionId(true);
+    if (openSectionId === orderid) {
+      closeSection();
+    } else {
+      setOpenSectionId(orderid);
+    }
   };
 
   const handleMenuDes = (e, order) => {
@@ -283,7 +299,7 @@ function OrderList() {
                 id={order.id}
                 expanded={expanded}
                 // onClick={() => toggleExpanded(order.id, true)}
-                onChange={() => handleChange(index)}
+                onChange={() => handleChange(order.id)}
               >
                 <AccordionInside
                   index={index}
@@ -292,6 +308,8 @@ function OrderList() {
                   order={order}
                   openSectionId={openSectionId}
                   setOpenSectionId={setOpenSectionId}
+                  openSections={openSections}
+                  toggleSection={toggleSection}
                 />
               </Accordion>
             </Paper>
@@ -309,22 +327,27 @@ function AccordionInside({
   order,
   openSectionId,
   setOpenSectionId,
+  index,
+  openSections,
+  toggleSection,
 }) {
   // lifted up function
 
-  const isOpen = openSectionId === order.id;
+  // const isOpen = openSectionId === order.id;
+  const isOpen = !!openSections[order.id];
 
   return (
     <Box>
       <AccordionSummary
-        onClick={() => setOpenSectionId(order.id)}
+        onClick={() => toggleSection(order.id)} //Abrir y cerrar el accordion desde el padre OrderList
+        onChange={() => setOpenSectionId(order.id)} //es onchange no es onclick //el onChange para que el Accordion maneje su estado interno de qué sección está expandida.
         expandIcon={<ExpandMoreIcon />}
         sx={{ display: "flex", flexFlow: "row wrap" }}
         // onClick={() => setExpanded(true)}
         id={order.id}
       >
         <Typography
-          sx={{ width: "33%", flexShrink: 0 }}
+          sx={{ width: "33%", flexShrink: 0, height:"100%" }}
           variant="h6"
           color="primary"
           fontWeight={"bold"}

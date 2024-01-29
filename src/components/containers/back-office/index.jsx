@@ -31,6 +31,8 @@ function BackOffice() {
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
   const { notifyToastBD, notifyToastContainer, handleAdminChanger } = React.useContext(AppContex)
+  const [alreadyNotified, setAlreadyNotified] = React.useState(false)//Estado para controlar la notificacion de la carga exitosa de la bd
+  
   // const currentDate = new Date().toDateString('es-AR')
   // const currentDate = new Date()
   // const day = currentDate.getDate();// Obtiene el día del mes (1-31)
@@ -44,6 +46,40 @@ function BackOffice() {
     handleAdminChanger(true)
     return () => handleAdminChanger(false)
   },[handleAdminChanger])
+
+  React.useEffect(() => {//Obtener la data y actualizar
+    const db = getFirestore();
+    const products = collection(db, "productos"); //tabla
+    getDocs(products) //tabla
+      .then((snapshot) => {
+        const items = snapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        setProductBD(items);
+        setUpdateComponent(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setLoading(false);
+        
+      });
+      
+  }, [updateComponent, setLoading]);
+
+
+  React.useEffect(() => {
+    if(!loading && !alreadyNotified){
+      toast.dismiss()
+      notifyToastBD(`🎉 Documentos cargados`)
+      setAlreadyNotified(true)
+    }
+  }, [loading, notifyToastBD,alreadyNotified])
+  console.log(loading)
 
 // const notify = (message) => {
 
@@ -93,37 +129,7 @@ function BackOffice() {
   };
   
 
-  React.useEffect(() => {//Obtener la data y actualizar
-    const db = getFirestore();
-    const products = collection(db, "productos"); //tabla
-    getDocs(products) //tabla
-      .then((snapshot) => {
-        const items = snapshot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        });
-        setProductBD(items);
-        setUpdateComponent(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setLoading(false);
-        
-      });
-      
-  }, [updateComponent, setLoading]);
-
-
-  React.useEffect(() => {
-    if(!loading){
-      toast.dismiss()
-      notifyToastBD(`🎉 Documentos cargados`)
-    }
-  }, [loading, notifyToastBD])//Al poner notifyToastBD como dependencia en el segundo useEffect, React ya no se quejará porque esa función está siendo usada dentro del efecto.
+//Al poner notifyToastBD como dependencia en el segundo useEffect, React ya no se quejará porque esa función está siendo usada dentro del efecto.
 
 //Modificar el producto
   const handleItemModify = async (item, id) => {//Modificar Productos
