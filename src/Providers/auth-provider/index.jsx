@@ -13,7 +13,7 @@ import { AppContex } from "../contex-provider";
 
 
 
-function AuthProvider({ children, onClose }) {
+function AuthProvider({ children }) {
   const [, setIsControl] = React.useState(false);
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
   const [isNotificationShow, setIsNotificationShow] = React.useState(false)

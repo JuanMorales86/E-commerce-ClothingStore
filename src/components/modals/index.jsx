@@ -165,40 +165,41 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+     
         
       >
         
         {/* formato UI del card en el modal */}
         <DialogTitle textAlign={"center"} fontFamily={"letters.fontM"} textTransform={"capitalize"} fontWeight={"bold"} >{"tus productos"}</DialogTitle>
-        <DialogContent >
-          <DialogContentText  id="alert-dialog-slide-description">
+        <DialogContent  >
+          <DialogContentText display={"flex"} justifyContent={"center"} alignItems={"center"} id="alert-dialog-slide-description">
             {
               trolley.map((item) => (
-              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"center",  marginBottom: '.3rem', width: "auto", height:"auto" , flexDirection:['column', 'row'],  background:
+              <Card key={item.id} sx={{display:"flex", justifyContent:"center", alignItems:"center",  marginBottom: '.1rem', width: ["50%", "auto"], height:"auto" , flexDirection:['column', 'row'],  background:
               "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */, boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)' }} >
                   <CardMedia
                   component="img"
-                  sx={{ width: "150px", height:"150px", aspectRatio: 10/9, alignSelf:'center', border:'solid 2px black', objectFit:"contain"}}
+                  sx={{ width: ["100%", "125px"], height:["150px", "125px"], aspectRatio: 10/9, alignSelf:'center', border:'solid 2px black', objectFit:"fill"}}
                   image={item.imagen}
                   alt={item.producto}
                   />
-                <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:["center","self-start"]}}>
-                  <Typography sx={{width:"150px", textAlign:['center','left'], lineHeight:1, marginBottom:"5px", alignItems:["center","self-start"]}} flexWrap="wrap" variant="h6" component="p">
+                <CardContent sx={{display:"flex", flexDirection:"column" ,alignItems:["center","self-start"], height:["auto", "127px"]}}>
+                  <Typography sx={{ fontWeight:"bold"}}>
                     {item.producto}
-                  </Typography>
-                  <Typography variant="body2" component='p' color="textSecondary">
+                  </Typography >
+                  <Typography sx={{fontSize:".90rem", textAlign:["center", "self-start"]}} color="textSecondary">
                     Valor Unid: ${item.pricePerUnit} Pesos
                   </Typography>
-                  <Typography variant="body2" component="p">
+                  <Typography sx={{fontSize:".90rem"}} color="textSecondary">
                     Vas a llevar: {item.quantity}
                   </Typography>
-                  <Typography variant="body2" component="p">
+                  <Typography sx={{fontSize:".90rem"}} color="textSecondary">
                     Descuento: {item.discountSelected} %
                   </Typography>
                   {/* <Typography variant="body2" component="p">
                     Sin iva: {calcTotalGlobalPay()}
                   </Typography> */}
-                  <Typography variant="body2" component="p">
+                  <Typography sx={{fontSize:".90rem", textAlign:["center", "self-start"]}} color="textSecondary">
                     Total P. Unidad: ${calcTotalQuantityPerPrice(item) } Pesos
                     {/* calcTotalQuantityPerPrice(item) */}
                   </Typography>
@@ -213,16 +214,16 @@ const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
         <Box display={'flex'} flexDirection={'column'} justifyContent={"space-around"} flexWrap={'wrap'} margin={"0 1rem"}>
             
             <Box display={'flex'} justifyContent={"center"} flexDirection={'row'} textAlign={"center"} gap={"1rem"} textTransform={"capitalize"}>
-            <Typography fontWeight={"bold"}  variant="body2" component="p" fontFamily={'letters.fontM'}>
+            <Typography fontWeight={"bold"}  fontFamily={'letters.fontM'}>
                 Items en Carrito: {quantityC} 
             </Typography>
-            <Typography fontWeight={"bold"}  variant="body2" component="p" fontFamily={'letters.fontM'}>
+            <Typography fontWeight={"bold"}   fontFamily={'letters.fontM'}>
                 Cantidad Total Productos: {calcTotalPerItemsCart()} 
             </Typography>
             </Box>
             
             <Box textAlign={"center"}>
-              <Typography variant="h6" component="p" fontFamily={'letters.fontM'}>
+              <Typography fontFamily={'letters.fontM'}>
                 Total Pago: {calcwithIva()} Pesos
             </Typography>
             </Box>

@@ -54,8 +54,8 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
             ----IDENTIFICADOR DEL PRODUCTO: ${item.customid}----
             ----NOMBRE DEL PRODUCTO: ${item.producto}---- 
             ----CANTIDAD DE PRODUCTOS: ${item.quantity} Unidades.----  
-            ----COLOR: ${item.color.toUpperCase()}----
-            ----TALLE: ${item.size.toUpperCase()}----
+            ----COLOR: ${item.color}----
+            ----TALLE: ${item.size}----
             ----${item.discountSelected ? `APLICA DESCUENTO: ${item.discountSelected.toUpperCase()}%.` : 'Sin descuento.'}----
           }`
   ));

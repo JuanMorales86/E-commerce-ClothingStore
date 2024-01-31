@@ -78,7 +78,7 @@ const AppContexProvider = ({ children }) => {
   }, []); // El segundo argumento del useEffect indica que solo debe ejecutarse una vez al montarse el componente
   // Efecto para cargar el valor inicial del contador de órdenes
 
-  React.useEffect(() => {
+  React.useEffect(() => {//contador ordenes
     const db = getFirestore();
 
     //Obtener el valor del contador de la base de datos y establecer el estado

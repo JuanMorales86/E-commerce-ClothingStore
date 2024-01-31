@@ -161,7 +161,7 @@ const NavBar = () => {
                     </MenuItem>
                   ))}
 
-{user && (
+                {user && (
                   <MenuItem  onClick={handleCloseNavMenu}>
                     <ModalLogin
                       open={openModal}
