@@ -207,7 +207,7 @@ const NavBar = () => {
                   <Button
                     key={page.label}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "white", display: "block", lineHeight:"1.5" }}
                   >
                     <Link
                       component={RouterLink}
@@ -221,15 +221,22 @@ const NavBar = () => {
                 ))}
 
                 {user && (
+                  <Box sx={{ display: "flex"}}>
                   <MenuItem>
                     <ModalLogin
                       open={openModal}
                       onClose={() => setOpenModal(false)}
                       widgetL={
-                        <span style={{ color: "white" }}>Administrador</span>
+                        <Typography variant="text" sx={{fontFamily:"letters.fontM", color: "white", fontSize:"14px", letterSpacing:".060rem",'&:hover': {
+                          color: 'yellow',
+                          borderColor: 'inherit',
+                          boxShadow: 'none',
+                          
+                        }}}>ADMINISTRADOR</Typography>
                       }
                     />
                   </MenuItem>
+                  </Box>
                 )}
               </Box>
               {/* Fin otra resolucion d */}

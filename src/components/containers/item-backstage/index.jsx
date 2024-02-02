@@ -82,17 +82,29 @@ const dataListPlacesOutside = ["P. Buenos Aires", "Caba"];
 
 const conditions = ["Nuevo", "Usado", "Detalles"];
 
+const seasonData = ["Verano", "Invierno", "Primavera", "Otoño"];
+
+
+
 const dataspecialproduct = [true, false]
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
-  const { id, title, thumbnail, description , price, color, size, brand, condition, stock, customid, categoryType, addressShipping,addressPlace, specialproduct, discountSelected } = data //Destructuracion (es mas ordenado para saber que es lo que estoy pasando por props)
+  const { id, title, thumbnail, description , price, color, size, brand, condition, stock, customid, categoryType, addressShipping,addressPlace, specialproduct, discountSelected, season } = data //Destructuracion (es mas ordenado para saber que es lo que estoy pasando por props)
   const { register,getValues, reset, setValue} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({}) //para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
   const [selectedSize, setSelectedSize] = React.useState(size || "") // Inicializa con el valor de data.size o en blanco ('')
   const [errors, ] = React.useState({})
+  
+  const validSeason = seasonData.includes(season) ? season : ""//Validacion para el textfield si trae ya iformacion o es undefined o en blanco value no puede recibir informacion undefined 
+  const [seasonState,setSeasonState] = React.useState(validSeason)//Manejo de estado para season esta es una solucion para que mui no devuelva esatdo incrontrolado para defaultvalue es mejor controlarlo cone el esatdo y value en vez de defaultvalue
 
+
+  const handleSeasonChange = (e) => {//Manejo de cambios con onChange actualizando el estado con setSeasonState
+    setSeasonState(e.target.value)
+    handleChangeText(e)
+  }
 
   const handleMouseEnter = () => {
     //Para la imagen
@@ -148,6 +160,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           addressPlace: "",
           specialproduct: "",
           discountSelected: "",
+          season: "",
         });
 
         setValue("condition", ""); // Cambiado a cadena vacía
@@ -157,6 +170,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
         setValue("addressPlace", ""); // Cambiado a cadena vacía
         setValue("specialproduct", ""); // Cambiado a cadena vacía
         setValue("discountSelected", ""); // Cambiado a cadena vacía
+        setValue("season", ""); // Cambiado a cadena vacía
   };
 
  // const handleChangeText = (e) => {
@@ -417,10 +431,10 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
             style={{ width: "250px" }}
             sx={{ backgroundColor: modifiedFields.condition ? "lightblue" : "transparent" }}
           >
-            {conditions?.map((item, index) => {
+            {conditions?.map((conditions, index) => {
               return (
-                <MenuItem key={index} value={item}>
-                  {item}
+                <MenuItem key={index} value={conditions}>
+                  {conditions}
                 </MenuItem>
               );
             })}
@@ -515,7 +529,35 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           </TextField>
 
           <TextField
-            label="Aplicar Descuentos"
+            label="Temporadas"
+            variant="outlined"
+            placeholder="Tipo de temporada..."
+            size="small"
+            {...register("season", { required: false })}
+            //defaultValue={validSeason}
+            value={seasonState}
+            onChange={
+              handleSeasonChange
+             
+            }
+           
+            //onChange={handleChangeText}
+            select
+            fullWidth
+            style={{ width: "250px" }}
+            sx={{ backgroundColor: modifiedFields.season ? "lightblue" : "transparent" }}
+          >
+            {seasonData?.map((seasons, index) => {
+              return (
+                <MenuItem key={index} value={seasons}>
+                  {seasons}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+
+          <TextField
+            label="Descuentos"
             variant="outlined"
             placeholder="Tendra Descuento?..."
             size="small"

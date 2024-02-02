@@ -101,6 +101,7 @@ function HomePage({ setShowComponent }) {
       <Box className="sliderBoxHomeMS">
         <SliderMostSelledCards />
       </Box>
+      
       <Box>
         <Typography className="degradado-texto" style={styleH2}>
           Marcas

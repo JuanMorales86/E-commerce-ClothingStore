@@ -38,8 +38,9 @@ const AppContexProvider = ({ children }) => {
   const [showUserData, setShowUserData] = React.useState(false); //Habilitar el componente UserData
   const [orderStatuses, setOrderStatuses] = React.useState({}); // Estados para las ordenes enviadas listas y en proceso
   const [filteredOrders, setFilteredOrders] = React.useState([]); // Estado para los resultados de la búsqueda
-  const [solditems, setSoldItems] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [solditems, setSoldItems] = React.useState([]);// Estado para cargar los productos mas vendidos
+  const [seasonsTemp,setSeasonTemp] = React.useState([])// Estado para cargar los productos con temporada
+  const [loading, setLoading] = React.useState(true);// Estado para inciar el loading en las cargas
   const [ismodalOpen, setIsModalOpen] = React.useState(false);
   const [isAdmin, setIsAdmin] = React.useState(false);
   const [isOrderPage, setIsOrderPage] = React.useState(false);
@@ -76,8 +77,42 @@ const AppContexProvider = ({ children }) => {
 
     selledProducts(); // Llama a la función asíncrona inmediatamente
   }, []); // El segundo argumento del useEffect indica que solo debe ejecutarse una vez al montarse el componente
-  // Efecto para cargar el valor inicial del contador de órdenes
+  
 
+   //Productos con temporadas
+   React.useEffect(() => {
+    const loadSeasons = async (season) => {
+      const db = getFirestore();
+      const productsRef = collection(db, "productos");//productsRef es la referencia a la colección "productos"
+      const seasonsQuery = query(
+        productsRef,
+        where("season", "==", season) 
+      );
+
+      try {
+        const queryPromise = await getDocs(seasonsQuery);
+        const seasonProducts = queryPromise.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        }); //devuelvo especificamaente el id que lo necesito y el resto de los campos
+        // Realiza alguna acción con los productos obtenidos
+        setSeasonTemp(seasonProducts);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error obteniendo productos vendidos:", error);
+        setLoading(false);
+      }
+    };
+    
+    loadSeasons("Verano"); //! Cambiar segun la temporada a buscar
+  }, []);
+
+ 
+
+
+  // Efecto para cargar el valor inicial del contador de órdenes
   React.useEffect(() => {//contador ordenes
     const db = getFirestore();
 
@@ -95,6 +130,8 @@ const AppContexProvider = ({ children }) => {
     const newColor = getRandomPasteColor()
     setColor(newColor)
   },[])
+
+  
 
   // const forceComponentUpdate = () => {
   //   setForceUpdate((prev) => !prev)
@@ -481,6 +518,7 @@ const AppContexProvider = ({ children }) => {
         isOrderPage,
         orders2,
         color,
+        seasonsTemp,
       }}
     >
       {children}

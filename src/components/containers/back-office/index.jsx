@@ -79,7 +79,7 @@ function BackOffice() {
       setAlreadyNotified(true)
     }
   }, [loading, notifyToastBD,alreadyNotified])
-  console.log(loading)
+  
 
 // const notify = (message) => {
 
@@ -106,6 +106,7 @@ function BackOffice() {
     specialproduct:"",
     discountSelected:"",
     size:"",
+    season:"",
   });
 
   const resetForm = () => {
@@ -125,6 +126,7 @@ function BackOffice() {
       specialproduct:"",
       discountSelected:"",
       size:"",
+      season:"",
     });
   };
   
@@ -291,6 +293,7 @@ function BackOffice() {
             specialproduct:"",
             discountSelected:"",
             size:"",
+            season:"",
           }}
         />
       </Box>

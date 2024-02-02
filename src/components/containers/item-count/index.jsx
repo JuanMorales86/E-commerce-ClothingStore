@@ -8,20 +8,24 @@ import { AppContex } from "../../../Providers/contex-provider";
 //Libreria Material
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox"; //Minus icon
 import AddBoxIcon from "@mui/icons-material/AddBox"; //Add icon
-import { Button, Typography, Box, Tooltip } from "@mui/material";
-import { SignedIn, SignedOut } from "@clerk/clerk-react";//useSignIn
+import { Button, Typography, Box } from "@mui/material";
+
+//Auth Clerk
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react"; //useSignIn
 // import { auth } from "../../../App";
 // import { onAuthStateChanged } from "firebase/auth";
+
+//Auth propia
 import UseAuth from "../../../Providers/auth-useauth/useAuth";
 
 function ItemCount({ stock, addHandleToTrolley }) {
   const { notifyToastContainer, notifyToastAdd } = React.useContext(AppContex);
   const [score, setScore] = useState(1);
-  const [showButton, setShowButton] = React.useState(false)
-  const {user} = UseAuth()  
+  const [showButton, setShowButton] = React.useState(false);
+  const { user } = UseAuth();
   //const { signedIn } = useClerk()
   // const { signedIn } = useSignIn(); console.log('Logeo',signedIn);
-  const {toggleModal} = React.useContext(AppContex)
+  //const { toggleModal } = React.useContext(AppContex);
 
   // React.useEffect(() => {
   //     const getUser = onAuthStateChanged(auth, (user) => {
@@ -35,12 +39,12 @@ function ItemCount({ stock, addHandleToTrolley }) {
   //   })
 
   React.useEffect(() => {
-    if(!user){
-      setShowButton(false)
+    if (!user) {
+      setShowButton(false);
     } else {
-      setShowButton(true)
+      setShowButton(true);
     }
-  },[user])
+  }, [user]);
 
   React.useEffect(() => {
     //un estado para remover y montar la clase highlight-animation
@@ -56,7 +60,7 @@ function ItemCount({ stock, addHandleToTrolley }) {
       }, 1000); // Se Ajusta el tiempo a la duración de la animación
     }
   }, [score]);
- 
+
   const getBackGroundColor = () => {
     const colorMap = {
       1: "lightblue",
@@ -84,7 +88,6 @@ function ItemCount({ stock, addHandleToTrolley }) {
   const boxRef = React.useRef(null);
   const animationTimeoutRef = React.useRef(score);
 
-
   const navigate = useNavigate();
 
   const addHandleCount = () => {
@@ -107,8 +110,27 @@ function ItemCount({ stock, addHandleToTrolley }) {
     notifyToastAdd("🛒 Producto Agregado al Carrito");
   };
 
-
-
+  const AddButton = ({ onclick }) => {
+    return (
+      <Button variant="contained" size="small" onClick={onclick}>
+        Agregar
+      </Button>
+    );
+  };
+  const AddButtonSignedOut = ({ onclick, Message }) => {
+    return (
+      <SignInButton>
+        <Button
+          title={Message}
+          variant="contained"
+          size="small"
+          onClick={onclick}
+        >
+          Logearse
+        </Button>
+      </SignInButton>
+    );
+  };
 
   return (
     <>
@@ -159,39 +181,17 @@ function ItemCount({ stock, addHandleToTrolley }) {
             gap: 1,
           }}
         >
+          {showButton ? (
+            <AddButton onclick={handleTrollyCount} />
+          ) : (
+            <SignedOut>
+              <AddButtonSignedOut Message={"Loging Clientes"} />
+            </SignedOut>
+          )}
+
           <SignedIn>
-            {showButton &&
-            <Button
-              variant="contained"
-              size="small"
-              onClick={handleTrollyCount}
-            >
-              Agregar
-            </Button>
-            }
+            <AddButton onclick={handleTrollyCount} />
           </SignedIn>
-
-          <SignedOut>
-            <Tooltip title="Login de Clientes">
-            <Button
-              variant="contained"
-              size="small"
-              onClick={toggleModal}
-            >
-              Logearse
-            </Button>
-            </Tooltip>
-          </SignedOut>
-
-          {showButton && 
-              <Button
-              variant="contained"
-              size="small"
-              onClick={handleTrollyCount}
-            >
-              Agregar
-            </Button>
-          }
 
           <Button
             variant="contained"
