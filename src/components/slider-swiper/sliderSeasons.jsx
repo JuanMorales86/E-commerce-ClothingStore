@@ -1,7 +1,9 @@
 import React from "react";
 import { Typography ,CircularProgress, Box } from "@mui/material";
-import ListElementsFrontCard from "../containers/itemListFront";
 import { useNavigate } from "react-router-dom";
+
+//Mis Componentes
+import ListElementsSeasonFrontCard from "../containers/itemListFront/frontSeasonList";
 
 //libreria Swiper
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
@@ -16,6 +18,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import { AppContex } from "../../Providers/contex-provider";
 
+
 const styleH1 = {
   textAlign: "center",
   fontSize: "2.5rem",
@@ -23,13 +26,13 @@ const styleH1 = {
   margin: "2rem 0 1rem 0"
 }
 
-function SliderMostSelledCards() {
+function SliderSeasons() {
     // const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
     const swiperRef = React.useRef(null)
     const [, setId] = React.useState('')
     const [slidesPerView, setSlidesPerView] = React.useState(1)
     const navigate = useNavigate()
-    const {solditems, loading} = React.useContext(AppContex)
+    const {seasonsTemp, nameSeason, loading} = React.useContext(AppContex)
 
     React.useEffect(() => { //Para limitar la cantidad de cards por view en el slider
       const handleResize = () => {
@@ -55,10 +58,10 @@ return (
   
 
     <Box sx={{display:"flex",justifyContent:"center"}}>
-    <Typography className="degradado-texto" style={styleH1} fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
+    <Typography className="degradado-texto" style={styleH1} fontFamily={"letters.fontM"}>Llega el {nameSeason} </Typography> 
     </Box>
     
-    <Box  className='containerSwiperMS'>
+    <Box  className='containerSwiperSeaons'>
      
     <Swiper 
     ref={swiperRef}
@@ -77,11 +80,12 @@ return (
       <CircularProgress/> 
     </Box>
     : (
-    solditems.slice(0, 5).map((productS, index) => ( // Limita a solo los primeros 5 elementos
+    seasonsTemp.map((productS, index) => ( // Limita a solo los primeros 5 elementos con seasonTemp.slice(0,5).map...
       <SwiperSlide key={index} className="swiper-slidePS">
-        <ListElementsFrontCard
+        <ListElementsSeasonFrontCard
         key={index}
         data={productS}
+        nameoftheseason={nameSeason}
         onItemClick={handleGoItemDetail}
         />
       </SwiperSlide>
@@ -94,4 +98,4 @@ return (
 )}
 
 
-export default SliderMostSelledCards
+export default SliderSeasons

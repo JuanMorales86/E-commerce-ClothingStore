@@ -12,6 +12,7 @@ import InfiniteScroller from "../utilities/infinitescroller";
 import "@fontsource/roboto/400.css"; //Material
 import { Container, Grid, Typography, Button, Box } from "@mui/material";
 import SliderMostSelledCards from "../slider-swiper/sliderMostSelledCards";
+import SliderSeasons from "../slider-swiper/sliderSeasons";
 // import IfiniteScrollerCard from "../utilities/infinitescrollerCards";
 
 function HomePage({ setShowComponent }) {
@@ -97,6 +98,11 @@ function HomePage({ setShowComponent }) {
           </Grid>
         </Grid>
       </Container>
+
+      
+      <Box className="sliderBoxHomeMS">
+        <SliderSeasons />
+      </Box>
 
       <Box className="sliderBoxHomeMS">
         <SliderMostSelledCards />

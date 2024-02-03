@@ -146,19 +146,17 @@ function ProtectedBackOffice() {//Para poder pasar la autehntificacion dentro de
 
   // Verifica si el usuario está autenticado
   React.useEffect(() => {
-    if (!user) {
-      navigate('/home', { replace: true });// Usa navigate para redirigir al usuario
+  // Verifica si el usuario está autenticado
+  if (!user) {
+    navigate('/home', { replace: true });// Usa navigate para redirigir al usuario
     }
   }, [user, navigate]);
-
+  
+  // Verifica si el usuario está autenticado
   if (!user) {
     return null;// No necesitas renderizar nada aquí
   }
-  // Verifica si el usuario está autenticado
-  // if (!user) {
-  //   navigate('/home', {replace: true})// Usa navigate para redirigir al usuario
-  //   return null // No necesitas renderizar nada aquí
-  // }
+
   return (
     
     //Renderiza el componente si el usuario está autenticado

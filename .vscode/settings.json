@@ -19,5 +19,15 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#215732",
-    "cody.chat.preInstruction": "Answer all my questions in Spanish"
+    "cody.chat.preInstruction": "Answer all my questions in Spanish",
+    "emojisense.languages": {
+
+        "markdown": true,
+        "plaintext": {
+            "markupCompletionsEnabled": true,
+            "emojiDecoratorsEnabled": true
+        },
+        "scminput": true,
+        "git-commit": true
+    }
 }

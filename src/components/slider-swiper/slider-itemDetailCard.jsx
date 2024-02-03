@@ -2,6 +2,8 @@ import { CardMedia } from '@mui/material'
 import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
+
+//!No esta implementado todavia es pera hacer un slider de imagenes en itemdetailcards donde el usuario esta mirando el producto para comprarlo
 function  SlideritemDetailCard({thumbnail, title, handleMouseEnter,handleMouseLeave, isHovered}) {
 
     if(!thumbnail?.length){

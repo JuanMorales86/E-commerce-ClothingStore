@@ -40,12 +40,12 @@ const AppContexProvider = ({ children }) => {
   const [filteredOrders, setFilteredOrders] = React.useState([]); // Estado para los resultados de la búsqueda
   const [solditems, setSoldItems] = React.useState([]);// Estado para cargar los productos mas vendidos
   const [seasonsTemp,setSeasonTemp] = React.useState([])// Estado para cargar los productos con temporada
+  const [nameSeason, setNameSeason] = React.useState('Verano')// Estado para pasar el nombre de la temporada
   const [loading, setLoading] = React.useState(true);// Estado para inciar el loading en las cargas
-  const [ismodalOpen, setIsModalOpen] = React.useState(false);
-  const [isAdmin, setIsAdmin] = React.useState(false);
-  const [isOrderPage, setIsOrderPage] = React.useState(false);
-  const [color, setColor] = React.useState([])//Estado para setear colores (OrderList)
-  // const [forceUpdate, setForceUpdate] = React.useState(false)
+  const [ismodalOpen, setIsModalOpen] = React.useState(false);// !Estado importante para abrir y cerrar los modales
+  const [isAdmin, setIsAdmin] = React.useState(false);// Estado para cambiar imagen de slider a Admin
+  const [isOrderPage, setIsOrderPage] = React.useState(false);// Estado para cambiar imagen de slider a OrderPage
+  const [color, setColor] = React.useState([])// Estado para setear colores (OrderList)
   const MySwal = withReactContent(Swal);
 
   //Productos mas vendidos
@@ -99,17 +99,16 @@ const AppContexProvider = ({ children }) => {
         }); //devuelvo especificamaente el id que lo necesito y el resto de los campos
         // Realiza alguna acción con los productos obtenidos
         setSeasonTemp(seasonProducts);
+        setNameSeason(season)
         setLoading(false);
       } catch (error) {
         console.error("Error obteniendo productos vendidos:", error);
         setLoading(false);
       }
     };
-    
+   
     loadSeasons("Verano"); //! Cambiar segun la temporada a buscar
-  }, []);
-
- 
+  }, [nameSeason]);
 
 
   // Efecto para cargar el valor inicial del contador de órdenes
@@ -421,8 +420,6 @@ const AppContexProvider = ({ children }) => {
     });
   };
 
-
-
   //Manejador del carrito
   const handlePrToTrolley = (product) => {
     // Verificar si ya esta el producto en el carrito
@@ -519,6 +516,7 @@ const AppContexProvider = ({ children }) => {
         orders2,
         color,
         seasonsTemp,
+        nameSeason,
       }}
     >
       {children}

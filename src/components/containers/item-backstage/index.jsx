@@ -2,8 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 // eslint-disable-next-line
 import {doc, collection, onSnapshot, getFirestore } from 'firebase/firestore';
-
-
 import {//Libreria Material
   Card,
   Button,
@@ -82,9 +80,7 @@ const dataListPlacesOutside = ["P. Buenos Aires", "Caba"];
 
 const conditions = ["Nuevo", "Usado", "Detalles"];
 
-const seasonData = ["Verano", "Invierno", "Primavera", "Otoño"];
-
-
+const seasonData = ["Verano", "Invierno", "Primavera", "Otoño", "Fuera de Temporada"];
 
 const dataspecialproduct = [true, false]
 
