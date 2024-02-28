@@ -27,6 +27,7 @@ Codigo.txt
 backupspecialcodes.txt
 terminologia.txt
 package-lock.json
+.react-email
 
 #misc
 .env

@@ -107,6 +107,7 @@ function BackOffice() {
     discountSelected:"",
     size:"",
     season:"",
+    imagen: []
   });
 
   const resetForm = () => {
@@ -127,6 +128,7 @@ function BackOffice() {
       discountSelected:"",
       size:"",
       season:"",
+      imagen: []
     });
   };
   
@@ -159,6 +161,7 @@ function BackOffice() {
       .then(() => {
         notifyToastBD("💨 Producto Modificado Correctamente");
         setUpdateComponent(true);
+   
       })
       .catch((error) => {
         console.error("Error al modificar el producto:", error);
@@ -294,6 +297,7 @@ function BackOffice() {
             discountSelected:"",
             size:"",
             season:"",
+            imagen:[]
           }}
         />
       </Box>

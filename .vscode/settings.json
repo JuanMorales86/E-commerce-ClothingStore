@@ -29,5 +29,6 @@
         },
         "scminput": true,
         "git-commit": true
-    }
+    },
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

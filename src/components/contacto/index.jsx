@@ -1,8 +1,10 @@
 import React from "react";
-import { Box, TextField, Button, Paper } from "@mui/material";
+import { Box, TextField, Button, Paper, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { AppContex } from "../../Providers/contex-provider";
+import CustomTheme from "../Custom-Styles/themes";
 import emailjs from "@emailjs/browser";
+const {paragraphs} = CustomTheme;
 
 function Contacto({ setShowFixedImage, autoplayEnabled, setShowComponent }) {
   const refForm = React.useRef(); //es un objeto
@@ -57,14 +59,19 @@ function Contacto({ setShowFixedImage, autoplayEnabled, setShowComponent }) {
 
   return (
     <Box
+    className={"in-container"}
       sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "1rem",
+        paddingTop:"2rem"
       }}
-    >
+      >
+      <Typography 
+      style={paragraphs.titlesParagraphs}>
+        Dejanos tus Inquietudes aqui:
+      </Typography>
       <Paper
         sx={{
           p: 2,

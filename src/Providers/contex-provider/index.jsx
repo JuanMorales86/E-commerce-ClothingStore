@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 //Firestore BD
 import {
   addDoc,
@@ -24,6 +24,7 @@ import withReactContent from "sweetalert2-react-content";
 import { getOrders } from "../Api/api";
 
 
+
 //Padre de todo y
 export const AppContex = React.createContext();
 const { Provider } = AppContex;//alias
@@ -46,7 +47,27 @@ const AppContexProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = React.useState(false);// Estado para cambiar imagen de slider a Admin
   const [isOrderPage, setIsOrderPage] = React.useState(false);// Estado para cambiar imagen de slider a OrderPage
   const [color, setColor] = React.useState([])// Estado para setear colores (OrderList)
+  const trolleyMemo = useMemo(() => trolley, [trolley])//Solo se recalculara si cambia de depedencia
+  //const [cart, setCart] = React.useState([])//Estado para cargar vacio o no el localstorage trolley
   const MySwal = withReactContent(Swal);
+
+    const useCart = () => {//Hook perzonalizado
+      const [cart, setCart] = React.useState([])
+
+  React.useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("trolley")) ?? []
+    setTrolley(storedCart)//!cuidado cambio 20/02/24 (funciona pero se puede ocasionar cuelgues cuelga)
+    setCart(storedCart)
+    },[])
+    return {
+      cart,
+      setCart
+    }
+  }
+
+  // React.useEffect(() => {
+  //   localStorage.setItem('trolley', JSON.stringify(cart))
+  // },[cart])
 
   //Productos mas vendidos
   React.useEffect(() => {
@@ -78,9 +99,8 @@ const AppContexProvider = ({ children }) => {
     selledProducts(); // Llama a la función asíncrona inmediatamente
   }, []); // El segundo argumento del useEffect indica que solo debe ejecutarse una vez al montarse el componente
   
-
    //Productos con temporadas
-   React.useEffect(() => {
+  React.useEffect(() => {
     const loadSeasons = async (season) => {
       const db = getFirestore();
       const productsRef = collection(db, "productos");//productsRef es la referencia a la colección "productos"
@@ -110,7 +130,6 @@ const AppContexProvider = ({ children }) => {
     loadSeasons("Verano"); //! Cambiar segun la temporada a buscar
   }, [nameSeason]);
 
-
   // Efecto para cargar el valor inicial del contador de órdenes
   React.useEffect(() => {//contador ordenes
     const db = getFirestore();
@@ -129,8 +148,6 @@ const AppContexProvider = ({ children }) => {
     const newColor = getRandomPasteColor()
     setColor(newColor)
   },[])
-
-  
 
   // const forceComponentUpdate = () => {
   //   setForceUpdate((prev) => !prev)
@@ -421,22 +438,21 @@ const AppContexProvider = ({ children }) => {
   };
 
   //Manejador del carrito
-  const handlePrToTrolley = (product) => {
+  const handlePrToTrolley = useCallback((product) => {
     // Verificar si ya esta el producto en el carrito
     const productIndex = trolley.findIndex((item) => item.id === product.id);
 
     if (productIndex !== -1) {
       //El producto ya esta en el carrito, actualiza la cantidad
-
       const updatedTrolley = [...trolley];
       const newQuantity =
         updatedTrolley[productIndex].quantity + product.quantity;
 
       if (newQuantity <= parseInt(product.stock)) {
         updatedTrolley[productIndex].quantity = newQuantity;
-
-        setTrolley(updatedTrolley);
-        // setTrolley(updatedTrolley)//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
+        setTrolley(updatedTrolley);//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
+        const trolleyToStore = JSON.stringify(updatedTrolley)
+        localStorage.setItem('trolley', trolleyToStore)
       } else {
         MySwal.fire({
           title: "No hay suficiente stock disponible",
@@ -460,7 +476,12 @@ const AppContexProvider = ({ children }) => {
       if (totalQuantity <= parseInt(product.stock)) {
         // se verifica si la cantidad total de un producto en el carrito, incluida la cantidad que se desea agregar, es menor o igual al stock disponible para ese producto (product.stock).
         // Restar la cantidad agregada al carrito del stock original
-        setTrolley((prevTrolley) => [...prevTrolley, product]);
+        setTrolley((prevTrolley) => {
+          const newTrolley = [...prevTrolley, product]
+          localStorage.setItem('trolley', JSON.stringify(newTrolley))
+          return newTrolley;
+        });
+       
       } else {
         MySwal.fire({
           title: "No hay suficiente stock disponible",
@@ -469,13 +490,18 @@ const AppContexProvider = ({ children }) => {
         });
       }
     }
-  };
+  },[MySwal, trolley]);
+
+
 
   const notifyClose = () => notifyToast("💨 Carrito Vaciado");
   const handleEmptyTrolley = () => {
     setTrolley([]);
     setShowUserData(false);
     notifyClose();
+
+    //Vaciar el LocalStorage
+    localStorage.removeItem('trolley');
   };
 
   const toggleModal = () => setIsModalOpen((prev) => !prev);
@@ -490,7 +516,8 @@ const AppContexProvider = ({ children }) => {
         notifyToastError,
         handlePrToTrolley,
         handleEmptyTrolley,
-        trolley,
+        useCart,
+        trolley: trolleyMemo,
         quantityC: trolley.length,
         createNewDispach,
         lastDispach: dispatchId,

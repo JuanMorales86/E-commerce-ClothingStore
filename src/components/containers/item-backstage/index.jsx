@@ -14,6 +14,8 @@ import {//Libreria Material
   Typography,
 } from "@mui/material";
 
+import { AppContex } from "../../../Providers/contex-provider";
+
 const originCategory = [
   "sweater",
   "ropainterior",
@@ -86,8 +88,9 @@ const dataspecialproduct = [true, false]
 
 //My item card Principal
 function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteButton, showResetButton }) {
-  const { id, title, thumbnail, description , price, color, size, brand, condition, stock, customid, categoryType, addressShipping,addressPlace, specialproduct, discountSelected, season } = data //Destructuracion (es mas ordenado para saber que es lo que estoy pasando por props)
-  const { register,getValues, reset, setValue} = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
+  const { id, title, description , price, color, size, brand, condition, stock, customid, categoryType, addressShipping,addressPlace, specialproduct, discountSelected, season, imagen } = data //Destructuracion (es mas ordenado para saber que es lo que estoy pasando por props)
+  const { notifyToastError } = React.useContext(AppContex);
+  const { register,getValues, reset, setValue} = useForm({defaultValues:{imagen: data.imagen}}); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
   const [modifiedFields, setModiefiedFields] = React.useState({}) //para detectar cambios en los campos y agregarle un color 
   const [isHovered, setIsHovered] = React.useState(false);
   const [selectedSize, setSelectedSize] = React.useState(size || "") // Inicializa con el valor de data.size o en blanco ('')
@@ -95,7 +98,40 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
   
   const validSeason = seasonData.includes(season) ? season : ""//Validacion para el textfield si trae ya iformacion o es undefined o en blanco value no puede recibir informacion undefined 
   const [seasonState,setSeasonState] = React.useState(validSeason)//Manejo de estado para season esta es una solucion para que mui no devuelva esatdo incrontrolado para defaultvalue es mejor controlarlo cone el esatdo y value en vez de defaultvalue
+  const [displayedImage, setDisplayedImage] = React.useState('') //Estado para la imagen
+  const [imagenes, setImagenes] = React.useState(data.imagen)
+  const [loading,setLoading] = React.useState(true)
 
+
+  React.useEffect(() => {
+    const imageString = getImagesString(imagenes)//Si da problemas cambiar a imagen
+    setDisplayedImage(imageString)
+    setLoading(false)
+  },[imagenes])
+
+  const getImagesString = (imagen) => {
+    if(Array.isArray(imagen)){
+      return imagen.join(',')
+    }
+    return imagen
+  }
+/*La imagen se está tomando del estado imagenes que se pasa a getImagesString dentro del useEffect.
+
+El flujo es así:
+
+Se tiene el estado imagenes con el array de URLs de imágenes
+
+En el useEffect, se pasa ese estado a getImagesString
+
+getImagesString convierte el array a una cadena de texto separada por comas
+
+Esa cadena se guarda en el estado displayedImage
+
+El componente u otro toma la prop image de displayedImage
+
+Así que el origen de las imágenes es el estado imagenes que se supone viene del formulario. */
+
+  const defaultImage = 'https://i.imgur.com/lOtksO7.png'
 
   const handleSeasonChange = (e) => {//Manejo de cambios con onChange actualizando el estado con setSeasonState
     setSeasonState(e.target.value)
@@ -111,6 +147,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     //Para la imagen
     setIsHovered(false);
   };
+
+  const resetImages = () => {
+    setDisplayedImage(displayedImage);
+    setValue('imagen', imagen);
+  }
 
   const handleClickM = () => {
     //click que maneja el form y obtine los valores
@@ -134,8 +175,12 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
 
     if (typeof onClick === "function") {
       onClick(formData, id);
-      setModiefiedFields({});
+      
     }
+
+    resetImages();
+
+    setModiefiedFields({});
   };
 
   const handleResetFields = (data) => {
@@ -169,13 +214,6 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
         setValue("season", ""); // Cambiado a cadena vacía
   };
 
- // const handleChangeText = (e) => {
-    //funcion de cambio que maneja los inputs que han sido modificados
-    //setModiefiedFields((prevModifiedFiles) => ({
-    //  ...prevModifiedFiles,[e.target.name]: true //object spread(...prevModifiedFiles)
-   // }))
-  //}
-
   const handleChangeText = (e) => {
     const fieldName = e.target.name
     const newValue = e.target.value
@@ -186,27 +224,59 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
     }))
   }
 
-  //  const handleChangeText = (e) => {
-  //   const fieldName = e.target.name
-  //   const newValue = e.target.value
-    
-  //   const parsedValue = isNaN(newValue) ? null : parseFloat(newValue)
+  function isEqual(urls) {
+  // 1. Mapear las URLs para extraer la ruta única después de .com/
+  const urlPaths = urls.map(url => url.split('.com/')[1])
+  // 2. Declarar variable para trackear si encontramos duplicados
+  let hasDuplicates = false
+  let duplicateUrl = ''
+  // 3. Loop anidado para comparar cada urlPath con el resto
+  for(let i = 0; i < urlPaths.length; i++){
+    const currentPath = urlPaths[i]
+  for(let j= i + 1; j < urlPaths.length; j++ ){
+    const otherPaths = urlPaths[j]
+    // 4. Comparar paths 
+    if(currentPath === otherPaths){
+    hasDuplicates = true
+    duplicateUrl = currentPath
+    }}}
+    // 5. Retornar el resultado de la comparación
+    return {hasDuplicates, duplicateUrl}
+  }
+  
+  const handleChange = (e) => {
+    const urls = e.target.value.split(',')
+    const { hasDuplicates, duplicateUrl} = isEqual(urls)
 
-  //   if(parsedValue !== null) {
-  //     setModiefiedFields((prevModifiedFiles) => ({
-  //       ...prevModifiedFiles,
-  //       [fieldName]: parsedValue || 0
-  //     }))
+    if(hasDuplicates){
+      notifyToastError(`URL duplicadas: ${duplicateUrl} `)
+    }
 
-  //     setErrors((prevErrors) => ({...prevErrors, [fieldName]: ''}))
-  //   } else {
-  //     setErrors((prevErrors) => ({...prevErrors, [fieldName]: 'Ingrese solo numeros'}))
-    
-  // }
-  // }
+    const newImage = []//aqui contiene todas las urls ingresadas incluyendo las duplicadas
 
+    urls.forEach(url => {
+    newImage.push(url.trim())
+  })
+  
+  const noDuplicates = [...new Set(newImage)]//se esta creando el array noDuplicates aplicando Set para remover duplicados
+  
+  setImagenes(noDuplicates) 
+  setValue('imagen', noDuplicates);
+  }
 
+  // console.log(imagen)
+  console.log(displayedImage)
+  // console.log(imagenes)
+// const imageValues = getValues('imagen') || []
+// let imageString = ''
+// if(Array.isArray(imageValues)) {
+//   imageString = imageValues.map(url => url).join(',');
+// } else if (typeof imageValues === 'string') {
+//   imageString = imageValues; 
+// }
+//console.log(imageString)
 
+if(loading) return null;
   return (
     <Card
       sx={{
@@ -235,11 +305,11 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
           },
         }}
       >
-        <CardMedia
+        <CardMedia  
           component="img"
           alt={title}
           height="260"
-          image={thumbnail}
+          image={displayedImage || defaultImage}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
@@ -293,14 +363,18 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
         >
           <TextField
             label="Imagen"
+            multiline
+            rows={4}
             variant="outlined"
             placeholder="Imagen..."
             size="small"
-            {...register("thumbnail", { required: false })}
-            defaultValue={thumbnail}
-            onChange={handleChangeText}
+            //{...register("imagen", { required: false, valueAsArray: true })}
+            value={imagenes + ", "}
+            onChange={(e) => {
+              handleChange(e)
+              }}
             style={{ width: "250px" }}
-            sx={{ backgroundColor: modifiedFields.thumbnail ? "lightblue" : "transparent" }}
+            sx={{ backgroundColor: modifiedFields.imagenes ? "lightblue" : "transparent" }}
             
           />
           <TextField

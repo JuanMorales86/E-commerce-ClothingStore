@@ -45,10 +45,13 @@ function ModalSlide({ widget }) {
     lastDispach,
   } = React.useContext(AppContex); //ContexProvider
 
+
   const handleUserDataComplete = () => {
     setShowUserData(false); // Cierra el componente UserData
     setOpen(false); // Cerrar el modal cuando UserData haya completado el proceso userdata
   };
+
+  
 
   const MySwal = withReactContent(Swal); //instancia sweetalert
   const handleClickSwal = () => {
@@ -105,6 +108,7 @@ function ModalSlide({ widget }) {
     }
   };
 
+  //Calculos de Precios
   // Función para calcular el precio con descuento
   const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
     // Verifica si se ha seleccionado un descuento y aplica el descuento correspondiente
@@ -217,8 +221,10 @@ function ModalSlide({ widget }) {
         <DialogContent>
           <DialogContentText
             display={"flex"}
+            flexDirection={"column"}
             justifyContent={"center"}
             alignItems={"center"}
+						gap={"1rem"}
             id="alert-dialog-slide-description"
           >
             {trolley.map((item) => (
@@ -228,10 +234,9 @@ function ModalSlide({ widget }) {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginBottom: ".1rem",
-                  width: ["50%", "auto"],
+                  width: ["auto", "auto"],
                   height: "auto",
-                  flexDirection: ["column", "row"],
+                  flexDirection: "row",
                   background:
                     "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */,
                   boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
@@ -240,12 +245,12 @@ function ModalSlide({ widget }) {
                 <CardMedia
                   component="img"
                   sx={{
-                    width: ["100%", "125px"],
-                    height: ["150px", "125px"],
+                    width: ["125px", "125px"],
+                    height: ["125px", "125px"],
                     aspectRatio: 10 / 9,
                     alignSelf: "center",
                     border: "solid 2px black",
-                    objectFit: "fill",
+                    objectFit: "cover",
                   }}
                   image={item.imagen}
                   alt={item.producto}
@@ -254,8 +259,10 @@ function ModalSlide({ widget }) {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: ["center", "self-start"],
-                    height: ["auto", "127px"],
+										justifyContent:"center",
+										alignContent:"center",
+                    alignItems: ["self-start", "self-start"],
+                    height: ["127px", "127px"],
                   }}
                 >
                   <RenderItemDetails items={item} calcTotalQuantityPerPrice={calcTotalQuantityPerPrice} />
