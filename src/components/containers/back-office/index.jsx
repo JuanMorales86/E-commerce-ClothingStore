@@ -27,10 +27,10 @@ import { formattedDate } from "../../utilities/helpers";
 
 function BackOffice() {
   const [productBD, setProductBD] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  //const [loading, setLoading] = React.useState(true);//!habilitar si da problemas en el input, lo cambie al loading de appcontex
   const [updateComponent, setUpdateComponent] = React.useState(false);
   const {reset} = useForm()
-  const { notifyToastBD, notifyToastContainer, handleAdminChanger } = React.useContext(AppContex)
+  const { notifyToastBD, notifyToastContainer, handleAdminChanger, loading, setLoading } = React.useContext(AppContex)
   const [alreadyNotified, setAlreadyNotified] = React.useState(false)//Estado para controlar la notificacion de la carga exitosa de la bd
   
   // const currentDate = new Date().toDateString('es-AR')

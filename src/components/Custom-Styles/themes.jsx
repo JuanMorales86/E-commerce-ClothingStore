@@ -165,7 +165,16 @@ const CustomTheme = createTheme ({
       objectFit:"contain",
       flexShrink:0,
       borderRadius:"18px"
-      
+    }
+  },
+
+  imagesSliders:{
+    slidersImagesStyles:{
+      //width: ["350px", "479px"],
+      height: "auto",
+      objectFit: "cover",
+      border:'3px solid black',
+     
     }
   },
 

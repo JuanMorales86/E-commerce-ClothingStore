@@ -12,9 +12,14 @@ import {//Libreria Material
   TextField,
   MenuItem,
   Typography,
+  Chip,
+  Stack,
+  Avatar,
+  Tooltip
 } from "@mui/material";
 
 import { AppContex } from "../../../Providers/contex-provider";
+
 
 const originCategory = [
   "sweater",
@@ -99,9 +104,13 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
   const validSeason = seasonData.includes(season) ? season : ""//Validacion para el textfield si trae ya iformacion o es undefined o en blanco value no puede recibir informacion undefined 
   const [seasonState,setSeasonState] = React.useState(validSeason)//Manejo de estado para season esta es una solucion para que mui no devuelva esatdo incrontrolado para defaultvalue es mejor controlarlo cone el esatdo y value en vez de defaultvalue
   const [displayedImage, setDisplayedImage] = React.useState('') //Estado para la imagen
-  const [imagenes, setImagenes] = React.useState(data.imagen)
-  const [loading,setLoading] = React.useState(true)
-
+  const [imagenes, setImagenes] = React.useState(data.imagen || [])
+  const [newImageInput, setNewImageInput] = React.useState('')
+  const [loaded,setLoaded] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
+ 
+  const imgStyle = loaded ? {} : {filter: "grayscale(100%)"};
+ 
 
   React.useEffect(() => {
     const imageString = getImagesString(imagenes)//Si da problemas cambiar a imagen
@@ -140,7 +149,7 @@ Así que el origen de las imágenes es el estado imagenes que se supone viene de
 
   const handleMouseEnter = () => {
     //Para la imagen
-    setIsHovered(true);
+    if(loaded){setIsHovered(true);}
   };
 
   const handleMouseLeave = () => {
@@ -246,7 +255,7 @@ Así que el origen de las imágenes es el estado imagenes que se supone viene de
   
   const handleChange = (e) => {
     const urls = e.target.value.split(',')
-    const { hasDuplicates, duplicateUrl} = isEqual(urls)
+    const { hasDuplicates, duplicateUrl} = isEqual(urls)//Llamo a isEqual
 
     if(hasDuplicates){
       notifyToastError(`URL duplicadas: ${duplicateUrl} `)
@@ -262,20 +271,25 @@ Así que el origen de las imágenes es el estado imagenes que se supone viene de
   
   setImagenes(noDuplicates) 
   setValue('imagen', noDuplicates);
+
+  /* 
+Cuando cambia el campo de texto, se ejecuta la función handleChange que:  
+1.Divide la cadena en un array separando por comas
+2.Llama a isEqual para verificar duplicados
+3.Filtra duplicados con Set y guarda en noDuplicates
+4.Establece el estado imagenes con noDuplicates
+5.Establece el valor del campo con setValue('imagen', noDuplicates)*/
   }
 
-  // console.log(imagen)
-  console.log(displayedImage)
-  // console.log(imagenes)
-// const imageValues = getValues('imagen') || []
-// let imageString = ''
-// if(Array.isArray(imageValues)) {
-//   imageString = imageValues.map(url => url).join(',');
-// } else if (typeof imageValues === 'string') {
-//   imageString = imageValues; 
-// }
-//console.log(imageString)
+  const handleRemoveImage = (indexToDelete) => {
+    const filteredImages = imagenes.filter((_, index) => index !== indexToDelete)
+    setImagenes(filteredImages)
+  }
 
+
+  const image = loaded ? displayedImage : defaultImage;
+  
+  console.log(imagenes)
 if(loading) return null;
   return (
     <Card
@@ -309,7 +323,9 @@ if(loading) return null;
           component="img"
           alt={title}
           height="260"
-          image={displayedImage || defaultImage}
+          image={image || defaultImage}
+          style={imgStyle}
+          onLoad={() => setLoaded(true)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           sx={{
@@ -323,7 +339,7 @@ if(loading) return null;
             }
           }}
         />
-             {isHovered && (
+             {displayedImage && isHovered && (
           <Typography
             sx={{
               position: "absolute",
@@ -369,7 +385,8 @@ if(loading) return null;
             placeholder="Imagen..."
             size="small"
             //{...register("imagen", { required: false, valueAsArray: true })}
-            value={imagenes + ", "}
+            value={imagenes}
+            //value={""}
             onChange={(e) => {
               handleChange(e)
               }}
@@ -377,6 +394,23 @@ if(loading) return null;
             sx={{ backgroundColor: modifiedFields.imagenes ? "lightblue" : "transparent" }}
             
           />
+          <Stack direction={{xs:"column", sm:"row"}}  spacing={{ xs: 1, sm: 1, md: 2 }} sx={{  border: "solid 1px black", borderRadius: "6px", padding: "10px" }}>
+          {
+            imagenes.length === 0 ? (
+                <Typography>Sin Imagenes</Typography>
+            ) : (
+            imagenes.map((url, index) => (
+              <Tooltip key={url} title={url} placement="top" arrow>
+                
+              <Chip onDelete={() => handleRemoveImage(index)} size="medium" key={url} label={index} avatar={
+              <Avatar src={url} alt="imagen de producto"/>}
+              >
+                
+              </Chip>
+              </Tooltip>
+            )))
+          }
+          </Stack>
           <TextField
             label="Titulo"
             variant="outlined"

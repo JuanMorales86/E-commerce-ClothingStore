@@ -136,26 +136,16 @@ function ItemCount({ stock, addHandleToTrolley }) {
     <>
       <Box>
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
+        className="itemCounterContainer"
         >
           <Button variant="text" size="small" onClick={minusHandleCount}>
             <IndeterminateCheckBoxIcon fontSize="small" />
           </Button>
           <Box
             ref={boxRef}
+            className="itemCounterContainerInner"
             sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "30px",
-              height: "auto",
-              borderRadius: "50%",
               backgroundColor: backColor,
-              transition: "background-color 0.3 ease",
             }}
           >
             <Typography
@@ -172,14 +162,8 @@ function ItemCount({ stock, addHandleToTrolley }) {
         </Box>
 
         <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "1rem",
-            marginBottom: "1rem",
-            gap: 1,
-          }}
+        className="itemCountContainerButtons"
+       
         >
           {showButton ? (
             <AddButton onclick={handleTrollyCount} />

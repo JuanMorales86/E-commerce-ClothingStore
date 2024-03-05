@@ -218,6 +218,7 @@ function OrderList() {
         alignItems={"center"}
         justifyContent={"center"}
         spacing={3}
+        mb={6}
       >
         {displayedOrders.map((order, index) => (
           <Grid

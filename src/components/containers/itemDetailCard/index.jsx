@@ -4,7 +4,7 @@ import React from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 //LibreriaMaterial
-import { Box, Button, CardActions, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Button, CardActions, Card, CardContent, Typography } from '@mui/material';
 
 //Iconos Material
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
@@ -14,7 +14,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 //Mis componentes
 import ItemCount from '../item-count';
 import { AppContex } from '../../../Providers/contex-provider';
-//import SlideritemDetailCard from '../../slider-swiper/slider-itemDetailCard';//!!Trabajo pendiente
+import SlideritemDetailCard from '../../slider-swiper/slider-itemDetailCard';//!!Trabajo pendiente Logrado
 
 const styletters={
   fontWeight:600,
@@ -22,18 +22,17 @@ const styletters={
 
 //Mi card DETAIL
 function CardDetail({data}) {
-  const {id, customid, title, thumbnail, description, soldquantity, stock, price, discountSelected, size, color } = data
+  const {id, customid, title, thumbnail, description, soldquantity, stock, price, discountSelected, size, color, imagen } = data
 
   const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
 
   const [, setShowZoomMessage] = React.useState(false)//estado para el mensage de hacer zoom
 
-
   const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
 
   //Parte de cart
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
-      handlePrToTrolley({//esta seleccion de items va tambie a taskOrder
+      handlePrToTrolley({//esta seleccion de items va tambien a taskOrder
           id:id,
           customid,
           producto: title,
@@ -61,9 +60,9 @@ function CardDetail({data}) {
 
   return (
  
-    <Card className='cardItemDetail' sx={{ display: 'flex', flexDirection:['column-reverse', 'row'], backgroundColor: '#f9f9f9', borderRadius: ['10px', '15px'], boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'}}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height:"auto", margin:"0 auto"  }}>
-        <CardContent sx={{ flex: '2 1 200px', width:'auto', height:"auto", display:'flex',flexDirection:'column',alignItems:'center', justifyContent:'center' }}>{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
+    <Card className='cardItemDetail' style={{borderRadius:"15px"}}>
+      <Box className='cardItemDetailInner' >
+        <CardContent className='cardItemDetailContent' >{/*(flex-grow: 1), no se encogerá (flex-shrink: 0) y tomará su tamaño base automático (flex-basis: auto). */}
           <Typography variant="h1" fontSize={'1.2rem'} textTransform={'capitalize'} fontWeight={"bold"} textAlign={'center'} style={styletters} fontFamily={"letters.fontM"} >
             {title}
           </Typography>
@@ -72,8 +71,8 @@ function CardDetail({data}) {
           {description || 'Sin descripcion'}
         </Typography>
 
-        <Box sx={{marginTop:'1rem',display:'flex', flexDirection:'column', alignItems:'center'}}>
-          <Typography variant="h5" fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700}  textAlign={'center'} marginBottom={2} style={styletters} fontFamily={"letters.fontM"}>
+        <Box className="cardItemDetailInnerContentBox">
+          <Typography fontSize={'0.8rem'} textTransform={'capitalize'} fontWeight={700}   marginBottom={2} style={styletters} fontFamily={"letters.fontM"}>
               Codigo:{customid}
             </Typography>
           <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
@@ -88,7 +87,7 @@ function CardDetail({data}) {
             <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               Stock Almac.: {stock} Unid.
             </Typography>
-            <Typography  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
+            <Typography textAlign={"center"}  color="text.secondary" style={styletters} fontFamily={"letters.fontM"}>
               Precio-Original: $ {price} Pesos
             </Typography>
             {/* <Typography  color="text.secondary" >
@@ -98,7 +97,7 @@ function CardDetail({data}) {
         </Box>
         </CardContent>
 
-        <Box sx={{ display:'flex', flexDirection:'column' , alignItems: ['center', 'center'] }}>
+        <Box className="cardItemDetailInnerActions">
       
                 <CardActions>
                 <ItemCount stock={stock} addHandleToTrolley={addHandleToTrolley}/>
@@ -112,28 +111,16 @@ function CardDetail({data}) {
             initialScale={1}
             initialPositionX={0}
             initialPositionY={0}
+            
       >
         {/* si le quiero agregar botones */}
         {({ zoomIn, zoomOut, resetTransform }) => (
-          <Box sx={{display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"end"}}>
+          <Box className="cardDetailTranformWrapperContainer" >
         <TransformComponent>
-          <CardMedia
-            className='cardDetailImage'
-            component="img"
-            sx={{ width:["350px","480px"], height: "100%", objectFit:"cover",  borderTopRightRadius: '15px', borderBottomRightRadius: ['0', '15px'],borderTopLeftRadius: ['15px', '0'], border:'2px solid black' ,
-            transition: "transform 0.5s ease",
-            transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover(me parece que no funciona)
-            position:"relative", 
-          }}
-            image={thumbnail}
-            alt={title}
-            onMouseEnter={handleMouseEnter}//activar hover
-            onMouseLeave={handleMouseLeave}//desactivar hover
-          />
-          {/* <SlideritemDetailCard isHovered={isHovered} thumbnail={thumbnail} /> */}
-             </TransformComponent>
+          <SlideritemDetailCard handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} isHovered={isHovered} imagen={imagen} />
+        </TransformComponent>
           {/* Componente para la funcionabilidad del zoom */}
-              <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems: 'center', position:"absolute", gap:1, mb:"1rem", border:"2px solid white", borderRadius:"20px"  }} className="tools">
+              <Box  className="cardDetailTranformWrapperContainerInner">
                 <Button variant="text" onClick={() => zoomIn()}><ZoomInIcon fontSize='small' color='secondary'/></Button>
                 <Button variant="text" onClick={() => zoomOut()}><ZoomOutIcon fontSize='small' color='secondary'/></Button>
                 <Button variant="text" onClick={() => resetTransform()}><RestartAltIcon fontSize='small' color='secondary'/></Button>

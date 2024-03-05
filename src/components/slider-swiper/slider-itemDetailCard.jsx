@@ -1,34 +1,49 @@
 import { CardMedia } from '@mui/material'
 import React from 'react'
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import CustomTheme from '../Custom-Styles/themes'
+const {imagesSliders} = CustomTheme
 
 
 //!No esta implementado todavia es pera hacer un slider de imagenes en itemdetailcards donde el usuario esta mirando el producto para comprarlo
-function  SlideritemDetailCard({thumbnail, title, handleMouseEnter,handleMouseLeave, isHovered}) {
+function  SlideritemDetailCard({imagen, title, handleMouseEnter,handleMouseLeave, isHovered}) {
 
-    if(!thumbnail?.length){
+    if(!imagen?.length){
         return null
     }
     
-  
+  console.log(imagen)
   return (
-    <Swiper>
-        {thumbnail.map((img,index) => {
+    <Swiper
+    modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+    autoplay={{delay: 5000}}
+    navigation={{
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    }}
+    slidesPerView={"auto"}
+    spaceBetween={1}
+    centeredSlides={true} 
+    
+   
+   
+    >
+        {imagen.map((img,index) => {
             return (
-            <SwiperSlide key={index} >
-                 <CardMedia
-            className='cardDetailImage'
-            component="img"
-            sx={{ width:["350px","480px"], height: "100%", objectFit:"cover",  borderTopRightRadius: '15px', borderBottomRightRadius: ['0', '15px'],borderTopLeftRadius: ['15px', '0'], border:'2px solid black' ,
-            transition: "transform 0.5s ease",
-            transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover(me parece que no funciona)
-            position:"relative", 
-          }}
-            image={img}
-            alt={title}
-            onMouseEnter={handleMouseEnter}//activar hover
-            onMouseLeave={handleMouseLeave}//desactivar hover
-          />
+            <SwiperSlide key={index}>
+              <CardMedia
+              className='cardDetailImage'
+              component="img"
+              style={imagesSliders.slidersImagesStyles}//CustomThemes
+              sx={{
+              transform: isHovered ? 'scale(1.3)' : 'scale(1)', // Aplicar zoom solo cuando se hace hover(me parece que no funciona)
+            }}
+              image={img}
+              alt={title}
+              onMouseEnter={handleMouseEnter}//activar hover
+              onMouseLeave={handleMouseLeave}//desactivar hover
+            />
             </SwiperSlide>
             )
         })}
