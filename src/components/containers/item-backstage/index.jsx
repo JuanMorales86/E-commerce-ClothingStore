@@ -105,7 +105,7 @@ function CardBackStage({ data, onClick, onDelete, createButtonText, showDeleteBu
   const [seasonState,setSeasonState] = React.useState(validSeason)//Manejo de estado para season esta es una solucion para que mui no devuelva esatdo incrontrolado para defaultvalue es mejor controlarlo cone el esatdo y value en vez de defaultvalue
   const [displayedImage, setDisplayedImage] = React.useState('') //Estado para la imagen
   const [imagenes, setImagenes] = React.useState(data.imagen || [])
-  const [newImageInput, setNewImageInput] = React.useState('')
+  //const [newImageInput, setNewImageInput] = React.useState('')
   const [loaded,setLoaded] = React.useState(false)
   const [loading, setLoading] = React.useState(true)
  
@@ -289,7 +289,6 @@ Cuando cambia el campo de texto, se ejecuta la función handleChange que:
 
   const image = loaded ? displayedImage : defaultImage;
   
-  console.log(imagenes)
 if(loading) return null;
   return (
     <Card

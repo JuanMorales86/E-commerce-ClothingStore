@@ -24,11 +24,7 @@ const styletters={
 function CardDetail({data}) {
   const {id, customid, title, thumbnail, description, soldquantity, stock, price, discountSelected, size, color, imagen } = data
 
-  const [isHovered, setIsHovered] = React.useState(false)//estado para el hover
-
-  const [, setShowZoomMessage] = React.useState(false)//estado para el mensage de hacer zoom
-
-  const {handlePrToTrolley} = React.useContext(AppContex)//!Llamo a handlePrToTrolley gracias a AppContex
+  const {handlePrToTrolley} = React.useContext(AppContex)
 
   //Parte de cart
   const addHandleToTrolley = (quantity, stock) => {//cuando se dispare este evento va a devolver los datos del array trolley relevantes gracias al spread en contex y el quantity de items del mimso producto que selecciono el user 
@@ -44,18 +40,6 @@ function CardDetail({data}) {
           color,
           size
       })
-  }
-
-  const handleMouseEnter = () => {
-    setIsHovered(true)
-    setShowZoomMessage(true)
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setTimeout(() => {
-      setShowZoomMessage(false)
-    }, 2000)
   }
 
   return (
@@ -117,7 +101,7 @@ function CardDetail({data}) {
         {({ zoomIn, zoomOut, resetTransform }) => (
           <Box className="cardDetailTranformWrapperContainer" >
         <TransformComponent>
-          <SlideritemDetailCard handleMouseEnter={handleMouseEnter} handleMouseLeave={handleMouseLeave} isHovered={isHovered} imagen={imagen} />
+          <SlideritemDetailCard imagen={imagen} resetTransform={resetTransform}/>
         </TransformComponent>
           {/* Componente para la funcionabilidad del zoom */}
               <Box  className="cardDetailTranformWrapperContainerInner">
