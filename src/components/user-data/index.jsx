@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import handleSoldQuantity from "../utilities/soldquantity";
 //Libreria emailjs
 import emailjs from "@emailjs/browser";
+//Libreria date-fns
+import { format } from "date-fns";
 
 //Orden, capturar la informacion del cliente almacenarla como ticked al finalizar la compra
 const UserData = ({ trolley, createNewDispach, onClose, total }) => {
@@ -17,8 +19,6 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
   // const [purchaseDate, setPurchaseDate] = React.useState(
   //   new Date().toLocaleDateString()
   // );
-  const formatteDate = new Date().toLocaleDateString();
-  console.log(formatteDate)
   const refForm = React.useRef(); //es un objeto
   // const cartBuyer = trolley;
   const cartTotalBuyer = total;
@@ -59,6 +59,12 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
             ----${item.discountSelected ? `APLICA DESCUENTO: ${item.discountSelected.toUpperCase()}%.` : 'Sin descuento.'}----
           }`
   ));
+
+  const formatteddatefns =`
+    ----FECHA DE COMPRA: ${format(new Date(), 'dd/MM/yyyy')}----
+    ----HORA DE COMPRA: ${format(new Date(), 'HH:mm:ss')}----
+  `
+  console.log(formatteddatefns)
   
   const {
     register,
@@ -66,13 +72,9 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
     formState: { errors, isValid },
     reset,
   } = useForm(); //Declaraciones de estado y funciones. //formState por react-hook-form contiene información sobre el estado del formulario, incluyendo si es válido o no.
-  const { notifyToast } = React.useContext(AppContex);
-
-  //!Elminar
-  // React.useEffect(() => {
-  //   setPurchaseDate(new Date().toLocaleDateString());
-  //   console.log(purchaseDate);
-  // }, [purchaseDate]);
+  const { notifyToast, useFormattedDate } = React.useContext(AppContex);
+  const formattedCDate = useFormattedDate();
+  console.log(formattedCDate)
 
   const modifierStockProducts = async (trolley) => {
     //Funcion para modificar stock en la base de datos segun lo que lleve el comprador
@@ -98,6 +100,8 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data)
+
     //react-hook-form se encarga automáticamente de prevenir la recarga de la página cuando se envía el formulario.
     const serviceId = "react_contact_detail";
     const templateId = "template_47721fl"; //my replay message
@@ -110,8 +114,15 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
     try {
       await modifierStockProducts(trolley);
 
+      const date = new Date()
+      const day = date.getDate()
+      const month = date.getMonth() + 1 //lOS MESES VAN DE 0 A 11
+      const year = date.getFullYear() 
+
       // Formatea la fecha al formato deseado antes de insertarla en el objeto `order`
-      const formatteDate = new Date().toLocaleDateString(); // Esto utilizará el formato predeterminado
+      const formatteDate = `${day.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year}`//El método .padStart() puede ser útil en varios casos donde necesitemos anteponer caracteres a un string para estandarizar un formato o alcanzar una longitud mínima.
+      //Al usar .padStart(2, '0') aseguras que el día y el mes siempre tengan 2 dígitos. Por ejemplo: Si day = 1, entonces day.toString().padStart(2, '0') retornaría "01"Si month = 9, entonces month.toString().padStart(2, '0') retornaría "09"
+      //const formatteDate = new Date().toLocaleDateString(); // Esto utilizará el formato predeterminado
 
       //! Llama a handleSoldQuantity para actualizar el campo soldquantity en la base de datos
       for (const item of trolley) {
@@ -122,10 +133,12 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
         buyer: {
           name: data.username,
           lastname: data.userlastname,
+          dni: data.userdni,
           direction: data.userpdirection,
           dataoptional: data.userdoptional,
           telephone: data.usertelephone,
           email: data.useremail,
+          date: data.itemsdate,
         },
         items: trolley,
         createAt: formatteDate,
@@ -182,6 +195,13 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
             {...register("userlastname", { required: true })}
             style={{ marginTop: "1rem", marginLeft: "1rem" }}
           />
+            <TextField
+            label="Dni"
+            variant="outlined"
+            placeholder="Documento de Identidad o Cuit..."
+            {...register("userdni", { required: true })}
+            style={{ marginTop: "1rem", marginLeft: "1rem" }}
+          />
           <TextField
             label="Dirección"
             variant="outlined"
@@ -230,6 +250,12 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
             style={{ display: "none" }}
           />
           <TextField
+            name="itemsdate"
+            value={formattedCDate}
+            {...register("itemsdate")}
+            style={{ marginTop: "1rem", marginLeft: "1rem" }}
+          />
+          <TextField
             name="totalcart"
             value={cartTotalBuyer}
             style={{ display: "none" }}
@@ -237,12 +263,6 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
           <TextField
             name="replyto"
             value={defaultReplayTo}
-            style={{ display: "none" }}
-          />
-          
-          <TextField
-            name="dateofp"
-            value={new Date()}
             style={{ display: "none" }}
           />
         </Box>

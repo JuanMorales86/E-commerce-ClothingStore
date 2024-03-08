@@ -23,6 +23,8 @@ import withReactContent from "sweetalert2-react-content";
 //Api(prueba apiRest polling)
 import { getOrders } from "../Api/api";
 
+import {format} from "date-fns";
+
 
 
 //Padre de todo y
@@ -50,10 +52,9 @@ const AppContexProvider = ({ children }) => {
   const trolleyMemo = useMemo(() => trolley, [trolley])//Solo se recalculara si cambia de depedencia
   //const [cart, setCart] = React.useState([])//Estado para cargar vacio o no el localstorage trolley
   const MySwal = withReactContent(Swal);
-
-    const useCart = () => {//Hook perzonalizado
-      const [cart, setCart] = React.useState([])
-
+  
+  const useCart = () => {//Hook perzonalizado
+  const [cart, setCart] = React.useState([])
   React.useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("trolley")) ?? []
     setTrolley(storedCart)//!cuidado cambio 20/02/24 (funciona pero se puede ocasionar cuelgues cuelga)
@@ -64,10 +65,6 @@ const AppContexProvider = ({ children }) => {
       setCart
     }
   }
-
-  // React.useEffect(() => {
-  //   localStorage.setItem('trolley', JSON.stringify(cart))
-  // },[cart])
 
   //Productos mas vendidos
   React.useEffect(() => {
@@ -506,6 +503,17 @@ const AppContexProvider = ({ children }) => {
 
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
+  const useFormattedDate = () => {
+    const [date, setDate] = React.useState("");
+
+    React.useEffect(() => {
+      const formatted = format(new Date(), 'dd/MM/yyyy HH:mm:ss');
+      setDate(formatted)
+    }, [])
+
+    return date
+  }
+
   return (
     <Provider
       value={{
@@ -544,6 +552,7 @@ const AppContexProvider = ({ children }) => {
         color,
         seasonsTemp,
         nameSeason,
+        useFormattedDate,
       }}
     >
       {children}

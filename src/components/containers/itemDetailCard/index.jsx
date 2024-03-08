@@ -14,7 +14,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 //Mis componentes
 import ItemCount from '../item-count';
 import { AppContex } from '../../../Providers/contex-provider';
-import SlideritemDetailCard from '../../slider-swiper/slider-itemDetailCard';//!!Trabajo pendiente Logrado
+import SlideritemDetailCard from '../../slider-swiper/slider-itemDetailCard';
 
 const styletters={
   fontWeight:600,
