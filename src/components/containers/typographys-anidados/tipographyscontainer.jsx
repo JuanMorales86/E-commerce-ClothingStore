@@ -1,16 +1,15 @@
-import { Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import React from "react";
 
 //Componente para typography dentor del card del modals(funcion ModalSlide)
 function RenderItemDetails({ items, calcTotalQuantityPerPrice }) {
   return (
-    <>
-      <Typography sx={{ fontWeight: "bold" }}>
+    <Box className="cardModalsTypographyContainer">
+      <Typography className="cardModalsTypographyTitle" sx={{ fontWeight: "bold" }}>
         {items.producto}</Typography>
       <Typography
         sx={{
           fontSize: ".90rem",
-          textAlign: ["center", "self-start"],
         }}
         color="textSecondary"
       >
@@ -28,14 +27,13 @@ function RenderItemDetails({ items, calcTotalQuantityPerPrice }) {
       <Typography
         sx={{
           fontSize: ".90rem",
-          textAlign: ["center", "self-start"],
         }}
         color="textSecondary"
       >
         Total Uni/s: ${calcTotalQuantityPerPrice(items)} Pesos
         {/* calcTotalQuantityPerPrice(item) */}
       </Typography>
-    </>
+    </Box>
   );
 }
 

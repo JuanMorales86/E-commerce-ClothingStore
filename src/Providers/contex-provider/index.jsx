@@ -28,7 +28,7 @@ import {format} from "date-fns";
 
 
 //Padre de todo y
-export const AppContex = React.createContext();
+export const AppContex = React.createContext();//Contex api no es mas que un contenedor q engloba toda la aplicacion
 const { Provider } = AppContex;//alias
 // const {Provider: TrolleyProvider} = CustomContexProvider// ejemplo con alias
 
@@ -50,21 +50,56 @@ const AppContexProvider = ({ children }) => {
   const [isOrderPage, setIsOrderPage] = React.useState(false);// Estado para cambiar imagen de slider a OrderPage
   const [color, setColor] = React.useState([])// Estado para setear colores (OrderList)
   const trolleyMemo = useMemo(() => trolley, [trolley])//Solo se recalculara si cambia de depedencia
-  //const [cart, setCart] = React.useState([])//Estado para cargar vacio o no el localstorage trolley
+  const [availableStock, setAvailableStock] = React.useState({})
   const MySwal = withReactContent(Swal);
   
+
+  //LocalStorage para carrito si hay un error o reseteo de pagina
   const useCart = () => {//Hook perzonalizado
-  const [cart, setCart] = React.useState([])
+  //Se lee el carrito del localStorage con useMemo para que sea inicialización por única vez :
+  const storedCart = React.useMemo(() => {
+    return JSON.parse(localStorage.getItem("trolley"))?? []
+  }, [])
+  //Se inicializa el estado cart con ese valor del localStorage:
+  const [cart, setCart] = React.useState(storedCart)
+  //Se agrega storedCart como dependencia en el efecto para sincronizar:
   React.useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("trolley")) ?? []
-    setTrolley(storedCart)//!cuidado cambio 20/02/24 (funciona pero se puede ocasionar cuelgues cuelga)
-    setCart(storedCart)
-    },[])
+    localStorage.setItem("trolley", JSON.stringify(storedCart))
+    },[storedCart])
+  
+  //Se valida si tanto trolley como cart están vacíos inicialmente:
+  React.useEffect(() => {
+    if(!trolley.length && !cart.length){
+        
+    }else{
+      //Si no están vacíos, se setea trolley con storedCart:
+      setTrolley(storedCart)
+  }}, [cart, storedCart])
+
     return {
       cart,
       setCart
     }
+    /*De esta forma:
+    Persistimos el carrito en localStorage
+    Inicializamos cart desde ese valor
+    Sincronizamos cambios en storedCart
+    Validamos trolley y cart al iniciar
+    Recargamos trolley desde cart si está vacío */
   }
+
+  const {cart, setCart} = useCart()//Se usa el hook personalizado useCart()
+
+  //Escucha para el stock desde el sistema osea desde el cart local no de la bd
+  React.useEffect(() => {
+    const stock = {}
+
+    cart.forEach((item) => {
+      stock[item.id] = item.stock - item.quantity
+    })
+    setAvailableStock(stock)
+  }, [cart])
+
 
   //Productos mas vendidos
   React.useEffect(() => {
@@ -450,6 +485,7 @@ const AppContexProvider = ({ children }) => {
         setTrolley(updatedTrolley);//Se actualiza el estado del carrito utilizando setTrolley con la copia actualizada del carrito.
         const trolleyToStore = JSON.stringify(updatedTrolley)
         localStorage.setItem('trolley', trolleyToStore)
+        notifyToastAdd("🛒 Producto Agregado al Carrito");
       } else {
         MySwal.fire({
           title: "No hay suficiente stock disponible",
@@ -476,6 +512,7 @@ const AppContexProvider = ({ children }) => {
         setTrolley((prevTrolley) => {
           const newTrolley = [...prevTrolley, product]
           localStorage.setItem('trolley', JSON.stringify(newTrolley))
+          notifyToastAdd("🛒 Producto Agregado al Carrito");
           return newTrolley;
         });
        
@@ -489,8 +526,6 @@ const AppContexProvider = ({ children }) => {
     }
   },[MySwal, trolley]);
 
-
-
   const notifyClose = () => notifyToast("💨 Carrito Vaciado");
   const handleEmptyTrolley = () => {
     setTrolley([]);
@@ -501,9 +536,10 @@ const AppContexProvider = ({ children }) => {
     localStorage.removeItem('trolley');
   };
 
+  //Abrir y cerrar el Modal
   const toggleModal = () => setIsModalOpen((prev) => !prev);
 
-  const useFormattedDate = () => {
+  const useFormattedDate = () => {//Formateador de Fecha
     const [date, setDate] = React.useState("");
 
     React.useEffect(() => {
@@ -513,6 +549,14 @@ const AppContexProvider = ({ children }) => {
 
     return date
   }
+
+  const removeFromTrolley = (itemid) => {
+    // Eliminar el producto del carrito
+    const updateTrolley =  [...trolley] // copia de trolley
+    const newTrolley = updateTrolley.filter(item => item.id !== itemid.id) // filtro para eliminar el item en cuestion  
+    setTrolley(newTrolley) //Pasar copia actualizada al estado del carrito
+    notifyToast("🚨 Producto eliminado del carrito");
+  };
 
   return (
     <Provider
@@ -525,6 +569,9 @@ const AppContexProvider = ({ children }) => {
         handlePrToTrolley,
         handleEmptyTrolley,
         useCart,
+        cart,
+        setCart,
+        availableStock,
         trolley: trolleyMemo,
         quantityC: trolley.length,
         createNewDispach,
@@ -553,6 +600,7 @@ const AppContexProvider = ({ children }) => {
         seasonsTemp,
         nameSeason,
         useFormattedDate,
+        removeFromTrolley,
       }}
     >
       {children}

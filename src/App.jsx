@@ -77,7 +77,7 @@ function App() {
 
   return (
     <RouterLink>
-      {/* <AppContexProvider> */}
+  
       <ThemeProvider theme={CustomTheme}>
         <ClerkProvider
           appearance={{ dark, signIn: { baseTheme: neobrutalism } }}
@@ -166,7 +166,7 @@ function App() {
         </ClerkProvider>
       </ThemeProvider>
 
-      {/* </AppContexProvider> */}
+    
     </RouterLink>
   );
 }

@@ -178,6 +178,17 @@ const CustomTheme = createTheme ({
     }
   },
 
+  components:{
+    MuiSwiperPagination:{
+      styleOverrides:{
+        root: {
+          '&.swiper-pagination-fraction': {
+            backgroundColor: 'white'
+        }
+      }
+    }
+  }},
+
   overrides: {
     MuiCard: {
       root: {

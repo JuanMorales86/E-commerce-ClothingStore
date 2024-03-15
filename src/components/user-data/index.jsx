@@ -253,7 +253,7 @@ const UserData = ({ trolley, createNewDispach, onClose, total }) => {
             name="itemsdate"
             value={formattedCDate}
             {...register("itemsdate")}
-            style={{ marginTop: "1rem", marginLeft: "1rem" }}
+            style={{ display: "none" }}
           />
           <TextField
             name="totalcart"

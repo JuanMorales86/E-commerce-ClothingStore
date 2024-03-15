@@ -19,7 +19,7 @@ import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react"; //useSig
 import UseAuth from "../../../Providers/auth-useauth/useAuth";
 
 function ItemCount({ stock, addHandleToTrolley }) {
-  const { notifyToastContainer, notifyToastAdd } = React.useContext(AppContex);
+  const { notifyToastContainer } = React.useContext(AppContex);
   const [score, setScore] = useState(1);
   const [showButton, setShowButton] = React.useState(false);
   const { user } = UseAuth();
@@ -37,7 +37,7 @@ function ItemCount({ stock, addHandleToTrolley }) {
   //     })
   //     return getUser
   //   })
-
+  
   React.useEffect(() => {
     if (!user) {
       setShowButton(false);
@@ -102,12 +102,10 @@ function ItemCount({ stock, addHandleToTrolley }) {
     }
     setScore(score - 1);
   };
-
   //Parte de cart
   const handleTrollyCount = () => {
     addHandleToTrolley(score, stock);
     setScore(1); //resetaer el score despues de tomar los datos en 1
-    notifyToastAdd("🛒 Producto Agregado al Carrito");
   };
 
   const AddButton = ({ onclick }) => {

@@ -10,6 +10,8 @@
 
 }
 
+
+
 :root {
   --clr-neutral-100: hsl(0, 0%, 100%);
   --clr-primary-100: hsl(205, 15%, 58%);
@@ -71,6 +73,73 @@ ul {
   -webkit-text-fill-color: transparent;
 }
 
+.cardModalsDialog{
+  background-color: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+}
+
+.cardModalsDialgTitle{
+  text-align: center;
+  text-transform: capitalize;
+  
+}
+
+.cardModalsContentText{/*padre de cardmodals*/
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cardModalsContainer{
+  width: 100%;
+}
+
+.cardModalsStyle{
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background: "linear-gradient(to bottom, #ffffff, #f1f1f1)";
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+/*box-shadow: offset-x offset-y blur-radius spread-radius color;*/
+}
+
+.cardModalsInner{
+  display: flex;
+  flex-direction: row;
+}
+
+.cardModalsImage{
+  border: solid 2px black;
+}
+
+.cardModalsContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: self-start;
+  width: 100%;
+  height: auto;
+}
+
+.cardModalsInnerButtons{
+  width: 100%;
+  height: 17%;
+  background-color: gainsboro;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+.cardModalsInnerButtons:hover{
+  background-color: grey;
+}
+
+
+
 .cardItemDetail{
   display: flex;
   flex-direction: row;
@@ -85,8 +154,9 @@ ul {
   border-top-right-radius: 15px;
   transition: transform 0.5s ease;
   position:relative; 
-  
 }
+
+
 
 .cardItemDetailInner{/*original del cardInner*/
   flex-grow: 2;/*nueva adicion*/
@@ -147,13 +217,14 @@ ul {
   gap: 0.55rem;
 }
 
-.cardDetailTranformWrapperContainer{
+.cardDetailTranformWrapperContainer{/*Padre Container*/
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: flex-end;
   width: 480px;
   height: auto;
+  
 }
 
 .cardDetailTranformWrapperContainerInner{
@@ -163,12 +234,22 @@ ul {
   align-items: center;
   position: absolute;
   gap: 0.55rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   border: 2px solid white;
   border-radius: 20px;
   width: auto;
   overflow: hidden;
 }
+
+.swiper-pagination-fraction {
+  color: transparent;
+}
+
+.swiper-pagination-fraction .swiper-pagination-current, .swiper-pagination-fraction .swiper-pagination-total{
+  color: white;
+}
+
+
 
 @media screen and (600px <= width <= 817.60px) {
   .cardItemDetail {
@@ -209,7 +290,56 @@ ul {
     width: auto;
     transition: width 0.3s ease-in-out;
   }
+
 }
+
+@media screen and (width >= 600px) {
+  .cardModalsImage{
+    width: 20vw;
+    height: 10em;
+    border-top-left-radius: 5px;
+    /* aspect-ratio: 10/9; */
+    
+  }
+
+  .cardModalsTypographyTitle{
+    -webkit-line-clamp: 1;/*parrafos deseados*/
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+  }
+}
+
+
+
+@media screen and  (width <= 600px){
+
+  .cardModalsContainer{
+    width: 15em;
+   
+  }
+
+  .cardModalsInner{
+    flex-direction: column;
+   
+  }
+  .cardModalsImage{
+    align-self: center;
+    width: 100% !important;
+    height: 10em;
+    object-fit: cover !important;
+  }
+
+  .cardModalsContent{
+    align-items: center;
+  }
+
+  .cardModalsTypographyContainer{
+    text-align: center;
+    
+  }
+}
+
 
 
 

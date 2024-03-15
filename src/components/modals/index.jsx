@@ -30,11 +30,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   //El componente Transition es una función que utiliza React.forwardRef para pasar una referencia a otro componente. en este caso devuelve un tipo slide
 });
 
-function ModalSlide({ widget }) {
-  //Padre Carrito
-  //El componente AlertDialogSlide (Nombre de MaterialUI) o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones.
+function ModalSlide({ widget }) {//Padre Carrito
+   //El componente AlertDialogSlide (Nombre de MaterialUI) o ModaSlide(nombre que le coloque yo) es un componente funcional que utiliza el hook useState de React para manejar el estado de open, que representa si el diálogo está abierto o cerrado. El diálogo se abre cuando se hace clic en el botón "Carrito" y se cierra cuando se hace clic en los botones.
   const [open, setOpen] = React.useState(false); //Habilitar el componente modal
-  const { showUserData, setShowUserData } = React.useContext(AppContex); //Habilitar el componente UserData
   const {
     trolley,
     quantityC,
@@ -43,15 +41,17 @@ function ModalSlide({ widget }) {
     notifyToast,
     createNewDispach,
     lastDispach,
+    showUserData,
+    setShowUserData,
+    removeFromTrolley,
   } = React.useContext(AppContex); //ContexProvider
 
 
+  
   const handleUserDataComplete = () => {
     setShowUserData(false); // Cierra el componente UserData
     setOpen(false); // Cerrar el modal cuando UserData haya completado el proceso userdata
   };
-
-  
 
   const MySwal = withReactContent(Swal); //instancia sweetalert
   const handleClickSwal = () => {
@@ -107,7 +107,8 @@ function ModalSlide({ widget }) {
       });
     }
   };
-
+  
+ 
   //Calculos de Precios
   // Función para calcular el precio con descuento
   const calculateDiscountedPrice = (pricePerUnit, discountSelected) => {
@@ -194,10 +195,10 @@ function ModalSlide({ widget }) {
     setOpen(false);
   };
 
+
+
   return (
-    <Box
-      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-    >
+    <Box>
       {/*Cuando se hace clic en el botón "Carrito", se invoca la función handleClickOpen, lo que establece el estado open en true y muestra el diálogo. */}
       <Box onClick={handleClickOpen}>{widget}</Box>
 
@@ -208,67 +209,51 @@ function ModalSlide({ widget }) {
         keepMounted
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
+        className="cardModalsDialog"
+       
       >
         {/* formato UI del card en el modal */}
         <DialogTitle
-          textAlign={"center"}
+
           fontFamily={"letters.fontM"}
-          textTransform={"capitalize"}
           fontWeight={"bold"}
+          className="cardModalsDialgTitle"
         >
           {"tus productos"}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent >
           <DialogContentText
-            display={"flex"}
-            flexDirection={"column"}
-            justifyContent={"center"}
-            alignItems={"center"}
-						gap={"1rem"}
             id="alert-dialog-slide-description"
+            className="cardModalsContentText"
+            
           >
             {trolley.map((item) => (
+              <Box key={item.id}className="cardModalsContainer">
               <Card
                 key={item.id}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  width: ["auto", "auto"],
-                  height: "auto",
-                  flexDirection: "row",
-                  background:
-                    "linear-gradient(to bottom, #ffffff, #f1f1f1)" /*de blanco a grisoscuro */,
-                  boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
-                }}
+                className="cardModalsStyle"
               >
+                <Box key={item.id} className="cardModalsInner">
+
                 <CardMedia
                   component="img"
-                  sx={{
-                    width: ["125px", "125px"],
-                    height: ["125px", "125px"],
-                    aspectRatio: 10 / 9,
-                    alignSelf: "center",
-                    border: "solid 2px black",
-                    objectFit: "cover",
-                  }}
+                  className="cardModalsImage"
+          
                   image={item.imagen}
                   alt={item.producto}
                 />
                 <CardContent
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-										justifyContent:"center",
-										alignContent:"center",
-                    alignItems: ["self-start", "self-start"],
-                    height: ["127px", "127px"],
-                  }}
+                  className="cardModalsContent"
                 >
                   <RenderItemDetails items={item} calcTotalQuantityPerPrice={calcTotalQuantityPerPrice} />
-                  
                 </CardContent>
+                </Box>
+                <Box>
+                <Box className="cardModalsInnerButtons" size="small" variant="text" key={item} onClick={() => {removeFromTrolley(item)}}>🗑️🔻</Box>
+                </Box>
               </Card>
+              {/* <Button style={{position:"absolute", top: 0, right: 0, minWidth:"40px"}} size="small" variant="text" key={item} onClick={() => {removeFromTrolley(item)}}>🗑️🔻</Button> */}
+              </Box>
             ))}
           </DialogContentText>
         </DialogContent>
@@ -292,7 +277,7 @@ function ModalSlide({ widget }) {
               Items en Carrito: {quantityC}
             </Typography>
             <Typography fontWeight={"bold"} fontFamily={"letters.fontM"}>
-              Cantidad Total Productos: {calcTotalPerItemsCart()}
+              Cantidad Productos: {calcTotalPerItemsCart()}
             </Typography>
           </Box>
 
