@@ -8,7 +8,7 @@ import { getFirestore, collection, getDocs, where, query } from 'firebase/firest
 // import ListElements from '../itemList'
 // import TabsMenu from '../../tabs/tabs'
 import InfiniteScroller from '../../utilities/infinitescroller';
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Pagination } from '@mui/material';
 import { Suspense } from 'react';
 
 //Array de titulos para los tabs
@@ -33,6 +33,8 @@ function ListContainerItem({setShowComponent}) {
   const [hasDiscounts, sethasDiscounts] = React.useState(false)
   const LazyTabsMenu = lazy(() => import('../../tabs/tabs'))
   const LazyListElements = lazy(() => import('../itemList'))
+  const [page, setPage] = React.useState(1)//Estado para Paginacion
+  const itemsPerPage = 15
 
   //Mostrar por props Componente Whastapp
   React.useEffect(() => {
@@ -48,8 +50,7 @@ function ListContainerItem({setShowComponent}) {
   const navigate = useNavigate()
 
   const current = niveles.some(niv => niv.id === levels) ? levels : "all"//si coloca cualquier otro string dentro de la url products/ va a volver a all
-  // const hasDiscountProducts = items.some(item => item.specialproduct)
-  //!hice cambios aqui selectedproductId por id por que cambie el params en app.jsx principal a id
+ 
   const handleGoItemDetail = (id) => {//uso dos funciones dentro de una
     setId(id)
     navigate(`/product/${id}`, {state: { id }})//puedo recuperar entonces selectProductId gracias al state
@@ -119,20 +120,48 @@ function ListContainerItem({setShowComponent}) {
 
     }, [levels])
 
+    //Calcular indices para slice
+    const startIndex = (page - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+
+    //const totalPages = Math.ceil(items.length / itemsPerPage)
+    
+
+    const handlePageChange = (event,newPage) => {
+      if(newPage < page){
+        //Pagina Anterior
+        setPage(page - 1)
+      }else if(newPage > page){
+        //Pagina siguiente
+        setPage(page + 1)
+        }else{
+          //Cambio de pagina "normal"
+          setPage(newPage)
+      }
+    }
 
     return (
-     
       <>
         <Suspense fallback={<CircularProgress/>}>
         <LazyTabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
-        <LazyListElements items={items} loading={loading} onItemClick={handleGoItemDetail}/>
+        <LazyListElements items={items.slice(startIndex, endIndex)} loading={loading} onItemClick={handleGoItemDetail}/>
+        
+        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <Pagination 
+            page={page}
+            count={Math.ceil(items.length / itemsPerPage)}
+            onChange={handlePageChange} 
+            shape='rounded'
+            />
+            </Box>
+        
+      
+
         <Box sx={{marginTop: "2rem"}}>
         <InfiniteScroller/>
         </Box>
         </Suspense>
-      
       </>
-     
   )
 }
 

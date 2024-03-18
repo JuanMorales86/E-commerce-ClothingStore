@@ -19,6 +19,7 @@ src/components/Api/route.jsx
 src/components/contacto/resendContacto.jsx
 src/components/utilities/chatelfsightwhatsapp.jsx
 src/server/server.js
+src/components/tests
 Pruebas
 webpack.config.js
 updateFirebaseConfig.js
