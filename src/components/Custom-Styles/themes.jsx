@@ -77,7 +77,6 @@ const CustomTheme = createTheme ({
     }
   },
 
-
   customProps: {
     customColor: "#8DB7CC", //Azul tirando a gris entre oscuro y claro
     customColor2: "#32657F", // Entre Azul Oscuro y Verde
@@ -187,7 +186,24 @@ const CustomTheme = createTheme ({
         }
       }
     }
-  }},
+  },
+    MuiTypography:{
+      defaultProps:{
+        variantMapping:{
+          h1:"h2",
+          h2:"h2",
+          h3:"h2",
+          h4:"h2",
+          h5:"h2",
+          h6:"h2",
+          subtitle1:"h2",
+          subtitle2:"h2",
+          body1:"span",
+          body2:"span",
+        }
+      }
+    }
+},
 
   overrides: {
     MuiCard: {

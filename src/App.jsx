@@ -36,7 +36,6 @@ import slides from "./components/sdk/slides.json";
 import ModalSlide from "./components/modals";
 import BackOffice from "./components/containers/back-office/index";
 import DiscountsBar from "./components/discounts-bar";
-
 import AuthManager from "./Providers/auth-manager";
 import AuthProvider from "./Providers/auth-provider";
 import { AuthContext } from "./Providers/auth-manager";

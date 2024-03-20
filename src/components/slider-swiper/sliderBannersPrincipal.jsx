@@ -11,13 +11,18 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 //Libreria Swiper Element
 
 
 const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) => {
+  const navigate = useNavigate()
+  const handleNavigate = (levels) => {
+    navigate(`/products/${levels}`);
+  }
   
   // Calcular alturas de antemano
   const heights = slides.map((slide) => {
@@ -70,7 +75,7 @@ const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) =
       };
     });
 
-    // const configIntervals = slidesWithInterval
+
         
     return (
       <Swiper {...config}
@@ -98,7 +103,11 @@ const SliderSwiper = ({ type, slides, showFixedImage, isAdmin, isOrderPage  }) =
         <SwiperSlide   className="swiperslide"  key={index} height={heights[index]}>
           <Box className='slider-content'>
           <img rel='preload' as='image' className='slider-css' src={slide.image} alt={slide.titled} loading='lazy'/> 
-          
+          <Box key={index}  className="buttonContainerSliderBannerPrincipal">
+            <Button variant='contained' onClick={() => handleNavigate(slide.titled)}>
+            <Typography textTransform={"capitalize"}  variant='body2'>{slide.subtitled}</Typography>
+            </Button> 
+          </Box>
           </Box>
         </SwiperSlide>
         )))}

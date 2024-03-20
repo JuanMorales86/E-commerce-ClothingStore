@@ -146,7 +146,7 @@ function ListContainerItem({setShowComponent}) {
         <LazyTabsMenu current={current} items={niveles.filter(nivel => nivel.id !== 'descuentos' || hasDiscounts)}/>
         <LazyListElements items={items.slice(startIndex, endIndex)} loading={loading} onItemClick={handleGoItemDetail}/>
         
-        <Box sx={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Box className="navBarPaginationStyle">
             <Pagination 
             page={page}
             count={Math.ceil(items.length / itemsPerPage)}
@@ -157,7 +157,7 @@ function ListContainerItem({setShowComponent}) {
         
       
 
-        <Box sx={{marginTop: "2rem"}}>
+        <Box className="navBarInfinityScrollerStyle">
         <InfiniteScroller/>
         </Box>
         </Suspense>

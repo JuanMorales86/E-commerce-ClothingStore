@@ -1,5 +1,6 @@
 import React from "react";
 
+
 //libreria react router dom
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import SliderBanners from "../slider-swiper/sliderBanners";
 import slidesBanners from "../sdk/slidesBanners.json";
 import InfiniteScroller from "../utilities/infinitescroller";
+import TextEffectLoop from "../utilities/texteffectloop";
+//import TextEffectLoop from "../utilities/textloopeffectfade";
 
 //LibreriaMaterial-UI
 import "@fontsource/roboto/400.css"; //Material
@@ -17,17 +20,18 @@ import SliderSeasons from "../slider-swiper/sliderSeasons";
 
 function HomePage({ setShowComponent }) {
   const navigate = useNavigate();
-  // const [loading,setLoading] = React.useState(false)
-
   const handleNavigate = (levels) => {
     navigate(`/products/${levels}`);
   };
+
+  const text = "Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de Indumentaria."
 
   //Mostrar por props Componente Whastapp
   React.useEffect(() => {
     setShowComponent(true);
     return () => setShowComponent(false);
   }, [setShowComponent]);
+  
 
   const styleH1 = {
     fontSize: { xs: "2.7rem", md: "3.5rem" },
@@ -77,8 +81,8 @@ function HomePage({ setShowComponent }) {
                 marginBottom={4}
                 gutterBottom
               >
-                Renueva tu armario y encuentra tu look ideal entre nuestra gran
-                variedad de Indumentaria.
+                
+                <TextEffectLoop text={text} speed={30} timeout={5000} speedFadeOut={50} fadeOutDelay={30000}/>
               </Typography>
               <SliderBanners
                 banners={slidesBanners}

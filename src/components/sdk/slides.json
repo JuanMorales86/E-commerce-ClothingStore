@@ -1,25 +1,26 @@
 [
     {
         "image": "https://i.imgur.com/99Zh7Te.png",
-        "titled": "For carrousels Swiper",
-        "subtitled": "Imagen mujer compra",
+        "titled": "all",
+        "subtitled": "Descubre tu estilo",
         "interval": 5000
     },
     {
         "image": "https://i.imgur.com/bXChjRe.jpg",
-        "subtitled": "Imagen ropero florero",
+        "titled":"vestido",
+        "subtitled": "Moda Destacada",
         "interval": 2500
     },
     {
         "image": "https://i.imgur.com/SvINcZX.jpg",
-        "titled": "For carrousels Swiper",
-        "subtitled": "imagen gancho ropa",
+        "titled": "remera",
+        "subtitled": "Moda en Colores",
         "interval": 3500
     },
     {
         "image": "https://i.imgur.com/Yw3M7vc.jpg",
-        "titled": "For carrousels Swiper",
-        "subtitled": "imagen tubo gancho exterior",
+        "titled": "sweater",
+        "subtitled": "Moda en Detalle",
         "interval": 10000
     }
     
