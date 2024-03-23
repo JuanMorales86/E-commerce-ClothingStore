@@ -78,24 +78,6 @@ function ListElementsFrontCard({data, onItemClick}) {
         }}
       />
 
-      {/* Icono de "Más Vendido" en la esquina superior derecha */}
-      {/* {data.discountSelected && (
-        <Fade>
-
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            fontSize: "1.5rem",
-            color: "red",
-          }}
-        >
-          🔥
-        </Box>
-        </Fade>
-      )} */}
-
       {data.discountSelected !== 0 ? (
         <Fade>
 
@@ -127,22 +109,9 @@ function ListElementsFrontCard({data, onItemClick}) {
         </Fade>
       )}
 
-      {/* Icono de cursor */}
-      {/* {isHovered && (
-          <>
-        
-          {data.discountSelected && (
-              <Fade cascade className='cursorIconStyle'>
-              <Typography>En Oferta</Typography>
-              </Fade>
-          )}
-        </>
-      )} */}
-      {/* cursorIconStyle */}
-
     </Box>
     <CardContent sx={{ maxWidth: "100%" }}>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, display:"flex", flexDirection:"column", alignItems:"center"}}>
         
 
         {/* Otras propiedades */}
@@ -160,8 +129,6 @@ function ListElementsFrontCard({data, onItemClick}) {
         {/* En este caso, el operador ternario se encuentra en {data.discountSelected && (...)}. Esto asegura que el contenido dentro del bloque {...} solo se renderice si data.discountSelected tiene un valor. De lo contrario, ese bloque se omite y solo se mostrará el precio. */}
         </Box>
         <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center" }}>
-          
-          
           <span style={{ fontSize: "1.8rem" }}>${data.price}</span>
           {data.discountSelected !==0 ? (
             <span style={{ fontSize: "0.8rem", color: "green" }}>
@@ -184,11 +151,8 @@ function ListElementsFrontCard({data, onItemClick}) {
           )}
         </Typography>
         <Typography 
-          
           variant="inherit"
           fontWeight={"bold"}
-          textAlign={"left"}
-          
           sx={{
             maxHeight: "100%",
             maxWidth: "100%",
@@ -204,14 +168,13 @@ function ListElementsFrontCard({data, onItemClick}) {
       </Box>
     </CardContent>
     <Box
-      sx={{
-        display: "grid",
-        height: "auto",
-        placeItems: "center",
-        marginTop: 0,
-        marginBottom: "0.5rem",
-        
-      }}
+        sx={{
+          display:"flex",
+          flexDirection:"column",
+          alignItems:"center",
+          justifyContent:"flex-end",
+          marginBottom:"0.5rem"        
+        }}
     >
       <CardActions>
         {/* Botones adicionales */}

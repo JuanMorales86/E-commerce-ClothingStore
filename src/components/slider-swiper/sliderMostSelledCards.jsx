@@ -16,7 +16,7 @@ import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay';
 import { AppContex } from "../../Providers/contex-provider";
 
-const styleH1 = {
+const styleH12 = {
   textAlign: "center",
   fontSize: "2.5rem",
   fontWeight: 600,
@@ -54,12 +54,11 @@ return (
   <>
   
 
-    <Box sx={{display:"flex",justifyContent:"center"}}>
-    <Typography className="degradado-texto" style={styleH1} fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
+    <Box sx={{display:"flex",justifyContent:"center"}} >
+    <Typography className="degradado-texto" style={styleH12}  fontFamily={"letters.fontM"}>Mas Vendidos</Typography> 
     </Box>
     
     <Box  className='containerSwiperMS'>
-     
     <Swiper 
     ref={swiperRef}
     modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}

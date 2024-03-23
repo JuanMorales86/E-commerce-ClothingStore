@@ -22,11 +22,12 @@ function ListElementsSeasonFrontCard({data, onItemClick, nameoftheseason}) {
 
   return (
     <>
-    <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"left"}}>
+    <Box sx={{display:"flex", justifyContent:"space-around", alignItems:"left" }}>
 
     <Card
     sx={{
       maxWidth: 225,
+      
       boxShadow: "2px 2px 4px rgba(0,0,0,0.2)",
       overflow: "visible",
       borderRadius: "10px",
@@ -78,24 +79,6 @@ function ListElementsSeasonFrontCard({data, onItemClick, nameoftheseason}) {
         }}
       />
 
-      {/* Icono de "Más Vendido" en la esquina superior derecha */}
-      {/* {data.discountSelected && (
-        <Fade>
-
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            fontSize: "1.5rem",
-            color: "red",
-          }}
-        >
-          🔥
-        </Box>
-        </Fade>
-      )} */}
-
       {data.discountSelected !== 0 ? (
         <Fade>
 
@@ -127,22 +110,9 @@ function ListElementsSeasonFrontCard({data, onItemClick, nameoftheseason}) {
         </Fade>
       )}
 
-      {/* Icono de cursor */}
-      {/* {isHovered && (
-          <>
-        
-          {data.discountSelected && (
-              <Fade cascade className='cursorIconStyle'>
-              <Typography>En Oferta</Typography>
-              </Fade>
-          )}
-        </>
-      )} */}
-      {/* cursorIconStyle */}
-
     </Box>
     <CardContent sx={{ maxWidth: "100%" }}>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, display:"flex", flexDirection:"column", alignItems:"center" }}>
         
 
         {/* Otras propiedades */}
@@ -187,7 +157,7 @@ function ListElementsSeasonFrontCard({data, onItemClick, nameoftheseason}) {
           
           variant="inherit"
           fontWeight={"bold"}
-          textAlign={"left"}
+          textAlign={"center"}
           
           sx={{
             maxHeight: "100%",
@@ -205,12 +175,11 @@ function ListElementsSeasonFrontCard({data, onItemClick, nameoftheseason}) {
     </CardContent>
     <Box
       sx={{
-        display: "grid",
-        height: "auto",
-        placeItems: "center",
-        marginTop: 0,
-        marginBottom: "0.5rem",
-        
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"flex-end",
+        marginBottom:"0.5rem"        
       }}
     >
       <CardActions>

@@ -112,7 +112,7 @@ function HomePage({ setShowComponent }) {
         <SliderMostSelledCards />
       </Box>
       
-      <Box>
+      <Box style={{ textAlign: "center", margin:"2rem 0 1rem 0"}}>
         <Typography className="degradado-texto" style={styleH2}>
           Marcas
         </Typography>
