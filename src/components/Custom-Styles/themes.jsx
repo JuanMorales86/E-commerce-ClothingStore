@@ -126,7 +126,7 @@ const CustomTheme = createTheme ({
   
   paragraphs: {
     titlesParagraphs:{
-      fontSize:"38px",
+      fontSize:["30px", "38px"],
       color:"#d74694",
     },
 

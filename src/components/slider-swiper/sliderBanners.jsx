@@ -40,12 +40,14 @@ function SliderBanners({banners, onBannerClick}) {
       pagination={{ clickable: true }}
       // scrollbar={{ draggable: true }}
       
-      style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+      style={{ 
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", width: "90%"
+      }}
     >
       {banners.map((slide, index) => (
         <SwiperSlide key={index} className="swiperslidesBanners" onMouseEnter={() => handleMouseOver(index)} onMouseLeave={handleMouseLeave}>
                 <Box className="blurred-img" position="relative" >
-                    <img className="sliderblurred" src={slide.image} alt={slide.titled} loading="lazy" />
+                    <img className="img-blurred" src={slide.image} alt={slide.titled} loading="lazy" />
                     <Box className="sliderContent" position="absolute" bottom={20} left={0} right={0} textAlign="center" color="white" width="100%">
                             <Typography textTransform={"capitalize"} variant="h4" style={{ fontWeight: "bold", fontSize: "28px" }}>{slide.titled}</Typography>
                             <Button variant="contained" className="sliderBannerButton" onClick={() => onBannerClick(slide.titled)}>Ver..</Button>

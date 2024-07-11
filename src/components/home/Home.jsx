@@ -24,7 +24,7 @@ function HomePage({ setShowComponent }) {
     navigate(`/products/${levels}`);
   };
 
-  const text = "Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de Indumentaria."
+  const text = "Renueva tu armario y encuentra tu look ideal entre nuestra gran variedad de Indumentaria";
 
   //Mostrar por props Componente Whastapp
   React.useEffect(() => {
@@ -33,18 +33,21 @@ function HomePage({ setShowComponent }) {
   }, [setShowComponent]);
   
 
-  const styleH1 = {
-    fontSize: { xs: "2.7rem", md: "3.5rem" },
+  const especialstyleH1 = {
+    fontSize: { xs: "2.7rem", md: "3rem" },
     width: {
       xs: "100%",
-      md: "50%",
+      md: "100%",
     },
     fontWeight: "500",
     fontFamily: "letters.fontM",
-    margin: "0.5rem 0 1rem 0",
+    // margin: "0.5rem 0 1rem 0",
     boder: "2px solid black",
     lineHeight: 1,
-    textAlign: { xs: "center", md: "left" },
+    textAlign: {xs: "center", md: "left"},
+    display: "flex",
+
+    
   };
   const styleH2 = {
     textAlign: "center",
@@ -67,7 +70,7 @@ function HomePage({ setShowComponent }) {
           <Grid item xs={12}>
             <Box
               sx={{
-                display: { xs: "block", md: "flex" },
+                display: { xs: "column", md: "flex" },
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
@@ -76,13 +79,16 @@ function HomePage({ setShowComponent }) {
             >
               <Typography
                 className="degradado-texto"
-                sx={styleH1}
+                sx={especialstyleH1}
                 marginTop={4}
                 marginBottom={4}
                 gutterBottom
-              >
                 
+              >
+               
+
                 <TextEffectLoop text={text} speed={30} timeout={5000} speedFadeOut={50} fadeOutDelay={30000}/>
+          
               </Typography>
               <SliderBanners
                 banners={slidesBanners}

@@ -60,18 +60,15 @@ function Contacto({ setShowFixedImage, autoplayEnabled, setShowComponent }) {
   return (
     <Box
     className={"in-container"}
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop:"2rem"
-      }}
+     
       >
+        <div  >
       <Typography 
-      style={paragraphs.titlesParagraphs}>
+      sx={paragraphs.titlesParagraphs}
+      >
         Dejanos tus Inquietudes aqui:
       </Typography>
+        </div>
       <Paper
         sx={{
           p: 2,
